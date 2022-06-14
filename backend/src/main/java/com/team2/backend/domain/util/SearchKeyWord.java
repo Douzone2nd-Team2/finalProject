@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.tomcat.jni.Local;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,25 +14,22 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="access_log")
+@Table(name="search_key_word")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@DynamicInsert
 @DynamicUpdate
+@DynamicInsert
 @Builder
-public class AccessLog {
+public class SearchKeyWord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="no")
-    private Long no;
+    @Column(name="searchno")
+    private Long searchNo;
 
-    @Column(name="urlname")
-    private String urlName;
-
-    @Column(name="ip")
-    private String ip;
+    @Column(name="keyword")
+    private String keyword;
 
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
     @JoinColumn(name="no")
@@ -39,7 +37,7 @@ public class AccessLog {
     private Long userNo;
 
     @CreatedDate
+    @Column(name="createat")
     private LocalDateTime createAt;
-
 
 }

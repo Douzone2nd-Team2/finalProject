@@ -1,6 +1,5 @@
-package com.team2.backend.domain.util;
+package com.team2.backend.domain.user;
 
-import com.team2.backend.domain.user.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,33 +12,38 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="access_log")
+@Table(name="employee_file")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@DynamicInsert
 @DynamicUpdate
+@DynamicInsert
 @Builder
-public class AccessLog {
+public class EmployeeFile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="no")
-    private Long no;
+    @Column(name="imageno", updatable = false, nullable = false)
+    private Long imageNo;
 
-    @Column(name="urlname")
-    private String urlName;
+    @Column(name="able", columnDefinition = "default 'Y'")
+    private char able;
 
-    @Column(name="ip")
-    private String ip;
-
-    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name="no")
     @Column(name="userno")
     private Long userNo;
 
+    @Column(name="path")
+    private String path;
+
+    @Column(name="type")
+    private String type;
+
+    @Column(name="imagesize")
+    private String imageSize;
+
     @CreatedDate
+    @Column(name="createat")
     private LocalDateTime createAt;
-
-
 }

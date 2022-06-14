@@ -1,45 +1,38 @@
-package com.team2.backend.domain.util;
+package com.team2.backend.domain.resource;
 
+import com.team2.backend.domain.reservation.Reservation;
 import com.team2.backend.domain.user.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name="access_log")
-@Getter
-@NoArgsConstructor
+@Table(name="peoplecnt")
 @AllArgsConstructor
+@NoArgsConstructor
 @DynamicInsert
 @DynamicUpdate
 @Builder
-public class AccessLog {
+public class PeopleCnt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="no")
-    private Long no;
+    @Column(name="peopleno")
+    private Long peopleNo;
 
-    @Column(name="urlname")
-    private String urlName;
-
-    @Column(name="ip")
-    private String ip;
+    @ManyToOne(targetEntity = Reservation.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="reservno")
+    @Column(name="reservno")
+    private Long reservNo;
 
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
     @JoinColumn(name="no")
     @Column(name="userno")
     private Long userNo;
-
-    @CreatedDate
-    private LocalDateTime createAt;
 
 
 }
