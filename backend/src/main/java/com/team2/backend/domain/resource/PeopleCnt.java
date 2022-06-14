@@ -26,12 +26,12 @@ public class PeopleCnt {
 
     @ManyToOne(targetEntity = Reservation.class, fetch = FetchType.LAZY)
     @JoinColumn(name="reservno")
-    @Column(name="reservno")
+   // @Column(name="reservno")
     private Long reservNo;
 
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
     @JoinColumn(name="no")
-    @Column(name="userno")
+   // @Column(name="userno")
     private Long userNo;
 
 

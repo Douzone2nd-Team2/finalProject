@@ -22,15 +22,16 @@ import javax.persistence.*;
 public class Bookmark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long no;
+    @Column(name="bookmarkno")
+    private Long bookmarkNo;
 
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "no")
-    @Column(name="userNo")
+//    @Column(name="userNo")
     private Long userNo;
 
     @ManyToOne(targetEntity = Resource.class,fetch = FetchType.LAZY)
     @JoinColumn(name = "resoureno")
-    @Column(name="resourceNo")
+//    @Column(name="resourceNo")
     private int resourceNo;
 }

@@ -24,8 +24,8 @@ public class AccessLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="no")
-    private Long no;
+    @Column(name="accessno")
+    private Long accessNo;
 
     @Column(name="urlname")
     private String urlName;
@@ -35,10 +35,11 @@ public class AccessLog {
 
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
     @JoinColumn(name="no")
-    @Column(name="userno")
+   // @Column(name="userno")
     private Long userNo;
 
     @CreatedDate
+    @Column(name="createat")
     private LocalDateTime createAt;
 
 

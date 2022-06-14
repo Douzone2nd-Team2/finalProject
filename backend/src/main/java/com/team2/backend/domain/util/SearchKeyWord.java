@@ -33,7 +33,7 @@ public class SearchKeyWord {
 
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
     @JoinColumn(name="no")
-    @Column(name="userno")
+    //@Column(name="userno")
     private Long userNo;
 
     @CreatedDate

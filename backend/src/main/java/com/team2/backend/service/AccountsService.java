@@ -1,8 +1,7 @@
 package com.team2.backend.service;
 
-import antlr.debug.MessageAdapter;
-import com.team2.backend.domain.employee.Employee;
-import com.team2.backend.domain.employee.EmployeeRepository;
+import com.team2.backend.domain.user.Employee;
+import com.team2.backend.domain.user.EmployeeRepository;
 import com.team2.backend.web.dto.AccountsRequestDto;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
