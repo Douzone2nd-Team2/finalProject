@@ -1,8 +1,14 @@
+import Header from "./admin/components/Share/Header";
+import Sidebar from "./admin/components/Share/Sidebar";
+
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
+        <Header />
+        <Sidebar />
+
+        {/* <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
@@ -12,7 +18,7 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
+        </a> */}
       </header>
     </div>
   );
