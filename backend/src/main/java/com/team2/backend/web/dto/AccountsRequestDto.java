@@ -1,6 +1,6 @@
 package com.team2.backend.web.dto;
 
-import com.team2.backend.domain.employee.Employee;
+import com.team2.backend.domain.user.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

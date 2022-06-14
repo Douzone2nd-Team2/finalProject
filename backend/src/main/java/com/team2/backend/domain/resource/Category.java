@@ -15,6 +15,7 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="cateno")
     private Long cateNo;
 
     @Column(name="catename")

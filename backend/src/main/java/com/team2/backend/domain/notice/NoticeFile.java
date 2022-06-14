@@ -31,7 +31,7 @@ public class NoticeFile {
 
     @ManyToOne(targetEntity = Notice.class, fetch = FetchType.LAZY)
     @JoinColumn(name="noticeno")
-    @Column(name="noticeno")
+   // @Column(name="noticeno")
     private Long noticeNo;
 
     @Column(name="path")

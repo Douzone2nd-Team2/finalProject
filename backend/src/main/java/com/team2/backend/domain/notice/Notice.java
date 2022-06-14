@@ -31,7 +31,7 @@ public class Notice extends BaseTime {
 
     @ManyToOne(targetEntity = Category.class, fetch=FetchType.LAZY)
     @JoinColumn()
-    @Column(name="cateno")
+  //  @Column(name="cateno")
     private Long category;
 
     @Column(name="noticetitle")

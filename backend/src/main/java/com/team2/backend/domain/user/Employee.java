@@ -48,13 +48,17 @@ public class Employee extends BaseTime {
 
     @ManyToOne(targetEntity=Department.class, fetch=FetchType.LAZY)
     @JoinColumn(name="deptno")
-    @Column(name="dept")
+   // @Column(name="dept")
     private Long dept;
 
     @Column(name="grade")
     private Long grade;
 
 
-    @OneToOne(mappedBy = "Employee")
-    private EmployeeFile employeeFile;
+//    @OneToOne(mappedBy = "Employee")
+//    private EmployeeFile employeeFile;
+
+    public void encodePassword(String password) {
+        this.password = password;
+    }
 }
