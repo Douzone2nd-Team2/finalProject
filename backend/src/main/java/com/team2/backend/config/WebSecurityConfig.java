@@ -4,7 +4,7 @@ import com.team2.backend.config.security.auth.AuthCheckFilter;
 import com.team2.backend.config.security.auth.LoginFilter;
 import com.team2.backend.config.security.cors.CORSFilter;
 import com.team2.backend.config.security.utils.JwtTokenProvider;
-import com.team2.backend.domain.employee.EmployeeRepository;
+import com.team2.backend.domain.user.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

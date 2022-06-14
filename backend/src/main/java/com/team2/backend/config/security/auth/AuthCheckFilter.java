@@ -1,8 +1,8 @@
 package com.team2.backend.config.security.auth;
 
 import com.team2.backend.config.security.utils.JwtTokenProvider;
-import com.team2.backend.domain.employee.Employee;
-import com.team2.backend.domain.employee.EmployeeRepository;
+import com.team2.backend.domain.user.Employee;
+import com.team2.backend.domain.user.EmployeeRepository;
 import com.team2.backend.web.dto.HttpResponse;
 import com.team2.backend.web.dto.Message;
 import org.springframework.security.authentication.AuthenticationManager;

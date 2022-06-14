@@ -1,7 +1,8 @@
 package com.team2.backend.config.security.auth;
 
-import com.team2.backend.domain.employee.Employee;
-import com.team2.backend.domain.employee.EmployeeRepository;
+
+import com.team2.backend.domain.user.Employee;
+import com.team2.backend.domain.user.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +22,7 @@ public class EmployeeDetailsService implements UserDetailsService {
         if (!employeeRepository.existsByUserId(userId)) {
             System.out.println("[WARN] Invalid employee");
         }
-        Employee user = employeeRepository.findByUserId(userId);
-        return new EmployeeDetails(user);
+        Employee emp = employeeRepository.findByUserId(userId);
+        return new EmployeeDetails(emp);
     }
 }
