@@ -12,7 +12,7 @@
 
 ## 🎨 스토리보드
 
-[피그마 바로가기 ❯❯](https://www.figma.com/files/team/1116272644823073088/FinalTeam2?fuid=1086532645703508840)
+[피그마 바로가기 ❯❯](https://www.figma.com/file/N1xWEeF7I7i2q9g36nuKpT/42DA)
 
 <br/>
 
