@@ -5,6 +5,8 @@ const HeaderContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   padding: 10px 20px;
+  margin-left: -10px;
+  margin-right: -15px;
   background-color: #1296ec;
   line-height: 40px;
   font-size: 25px;

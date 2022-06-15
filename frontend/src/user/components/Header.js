@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { HeaderContainer, SearchContainer } from '../../styles/Header.js';
+import { HeaderContainer, SearchContainer } from '../styles/Header';
 
 const Header = () => {
   return (
