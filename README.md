@@ -16,6 +16,12 @@
 
 <br/>
 
+## 👩‍🏫 기능 및 통신 규약
+
+[스프레드 시트 바로가기 ❯❯](https://docs.google.com/spreadsheets/d/1KxojYUxW9tBXlFBiNKAzc9vQUjnJy3T8-kEemV_55Mo/edit?usp=sharing)
+
+<br/>
+
 ## 📂 Backend 디렉토리 구조
 
 | 폴더 / 파일 | 설명                             |
