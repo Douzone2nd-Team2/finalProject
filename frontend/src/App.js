@@ -1,16 +1,13 @@
-import Header from "./admin/components/Share/Header";
-import Sidebar from "./admin/components/Share/Sidebar";
-// import Resource from "./admin/components/Resource/ResourcePage";
+import AdminMain from "./admin/pages/AdminMain";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Header />
-        <Sidebar />
-        {/* <Resource /> */}
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/admin" element={<AdminMain />} />
+      </Routes>
+    </>
   );
 }
 

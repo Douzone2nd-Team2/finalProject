@@ -1,6 +1,6 @@
 package com.team2.backend.config.security.auth;
 
-import com.team2.backend.domain.employee.Employee;
+import com.team2.backend.domain.user.Employee;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
