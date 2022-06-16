@@ -1,8 +1,7 @@
-package com.team2.backend.web.controller;
+package com.team2.backend.web.controller.user;
 
-import com.team2.backend.service.AccountsService;
-import com.team2.backend.web.dto.AccountsRequestDto;
-import com.team2.backend.web.dto.JsonResponse;
+import com.team2.backend.service.user.AccountsService;
+import com.team2.backend.web.dto.user.AccountsRequestDto;
 import com.team2.backend.web.dto.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-public class accountsController {
+public class AccountsController {
 
     private final AccountsService accountsService;
 

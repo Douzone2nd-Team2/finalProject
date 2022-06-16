@@ -19,7 +19,6 @@ public class EmployeeDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        System.out.println(employee.getAble());
         if (employee.getAble() == 'Y') {
             authorities.add(() -> "ROLE_USER");
         }

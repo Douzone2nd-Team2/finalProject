@@ -15,9 +15,9 @@ public class Department {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="deptno", updatable = false, nullable = false)
-    private Long deptno;
+    @Column(name="deptNo", updatable = false, nullable = false)
+    private Long deptNo;
 
-    @Column(name="deptname")
-    private String deptname;
+    @Column(name="deptName")
+    private String deptName;
 }

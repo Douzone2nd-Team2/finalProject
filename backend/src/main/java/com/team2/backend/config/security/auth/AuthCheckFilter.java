@@ -43,16 +43,18 @@ public class AuthCheckFilter extends BasicAuthenticationFilter {
         String accessToken = header.split(" ")[1];
 
         if (jwtTokenProvider.isValidAccessToken(accessToken)) {
-            String userId = jwtTokenProvider.verifyAccessToken(accessToken).getClaim("userId").asString();
-            if (userId == null || userId.isEmpty()) {
-                System.out.println("[WARN] Invalid claim 'userId'");
+            Long userNo = jwtTokenProvider.verifyAccessToken(accessToken).getClaim("userNo").asLong();
+            if (userNo == null) {
+                System.out.println("[WARN] Invalid claim 'userNo'");
                 return;
             }
 
-            Employee employee = employeeRepository.findByUserId(userId);
+            Employee employee = employeeRepository.findByNo(userNo);
             EmployeeDetails employeeDetails = new EmployeeDetails(employee);
             Authentication authentication = new UsernamePasswordAuthenticationToken(employeeDetails.getUsername(), null, employeeDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            request.setAttribute("userNo", userNo);
 
             chain.doFilter(request, response);
         }

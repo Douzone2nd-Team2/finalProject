@@ -26,12 +26,12 @@ public class JwtTokenProvider {
 
     int ACCESS_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60; // 60분
 
-    public String createAccessToken(String userId) throws UnsupportedEncodingException {
+    public String createAccessToken(Long userNo) throws UnsupportedEncodingException {
 
         return JWT.create()
                 .withSubject("access-token")
                 .withExpiresAt(new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPIRATION_TIME))
-                .withClaim("userId", userId)
+                .withClaim("userNo", userNo)
                 .sign(Algorithm.HMAC256(ACCESS_TOKEN_SECRET_KEY));
     }
 
