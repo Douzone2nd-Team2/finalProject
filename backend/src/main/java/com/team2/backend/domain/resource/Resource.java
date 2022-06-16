@@ -46,7 +46,7 @@ public class Resource extends BaseTime {
     private String availableTime;
 
     @ManyToOne(targetEntity = Employee.class)
-    @JoinColumn(name = "empno")
+    @JoinColumn(name = "no")
     //@Column(name="amdinno")
     private String adminNo;
 
