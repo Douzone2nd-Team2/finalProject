@@ -33,6 +33,4 @@ public class PeopleCnt {
     @JoinColumn(name="userno")
    // @Column(name="userno")
     private Long userNo;
-
-
 }

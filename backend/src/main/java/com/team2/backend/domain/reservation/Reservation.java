@@ -37,7 +37,7 @@ public class Reservation extends BaseTime {
     private Long resourceNo;
 
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="empno")
+    @JoinColumn(name="no")
    // @Column(name="empno")
     private String empNo;
 
