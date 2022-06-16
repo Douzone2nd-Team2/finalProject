@@ -23,20 +23,20 @@ public class Notice extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="noticeno")
+    @Column(name="noticeNo")
     private Long noticeNo;
 
-    @Column(name="able", columnDefinition = "default 'Y'")
+    @Column(name="able", columnDefinition = "char(1) default 'Y'")
     private char able;
 
     @ManyToOne(targetEntity = Category.class, fetch=FetchType.LAZY)
-    @JoinColumn()
+    @JoinColumn(name = "category")
     private Long category;
 
-    @Column(name="noticetitle")
+    @Column(name="noticeTitle")
     private String noticeTitle;
 
-    @Column(name="noticecontent")
+    @Column(name="noticeContent")
     private String noticeContent;
 
     @Column(name="priority")

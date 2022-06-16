@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Message {
 
-    // res 샘플
     private Integer resCode;
     private String message;
     private Object data;
