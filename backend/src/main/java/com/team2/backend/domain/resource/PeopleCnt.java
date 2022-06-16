@@ -30,9 +30,7 @@ public class PeopleCnt {
     private Long reservNo;
 
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="no")
+    @JoinColumn(name="userno")
    // @Column(name="userno")
     private Long userNo;
-
-
 }
