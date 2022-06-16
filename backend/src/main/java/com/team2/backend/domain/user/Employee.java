@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Table(name="employee", uniqueConstraints=@UniqueConstraint(columnNames={"empno"}))
+@Table(name="employee", uniqueConstraints=@UniqueConstraint(columnNames={"empNo"}))
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicUpdate
@@ -22,10 +22,10 @@ public class Employee extends BaseTime {
     @Column(name="no", updatable = false, nullable = false)
     private Long no;
 
-    @Column(name="able", columnDefinition = "default 'Y'")
+    @Column(name="able", columnDefinition = "char(1) default 'Y'")
     private char able;
 
-    @Column(name="userid")
+    @Column(name="userId")
     private String userId;
 
     @Column(name="password")
@@ -34,7 +34,7 @@ public class Employee extends BaseTime {
     @Column(name="name")
     private String name;
 
-    @Column(name="empno")
+    @Column(name="empNo")
     private String empNo;
 
     @Column(name="birth")
@@ -46,17 +46,15 @@ public class Employee extends BaseTime {
     @Column(name="phone")
     private String phone;
 
-    @ManyToOne(targetEntity=Department.class, fetch=FetchType.LAZY)
-    @JoinColumn(name="deptno")
-   // @Column(name="dept")
-    private Long dept;
+//    @ManyToOne(targetEntity=Department.class, fetch=FetchType.LAZY)
+//    @JoinColumn(name="deptNo")
+    @Column(name="deptNo")
+    private Long deptNo;
 
-    @Column(name="grade")
-    private Long grade;
-
-
-//    @OneToOne(mappedBy = "Employee")
-//    private EmployeeFile employeeFile;
+//    @ManyToOne(targetEntity=Grade.class, fetch=FetchType.LAZY)
+//    @JoinColumn(name="gradeNo")
+    @Column(name="gradeNo")
+    private Long gradeNo;
 
     public void encodePassword(String password) {
         this.password = password;

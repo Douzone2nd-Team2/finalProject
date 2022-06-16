@@ -25,19 +25,19 @@ public class SearchKeyWord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="searchno")
+    @Column(name="searchNo")
     private Long searchNo;
 
     @Column(name="keyword")
     private String keyword;
 
-    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="no")
-    //@Column(name="userno")
+//    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
+//    @JoinColumn(name="userNo")
+    @Column(name="userNo")
     private Long userNo;
 
     @CreatedDate
-    @Column(name="createat")
+    @Column(name="createAt")
     private LocalDateTime createAt;
 
 }

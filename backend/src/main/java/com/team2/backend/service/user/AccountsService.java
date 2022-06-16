@@ -1,8 +1,8 @@
-package com.team2.backend.service;
+package com.team2.backend.service.user;
 
 import com.team2.backend.domain.user.Employee;
 import com.team2.backend.domain.user.EmployeeRepository;
-import com.team2.backend.web.dto.AccountsRequestDto;
+import com.team2.backend.web.dto.user.AccountsRequestDto;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
 import lombok.RequiredArgsConstructor;

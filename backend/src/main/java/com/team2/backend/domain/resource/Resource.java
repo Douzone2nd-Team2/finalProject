@@ -23,18 +23,20 @@ public class Resource extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="resourceno")
+    @Column(name="resourceNo")
     private Long resourceNo;
 
 
+//    @ManyToOne(targetEntity = Category.class)
+//    @JoinColumn(name = "category")
     @Column(name="category")
     private Long category;
 
-    @Column(name="able", columnDefinition = "default 'Y'")
+    @Column(name="able", columnDefinition = "char(1) default 'Y'")
     private char able;
 
-    @Column(name="name")
-    private String name;
+    @Column(name="resourceName")
+    private String resourceName;
 
     @Column(name="location")
     private String location;
@@ -42,13 +44,13 @@ public class Resource extends BaseTime {
     @Column(name="people")
     private int people;
 
-    @Column(name="availabletime")
+    @Column(name="availableTime")
     private String availableTime;
 
-    @ManyToOne(targetEntity = Employee.class)
-    @JoinColumn(name = "no")
-    //@Column(name="amdinno")
-    private String adminNo;
+//    @ManyToOne(targetEntity = Employee.class)
+//    @JoinColumn(name = "adminNo")
+    @Column(name="adminNo")
+    private Long adminNo;
 
     @Column(name="option")
     private String option;

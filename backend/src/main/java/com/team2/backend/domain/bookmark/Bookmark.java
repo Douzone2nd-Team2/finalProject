@@ -20,18 +20,20 @@ import javax.persistence.*;
 @DynamicInsert
 @DynamicUpdate
 public class Bookmark {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="bookmarkno")
+    @Column(name="bookmarkNo")
     private Long bookmarkNo;
 
-    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "no")
-//    @Column(name="userNo")
+//    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "userNo")
+    @Column(name = "userNo")
     private Long userNo;
 
-    @ManyToOne(targetEntity = Resource.class,fetch = FetchType.LAZY)
-    @JoinColumn(name = "resoureno")
-//    @Column(name="resourceNo")
+//    @ManyToOne(targetEntity = Resource.class,fetch = FetchType.LAZY)
+//    @JoinColumn(name = "resourceNo")
+    @Column(name = "resourceNo")
     private int resourceNo;
+
 }

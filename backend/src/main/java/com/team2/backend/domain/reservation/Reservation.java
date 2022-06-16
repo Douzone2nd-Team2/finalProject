@@ -25,26 +25,29 @@ public class Reservation extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="reservno")
+    @Column(name="reservNo")
     private Long reservNo;
 
-    @Column(name="able", columnDefinition = "default 'Y'")
+    @Column(name="able", columnDefinition = "char(1) default 'Y'")
     private char able;
 
-    @ManyToOne(targetEntity = Resource.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="rescourceno")
-  //  @Column(name="resourceno")
+//    @ManyToOne(targetEntity = Resource.class, fetch = FetchType.LAZY)
+//    @JoinColumn(name="resourceNo")
+    @Column(name="resourceNo")
     private Long resourceNo;
 
-    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="no")
-   // @Column(name="empno")
-    private String empNo;
+//    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
+//    @JoinColumn(name="userNo")
+    @Column(name="userNo")
+    private Long userNo;
 
-    @Column(name="starttime")
+    @Column(name="reservName")
+    private String reservName;
+
+    @Column(name="startTime")
     private Date startTime;
 
-    @Column(name="endtime")
+    @Column(name="endTime")
     private Date endTime;
 
 }
