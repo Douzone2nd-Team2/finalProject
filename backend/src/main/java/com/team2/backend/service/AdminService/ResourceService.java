@@ -2,7 +2,7 @@ package com.team2.backend.service.AdminService;
 
 import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.resource.ResourceRepository;
-import com.team2.backend.web.dto.AdminDto.ResourceDto;
+import com.team2.backend.web.dto.admin.ResourceDto;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;

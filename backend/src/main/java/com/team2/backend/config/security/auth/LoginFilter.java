@@ -65,9 +65,9 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         System.out.println("[SUCCESS] Verify Access Token");
 
-        String userId = ((EmployeeDetails) authResult.getPrincipal()).getUsername();
+        Long userNo = ((EmployeeDetails) authResult.getPrincipal()).getEmployee().getNo();
 
-        String accessToken = jwtTokenProvider.createAccessToken(userId);
+        String accessToken = jwtTokenProvider.createAccessToken(userNo);
 
         response.setHeader(jwtTokenProvider.getACCESS_TOKEN_HEADER(), jwtTokenProvider.getACCESS_TOKEN_PREFIX() + accessToken);
         Message message = Message.builder()

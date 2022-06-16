@@ -1,4 +1,5 @@
-package com.team2.backend.web.dto.UserDto;
+
+package com.team2.backend.web.dto.user;
 
 import com.team2.backend.domain.user.Employee;
 import lombok.Builder;
@@ -9,12 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountsRequestDto {
 
-    private Character able;
+    private char able;
     private String userId;
     private String password;
 
     @Builder
-    public AccountsRequestDto(Character able, String userId, String password) {
+    public AccountsRequestDto(char able, String userId, String password) {
         this.able = able;
         this.userId = userId;
         this.password = password;

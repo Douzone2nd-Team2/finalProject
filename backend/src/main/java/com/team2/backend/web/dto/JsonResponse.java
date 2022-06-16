@@ -24,4 +24,5 @@ public class JsonResponse {
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         return new ResponseEntity<>(status);
     }
+
 }

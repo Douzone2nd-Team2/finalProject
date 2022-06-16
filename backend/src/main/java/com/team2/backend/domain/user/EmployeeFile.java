@@ -23,15 +23,14 @@ public class EmployeeFile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="imageno", updatable = false, nullable = false)
+    @Column(name="imageNo", updatable = false, nullable = false)
     private Long imageNo;
 
-    @Column(name="able", columnDefinition = "default 'Y'")
+    @Column(name="able", columnDefinition = "char(1) default 'Y'")
     private char able;
 
     @OneToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="no")
-   // @Column(name="userno")
+    @JoinColumn(name="userNo")
     private Long userNo;
 
     @Column(name="path")
@@ -40,10 +39,10 @@ public class EmployeeFile {
     @Column(name="type")
     private String type;
 
-    @Column(name="imagesize")
+    @Column(name="imageSize")
     private String imageSize;
 
     @CreatedDate
-    @Column(name="createat")
+    @Column(name="createAt")
     private LocalDateTime createAt;
 }

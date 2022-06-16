@@ -15,9 +15,9 @@ public class Grade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="gradeno", updatable = false, nullable = false)
-    private Long gradeno;
+    @Column(name="gradeNo", updatable = false, nullable = false)
+    private Long gradeNo;
 
-    @Column(name="gradename")
-    private String gradename;
+    @Column(name="gradeName")
+    private String gradeName;
 }

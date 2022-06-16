@@ -21,18 +21,14 @@ public class PeopleCnt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="peopleno")
+    @Column(name="peopleNo")
     private Long peopleNo;
 
     @ManyToOne(targetEntity = Reservation.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="reservno")
-   // @Column(name="reservno")
+    @JoinColumn(name="reservNo")
     private Long reservNo;
 
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="no")
-   // @Column(name="userno")
+    @JoinColumn(name="userNo")
     private Long userNo;
-
-
 }

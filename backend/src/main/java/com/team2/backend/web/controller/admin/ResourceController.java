@@ -1,8 +1,8 @@
-package com.team2.backend.web.controller.AdminController;
+package com.team2.backend.web.controller.admin;
 
 import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.service.AdminService.ResourceService;
-import com.team2.backend.web.dto.AdminDto.ResourceDto;
+import com.team2.backend.web.dto.admin.ResourceDto;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
 import lombok.RequiredArgsConstructor;

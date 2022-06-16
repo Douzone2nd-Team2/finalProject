@@ -1,7 +1,9 @@
-package com.team2.backend.web.controller.UserController;
 
-import com.team2.backend.service.UserService.AccountsService;
-import com.team2.backend.web.dto.UserDto.AccountsRequestDto;
+package com.team2.backend.web.controller.user;
+
+
+import com.team2.backend.service.user.AccountsService;
+import com.team2.backend.web.dto.user.AccountsRequestDto;
 import com.team2.backend.web.dto.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-public class accountsController {
+public class AccountsController {
 
     private final AccountsService accountsService;
 
@@ -26,6 +28,7 @@ public class accountsController {
     }
 
     @PostMapping("/admin")
+
     public ResponseEntity<Message> admin() {
         return accountsService.admin();
     }
