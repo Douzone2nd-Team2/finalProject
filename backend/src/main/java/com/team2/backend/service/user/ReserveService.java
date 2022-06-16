@@ -50,7 +50,7 @@ public class ReserveService {
         Reservation reservation = reservationRepository.save(
                 Reservation.builder()
                         .resourceNo(body.getResourceNo())
-                        .empNo(body.getEmpNo())
+                        .userNo(body.getUserNo())
                         .reservName(body.getReservName())
                         .startTime(body.getStartTime())
                         .endTime(body.getEndTime())

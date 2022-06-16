@@ -19,16 +19,16 @@ public class UserReservationDto {
 
     private char able;
     private Long resourceNo;
-    private String empNo;
+    private String userNo;
     private String reservName;
     private Date startTime;
     private Date endTime;
     private List<String> peopleCnt;
 
     @Builder
-    public  UserReservationDto(Long resourceNo, String empNo, String reservName, Date startTime, Date endTime, String[] peopleCnt) {
+    public  UserReservationDto(Long resourceNo, String userNo, String reservName, Date startTime, Date endTime, String[] peopleCnt) {
         this.resourceNo = resourceNo;
-        this.empNo = empNo;
+        this.userNo = userNo;
         this.reservName = reservName;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -39,9 +39,9 @@ public class UserReservationDto {
     }
 
     @Builder
-    public  UserReservationDto(Long resourceNo, String empNo, String reservName, Date startTime, Date endTime) {
+    public  UserReservationDto(Long resourceNo, String userNo, String reservName, Date startTime, Date endTime) {
         this.resourceNo = resourceNo;
-        this.empNo = empNo;
+        this.userNo = userNo;
         this.reservName = reservName;
         this.startTime = startTime;
         this.endTime = endTime;
