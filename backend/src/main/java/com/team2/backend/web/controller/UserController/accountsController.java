@@ -1,8 +1,7 @@
-package com.team2.backend.web.controller;
+package com.team2.backend.web.controller.UserController;
 
-import com.team2.backend.service.AccountsService;
-import com.team2.backend.web.dto.AccountsRequestDto;
-import com.team2.backend.web.dto.JsonResponse;
+import com.team2.backend.service.UserService.AccountsService;
+import com.team2.backend.web.dto.UserDto.AccountsRequestDto;
 import com.team2.backend.web.dto.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

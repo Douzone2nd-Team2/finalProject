@@ -56,8 +56,4 @@ public class Resource extends BaseTime {
     @Column(name="fuel")
     private String fuel;   //차량만 사용
 
-
-
-
-
 }

@@ -1,8 +1,8 @@
-package com.team2.backend.service;
+package com.team2.backend.service.UserService;
 
 import com.team2.backend.domain.user.Employee;
 import com.team2.backend.domain.user.EmployeeRepository;
-import com.team2.backend.web.dto.AccountsRequestDto;
+import com.team2.backend.web.dto.UserDto.AccountsRequestDto;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +51,7 @@ public class AccountsService {
     }
 
     public ResponseEntity<Message> admin() {
+
         Message message = Message.builder()
                 .resCode(1)
                 .message("[SUCCESS] Admin Main page")
