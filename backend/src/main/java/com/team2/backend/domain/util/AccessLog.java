@@ -24,22 +24,21 @@ public class AccessLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="accessno")
+    @Column(name="accesNo")
     private Long accessNo;
 
-    @Column(name="urlname")
+    @Column(name="urlName")
     private String urlName;
 
     @Column(name="ip")
     private String ip;
 
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="no")
-   // @Column(name="userno")
+    @JoinColumn(name="userNo")
     private Long userNo;
 
     @CreatedDate
-    @Column(name="createat")
+    @Column(name="createAt")
     private LocalDateTime createAt;
 
 

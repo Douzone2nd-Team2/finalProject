@@ -12,15 +12,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
-@MappedSuperclass   // 공통 매핑 정보 필요
+@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseTime {
 
-    @CreatedDate  //entity 생성시간 처리
-    @Column(name="createat")
+    @CreatedDate
+    @Column(name="createAt")
     private LocalDateTime createAt;
 
-    @LastModifiedDate  //최종 수정시간 자동 처리
-    @Column(name="modifyat")
+    @LastModifiedDate
+    @Column(name="modifyAt")
     private LocalDateTime modifyAt;
+
 }
