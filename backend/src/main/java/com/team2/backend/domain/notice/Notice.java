@@ -29,8 +29,9 @@ public class Notice extends BaseTime {
     @Column(name="able", columnDefinition = "char(1) default 'Y'")
     private char able;
 
-    @ManyToOne(targetEntity = Category.class, fetch=FetchType.LAZY)
-    @JoinColumn(name = "category")
+//    @ManyToOne(targetEntity = Category.class, fetch=FetchType.LAZY)
+//    @JoinColumn(name = "category")
+    @Column(name = "category")
     private Long category;
 
     @Column(name="noticeTitle")

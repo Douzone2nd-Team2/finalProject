@@ -19,14 +19,14 @@ public class UserReservationDto {
 
     private char able;
     private Long resourceNo;
-    private String userNo;
+    private Long userNo;
     private String reservName;
     private Date startTime;
     private Date endTime;
     private List<String> peopleCnt;
 
     @Builder
-    public  UserReservationDto(Long resourceNo, String userNo, String reservName, Date startTime, Date endTime, String[] peopleCnt) {
+    public  UserReservationDto(Long resourceNo, Long userNo, String reservName, Date startTime, Date endTime, String[] peopleCnt) {
         this.resourceNo = resourceNo;
         this.userNo = userNo;
         this.reservName = reservName;
@@ -39,7 +39,7 @@ public class UserReservationDto {
     }
 
     @Builder
-    public  UserReservationDto(Long resourceNo, String userNo, String reservName, Date startTime, Date endTime) {
+    public  UserReservationDto(Long resourceNo, Long userNo, String reservName, Date startTime, Date endTime) {
         this.resourceNo = resourceNo;
         this.userNo = userNo;
         this.reservName = reservName;
