@@ -27,6 +27,7 @@ public class accountsController {
     }
 
     @PostMapping("/admin")
+
     public ResponseEntity<Message> admin() {
         return accountsService.admin();
     }
