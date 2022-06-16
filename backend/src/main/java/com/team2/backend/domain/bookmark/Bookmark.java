@@ -26,7 +26,7 @@ public class Bookmark {
     private Long bookmarkNo;
 
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "no")
+    @JoinColumn(name = "userno")
 //    @Column(name="userNo")
     private Long userNo;
 

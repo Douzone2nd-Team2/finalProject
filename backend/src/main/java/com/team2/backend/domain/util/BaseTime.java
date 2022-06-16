@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
@@ -16,94 +17,10 @@ import java.time.LocalDateTime;
 public class BaseTime {
 
     @CreatedDate  //entity 생성시간 처리
+    @Column(name="createat")
     private LocalDateTime createAt;
 
     @LastModifiedDate  //최종 수정시간 자동 처리
+    @Column(name="modifyat")
     private LocalDateTime modifyAt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private String egunmotchamchi = "ㅎㅇㅎㅇ";
 }

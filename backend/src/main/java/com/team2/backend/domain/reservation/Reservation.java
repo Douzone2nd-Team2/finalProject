@@ -41,6 +41,9 @@ public class Reservation extends BaseTime {
    // @Column(name="empno")
     private String empNo;
 
+    @Column(name="reservname")
+    private String reservName;
+
     @Column(name="starttime")
     private Date startTime;
 
