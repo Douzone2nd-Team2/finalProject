@@ -1,7 +1,9 @@
 import MainPage from './user/pages/MainPage';
 import LoginPage from './user/pages/LoginPage';
-import AdminMain from "./admin/pages/AdminMain";
-import { Routes, Route } from "react-router-dom";
+import AdminMain from './admin/pages/AdminMain';
+import AdminLoginPage from './admin/pages/AdminLoginPage';
+import EmployeePage from './admin/pages/EmployeePage';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
@@ -9,7 +11,11 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/admin" element={<AdminMain />} />
+
+        <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route path="/admin/main" element={<AdminMain />} />
+
+        <Route path="/admin/employee" element={<EmployeePage />} />
       </Routes>
     </>
   );
