@@ -19,11 +19,13 @@ public class ReserveController {
 
     @PostMapping("/reserve")
     public ResponseEntity<Message> reserve() {
+        System.out.println("getList");
         return reserveService.getResourceList();
     }
 
     @PostMapping("/reserve/office")
     public ResponseEntity<Message> reserveOffice(HttpServletRequest req, @RequestBody UserReservationDto body) {
+        System.out.println("office");
         return reserveService.reserveOffice(req, body);
     }
 //    @PostMapping("/reserve/car")

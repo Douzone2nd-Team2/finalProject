@@ -29,8 +29,9 @@ public class NoticeFile {
     @Column(name="able", columnDefinition = "char(1) default 'Y'")
     private char able;
 
-    @ManyToOne(targetEntity = Notice.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="noticeNo")
+//    @ManyToOne(targetEntity = Notice.class, fetch = FetchType.LAZY)
+//    @JoinColumn(name="noticeNo")
+    @Column(name="noticeNo")
     private Long noticeNo;
 
     @Column(name="path")

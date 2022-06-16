@@ -29,8 +29,9 @@ public class EmployeeFile {
     @Column(name="able", columnDefinition = "char(1) default 'Y'")
     private char able;
 
-    @OneToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="userNo")
+//    @OneToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
+//    @JoinColumn(name="userNo")
+    @Column(name="userNo")
     private Long userNo;
 
     @Column(name="path")

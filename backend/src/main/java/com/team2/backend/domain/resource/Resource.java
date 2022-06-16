@@ -27,8 +27,9 @@ public class Resource extends BaseTime {
     private Long resourceNo;
 
 
-    @ManyToOne(targetEntity = Category.class)
-    @JoinColumn(name = "category")
+//    @ManyToOne(targetEntity = Category.class)
+//    @JoinColumn(name = "category")
+    @Column(name="category")
     private Long category;
 
     @Column(name="able", columnDefinition = "char(1) default 'Y'")
@@ -46,8 +47,9 @@ public class Resource extends BaseTime {
     @Column(name="availableTime")
     private String availableTime;
 
-    @ManyToOne(targetEntity = Employee.class)
-    @JoinColumn(name = "adminNo")
+//    @ManyToOne(targetEntity = Employee.class)
+//    @JoinColumn(name = "adminNo")
+    @Column(name="adminNo")
     private Long adminNo;
 
     @Column(name="option")
