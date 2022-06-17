@@ -28,11 +28,13 @@ public class Resource extends BaseTime {
 
 
     @ManyToOne(targetEntity = Category.class)
-    @JoinColumn(name = "category")
+    @JoinColumn(name = "cateNo")
     private Category category;
+    @Column(name = "cateNo", insertable = false, updatable = false)
+    private Long cateNo;
 
-    @Column(name="able", columnDefinition = "char(1) default 'Y'")
-    private char able;
+    @Column(name="able", columnDefinition = "varchar(1) default 'Y'")
+    private String able;
 
     @Column(name="resourceName")
     private String resourceName;
@@ -41,15 +43,16 @@ public class Resource extends BaseTime {
     private String location;
 
     @Column(name="people")
-    private int people;
+    private Integer people;
 
     @Column(name="availableTime")
     private String availableTime;
 
     @ManyToOne(targetEntity = Employee.class)
     @JoinColumn(name = "adminNo")
-//    @Column(name="adminNo")
-    private Employee adminNo;
+    private Employee admin;
+    @Column(name="adminNo", insertable = false, updatable = false)
+    private Long adminNo;
 
     @Column(name="option")
     private String option;

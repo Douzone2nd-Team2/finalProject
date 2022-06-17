@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class UserReservationDto {
 
-    private char able;
+    private String able;
     private Long resourceNo;
     private Long userNo;
     private String reservName;
