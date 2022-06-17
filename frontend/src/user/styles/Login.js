@@ -5,9 +5,9 @@ const Container = styled.div`
   height: 100vh;
   background-color: aliceblue;
   display: flex;
-  //justify-content: center;
   align-items: center;
 `;
+
 const LoginContainer = styled.div`
   display: flex;
   margin-top: 50px;
@@ -36,7 +36,12 @@ const ImageContainer = styled.div`
     width: 165%;
     height: 165%;
     margin-left: -70px;
+    display: block;
   }
+`;
+
+const ContentContainer = styled.div`
+  margin: auto;
 `;
 
 const InputContainer = styled.div`
@@ -59,4 +64,5 @@ export {
   ImageContainer,
   InputContainer,
   ButtonContainer,
+  ContentContainer,
 };
