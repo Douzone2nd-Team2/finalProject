@@ -26,9 +26,9 @@ public class Resource extends BaseTime {
     @Column(name="resourceNo")
     private Long resourceNo;
 
-
 //    @ManyToOne(targetEntity = Category.class)
 //    @JoinColumn(name = "category")
+
     @Column(name="category")
     private Long category;
 

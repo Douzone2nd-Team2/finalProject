@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+
 
 @Getter
 @NoArgsConstructor
@@ -16,14 +18,16 @@ public class ResourceDto {
     private String location;
     private Integer  people;
     private String availableTime;
-    private String adminNo;
+    private Long adminNo;
     private String option;
+    private String fuel;
 
 
 
-    @Builder // insert
+    @Builder // 회의실 등록
     public ResourceDto(Long category, String name, String location,
-                       String availableTime, Integer people, String adminNo, String option, Character able){
+                       String availableTime, Integer people, Long adminNo, String option,
+                       Character able){
         this.category = category;
         this.resourceName = name;
         this.location = location;
@@ -34,18 +38,34 @@ public class ResourceDto {
         this.option = option;
     }
 
-    public Resource toEntity(){
-        return Resource.builder()
-                .category(category)
-                .able(able)
-                .resourceName(resourceName)
-                .location(location)
-                .availableTime(availableTime)
-                .people(people)
-                .adminNo(adminNo)
-                .option(option)
-                .build();
+
+    @Builder // 차량등록
+    public ResourceDto(Long category, String name, String location,
+                       String availableTime, Integer people, Long adminNo, String option,
+                       Character able, String fuel){
+        this.category = category;
+        this.resourceName = name;
+        this.location = location;
+        this.availableTime = availableTime;
+        this.able = able;
+        this.people = people;
+        this.adminNo = adminNo;
+        this.option = option;
+        this.fuel = fuel;
+
     }
+//    public Resource toEntity(){
+//        return Resource.builder()
+//                .category(category)
+//                .able(able)
+//                .resourceName(resourceName)
+//                .location(location)
+//                .availableTime(availableTime)
+//                .people(people)
+//                .adminNo(adminNo)
+//                .option(option)
+//                .build();
+//    }
 
 
 }
