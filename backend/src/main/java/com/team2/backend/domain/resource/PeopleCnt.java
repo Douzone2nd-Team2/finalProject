@@ -24,11 +24,13 @@ public class PeopleCnt {
     @Column(name="peopleNo")
     private Long peopleNo;
 
-    @ManyToOne(targetEntity = Reservation.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="reservNo")
+//    @ManyToOne(targetEntity = Reservation.class, fetch = FetchType.LAZY)
+//    @JoinColumn(name="reservNo")
+    @Column(name="reservNo")
     private Long reservNo;
 
-    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="userNo")
+//    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
+//    @JoinColumn(name="userNo")
+    @Column(name="userNo")
     private Long userNo;
 }

@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Table(name="employee", uniqueConstraints=@UniqueConstraint(columnNames={"empno"}))
+@Table(name="employee", uniqueConstraints=@UniqueConstraint(columnNames={"empNo"}))
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicUpdate
@@ -46,12 +46,14 @@ public class Employee extends BaseTime {
     @Column(name="phone")
     private String phone;
 
-    @ManyToOne(targetEntity=Department.class, fetch=FetchType.LAZY)
-    @JoinColumn(name="deptNo")
+//    @ManyToOne(targetEntity=Department.class, fetch=FetchType.LAZY)
+//    @JoinColumn(name="deptNo")
+    @Column(name="deptNo")
     private Long deptNo;
 
-    @ManyToOne(targetEntity=Grade.class, fetch=FetchType.LAZY)
-    @JoinColumn(name="gradeNo")
+//    @ManyToOne(targetEntity=Grade.class, fetch=FetchType.LAZY)
+//    @JoinColumn(name="gradeNo")
+    @Column(name="gradeNo")
     private Long gradeNo;
 
     public void encodePassword(String password) {
