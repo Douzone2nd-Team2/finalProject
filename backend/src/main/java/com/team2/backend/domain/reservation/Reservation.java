@@ -31,7 +31,7 @@ public class Reservation extends BaseTime {
     @Column(name="able", columnDefinition = "char(1) default 'Y'")
     private char able;
 
-//    @ManyToOne(targetEntity = Resource.class, fetch = FetchType.LAZY)
+//    @ManyToOne(targetEntity = Resource.class)
 //    @JoinColumn(name="resourceNo")
     @Column(name="resourceNo")
     private Long resourceNo;

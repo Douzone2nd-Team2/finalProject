@@ -40,7 +40,7 @@ const LoginPage = () => {
       };
       const res = await axios
         .post(`http://localhost:8090/login`, data)
-        .then((res) => console.log(res));
+        .then((res) => console.log(res.headers.authorization));
     } catch (e) {
       console.log(e);
     }
