@@ -23,16 +23,18 @@ const Header = () => {
       <HeaderContainer>
         <Li>
           <DropDown>
-            <div>예약</div>
-            <ListContainer>
-              <Ul1>
-                <Li>회의실</Li>
-                <hr />
-                <Li>차량</Li>
-                <hr />
-                <Li>비품</Li>
-              </Ul1>
-            </ListContainer>
+            <div>
+              예약
+              <ListContainer>
+                <Ul1>
+                  <Li>회의실</Li>
+                  <hr />
+                  <Li>차량</Li>
+                  <hr />
+                  <Li>비품</Li>
+                </Ul1>
+              </ListContainer>
+            </div>
           </DropDown>
         </Li>
         <div>공지사항</div>
