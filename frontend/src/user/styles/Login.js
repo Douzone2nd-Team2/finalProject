@@ -33,11 +33,11 @@ const LoginTitle = styled.div`
 
 const ImageContainer = styled.div`
   img {
-    width: 165%;
-    height: 165%;
+    width: 180%;
     margin-left: -70px;
     display: block;
   }
+  margin-left: -67px;
 `;
 
 const ContentContainer = styled.div`
@@ -57,6 +57,11 @@ const ButtonContainer = styled.div`
   margin-top: 30px;
 `;
 
+const FalseContainer = styled.div`
+  color: red;
+  font-size: 13px;
+`;
+
 export {
   Container,
   LoginContainer,
@@ -65,4 +70,5 @@ export {
   InputContainer,
   ButtonContainer,
   ContentContainer,
+  FalseContainer,
 };

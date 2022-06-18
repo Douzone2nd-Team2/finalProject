@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
-
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { tokenState } from '../recoil/Token';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+
+import { tokenState } from '../recoil/Token';
+
 import {
   Container,
   LoginContainer,
@@ -11,13 +14,15 @@ import {
   ButtonContainer,
   InputContainer,
   ContentContainer,
+  FalseContainer,
 } from '../styles/Login';
-import Button from 'react-bootstrap/Button';
 
 const LoginPage = () => {
   const [inputId, setInputId] = useState('');
   const [inputPwd, setInputPwd] = useState('');
   const [token, setToken] = useRecoilState(tokenState);
+  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
 
   const handleChangeId = (e) => {
     setInputId(e.target.value);
@@ -27,28 +32,38 @@ const LoginPage = () => {
     setInputPwd(e.target.value);
   };
 
-  const onReset = () => {
+  const handleClickResetBtn = () => {
     setInputId('');
     setInputPwd('');
   };
 
-  const postLogin = async () => {
+  const postLogin = () => {
     try {
       const data = {
         userId: inputId,
         password: inputPwd,
       };
-      const res = await axios
+      const res = axios
         .post(`http://localhost:8090/login`, data)
-        .then((res) => console.log(res.headers.authorization));
+        .then((res) => {
+          console.log(res);
+          setToken(res.data.authorization);
+          if (res.data.resCode === 0) {
+            navigate('/main');
+          } else {
+            setIsLogin(true);
+            console.log('로그인 실패');
+          }
+        });
     } catch (e) {
       console.log(e);
     }
   };
 
-  useEffect(() => {
-    console.log(inputId);
-  }, [inputId]);
+  const loginBtn = () => {
+    postLogin();
+    handleClickResetBtn();
+  };
 
   return (
     <Container>
@@ -62,24 +77,30 @@ const LoginPage = () => {
         </ImageContainer>
         <div>
           <LoginTitle>자원 관리 시스템</LoginTitle>
+          <FalseContainer>
+            {isLogin && <div>잘못된 정보를 입력하셨습니다.</div>}
+          </FalseContainer>
+          <br />
           <form>
             <ContentContainer>
-              <div>ID</div>
+              <label htmlFor="id">ID</label>
               <InputContainer>
                 <input
                   type="text"
                   name="id"
+                  id="id"
                   placeholder="아이디를 입력하세요"
                   onChange={handleChangeId}
                   value={inputId}
                 />
               </InputContainer>
               <br />
-              <div>PW</div>
+              <label htmlFor="pwd">PWD</label>
               <InputContainer>
                 <input
                   type="password"
                   name="password"
+                  id="pwd"
                   placeholder="비밀번호를 입력하세요"
                   onChange={handleChangePwd}
                   value={inputPwd}
@@ -89,8 +110,7 @@ const LoginPage = () => {
                 <Button
                   variant="primary"
                   onClick={() => {
-                    postLogin();
-                    onReset();
+                    loginBtn();
                   }}
                 >
                   로그인
