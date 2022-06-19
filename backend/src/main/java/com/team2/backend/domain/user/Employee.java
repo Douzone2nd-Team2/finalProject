@@ -2,6 +2,7 @@ package com.team2.backend.domain.user;
 
 import com.team2.backend.domain.util.BaseTime;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -22,8 +23,8 @@ public class Employee extends BaseTime {
     @Column(name="no", updatable = false, nullable = false)
     private Long no;
 
-    @Column(name="able", columnDefinition = "char(1) default 'Y'")
-    private char able;
+    @Column(name="able", columnDefinition = "varchar(1) default 'Y'")
+    private String able;
 
     @Column(name="userId")
     private String userId;
@@ -46,13 +47,15 @@ public class Employee extends BaseTime {
     @Column(name="phone")
     private String phone;
 
-//    @ManyToOne(targetEntity=Department.class, fetch=FetchType.LAZY)
-//    @JoinColumn(name="deptNo")
+    @ManyToOne(targetEntity=Department.class)
+    @JoinColumn(name="deptNo", insertable = false, updatable = false)
+    private Department dept;
     @Column(name="deptNo")
     private Long deptNo;
 
-//    @ManyToOne(targetEntity=Grade.class, fetch=FetchType.LAZY)
-//    @JoinColumn(name="gradeNo")
+    @ManyToOne(targetEntity=Grade.class)
+    @JoinColumn(name="gradeNo", insertable = false, updatable = false)
+    private Grade grade;
     @Column(name="gradeNo")
     private Long gradeNo;
 

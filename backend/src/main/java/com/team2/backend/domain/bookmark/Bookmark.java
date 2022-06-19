@@ -26,14 +26,16 @@ public class Bookmark {
     @Column(name="bookmarkNo")
     private Long bookmarkNo;
 
-//    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "userNo")
+    @ManyToOne(targetEntity = Employee.class)
+    @JoinColumn(name = "userNo", insertable = false, updatable = false)
+    private Employee user;
     @Column(name = "userNo")
     private Long userNo;
 
-//    @ManyToOne(targetEntity = Resource.class,fetch = FetchType.LAZY)
-//    @JoinColumn(name = "resourceNo")
+    @ManyToOne(targetEntity = Resource.class)
+    @JoinColumn(name = "resourceNo", insertable = false, updatable = false)
+    private Resource resource;
     @Column(name = "resourceNo")
-    private int resourceNo;
+    private Integer resourceNo;
 
 }

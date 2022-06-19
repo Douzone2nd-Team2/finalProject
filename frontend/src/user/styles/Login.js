@@ -5,13 +5,12 @@ const Container = styled.div`
   height: 100vh;
   background-color: aliceblue;
   display: flex;
-  //justify-content: center;
   align-items: center;
 `;
+
 const LoginContainer = styled.div`
   display: flex;
-  margin-top: 50px;
-  width: 60%;
+  width: 55%;
   height: 60%;
   margin: auto;
   font-size: 12px;
@@ -21,7 +20,7 @@ const LoginContainer = styled.div`
   background-color: white;
   opacity: 0.8;
   border-radius: 5px;
-  box-shadow: 10px 10px 10px 10px lightgray;
+  box-shadow: 1px 1px 1px 1px lightgray;
 `;
 
 const LoginTitle = styled.div`
@@ -33,10 +32,15 @@ const LoginTitle = styled.div`
 
 const ImageContainer = styled.div`
   img {
-    width: 165%;
-    height: 165%;
+    width: 180%;
     margin-left: -70px;
+    display: block;
   }
+  margin-left: -67px;
+`;
+
+const ContentContainer = styled.div`
+  margin: auto;
 `;
 
 const InputContainer = styled.div`
@@ -52,6 +56,11 @@ const ButtonContainer = styled.div`
   margin-top: 30px;
 `;
 
+const FalseContainer = styled.div`
+  color: red;
+  font-size: 13px;
+`;
+
 export {
   Container,
   LoginContainer,
@@ -59,4 +68,6 @@ export {
   ImageContainer,
   InputContainer,
   ButtonContainer,
+  ContentContainer,
+  FalseContainer,
 };
