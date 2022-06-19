@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+
 import {
   HeaderContainer,
   SearchContainer,
@@ -8,7 +10,6 @@ import {
   ListContainer,
   DropDown,
 } from '../styles/Header';
-import Button from 'react-bootstrap/Button';
 
 const Header = () => {
   return (
@@ -25,7 +26,7 @@ const Header = () => {
           <DropDown>
             <div>
               예약
-              <ListContainer>
+              <ListContainer theme={{ borderColor: 'red' }}>
                 <Ul1>
                   <Li>회의실</Li>
                   <hr />
@@ -43,6 +44,7 @@ const Header = () => {
             className="searchBox"
             type="text"
             placeholder="검색할 상품명을 입력하세요... "
+            // value, onChange
           />
           <span className="fa-solid fa-magnifying-glass" />
         </SearchContainer>
