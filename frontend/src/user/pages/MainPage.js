@@ -1,26 +1,25 @@
-import ChartPage from './ChartPage';
-import CategoryPage from './CategoryPage';
+import { useRecoilValue } from 'recoil';
+
+import { tokenState } from '../recoil/Token';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 import Container from '../styles/MainPage';
-
-import { useRecoilState } from 'recoil';
-import { tokenState } from '../recoil/Token';
+import ChartPage from './ChartPage';
+import CategoryPage from './CategoryPage';
 
 const MainPage = () => {
-  const [token, setToken] = useRecoilState(tokenState);
+  const token = useRecoilValue(tokenState);
   console.log(token);
+
   return (
     <div>
       <Header />
       <Container>
         <ChartPage />
-        <br />
         <CategoryPage />
       </Container>
-      <br />
       <Footer />
     </div>
   );

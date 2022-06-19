@@ -18,7 +18,7 @@ const RightContainer = styled.div`
   align-items: center;
 `;
 
-const Address = styled.div`
+const Address = styled.address`
   width: 100%;
   text-align: center;
   font-size: 10px;
@@ -57,6 +57,7 @@ const VerticalLine = styled.div`
   padding-left: 20px;
   border-left: 1px solid black;
 `;
+
 export {
   FooterContainer,
   RightContainer,

@@ -1,22 +1,23 @@
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+
 import { Container, TitleContainer, BarContainer } from '../styles/Bchart';
 
-const Bchart = () => {
-  const data = [
-    { quarter: 1, earnings: 13000 },
-    { quarter: 2, earnings: 16500 },
-    { quarter: 3, earnings: 14250 },
-    { quarter: 4, earnings: 19000 },
-    { quarter: 5, earnings: 13000 },
-    { quarter: 6, earnings: 16500 },
-    { quarter: 7, earnings: 14250 },
-    { quarter: 8, earnings: 19000 },
-    { quarter: 9, earnings: 13000 },
-    { quarter: 10, earnings: 16500 },
-    { quarter: 11, earnings: 14250 },
-    { quarter: 12, earnings: 19000 },
-  ];
+const DATA = [
+  { quarter: 1, earnings: 13000 },
+  { quarter: 2, earnings: 16500 },
+  { quarter: 3, earnings: 14250 },
+  { quarter: 4, earnings: 19000 },
+  { quarter: 5, earnings: 13000 },
+  { quarter: 6, earnings: 16500 },
+  { quarter: 7, earnings: 14250 },
+  { quarter: 8, earnings: 19000 },
+  { quarter: 9, earnings: 13000 },
+  { quarter: 10, earnings: 16500 },
+  { quarter: 11, earnings: 14250 },
+  { quarter: 12, earnings: 19000 },
+];
 
+const Bchart = () => {
   return (
     <>
       <TitleContainer>회의실 사용시간</TitleContainer>
@@ -45,7 +46,7 @@ const Bchart = () => {
               ]}
             />
             <VictoryAxis dependentAxis tickFormat={(x) => `${x / 200}%`} />
-            <VictoryBar data={data} x="quarter" y="earnings" />
+            <VictoryBar data={DATA} x="quarter" y="earnings" />
           </VictoryChart>
         </BarContainer>
       </Container>

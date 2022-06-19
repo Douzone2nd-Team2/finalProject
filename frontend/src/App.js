@@ -1,9 +1,10 @@
-import MainPage from './user/pages/MainPage';
-import LoginPage from './user/pages/LoginPage';
-import AdminMain from './admin/pages/AdminMain';
 import { Routes, Route } from 'react-router-dom';
 
-function App() {
+import LoginPage from './user/pages/LoginPage';
+import MainPage from './user/pages/MainPage';
+import AdminMain from './admin/pages/AdminMain';
+
+const App = () => {
   return (
     <>
       <Routes>
@@ -13,6 +14,6 @@ function App() {
       </Routes>
     </>
   );
-}
+};
 
 export default App;

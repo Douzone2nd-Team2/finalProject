@@ -10,7 +10,6 @@ const Container = styled.div`
 
 const LoginContainer = styled.div`
   display: flex;
-  margin-top: 50px;
   width: 55%;
   height: 60%;
   margin: auto;
@@ -21,7 +20,7 @@ const LoginContainer = styled.div`
   background-color: white;
   opacity: 0.8;
   border-radius: 5px;
-  box-shadow: 10px 10px 10px 10px lightgray;
+  box-shadow: 1px 1px 1px 1px lightgray;
 `;
 
 const LoginTitle = styled.div`
