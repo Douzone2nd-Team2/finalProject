@@ -27,6 +27,7 @@ dependencies {
     implementation group: 'com.auth0', name: 'java-jwt', version: '3.10.3'
     compileOnly 'org.projectlombok:lombok'
     compileOnly 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    implementation 'com.amazonaws:aws-java-sdk:1.11.404'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
