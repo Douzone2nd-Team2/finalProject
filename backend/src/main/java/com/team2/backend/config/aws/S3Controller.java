@@ -17,7 +17,9 @@ public class S3Controller {
 
     @PostMapping("/main/image")
     @ResponseBody
-    public ResponseEntity<Message> updateUserImage(@RequestPart(value = "image") MultipartFile multipartFile){
+    public ResponseEntity<Message> updateUserImage(@RequestPart(value = "image") MultipartFile multipartFile,
+                                                   @RequestHeader("Authorization") String token
+    ){
 
         try{
             String awsUrl = s3Uploader.uploadFiles(multipartFile, "static");
