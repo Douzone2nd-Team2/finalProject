@@ -1,5 +1,6 @@
 package com.team2.backend.web.controller.admin;
 
+import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.service.AdminService.ResourceService;
 import com.team2.backend.web.dto.admin.ResourceDto;
 import com.team2.backend.web.dto.Message;
@@ -26,18 +27,18 @@ public class ResourceController {
         return resourceService.getEachList(category);
     }
 
-    @PostMapping("/officereg") // 회의실 등록
-    public ResponseEntity<Message> officeRegister(HttpServletRequest req, @RequestBody ResourceDto resourceDto){
-        return resourceService.officeCreate(req, resourceDto);
+    @PostMapping("/register") // 자원 등록
+    public ResponseEntity<Message> resourseRegister(HttpServletRequest req, @RequestBody ResourceDto resourceDto){
+        return resourceService.resourceRegister(req, resourceDto);
     }
 
-    @PostMapping("/carreg") // 차량 등록
-    public ResponseEntity<Message> carRegister(HttpServletRequest req, @RequestBody ResourceDto resourceDto){
-        return resourceService.carCreate(req, resourceDto);
+    @PutMapping("/update")
+    public ResponseEntity<Message> updateresourceList(HttpServletRequest req, @RequestParam("resourceNo") Long resourceNo , @RequestBody Resource resource){
+        return resourceService.resourceUpdate(req, resourceNo, resource);
     }
 
-    @DeleteMapping("{no}")
-    public ResponseEntity<Message> delResource(@PathVariable("no") Long resourceNo){
+    @DeleteMapping
+    public ResponseEntity<Message> delResource(@RequestParam("resourceNo") Long resourceNo){
         return resourceService.delresourceList(resourceNo);
     }
 
