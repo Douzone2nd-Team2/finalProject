@@ -11,7 +11,7 @@ const Container = styled.div`
 const LoginContainer = styled.div`
   display: flex;
   margin-top: 50px;
-  width: 60%;
+  width: 55%;
   height: 60%;
   margin: auto;
   font-size: 12px;
