@@ -36,13 +36,11 @@ public class ReserveService {
             return new JsonResponse().send(400, message);
         }
 
-        System.out.println("여기가 범인이니");
         Message message = Message.builder()
                 .resCode(4000)
                 .message("[SUCCESS] Get Resource List")
                 .data(resourceList)
                 .build();
-        System.out.println("여기가 범인이니2");
         return new JsonResponse().send(200, message);
     }
 
@@ -70,9 +68,13 @@ public class ReserveService {
             );
         }
 
+        // Test
+        Reservation r = reservationRepository.findByReservNo(2L);
+
         Message message = Message.builder()
                 .resCode(4000)
                 .message("[SUCCESS] Save reservation")
+                .data(r)
                 .build();
         return new JsonResponse().send(200, message);
     }
