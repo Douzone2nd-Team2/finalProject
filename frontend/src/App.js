@@ -5,7 +5,11 @@ import AdminLoginPage from './admin/pages/AdminLoginPage';
 import EmployeePage from './admin/pages/EmployeePage';
 import { Routes, Route } from 'react-router-dom';
 
-function App() {
+import LoginPage from './user/pages/LoginPage';
+import MainPage from './user/pages/MainPage';
+import AdminMain from './admin/pages/AdminMain';
+
+const App = () => {
   return (
     <>
       <Routes>
@@ -19,6 +23,6 @@ function App() {
       </Routes>
     </>
   );
-}
+};
 
 export default App;

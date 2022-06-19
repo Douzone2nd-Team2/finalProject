@@ -26,13 +26,14 @@ public class Notice extends BaseTime {
     @Column(name="noticeNo")
     private Long noticeNo;
 
-    @Column(name="able", columnDefinition = "char(1) default 'Y'")
-    private char able;
+    @Column(name="able", columnDefinition = "varchar(1) default 'Y'")
+    private String able;
 
-//    @ManyToOne(targetEntity = Category.class, fetch=FetchType.LAZY)
-//    @JoinColumn(name = "category")
-    @Column(name = "category")
+    @ManyToOne(targetEntity = Category.class)
+    @JoinColumn(name = "cateNo", insertable = false, updatable = false)
     private Long category;
+    @Column(name = "cateNo")
+    private Long cateNo;
 
     @Column(name="noticeTitle")
     private String noticeTitle;

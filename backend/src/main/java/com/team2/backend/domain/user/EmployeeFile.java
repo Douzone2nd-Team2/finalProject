@@ -26,8 +26,8 @@ public class EmployeeFile {
     @Column(name="imageNo", updatable = false, nullable = false)
     private Long imageNo;
 
-    @Column(name="able", columnDefinition = "char(1) default 'Y'")
-    private char able;
+    @Column(name="able", columnDefinition = "varchar(1) default 'Y'")
+    private String able;
 
 //    @OneToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
 //    @JoinColumn(name="userNo")
