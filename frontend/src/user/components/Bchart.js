@@ -1,4 +1,5 @@
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+import { Container, TitleContainer, BarContainer } from '../styles/Bchart';
 
 const Bchart = () => {
   const data = [
@@ -17,34 +18,38 @@ const Bchart = () => {
   ];
 
   return (
-    <div>
-      <h1>회의실 사용 시간</h1>
-      <VictoryChart
-        domainPadding={30}
-        theme={VictoryTheme.material}
-        colorScale={'warm'}
-      >
-        <VictoryAxis
-          tickValues={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
-          tickFormat={[
-            '08',
-            '10',
-            '12',
-            '14',
-            '16',
-            '18',
-            '20',
-            '22',
-            '00',
-            '02',
-            '04',
-            '06',
-          ]}
-        />
-        <VictoryAxis dependentAxis tickFormat={(x) => `${x / 200}%`} />
-        <VictoryBar data={data} x="quarter" y="earnings" />
-      </VictoryChart>
-    </div>
+    <>
+      <TitleContainer>회의실 사용시간</TitleContainer>
+      <Container>
+        <BarContainer>
+          <VictoryChart
+            domainPadding={30}
+            theme={VictoryTheme.material}
+            colorScale={'warm'}
+          >
+            <VictoryAxis
+              tickValues={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+              tickFormat={[
+                '08',
+                '10',
+                '12',
+                '14',
+                '16',
+                '18',
+                '20',
+                '22',
+                '00',
+                '02',
+                '04',
+                '06',
+              ]}
+            />
+            <VictoryAxis dependentAxis tickFormat={(x) => `${x / 200}%`} />
+            <VictoryBar data={data} x="quarter" y="earnings" />
+          </VictoryChart>
+        </BarContainer>
+      </Container>
+    </>
   );
 };
 
