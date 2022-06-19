@@ -13,7 +13,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "resource")
+@Table(name="resource")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,12 +27,12 @@ public class Resource extends BaseTime {
     @Column(name = "resourceNo")
     private Long resourceNo;
 
-//    @ManyToOne(targetEntity = Category.class)
-//    @JoinColumn(name = "category")
 
-    @Column(name = "category")
-    private Long category;
-
+    @ManyToOne(targetEntity = Category.class)
+    @JoinColumn(name = "cateNo")
+    private Category category;
+    @Column(name = "cateNo", insertable = false, updatable = false)
+    private Long cateNo;
 
     @Column(name = "able", columnDefinition = "char(1) default 'Y'")
     private char able;
@@ -49,10 +49,10 @@ public class Resource extends BaseTime {
     @Column(name = "availableTime")
     private String availableTime;
 
-    //    @ManyToOne(targetEntity = Employee.class)
-//    @JoinColumn(name = "adminNo")
-    @Column(name = "adminNo")
-    private Long adminNo;
+    @ManyToOne(targetEntity = Employee.class)
+    @JoinColumn(name = "adminNo")
+//    @Column(name="adminNo")
+    private Employee adminNo;
 
     @Column(name = "option")
     private String option;
@@ -72,5 +72,6 @@ public class Resource extends BaseTime {
         this.option = option;
         this.fuel = fuel;
 
-    }
+
+
 }

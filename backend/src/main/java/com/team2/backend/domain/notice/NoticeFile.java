@@ -26,11 +26,12 @@ public class NoticeFile {
     @Column(name="imageNo")
     private Long imageNo;
 
-    @Column(name="able", columnDefinition = "char(1) default 'Y'")
-    private char able;
+    @Column(name="able", columnDefinition = "varchar(1) default 'Y'")
+    private String able;
 
-//    @ManyToOne(targetEntity = Notice.class, fetch = FetchType.LAZY)
-//    @JoinColumn(name="noticeNo")
+    @ManyToOne(targetEntity = Notice.class)
+    @JoinColumn(name="noticeNo", insertable = false, updatable = false)
+    private Notice notice;
     @Column(name="noticeNo")
     private Long noticeNo;
 

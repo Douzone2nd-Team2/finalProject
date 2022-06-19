@@ -19,10 +19,10 @@ public class EmployeeDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        if (employee.getAble() == 'Y') {
+        if (employee.getAble().equals("Y")) {
             authorities.add(() -> "ROLE_USER");
         }
-        else if (employee.getAble() == 'A') {
+        else if (employee.getAble().equals("A")) {
             authorities.add(() -> "ROLE_ADMIN");
         }
         return authorities;

@@ -28,16 +28,18 @@ public class Reservation extends BaseTime {
     @Column(name="reservNo")
     private Long reservNo;
 
-    @Column(name="able", columnDefinition = "char(1) default 'Y'")
-    private char able;
+    @Column(name="able", columnDefinition = "varchar(1) default 'Y'")
+    private String able;
 
-//    @ManyToOne(targetEntity = Resource.class)
-//    @JoinColumn(name="resourceNo")
+    @ManyToOne(targetEntity = Resource.class)
+    @JoinColumn(name="resourceNo", insertable = false, updatable = false)
+    private Resource resource;
     @Column(name="resourceNo")
     private Long resourceNo;
 
-//    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-//    @JoinColumn(name="userNo")
+    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="userNo", insertable = false, updatable = false)
+    private Employee user;
     @Column(name="userNo")
     private Long userNo;
 

@@ -10,13 +10,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountsRequestDto {
 
-    private char able;
+    private String able;
     private String userId;
     private String password;
 
     @Builder
-    public AccountsRequestDto(char able, String userId, String password) {
+    public AccountsRequestDto(String able, String userId, String password) {
         this.able = able;
+        this.userId = userId;
+        this.password = password;
+    }
+
+    @Builder
+    public AccountsRequestDto(String userId, String password) {
         this.userId = userId;
         this.password = password;
     }
