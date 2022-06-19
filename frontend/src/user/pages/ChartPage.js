@@ -1,5 +1,6 @@
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
 import Bchart from '../components/Bchart';
 import Pchart from '../components/Pchart';
 

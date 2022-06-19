@@ -81,6 +81,7 @@ const ListContainer = styled.div`
   margin-left: 60px;
   position: absolute;
   display: none;
+  z-index: 1000;
   ${DropDown}:active & {
     display: block;
   }
