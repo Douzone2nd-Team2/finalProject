@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @Component
 public class CORSFilter extends OncePerRequestFilter {
     @Override
