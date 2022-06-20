@@ -1,5 +1,6 @@
 package com.team2.backend.service.AdminService;
 
+import com.team2.backend.domain.resource.Category;
 import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.resource.ResourceRepository;
 import com.team2.backend.web.dto.JsonResponse;
@@ -40,8 +41,8 @@ public class ResourceService {
         return new JsonResponse().send(200, message);
     }
     @Transactional
-    public ResponseEntity<Message> getEachList(long category){
-        List<Resource> Aeachlist = resourceRepository.findByCategory(category);
+    public ResponseEntity<Message> getEachList(Category category){
+        List<Resource> Aeachlist = resourceRepository.findByCateNo(category.getCateNo());
         if (Aeachlist.isEmpty()) {
             Message message = Message.builder()
                     .resCode(3001)
@@ -60,10 +61,10 @@ public class ResourceService {
 
     @Transactional
     public ResponseEntity<Message> resourceRegister(HttpServletRequest req, ResourceDto resourceDto){
-                if(resourceDto.getCategory() == 1){
+                if(resourceDto.getCateNo() == 1){
                     Resource office = resourceRepository.save(
                             Resource.builder()
-                                    .category(resourceDto.getCategory())
+                                    .cateNo(resourceDto.getCateNo())
                                     .location(resourceDto.getLocation())
                                     .availableTime(resourceDto.getAvailableTime())
                                     .resourceName(resourceDto.getResourceName())
@@ -80,10 +81,10 @@ public class ResourceService {
                             .build();
                     return new JsonResponse().send(200, message);
 
-                }else if (resourceDto.getCategory() == 2){
+                }else if (resourceDto.getCateNo() == 2){
                     Resource car = resourceRepository.save(
                             Resource.builder()
-                                    .category(resourceDto.getCategory())
+                                    .cateNo(resourceDto.getCateNo())
                                     .location(resourceDto.getLocation())
                                     .availableTime(resourceDto.getAvailableTime())
                                     .resourceName(resourceDto.getResourceName())
@@ -102,11 +103,11 @@ public class ResourceService {
                             .build();
                     return new JsonResponse().send(200, message);
 
-                } else if (resourceDto.getCategory() == 3) {
+                } else if (resourceDto.getCateNo() == 3) {
                     Resource laptop = resourceRepository.save(
                             Resource.builder()
                                     .resourceNo(resourceDto.getResourceNo())
-                                    .category(resourceDto.getCategory())
+                                    .cateNo(resourceDto.getCateNo())
                                     .location(resourceDto.getLocation())
                                     .resourceName(resourceDto.getResourceName())
                                     .availableTime(resourceDto.getAvailableTime())
@@ -138,19 +139,21 @@ public class ResourceService {
 
         // 존재한다면
         if(updateresourse != null){
-            updateresourse.update(resource.getCategory(), resource.getAble(), resource.getResourceName(),
-                    resource.getLocation(), resource.getPeople(), resource.getAvailableTime(),
-                    resource.getAdminNo(), resource.getOption(), resource.getFuel());
+            System.out.println("updateresource값 존재");
+            if(updateresourse.getCateNo() != null && updateresourse.getAdminNo() != null){
+                updateresourse.update(resource.getCateNo(), resource.getAble(), resource.getResourceName(),
+                        resource.getLocation(), resource.getPeople(), resource.getAvailableTime(),
+                        resource.getAdminNo(), resource.getOption(), resource.getFuel());
 
-            Message message = Message.builder()
-                    .resCode(3000)
-                    .message("성공: 자원 수정 성공")
-                    .data(updateresourse)
-                    .build();
-            return new JsonResponse().send(200, message);
+                        Message message = Message.builder()
+                                .resCode(3000)
+                                .message("성공: 자원 수정 성공")
+                                .data(updateresourse)
+                                .build();
+                        return new JsonResponse().send(200, message);
+            }
         }
-
-
+        System.out.println("updateresource값 존재안함");
         Message message = Message.builder()
                 .resCode(3001)
                 .message("실패: 자원 수정 실패")
@@ -169,17 +172,11 @@ public class ResourceService {
                     .message("성공: 해당 자원 삭제")
                     .build();
             return new JsonResponse().send(200, message);
-
         }
-
         Message message = Message.builder()
                 .resCode(3001)
                 .message("실패: 해당 자원 없음")
                 .build();
         return new JsonResponse().send(400, message);
-
-
-
-
     }
 }

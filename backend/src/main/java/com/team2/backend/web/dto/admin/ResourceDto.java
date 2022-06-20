@@ -1,6 +1,8 @@
 package com.team2.backend.web.dto.admin;
 
 import com.sun.istack.NotNull;
+import com.team2.backend.domain.resource.Category;
+import com.team2.backend.domain.user.Employee;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,7 @@ public class ResourceDto {
     @NotNull
     private Long resourceNo;
     @NotNull
-    private Long category;
+    private Long cateNo;
     private Character able;
     private String resourceName;
     private String location;
@@ -26,31 +28,31 @@ public class ResourceDto {
 
 
     @Builder // 회의실 등록
-    public void ResourceDto(Long category, String resourceName, String location,
-                          String availableTime, Integer people, Long adminNo, String option,
-                          Character able){
-        this.category = category;
+    public void ResourceDto(Category category, String resourceName, String location,
+                            String availableTime, Integer people, Employee adminNo, String option,
+                            Character able){
+        this.cateNo = category.getCateNo();
         this.resourceName = resourceName;
         this.location = location;
         this.availableTime = availableTime;
         this.able = able;
         this.people = people;
-        this.adminNo = adminNo;
+        this.adminNo = adminNo.getNo();
         this.option = option;
     }
 
 
     @Builder // 차량등록
-    public ResourceDto(Long category, String resourceName, String location,
-                       String availableTime, Integer people, Long adminNo, String option,
+    public ResourceDto(Category category, String resourceName, String location,
+                       String availableTime, Integer people, Employee adminNo, String option,
                        Character able, String fuel){
-        this.category = category;
+        this.cateNo = category.getCateNo();
         this.resourceName = resourceName;
         this.location = location;
         this.availableTime = availableTime;
         this.able = able;
         this.people = people;
-        this.adminNo = adminNo;
+        this.adminNo = adminNo.getNo();
         this.option = option;
         this.fuel = fuel;
 
