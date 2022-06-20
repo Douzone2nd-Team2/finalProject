@@ -14,12 +14,8 @@ import {
 const Header = () => {
   return (
     <div>
-      <Link to="/">
-        <img
-          src={process.env.PUBLIC_URL + '/logo.png'}
-          alt="Logo"
-          className="logo"
-        />
+      <Link to="/main">
+        <img src={process.env.PUBLIC_URL + '/logo.png'} alt="Logo" />
       </Link>
       <HeaderContainer>
         <Li>
@@ -57,7 +53,9 @@ const Header = () => {
                 <hr />
                 <Li>즐겨찾기</Li>
                 <hr />
-                <Li>비밀번호 변경</Li>
+                <Link to="/reset">
+                  <Li>비밀번호 변경</Li>
+                </Link>
                 <hr />
                 <Li>예약현황</Li>
               </Ul2>
