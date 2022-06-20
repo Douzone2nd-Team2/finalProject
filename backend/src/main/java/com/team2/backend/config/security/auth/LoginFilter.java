@@ -14,9 +14,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -68,8 +70,19 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         Long userNo = ((EmployeeDetails) authResult.getPrincipal()).getEmployee().getNo();
 
         String accessToken = jwtTokenProvider.createAccessToken(userNo);
+        accessToken = URLEncoder.encode(accessToken, "utf-8");
 
+
+//        Cookie cookie = new Cookie("accessToken", jwtTokenProvider.getACCESS_TOKEN_PREFIX() + accessToken);
+//        System.out.println(cookie);
+//        response.addCookie(cookie);
+//        response.setHeader("test", "test111");
+
+//        response.setHeader(jwtTokenProvider.getACCESS_TOKEN_HEADER(), jwtTokenProvider.getACCESS_TOKEN_PREFIX() + accessToken);
         response.setHeader(jwtTokenProvider.getACCESS_TOKEN_HEADER(), jwtTokenProvider.getACCESS_TOKEN_PREFIX() + accessToken);
+
+
+
         Message message = Message.builder()
                 .resCode(0)
                 .message("Login Success")

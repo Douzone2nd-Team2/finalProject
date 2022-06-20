@@ -22,7 +22,7 @@ public class JwtTokenProvider {
 
     String ACCESS_TOKEN_HEADER = "Authorization";
 
-    String ACCESS_TOKEN_PREFIX = "Bearer ";
+    String ACCESS_TOKEN_PREFIX = "Bearer/";
 
     int ACCESS_TOKEN_EXPIRATION_TIME = 1000 * 60 * 60; // 60분
 
