@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
 import App from './App.js';
+import 'bootstrap/dist/css/bootstrap.css';
 
 import 'bootstrap/dist/css/bootstrap.css';
 

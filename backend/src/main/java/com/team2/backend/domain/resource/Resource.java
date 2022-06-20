@@ -51,6 +51,7 @@ public class Resource extends BaseTime {
     @ManyToOne(targetEntity = Employee.class)
     @JoinColumn(name = "adminNo", insertable = false, updatable = false)
     private Employee admin;
+
     @Column(name = "adminNo")
     private Long adminNo;
 
