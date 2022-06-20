@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -39,7 +40,8 @@ public class S3Uploader {
     public String upload(File uploadFile, String filePath){
         System.out.println("upload enter@@@@");
         System.out.println("filePath: "+filePath);
-        String fileName = filePath +"/"+ UUID.randomUUID()+uploadFile.getName(); // S3에 저장된 파일 이름
+
+        String fileName = filePath +"/"+ LocalDateTime.now()+"_"+uploadFile.getName(); // S3에 저장된 파일 이름
         String uploadImageUrl = putS3(uploadFile, fileName); //s3 upload
         System.out.println(uploadFile);
         return uploadImageUrl;
