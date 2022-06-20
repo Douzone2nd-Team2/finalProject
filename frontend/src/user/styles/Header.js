@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -77,10 +77,11 @@ const ListContainer = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   padding: 3px;
-  margin-top: 7px;
+  margin-top: 15px;
   margin-left: 60px;
   position: absolute;
   display: none;
+  z-index: 1000;
   ${DropDown}:active & {
     display: block;
   }

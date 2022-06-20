@@ -1,18 +1,21 @@
-import MainPage from './user/pages/MainPage';
-import LoginPage from './user/pages/LoginPage';
-import AdminMain from "./admin/pages/AdminMain";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom';
 
-function App() {
+import LoginPage from './user/pages/LoginPage';
+import MainPage from './user/pages/MainPage';
+import ResetPage from './user/pages/ResetPage';
+import AdminMain from './admin/pages/AdminMain';
+
+const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/main" element={<MainPage />} />
+        <Route path="/reset" element={<ResetPage />} />
         <Route path="/admin" element={<AdminMain />} />
       </Routes>
     </>
   );
-}
+};
 
 export default App;

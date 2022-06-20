@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+
 import {
   HeaderContainer,
   SearchContainer,
@@ -8,31 +10,28 @@ import {
   ListContainer,
   DropDown,
 } from '../styles/Header';
-import Button from 'react-bootstrap/Button';
 
 const Header = () => {
   return (
     <div>
-      <Link to="/">
-        <img
-          src={process.env.PUBLIC_URL + '/logo.png'}
-          alt="Logo"
-          className="logo"
-        />
+      <Link to="/main">
+        <img src={process.env.PUBLIC_URL + '/logo.png'} alt="Logo" />
       </Link>
       <HeaderContainer>
         <Li>
           <DropDown>
-            <div>예약</div>
-            <ListContainer>
-              <Ul1>
-                <Li>회의실</Li>
-                <hr />
-                <Li>차량</Li>
-                <hr />
-                <Li>비품</Li>
-              </Ul1>
-            </ListContainer>
+            <div>
+              예약
+              <ListContainer theme={{ borderColor: 'red' }}>
+                <Ul1>
+                  <Li>회의실</Li>
+                  <hr />
+                  <Li>차량</Li>
+                  <hr />
+                  <Li>비품</Li>
+                </Ul1>
+              </ListContainer>
+            </div>
           </DropDown>
         </Li>
         <div>공지사항</div>
@@ -41,6 +40,7 @@ const Header = () => {
             className="searchBox"
             type="text"
             placeholder="검색할 상품명을 입력하세요... "
+            // value, onChange
           />
           <span className="fa-solid fa-magnifying-glass" />
         </SearchContainer>
@@ -53,7 +53,9 @@ const Header = () => {
                 <hr />
                 <Li>즐겨찾기</Li>
                 <hr />
-                <Li>비밀번호 변경</Li>
+                <Link to="/reset">
+                  <Li>비밀번호 변경</Li>
+                </Link>
                 <hr />
                 <Li>예약현황</Li>
               </Ul2>
