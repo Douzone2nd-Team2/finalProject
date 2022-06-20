@@ -1,5 +1,6 @@
 package com.team2.backend.web.controller.admin;
 
+import com.team2.backend.domain.resource.Category;
 import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.service.AdminService.ResourceService;
 import com.team2.backend.web.dto.admin.ResourceDto;
@@ -22,8 +23,8 @@ public class ResourceController {
         return resourceService.getResourceList();
     }
 
-    @GetMapping("/{category}") // 각 자원별 전체 조회
-    public ResponseEntity<Message> getEachList(@PathVariable("category") long category){
+    @GetMapping("/{cateNo}") // 각 자원별 전체 조회
+    public ResponseEntity<Message> getEachList(@PathVariable("cateNo") Category category){
         return resourceService.getEachList(category);
     }
 

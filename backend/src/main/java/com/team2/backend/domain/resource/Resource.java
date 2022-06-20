@@ -27,11 +27,10 @@ public class Resource extends BaseTime {
     @Column(name = "resourceNo")
     private Long resourceNo;
 
-
     @ManyToOne(targetEntity = Category.class)
-    @JoinColumn(name = "cateNo")
+    @JoinColumn(name = "cateNo", insertable = false, updatable = false)
     private Category category;
-    @Column(name = "cateNo", insertable = false, updatable = false)
+    @Column(name = "cateNo")
     private Long cateNo;
 
     @Column(name = "able", columnDefinition = "char(1) default 'Y'")
@@ -50,9 +49,10 @@ public class Resource extends BaseTime {
     private String availableTime;
 
     @ManyToOne(targetEntity = Employee.class)
-    @JoinColumn(name = "adminNo")
-//    @Column(name="adminNo")
-    private Employee adminNo;
+    @JoinColumn(name = "adminNo", insertable = false, updatable = false)
+    private Employee admin;
+    @Column(name = "adminNo")
+    private Long adminNo;
 
     @Column(name = "option")
     private String option;
@@ -60,9 +60,9 @@ public class Resource extends BaseTime {
     @Column(name = "fuel")
     private String fuel;   //차량만 사용
 
-    public void update(long category,char able, String resourceName, String location, int people, String availableTime,
-                       long adminNo, String option, String fuel){
-        this.category = category;
+    public void update(Long category, char able, String resourceName, String location, int people, String availableTime,
+                       Long adminNo, String option, String fuel) {
+        this.cateNo = category;
         this.able = able;
         this.resourceName = resourceName;
         this.location = location;
@@ -71,7 +71,5 @@ public class Resource extends BaseTime {
         this.adminNo = adminNo;
         this.option = option;
         this.fuel = fuel;
-
-
-
+    }
 }
