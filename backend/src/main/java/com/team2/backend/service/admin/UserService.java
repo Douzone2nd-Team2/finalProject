@@ -20,9 +20,6 @@ import java.util.List;
 public class UserService {
 
     private final EmployeeQuerydslRepository employeeQuerydslRepository;
-
-
-
     @Transactional
     public ResponseEntity<Message> getUserList(HttpServletRequest req){
         List<EmployeeManagementDto> userList = employeeQuerydslRepository.getAllEmployeeList();

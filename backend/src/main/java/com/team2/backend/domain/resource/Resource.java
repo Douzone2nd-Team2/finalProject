@@ -2,7 +2,6 @@ package com.team2.backend.domain.resource;
 
 import com.team2.backend.domain.user.Employee;
 import com.team2.backend.domain.util.BaseTime;
-import com.team2.backend.web.dto.admin.ResourceDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,7 +33,7 @@ public class Resource extends BaseTime {
     private Long cateNo;
 
     @Column(name = "able", columnDefinition = "char(1) default 'Y'")
-    private char able;
+    private String able;
 
     @Column(name = "resourceName")
     private String resourceName;
@@ -43,7 +42,7 @@ public class Resource extends BaseTime {
     private String location;
 
     @Column(name = "people")
-    private int people;
+    private Integer people;
 
     @Column(name = "availableTime")
     private String availableTime;
@@ -61,16 +60,16 @@ public class Resource extends BaseTime {
     @Column(name = "fuel")
     private String fuel;   //차량만 사용
 
-    public void update(Long category, char able, String resourceName, String location, int people, String availableTime,
-                       Long adminNo, String option, String fuel) {
-        this.cateNo = category;
-        this.able = able;
-        this.resourceName = resourceName;
-        this.location = location;
-        this.people = people;
-        this.availableTime = availableTime;
-        this.adminNo = adminNo;
-        this.option = option;
-        this.fuel = fuel;
-    }
+//    public void update(Long category, String able, String resourceName, String location, int people, String availableTime,
+//                       Long adminNo, String option, String fuel) {
+//        this.cateNo = category;
+//        this.able = able;
+//        this.resourceName = resourceName;
+//        this.location = location;
+//        this.people = people;
+//        this.availableTime = availableTime;
+//        this.adminNo = adminNo;
+//        this.option = option;
+//        this.fuel = fuel;
+//    }
 }

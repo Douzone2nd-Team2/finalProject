@@ -2,10 +2,11 @@ package com.team2.backend.service.AdminService;
 
 import com.team2.backend.domain.resource.Category;
 import com.team2.backend.domain.resource.Resource;
+import com.team2.backend.domain.resource.ResourceQuerydslRepository;
 import com.team2.backend.domain.resource.ResourceRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
-import com.team2.backend.web.dto.admin.ResourceDto;
+import com.team2.backend.web.dto.admin.ResourceAdminDto;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,16 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class ResourceService {
-    @Autowired
-    private ResourceRepository resourceRepository;
+    private final ResourceRepository resourceRepository;
+
+    private final ResourceQuerydslRepository resourceQuerydslRepository;
 
     @Transactional
     public ResponseEntity<Message> getResourceList(){
-        List<Resource> AresourceList = resourceRepository.findAll();
-        if (AresourceList.isEmpty()) {
+//        List<Resource> resourceList = resourceRepository.findAllResource();
+        List<ResourceAdminDto> reosourceList = resourceQuerydslRepository.getAllResourceList();
+        System.out.println("resourceservice시작");
+        if (reosourceList.isEmpty()) {
             Message message = Message.builder()
                     .resCode(3001)
                     .message("실패: 전체조회 실패")
@@ -36,7 +40,7 @@ public class ResourceService {
         Message message = Message.builder()
                 .resCode(3000)
                 .message("성공: 전체조회 잘됨")
-                .data(AresourceList)
+                .data(reosourceList)
                 .build();
         return new JsonResponse().send(200, message);
     }
@@ -60,7 +64,7 @@ public class ResourceService {
     }
 
     @Transactional
-    public ResponseEntity<Message> resourceRegister(HttpServletRequest req, ResourceDto resourceDto){
+    public ResponseEntity<Message> resourceRegister(HttpServletRequest req, ResourceAdminDto resourceDto){
                 if(resourceDto.getCateNo() == 1){
                     Resource office = resourceRepository.save(
                             Resource.builder()
@@ -133,33 +137,33 @@ public class ResourceService {
             return new JsonResponse().send(400, message);
     }
 
-    @Transactional
-    public ResponseEntity<Message> resourceUpdate(HttpServletRequest req, Long resourceNo, Resource resource){
-        Resource updateresourse = resourceRepository.findByResourceNo(resourceNo);
-
-        // 존재한다면
-        if(updateresourse != null){
-            System.out.println("updateresource값 존재");
-            if(updateresourse.getCateNo() != null && updateresourse.getAdminNo() != null){
-                updateresourse.update(resource.getCateNo(), resource.getAble(), resource.getResourceName(),
-                        resource.getLocation(), resource.getPeople(), resource.getAvailableTime(),
-                        resource.getAdminNo(), resource.getOption(), resource.getFuel());
-
-                        Message message = Message.builder()
-                                .resCode(3000)
-                                .message("성공: 자원 수정 성공")
-                                .data(updateresourse)
-                                .build();
-                        return new JsonResponse().send(200, message);
-            }
-        }
-        System.out.println("updateresource값 존재안함");
-        Message message = Message.builder()
-                .resCode(3001)
-                .message("실패: 자원 수정 실패")
-                .build();
-        return new JsonResponse().send(400, message);
-    }
+//    @Transactional
+//    public ResponseEntity<Message> resourceUpdate(HttpServletRequest req, Long resourceNo, Resource resource){
+//        Resource updateresourse = resourceRepository.findByResourceNo(resourceNo);
+//
+//        // 존재한다면
+//        if(updateresourse != null){
+//            System.out.println("updateresource값 존재");
+//            if(updateresourse.getCateNo() != null && updateresourse.getAdminNo() != null){
+//                updateresourse.update(resource.getCateNo(), resource.getAble(), resource.getResourceName(),
+//                        resource.getLocation(), resource.getPeople(), resource.getAvailableTime(),
+//                        resource.getAdminNo(), resource.getOption(), resource.getFuel());
+//
+//                        Message message = Message.builder()
+//                                .resCode(3000)
+//                                .message("성공: 자원 수정 성공")
+//                                .data(updateresourse)
+//                                .build();
+//                        return new JsonResponse().send(200, message);
+//            }
+//        }
+//        System.out.println("updateresource값 존재안함");
+//        Message message = Message.builder()
+//                .resCode(3001)
+//                .message("실패: 자원 수정 실패")
+//                .build();
+//        return new JsonResponse().send(400, message);
+//    }
 
     @Transactional
     public ResponseEntity<Message> delresourceList(Long resourceNo){

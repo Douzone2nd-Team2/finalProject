@@ -9,6 +9,7 @@ import com.team2.backend.web.dto.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +43,30 @@ public class AccountsService {
                 .data(employee)
                 .build();
         return new JsonResponse().send(HttpStatus.OK, message);
+    }
+
+    @Transactional
+    public ResponseEntity<Message> changePassword(AccountsRequestDto accountsRequestDto){
+        System.out.println("changePassword 실행");
+
+        Employee findEmployee = employeeRepository.findByUserId(accountsRequestDto.getUserId());
+        if(!bCryptPasswordEncoder.matches(accountsRequestDto.getPassword(), findEmployee.getPassword())){
+            System.out.println("현재 비밀번호 불일치");
+            Message message = Message.builder()
+                    .resCode(3001)
+                    .message("실패: passwordChange 실패")
+                    .build();
+            return new JsonResponse().send(200, message);
+
+        }
+        System.out.println("비밀번호 변경");
+
+
+        Message message = Message.builder()
+                .resCode(3000)
+                .message("성공: passwordChange 성공")
+                .build();
+        return new JsonResponse().send(200, message);
     }
 
     public ResponseEntity<Message> main() {
