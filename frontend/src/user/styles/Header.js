@@ -4,25 +4,21 @@ const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 10px 40px;
-  margin-left: -10px;
-  margin-right: -15px;
+  padding: 10px 30px;
   background-color: #1296ec;
   line-height: 40px;
-  font-size: 1rem;
   font-weight: bold;
 `;
 
 const SearchContainer = styled.div`
-  margin-left: 50px;
+  margin-left: 30px;
   position: relative;
   input {
     font-size: 12px;
-    padding: 0;
     height: 50px;
-    width: 330px;
+    width: 350px;
     border-radius: 50px;
-    line-height: 30px;
+    line-height: 40px;
   }
   .fa-magnifying-glass {
     position: absolute;
@@ -33,35 +29,34 @@ const SearchContainer = styled.div`
   }
 `;
 
-const Li = styled.li`
-  list-style: none;
-`;
-
 const Ul1 = styled.ul`
+  text-align: center;
   width: 80px;
   list-style: none;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-  color: #666666;
   line-height: 15px;
   margin-right: 30px;
   margin-top: 15px;
 `;
 
 const Ul2 = styled.ul`
+  text-align: center;
   width: 80px;
   list-style: none;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 10px;
-  color: #666666;
+  font-size: 12px;
   line-height: 15px;
   margin-right: 30px;
   margin-top: 15px;
 `;
 
-const DropDown = styled.button`
+const Margin1 = styled.div`
+  margin-left: 100px;
+`;
+
+const Margin2 = styled.div`
+  margin-left: 80px;
+`;
+
+const DropDown = styled.div`
   background-color: #1296ec;
   font-size: 1rem;
   font-weight: bold;
@@ -80,22 +75,16 @@ const ListContainer = styled.div`
   margin-top: 15px;
   margin-left: 60px;
   position: absolute;
-  display: none;
   z-index: 1000;
-  ${DropDown}:active & {
-    display: block;
-  }
-  ${DropDown}:focus & {
-    display: block;
-  }
 `;
 
 export {
   HeaderContainer,
   SearchContainer,
-  Li,
   Ul1,
   Ul2,
   DropDown,
   ListContainer,
+  Margin1,
+  Margin2,
 };

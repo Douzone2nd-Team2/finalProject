@@ -1,7 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
 
+import Layout from './user/components/Layout';
+
 import LoginPage from './user/pages/LoginPage';
-import MainPage from './user/pages/MainPage';
+import MainPage from './user/pages/main';
 import ResetPage from './user/pages/ResetPage';
 import AdminMain from './admin/pages/AdminMain';
 
@@ -10,9 +12,11 @@ const App = () => {
     <>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/main" element={<MainPage />} />
-        <Route path="/reset" element={<ResetPage />} />
-        <Route path="/admin" element={<AdminMain />} />
+        <Route element={<Layout />}>
+          <Route path="main" element={<MainPage />} />
+          <Route path="reset" element={<ResetPage />} />
+        </Route>
+        <Route path="admin" element={<AdminMain />} />
       </Routes>
     </>
   );
