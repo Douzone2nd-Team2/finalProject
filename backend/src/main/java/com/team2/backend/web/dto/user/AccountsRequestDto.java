@@ -1,12 +1,10 @@
+
 package com.team2.backend.web.dto.user;
 
 import com.team2.backend.domain.user.Employee;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Column;
 
 @Getter
 @NoArgsConstructor

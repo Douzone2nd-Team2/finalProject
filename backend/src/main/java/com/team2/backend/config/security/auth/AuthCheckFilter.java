@@ -35,12 +35,12 @@ public class AuthCheckFilter extends BasicAuthenticationFilter {
 
         String header = jwtTokenProvider.getAccessTokenFromHeader(request);
 
-        if (header == null || !header.startsWith("Bearer ")) {
+        if (header == null || !header.startsWith("Bearer/")) {
             chain.doFilter(request, response);
             return;
         }
 
-        String accessToken = header.split(" ")[1];
+        String accessToken = header.split("/")[1];
 
         if (jwtTokenProvider.isValidAccessToken(accessToken)) {
             Long userNo = jwtTokenProvider.verifyAccessToken(accessToken).getClaim("userNo").asLong();

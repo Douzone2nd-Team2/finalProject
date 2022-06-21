@@ -1,4 +1,6 @@
+
 package com.team2.backend.web.controller.user;
+
 
 import com.team2.backend.service.user.AccountsService;
 import com.team2.backend.web.dto.user.AccountsRequestDto;
@@ -26,7 +28,6 @@ public class AccountsController {
     }
 
     @PostMapping("/admin")
-
     public ResponseEntity<Message> admin() {
         return accountsService.admin();
     }

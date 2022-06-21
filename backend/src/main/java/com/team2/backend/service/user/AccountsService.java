@@ -1,3 +1,4 @@
+
 package com.team2.backend.service.user;
 
 import com.team2.backend.domain.user.Employee;
@@ -52,6 +53,7 @@ public class AccountsService {
     }
 
     public ResponseEntity<Message> admin() {
+
         Message message = Message.builder()
                 .resCode(1)
                 .message("[SUCCESS] Admin Main page")
