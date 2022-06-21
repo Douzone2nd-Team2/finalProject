@@ -2,9 +2,9 @@ import {
   Container,
   ImageContainer,
   TitleContainer,
-} from '../styles/CategoryPage';
+} from '../../styles/CategoryPage';
 
-const CategoryPage = () => {
+const Category = () => {
   return (
     <>
       <TitleContainer>각 카테고리별 추천 비품</TitleContainer>
@@ -29,4 +29,4 @@ const CategoryPage = () => {
   );
 };
 
-export default CategoryPage;
+export default Category;

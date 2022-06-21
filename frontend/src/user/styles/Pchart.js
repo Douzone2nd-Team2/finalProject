@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 100%;
   background-color: aliceblue;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 35px;
+  border-radius: 15px;
+  margin-top: 30px;
 `;
 
 const PieContainer = styled.div`

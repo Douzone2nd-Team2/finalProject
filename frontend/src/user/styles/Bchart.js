@@ -6,7 +6,8 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 35px;
+  border-radius: 15px;
+  margin-top: 30px;
 `;
 
 const BarContainer = styled.div`
