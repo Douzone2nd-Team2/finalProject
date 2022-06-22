@@ -1,5 +1,6 @@
 package com.team2.backend.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.team2.backend.domain.util.BaseTime;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -7,6 +8,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -59,7 +61,16 @@ public class Employee extends BaseTime {
     @Column(name="gradeNo")
     private Long gradeNo;
 
+    @Column(name="imageUrl")
+    private String imageUrl;
+
     public void encodePassword(String password) {
         this.password = password;
+    }
+
+    public void changeEmployee(Long no, String able, LocalDateTime createAt){
+        this.no = no;
+        this.able = able;
+        changeTime(createAt);
     }
 }
