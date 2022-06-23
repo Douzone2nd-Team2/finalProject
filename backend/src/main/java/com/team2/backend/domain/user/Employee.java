@@ -49,13 +49,13 @@ public class Employee extends BaseTime {
     @Column(name="phone")
     private String phone;
 
-    @ManyToOne(targetEntity=Department.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity=Department.class)
     @JoinColumn(name="deptNo", insertable = false, updatable = false)
     private Department dept;
     @Column(name="deptNo")
     private Long deptNo;
 
-    @ManyToOne(targetEntity=Grade.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity=Grade.class)
     @JoinColumn(name="gradeNo", insertable = false, updatable = false)
     private Grade grade;
     @Column(name="gradeNo")
@@ -73,4 +73,5 @@ public class Employee extends BaseTime {
         this.able = able;
         changeTime(createAt);
     }
+
 }

@@ -25,6 +25,7 @@ import static com.team2.backend.domain.user.EmployeeRepository.*;
 public class UserService {
 
     private final EmployeeQuerydslRepository employeeQuerydslRepository;
+
     private final EmployeeRepository employeeRepository;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
