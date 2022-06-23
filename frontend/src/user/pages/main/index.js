@@ -2,24 +2,24 @@ import { useRecoilValue } from 'recoil';
 
 import { tokenState } from '../../recoil/Token';
 
-import Container from '../../styles/MainPage';
-import ChartPage from './Chart';
-import CategoryPage from './Category';
-import BookPage from './Book';
+import Container from '../../styles/Main';
+import Chart from './Chart';
+import Category from './Category';
+import Book from './Book';
 
-const MainPage = () => {
+const Main = () => {
   const token = useRecoilValue(tokenState);
   console.log(token);
 
   return (
-    <div>
+    <div style={{ backgroundColor: '#fafafa' }}>
       <Container>
-        <ChartPage />
-        <CategoryPage />
-        <BookPage />
+        <Chart />
+        <Category />
+        <Book />
       </Container>
     </div>
   );
 };
 
-export default MainPage;
+export default Main;
