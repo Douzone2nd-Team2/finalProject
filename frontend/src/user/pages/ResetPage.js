@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../outlets/Header';
+import Footer from '../outlets/Footer';
 
 import {
   Container,
@@ -20,9 +20,8 @@ const ResetPage = () => {
 
   return (
     <>
-      <Header />
       <Container>
-        <TitleContainer>비밀번호 변경 </TitleContainer>
+        <TitleContainer>비밀번호 변경</TitleContainer>
         <hr />
         <ImgContainer>
           <img src={process.env.PUBLIC_URL + '/key.png'} alt="key" />
@@ -62,7 +61,6 @@ const ResetPage = () => {
           </ButtonContainer>
         </form>
       </Container>
-      <Footer />
     </>
   );
 };

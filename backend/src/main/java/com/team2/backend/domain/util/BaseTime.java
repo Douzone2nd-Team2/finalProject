@@ -28,4 +28,8 @@ public class BaseTime {
     @Column(name="modifyAt")
     private LocalDateTime modifyAt;
 
+    public void changeTime(LocalDateTime createAt){
+        this.createAt = createAt;
+    }
+
 }

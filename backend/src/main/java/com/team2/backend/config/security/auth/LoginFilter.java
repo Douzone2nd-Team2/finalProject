@@ -71,17 +71,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         String accessToken = jwtTokenProvider.createAccessToken(userNo);
         accessToken = URLEncoder.encode(accessToken, "utf-8");
-
-
-//        Cookie cookie = new Cookie("accessToken", jwtTokenProvider.getACCESS_TOKEN_PREFIX() + accessToken);
-//        System.out.println(cookie);
-//        response.addCookie(cookie);
-//        response.setHeader("test", "test111");
-
-//        response.setHeader(jwtTokenProvider.getACCESS_TOKEN_HEADER(), jwtTokenProvider.getACCESS_TOKEN_PREFIX() + accessToken);
         response.setHeader(jwtTokenProvider.getACCESS_TOKEN_HEADER(), jwtTokenProvider.getACCESS_TOKEN_PREFIX() + accessToken);
-
-
 
         Message message = Message.builder()
                 .resCode(0)
