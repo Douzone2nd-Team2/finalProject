@@ -6,6 +6,8 @@ import {
   ContentContainer,
 } from '../styles/MyInfo';
 
+import profile from '../assets/profile.jpeg';
+
 const MyInfo = () => {
   return (
     <>
@@ -14,7 +16,7 @@ const MyInfo = () => {
         <hr />
         <InfoContainer>
           <ImgContainer>
-            <img src={process.env.PUBLIC_URL + '/login.png'} alt="Logo" />
+            <img src={profile} alt="Profile" />
           </ImgContainer>
           <form>
             <ContentContainer>

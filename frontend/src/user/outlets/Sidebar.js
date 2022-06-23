@@ -6,12 +6,14 @@ import {
   NameContainer,
 } from '../styles/Sidebar';
 
+import profile from '../assets/profile.jpeg';
+
 const Sidebar = () => {
   return (
     <SidebarContainer>
       <ContentContainer>
         <ImageContainer>
-          <img src={process.env.PUBLIC_URL + '/Profile.jpeg'} alt="Profile" />
+          <img src={profile} alt="profile" />
         </ImageContainer>
         <InfoContainer>
           <NameContainer>조유리</NameContainer>

@@ -1,5 +1,5 @@
 import Header from '../styles/Header';
-import Sidebar from '../styles/Footer';
+import Sidebar from '../styles/Sidebar';
 import Reservation from '../components/reservation/Reservation';
 
 const AdminMain = () => {

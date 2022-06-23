@@ -72,11 +72,6 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const FalseContainer = styled.div`
-  color: red;
-  font-size: 13px;
-`;
-
 export {
   Container,
   LoginContainer,
@@ -86,5 +81,4 @@ export {
   InputContainer,
   ButtonContainer,
   ContentContainer,
-  FalseContainer,
 };
