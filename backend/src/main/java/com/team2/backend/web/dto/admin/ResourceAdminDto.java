@@ -1,92 +1,49 @@
 package com.team2.backend.web.dto.admin;
 
-import com.querydsl.core.annotations.QueryProjection;
-import com.team2.backend.domain.resource.Category;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.user.Employee;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.util.Date;
-
+import java.time.LocalDateTime;
 
 @Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
-public class  ResourceAdminDto {
+@Builder
+
+public class ResourceAdminDto implements IResourceAdminDto{
     private Long resourceNo;
     private Long cateNo;
     private String able;
     private String resourceName;
-    private String location;
-    private Integer  people;
+    private Integer people;
     private String availableTime;
     private Long adminNo;
     private String option;
+    private LocalDateTime createAt;
+    private LocalDateTime modifyAt;
 
-    private Date createAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String location;
 
-    private Date modifyAt;
-
-    private Employee employee;
-
-    private Category category;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String fuel;
 
-    @QueryProjection
-    @Builder
-    public ResourceAdminDto(Category category, Employee employee){
-        this.category = category;
-        this.employee = employee;
+    public Resource toEntity(){
+        return Resource.builder()
+                .resourceNo(resourceNo)
+                .resourceName(resourceName)
+                .location(location)
+                .cateNo(cateNo)
+                .availableTime(availableTime)
+                .fuel(fuel)
+                .option(option)
+                .adminNo(adminNo)
+                .people(people)
+                .able(able)
+                .build();
     }
-
-
-    @QueryProjection
-    @Builder // 회의실 조회
-    public ResourceAdminDto(Long resourceNo, Long cateNo, String able, String resourceName, String location, Integer people
-                            , String availableTime, Long adminNo, String option, Date createAt, Date modifyAt){
-        this.resourceNo = resourceNo;
-        this.cateNo = cateNo;
-        this.able = able;
-        this.resourceName = resourceName;
-        this.location = location;
-        this.people = people;
-        this.availableTime = availableTime;
-        this.adminNo = adminNo;
-        this.option = option;
-        this.createAt = createAt;
-        this.modifyAt = modifyAt;
-    }
-//    @QueryProjection
-//    @Builder // 차량 조회
-//    public ResourceAdminDto(Long resourceNo, Long cateNo, String able, String resourceName, Integer people
-//            , String availableTime, Long adminNo, String option, String fuel,String createAt, String modifyAt){
-//        this.resourceNo = resourceNo;
-//        this.cateNo = cateNo;
-//        this.able = able;
-//        this.resourceName = resourceName;
-//        this.people = people;
-//        this.availableTime = availableTime;
-//        this.adminNo = adminNo;
-//        this.option = option;
-//        this.fuel = fuel;
-//        this.createAt = createAt;
-//        this.modifyAt = modifyAt;
-//    }
-//
-//    @QueryProjection
-//    @Builder // 노트북 조회
-//    public ResourceAdminDto(Long resourceNo, Long cateNo, String able, String resourceName, Integer people
-//            , String availableTime, Long adminNo, String option, String createAt, String modifyAt){
-//        this.resourceNo = resourceNo;
-//        this.cateNo = cateNo;
-//        this.able = able;
-//        this.resourceName = resourceName;
-//        this.people = people;
-//        this.availableTime = availableTime;
-//        this.adminNo = adminNo;
-//        this.option = option;
-//        this.createAt = createAt;
-//        this.modifyAt = modifyAt;
-//    }
-
 }
+

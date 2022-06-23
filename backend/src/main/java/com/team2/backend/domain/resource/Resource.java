@@ -1,5 +1,6 @@
 package com.team2.backend.domain.resource;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.team2.backend.domain.user.Employee;
 import com.team2.backend.domain.util.BaseTime;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ import javax.persistence.*;
 @DynamicInsert
 @DynamicUpdate
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Resource extends BaseTime {
 
     @Id
@@ -60,16 +62,16 @@ public class Resource extends BaseTime {
     @Column(name = "fuel")
     private String fuel;   //차량만 사용
 
-//    public void update(Long category, String able, String resourceName, String location, int people, String availableTime,
-//                       Long adminNo, String option, String fuel) {
-//        this.cateNo = category;
-//        this.able = able;
-//        this.resourceName = resourceName;
-//        this.location = location;
-//        this.people = people;
-//        this.availableTime = availableTime;
-//        this.adminNo = adminNo;
-//        this.option = option;
-//        this.fuel = fuel;
-//    }
+
+    public void update(Long category, String able, String resourceName, int people, String availableTime,
+                       Long adminNo, String option, String fuel) {
+        this.cateNo = category;
+        this.able = able;
+        this.resourceName = resourceName;
+        this.people = people;
+        this.availableTime = availableTime;
+        this.adminNo = adminNo;
+        this.option = option;
+        this.fuel = fuel;
+    }
 }

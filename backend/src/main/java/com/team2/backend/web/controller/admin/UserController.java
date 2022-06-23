@@ -16,8 +16,6 @@ public class UserController {
 
     private final UserService userService;
 
-
-
     @GetMapping("/admin/userlist")
     public ResponseEntity<Message> userList(HttpServletRequest request){
         System.out.println("/admin/userList 접근");
