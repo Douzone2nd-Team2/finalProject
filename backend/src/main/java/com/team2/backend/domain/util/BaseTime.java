@@ -31,5 +31,4 @@ public class BaseTime {
     public void changeTime(LocalDateTime createAt){
         this.createAt = createAt;
     }
-
 }
