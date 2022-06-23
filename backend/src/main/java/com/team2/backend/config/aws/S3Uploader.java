@@ -1,9 +1,9 @@
 package com.team2.backend.config.aws;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -28,33 +28,58 @@ public class S3Uploader {
 
     public String uploadFiles(MultipartFile multipartFile, String dirName) throws IOException{
 
-        String fileName = multipartFile.getName();
-
-        File file = new File(multipartFile.getOriginalFilename());
-        multipartFile.transferTo(file);
-
-        return upload(file, dirName);
+        return upload(multipartFile, dirName);
     }
 
 
-    public String upload(File uploadFile, String filePath){
-        System.out.println("upload enter@@@@");
-        System.out.println("filePath: "+filePath);
+    public String upload( MultipartFile multipartFile, String dirName){
 
-        String fileName = filePath +"/"+ LocalDateTime.now()+"_"+uploadFile.getName(); // S3에 저장된 파일 이름
-        String uploadImageUrl = putS3(uploadFile, fileName); //s3 upload
-        System.out.println(uploadFile);
+        String fileUrl = dirName +"/"+ LocalDateTime.now()+"_"+multipartFile.getOriginalFilename(); // S3에 저장된 파일 이름
+        String uploadImageUrl = putS3(multipartFile, fileUrl); //s3 upload
         return uploadImageUrl;
     }
 
     //s3 upload
-    public String putS3(File uploadFile, String fileName){
+    public String putS3(MultipartFile multipartFile, String fileName){
         System.out.println("putS3 enter@@@@@");
-        System.out.println(uploadFile+"//"+fileName+"//"+bucket);
-        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile));
+        System.out.println(multipartFile+"//"+fileName+"//"+bucket);
+        try {
+            String contentType = multipartFile.getContentType();
+            long contentLength = multipartFile.getSize();
 
-        System.out.println(amazonS3Client.getUrl(bucket, fileName).toString());
+            InputStream is = multipartFile.getInputStream();
+
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentType(contentType);
+            objectMetadata.setContentLength(contentLength);
+
+            amazonS3Client.putObject(new PutObjectRequest(this.bucket, fileName, is, objectMetadata));
+
+        }catch (AmazonS3Exception e){
+            e.getMessage();
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         return amazonS3Client.getUrl(bucket, fileName).toString();
+    }
+
+    public void delete(String fileName) {
+        try {
+
+            System.out.println("fileName : "+fileName);
+            //Delete 객체 생성
+            DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(bucket, fileName);
+            //Delete
+            amazonS3Client.deleteObject(deleteObjectRequest);
+            System.out.println(String.format("[%s] deletion complete", fileName));
+
+        } catch (AmazonServiceException e) {
+            e.printStackTrace();
+        } catch (SdkClientException e) {
+            e.printStackTrace();
+        }
     }
 
 }
