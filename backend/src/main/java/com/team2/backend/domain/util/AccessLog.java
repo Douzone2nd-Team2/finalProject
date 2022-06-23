@@ -33,7 +33,7 @@ public class AccessLog {
     @Column(name="ip")
     private String ip;
 
-    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Employee.class)
     @JoinColumn(name="userNo", insertable = false, updatable = false)
     private Employee user;
     @Column(name="userNo")

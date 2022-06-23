@@ -7,7 +7,7 @@ const FooterContainer = styled.footer`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-top: 50px;
+  margin-top: 5%;
 `;
 
 const RightContainer = styled.div`

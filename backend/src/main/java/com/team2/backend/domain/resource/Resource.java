@@ -1,6 +1,5 @@
 package com.team2.backend.domain.resource;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team2.backend.domain.user.Employee;
 import com.team2.backend.domain.util.BaseTime;
 import com.team2.backend.web.dto.admin.ResourceDto;
@@ -21,6 +20,7 @@ import javax.persistence.*;
 @DynamicInsert
 @DynamicUpdate
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Resource extends BaseTime {
 
     @Id
@@ -44,7 +44,7 @@ public class Resource extends BaseTime {
     private String location;
 
     @Column(name = "people")
-    private Integer people;
+    private int people;
 
     @Column(name = "availableTime")
     private String availableTime;
