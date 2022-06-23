@@ -6,7 +6,8 @@ const SampleNextArrow = (props) => {
       style={{
         ...style,
         display: 'block',
-        background: 'black',
+        background: 'none',
+        opacity: 1,
       }}
       onClick={onClick}
     />

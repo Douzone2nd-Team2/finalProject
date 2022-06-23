@@ -3,7 +3,7 @@ import {
   Container,
   LoginContainer,
   LoginTitle,
-  ImageContainer,
+  ImageContainer1,
   ButtonContainer,
   InputContainer,
 } from '../../user/styles/Login';
@@ -19,13 +19,13 @@ const AdminLoginPage = () => {
   return (
     <Container>
       <LoginContainer>
-        <ImageContainer>
+        <ImageContainer1>
           <img
             src={process.env.PUBLIC_URL + '/login.png'}
             alt="Logo"
             className="logo"
           />
-        </ImageContainer>
+        </ImageContainer1>
         <div>
           <LoginTitle>자원 관리 시스템</LoginTitle>
           <form>

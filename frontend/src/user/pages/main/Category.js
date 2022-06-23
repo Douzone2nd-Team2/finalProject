@@ -2,7 +2,7 @@ import {
   Container,
   ImageContainer,
   TitleContainer,
-} from '../../styles/CategoryPage';
+} from '../../styles/Category';
 
 const Category = () => {
   return (

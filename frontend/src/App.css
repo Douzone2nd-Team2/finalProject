@@ -1,0 +1,25 @@
+/*아래 폰트*/
+@font-face {
+  font-family: 'NanumGothic';
+  font-weight: 50;
+  src: url('./user/styles/fonts/NanumGothic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'NanumGothicBold';
+  src: url('./user/styles/fonts/NanumGothicBold.ttf');
+}
+
+@font-face {
+  font-family: 'NanumGothicExtraBold';
+  src: url('./user/styles/fonts/NanumGothicExtraBold.ttf');
+}
+
+@font-face {
+  font-family: 'NanumGothicLight';
+  src: url('./user/styles/fonts/NanumGothicLight.ttf');
+}
+
+body {
+  background-color: #fafafa;
+}

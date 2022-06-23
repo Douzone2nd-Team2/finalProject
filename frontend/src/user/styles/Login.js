@@ -6,12 +6,13 @@ const Container = styled.div`
   background-color: aliceblue;
   display: flex;
   align-items: center;
+  font-family: 'NanumGothic';
 `;
 
 const LoginContainer = styled.div`
   display: flex;
-  width: 55%;
-  height: 60%;
+  width: 60%;
+  height: 70%;
   margin: auto;
   font-size: 12px;
   overflow: hidden;
@@ -27,10 +28,10 @@ const LoginTitle = styled.div`
   color: blue;
   font-weight: 900;
   font-size: 30px;
-  padding-bottom: 30px;
+  padding-bottom: 15px;
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer1 = styled.div`
   img {
     width: 180%;
     margin-left: -70px;
@@ -39,8 +40,18 @@ const ImageContainer = styled.div`
   margin-left: -67px;
 `;
 
+const ImageContainer2 = styled.div`
+  img {
+    margin: auto;
+    display: block;
+  }
+`;
+
 const ContentContainer = styled.div`
   margin: auto;
+  label {
+    font-size: 17px;
+  }
 `;
 
 const InputContainer = styled.div`
@@ -48,12 +59,17 @@ const InputContainer = styled.div`
     border-top: 0px;
     border-left: 0px;
     border-right: 0px;
+    width: 220px;
+    height: 30px;
     background-color: aliceblue;
   }
 `;
 
 const ButtonContainer = styled.div`
   margin-top: 30px;
+  Button {
+    width: 220px;
+  }
 `;
 
 const FalseContainer = styled.div`
@@ -65,7 +81,8 @@ export {
   Container,
   LoginContainer,
   LoginTitle,
-  ImageContainer,
+  ImageContainer1,
+  ImageContainer2,
   InputContainer,
   ButtonContainer,
   ContentContainer,

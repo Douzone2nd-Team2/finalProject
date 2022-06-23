@@ -6,19 +6,22 @@ const HeaderContainer = styled.header`
   align-items: center;
   padding: 10px 30px;
   background-color: #1296ec;
-  line-height: 40px;
   font-weight: bold;
 `;
 
+const LogoContainer = styled.div`
+  font-size: 35px;
+  color: #0a58ca;
+`;
+
 const SearchContainer = styled.div`
-  margin-left: 30px;
+  margin-left: 60px;
   position: relative;
   input {
     font-size: 12px;
-    height: 50px;
+    height: 30px;
     width: 350px;
     border-radius: 50px;
-    line-height: 40px;
   }
   .fa-magnifying-glass {
     position: absolute;
@@ -80,6 +83,7 @@ const ListContainer = styled.div`
 
 export {
   HeaderContainer,
+  LogoContainer,
   SearchContainer,
   Ul1,
   Ul2,

@@ -1,5 +1,5 @@
 import BookCarousel from '../../components/BookCarousel';
-import { Container, TitleContainer } from '../../styles/BookPage';
+import { Container, TitleContainer } from '../../styles/Book';
 
 const Book = () => {
   return (
