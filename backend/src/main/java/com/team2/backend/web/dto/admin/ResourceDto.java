@@ -16,7 +16,7 @@ public class ResourceDto {
     private Long resourceNo;
     @NotNull
     private Long cateNo;
-    private Character able;
+    private String able;
     private String resourceName;
     private String location;
     private Integer  people;
@@ -30,7 +30,7 @@ public class ResourceDto {
     @Builder // 회의실 등록
     public void ResourceDto(Category category, String resourceName, String location,
                             String availableTime, Integer people, Employee adminNo, String option,
-                            Character able){
+                            String able){
         this.cateNo = category.getCateNo();
         this.resourceName = resourceName;
         this.location = location;
@@ -45,7 +45,7 @@ public class ResourceDto {
     @Builder // 차량등록
     public ResourceDto(Category category, String resourceName, String location,
                        String availableTime, Integer people, Employee adminNo, String option,
-                       Character able, String fuel){
+                       String able, String fuel){
         this.cateNo = category.getCateNo();
         this.resourceName = resourceName;
         this.location = location;

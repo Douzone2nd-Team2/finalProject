@@ -22,10 +22,10 @@ public class ReserveController {
         return reserveService.getResourceList();
     }
 
-    @PostMapping("/reserve/office")
-    public ResponseEntity<Message> reserveOffice(HttpServletRequest req, @RequestBody UserReservationDto body) {
-        return reserveService.reserveOffice(req, body);
-    }
+//    @PostMapping("/reserve/office")
+//    public ResponseEntity<Message> reserveOffice(HttpServletRequest req, @RequestBody UserReservationDto body) {
+//        return reserveService.reserveOffice(req, body);
+//    }
 //    @PostMapping("/reserve/car")
 //    @PostMapping("/reserve/laptop")
 }

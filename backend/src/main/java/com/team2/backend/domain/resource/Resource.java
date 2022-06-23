@@ -1,5 +1,6 @@
 package com.team2.backend.domain.resource;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team2.backend.domain.user.Employee;
 import com.team2.backend.domain.util.BaseTime;
 import com.team2.backend.web.dto.admin.ResourceDto;
@@ -33,8 +34,8 @@ public class Resource extends BaseTime {
     @Column(name = "cateNo")
     private Long cateNo;
 
-    @Column(name = "able", columnDefinition = "char(1) default 'Y'")
-    private char able;
+    @Column(name = "able", columnDefinition = "varchar(1) default 'Y'")
+    private String able;
 
     @Column(name = "resourceName")
     private String resourceName;
@@ -43,7 +44,7 @@ public class Resource extends BaseTime {
     private String location;
 
     @Column(name = "people")
-    private int people;
+    private Integer people;
 
     @Column(name = "availableTime")
     private String availableTime;
@@ -61,7 +62,7 @@ public class Resource extends BaseTime {
     @Column(name = "fuel")
     private String fuel;   //차량만 사용
 
-    public void update(Long category, char able, String resourceName, String location, int people, String availableTime,
+    public void update(Long category, String able, String resourceName, String location, Integer people, String availableTime,
                        Long adminNo, String option, String fuel) {
         this.cateNo = category;
         this.able = able;
