@@ -3,10 +3,11 @@ import styled from 'styled-components';
 const Container = styled.div`
   width: 50%;
   margin: auto;
-  margin-top: 30px;
+  margin-top: 68px;
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;
+  font-family: NanumGothicBold;
 `;
 
 const TitleContainer = styled.h1`
@@ -44,7 +45,7 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 30px;
-  margin-left: -60px;
+  margin-left: -15px;
   Button {
     margin-left: 15px;
   }

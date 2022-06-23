@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import axios from 'axios';
 
+import logo from '../assets/logo.png';
+import login from '../assets/login.png';
+
 import { tokenState } from '../recoil/Token';
 
 import Button from 'react-bootstrap/Button';
@@ -16,7 +19,6 @@ import {
   ButtonContainer,
   InputContainer,
   ContentContainer,
-  FalseContainer,
 } from '../styles/Login';
 
 const Login = () => {
@@ -24,7 +26,6 @@ const Login = () => {
 
   const [inputId, setInputId] = useState('');
   const [inputPwd, setInputPwd] = useState('');
-  const [isLogin, setIsLogin] = useState(false);
 
   const navigate = useNavigate();
 
@@ -59,8 +60,7 @@ const Login = () => {
         if (res.data.resCode === 0) {
           navigate('/main');
         } else {
-          setIsLogin(true);
-          console.log('로그인 실패');
+          alert(`잘못된 정보를 입력하셨습니다.`);
         }
       });
     } catch (e) {
@@ -72,16 +72,13 @@ const Login = () => {
     <Container>
       <LoginContainer>
         <ImageContainer1>
-          <img src={process.env.PUBLIC_URL + '/login.png'} alt="Logo" />
+          <img src={login} alt="Login" />
         </ImageContainer1>
         <div>
           <ImageContainer2>
-            <img src={process.env.PUBLIC_URL + '/logo.png'} alt="Logo" />
+            <img src={logo} alt="Logo" />
           </ImageContainer2>
           <LoginTitle>자원 관리 시스템</LoginTitle>
-          <FalseContainer>
-            {isLogin && <div>잘못된 정보를 입력하셨습니다.</div>}
-          </FalseContainer>
           <br />
           <form onSubmit={loginBtn}>
             <ContentContainer>

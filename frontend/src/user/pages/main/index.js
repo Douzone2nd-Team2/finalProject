@@ -2,6 +2,7 @@ import { useRecoilValue } from 'recoil';
 
 import { tokenState } from '../../recoil/Token';
 
+import Sidebar from '../../outlets/Sidebar';
 import Container from '../../styles/Main';
 import Chart from './Chart';
 import Category from './Category';
@@ -12,13 +13,16 @@ const Main = () => {
   console.log(token);
 
   return (
-    <div style={{ backgroundColor: '#fafafa' }}>
-      <Container>
-        <Chart />
-        <Category />
-        <Book />
-      </Container>
-    </div>
+    <>
+      <Sidebar />
+      <div style={{ backgroundColor: '#fafafa' }}>
+        <Container>
+          <Chart />
+          <Category />
+          <Book />
+        </Container>
+      </div>
+    </>
   );
 };
 
