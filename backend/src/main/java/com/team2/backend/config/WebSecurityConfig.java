@@ -28,17 +28,14 @@ import java.util.Arrays;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final EmployeeRepository employeeRepository;
-//    private final CORSFilter corsFilter;
     private final CORSFilter corsFilter;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin().disable()
-//                .cors().configurationSource(corsConfigurationSource())
-//                .and()
                 .csrf().disable()
-               .addFilterBefore(corsFilter, LoginFilter.class)
+                .addFilterBefore(corsFilter, LoginFilter.class)
                 .addFilter(authCheckFilter())
                 .addFilter(loginFilter())
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

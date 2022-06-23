@@ -1,5 +1,6 @@
 package com.team2.backend.service.user;
 
+import com.team2.backend.config.security.auth.EmployeeDetails;
 import com.team2.backend.domain.reservation.Reservation;
 import com.team2.backend.domain.reservation.ReservationRepository;
 import com.team2.backend.domain.resource.PeopleCnt;
@@ -11,6 +12,7 @@ import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.user.UserReservationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
