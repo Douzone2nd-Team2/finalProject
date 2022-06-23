@@ -18,9 +18,11 @@ public class UserController {
 
     private final UserService userService;
 
+
     /*
     * 관리자- 사용자 관리>사용자 조회
     */
+
     @GetMapping("/admin/userlist")
     public ResponseEntity<Message> userList(HttpServletRequest request){
         return userService.getUserList(request);

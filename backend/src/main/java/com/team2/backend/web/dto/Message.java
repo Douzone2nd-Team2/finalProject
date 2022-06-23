@@ -30,4 +30,12 @@ public class Message {
         this.data = data;
     }
 
+    public static Message of(Object object,String msg){
+        return Message.builder()
+                .resCode(3000)
+                .message(msg)
+                .data(object)
+                .build();
+    }
+
 }

@@ -37,7 +37,7 @@ public class Reservation extends BaseTime {
     @Column(name="resourceNo")
     private Long resourceNo;
 
-    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Employee.class)
     @JoinColumn(name="userNo", insertable = false, updatable = false)
     private Employee user;
     @Column(name="userNo")

@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RequiredArgsConstructor
 @RestController
 public class AccountsController {
@@ -20,6 +22,10 @@ public class AccountsController {
         return accountsService.signup(req);
     }
 
+    @PostMapping("/changePassword")
+    public ResponseEntity<Message> changePassword(HttpServletRequest req, @RequestBody AccountsRequestDto accountsRequestDto){
+        return accountsService.changePassword(accountsRequestDto);
+    }
 
     // TEST
     @PostMapping("/main")
