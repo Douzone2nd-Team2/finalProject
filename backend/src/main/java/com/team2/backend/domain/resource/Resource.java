@@ -1,5 +1,6 @@
 package com.team2.backend.domain.resource;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team2.backend.domain.user.Employee;
 import com.team2.backend.domain.util.BaseTime;
 import com.team2.backend.web.dto.admin.ResourceDto;
@@ -29,6 +30,7 @@ public class Resource extends BaseTime {
 
     @ManyToOne(targetEntity = Category.class)
     @JoinColumn(name = "cateNo", insertable = false, updatable = false)
+    @JsonIgnore
     private Category category;
     @Column(name = "cateNo")
     private Long cateNo;
@@ -43,13 +45,14 @@ public class Resource extends BaseTime {
     private String location;
 
     @Column(name = "people")
-    private int people;
+    private Integer people;
 
     @Column(name = "availableTime")
     private String availableTime;
 
     @ManyToOne(targetEntity = Employee.class)
     @JoinColumn(name = "adminNo", insertable = false, updatable = false)
+    @JsonIgnore
     private Employee admin;
 
     @Column(name = "adminNo")

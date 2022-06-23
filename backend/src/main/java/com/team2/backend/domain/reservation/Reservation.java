@@ -1,5 +1,6 @@
 package com.team2.backend.domain.reservation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.user.Employee;
 import com.team2.backend.domain.util.BaseTime;
@@ -33,12 +34,14 @@ public class Reservation extends BaseTime {
 
     @ManyToOne(targetEntity = Resource.class)
     @JoinColumn(name="resourceNo", insertable = false, updatable = false)
+    @JsonIgnore
     private Resource resource;
     @Column(name="resourceNo")
     private Long resourceNo;
 
     @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
     @JoinColumn(name="userNo", insertable = false, updatable = false)
+    @JsonIgnore
     private Employee user;
     @Column(name="userNo")
     private Long userNo;
