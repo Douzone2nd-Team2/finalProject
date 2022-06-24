@@ -45,8 +45,18 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
         }
     }
 
+    private BooleanExpression reservationType(String division, Long no) {
+        if(division.equals("user")){
+            return reservation.userNo.eq(no);
+        }else if(division.equals("resource")){
+            return reservation.resourceNo.eq(no);
+        }else{
+            return null;
+        }
+    }
+
     @Override
-    public List<ReservationManagementDto> getReservList(Long userNo, String classification) throws ParseException {
+    public List<ReservationManagementDto> getReservList(Long no, String classification, String division) throws ParseException {
 
         return (List<ReservationManagementDto>) jpaQueryFactory
                 .select(new QReservationManagementDto(
@@ -55,6 +65,7 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                         reservation.startTime,
                         reservation.endTime,
                         reservation.reservName,
+                        reservation.resourceNo,
                         resource.resourceName,
                         reservation.createAt,
                         reservation.modifyAt,
@@ -65,9 +76,10 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                 .join(reservation.user, employee)
                 .join(reservation.resource.category, category)
                 .where(
-                        reservation.userNo.eq(userNo),
+                        reservationType(division, no),
                         reservationClassification(classification)
                         )
+                .orderBy(reservation.endTime.desc(), reservation.startTime.desc())
                 .fetch();
     }
 
@@ -86,5 +98,33 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                 .set(reservation.userNo, reservationManagementDto.getUserNo())
                 .set(reservation.modifyAt, LocalDateTime.now().plusHours(9L))
                 .execute();
+    }
+
+    @Override
+    public List<ReservationManagementDto> getReservationView(Long reservNo){
+        System.out.println(reservNo);
+        return (List<ReservationManagementDto>) jpaQueryFactory
+                .select(new QReservationManagementDto(
+                        reservation.reservNo,
+                        reservation.able,
+                        category.cateName,
+                        category.cateNo,
+                        resource.resourceName,
+                        reservation.resourceNo,
+                        reservation.userNo,
+                        employee.name.as("userName"),
+                        reservation.startTime,
+                        reservation.endTime,
+                        resource.adminNo,
+                        employee.name.as("adminName"),
+                        resource.availableTime
+                ))
+                .from(reservation)
+                .join(reservation.resource, resource)
+                .join(reservation.user, employee)
+                .join(resource.admin, employee)
+                .join(reservation.resource.category, category)
+                .where(reservation.reservNo.eq(reservNo))
+                .fetch();
     }
 }
