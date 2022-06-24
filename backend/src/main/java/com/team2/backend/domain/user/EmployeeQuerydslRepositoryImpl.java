@@ -27,10 +27,6 @@ public class EmployeeQuerydslRepositoryImpl implements  EmployeeQuerydslReposito
 
     @Override
     public List<EmployeeManagementDto> getAllEmployeeList() {
-//
-//        QEmployee employee = QEmployee.employee;
-//        QDepartment department = QDepartment.department;
-//        QGrade grade = QGrade.grade;
 
        return (List<EmployeeManagementDto>) jpaQueryFactory
                .select(new QEmployeeManagementDto(
@@ -50,6 +46,7 @@ public class EmployeeQuerydslRepositoryImpl implements  EmployeeQuerydslReposito
 
     @Override
     public List<EmployeeManagementDto> getEmployeeView(String userNo){
+
         return (List<EmployeeManagementDto>) jpaQueryFactory
                 .select(new QEmployeeManagementDto(
                         employee.no,

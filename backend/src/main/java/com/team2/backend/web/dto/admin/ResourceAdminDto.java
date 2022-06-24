@@ -21,6 +21,7 @@ public class ResourceAdminDto implements IResourceAdminDto{
     private Long resourceNo;
     @NotNull
     private Long cateNo;
+    private String cateName;
     private String able;
     private String resourceName;
     private Integer people;

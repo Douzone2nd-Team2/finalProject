@@ -1,6 +1,12 @@
-import { VictoryPie } from 'victory';
+import { VictoryPie, VictoryLegend } from 'victory';
 
-import { Container, TitleContainer, PieContainer } from '../styles/Pchart';
+import {
+  Container,
+  TitleContainer,
+  PieContainer,
+  InnerContainer,
+  LegendContainer,
+} from '../styles/Pchart';
 
 const DATA = [
   { x: '회의실', y: 80 },
@@ -10,10 +16,10 @@ const DATA = [
 
 const PChart = () => {
   return (
-    <>
-      <TitleContainer>자주 사용하는 자원</TitleContainer>
-      <Container>
-        <PieContainer>
+    <Container>
+      <PieContainer>
+        <TitleContainer>자주 사용하는 자원</TitleContainer>
+        <InnerContainer>
           <VictoryPie
             data={DATA}
             width={210}
@@ -21,11 +27,36 @@ const PChart = () => {
             startAngle={130}
             endAngle={600}
             innerRadius={100}
-            colorScale={['red', 'yellow', 'green']}
+            colorScale={['#095BF4', '#9EA9B3', '#033F7B']}
+            style={{
+              data: {
+                fillOpacity: 0.8,
+                stroke: 'black',
+                strokeWidth: 0,
+              },
+              labels: {
+                fontSize: 11,
+                fill: 'black',
+              },
+            }}
           />
-        </PieContainer>
-      </Container>
-    </>
+        </InnerContainer>
+        <LegendContainer>
+          <VictoryLegend
+            x={125}
+            y={50}
+            height={250}
+            width={250}
+            orientation="vertical"
+            gutter={40}
+            rowGutter={{ top: 0, bottom: 10 }}
+            style={{ border: { stroke: 'black' } }}
+            colorScale={['#095BF4', '#9EA9B3', '#033F7B']}
+            data={[{ name: '회의실' }, { name: '차량' }, { name: '비품' }]}
+          />
+        </LegendContainer>
+      </PieContainer>
+    </Container>
   );
 };
 

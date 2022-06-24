@@ -1,28 +1,24 @@
 import styled from 'styled-components';
 
-const Container = styled.div`
-  width: 100%;
-  background-color: aliceblue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 15px;
-  margin-top: 30px;
-`;
-
 const BarContainer = styled.div`
-  width: 60%;
-  display: flex;
-  text-align: center;
-  justify-content: center;
+  background-color: #f6f6f6;
+  width: 450px;
+  height: 400px;
+  box-shadow: 1px 1px #e2e2e2;
+  //font-family: NanumGothicBold;
 `;
 
 const TitleContainer = styled.div`
-  margin-top: 30px;
-  padding-top: 30px;
+  //margin-top: 30px;
+  //padding-top: 30px;
   padding-left: 30px;
-  font-size: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: black;
+  font-size: 15px;
   font-weight: bolder;
+  background-color: #e2e2e2;
+  width: 450px;
 `;
 
-export { Container, TitleContainer, BarContainer };
+export { BarContainer, TitleContainer };

@@ -4,10 +4,16 @@ import Col from 'react-bootstrap/Col';
 import Bchart from '../../components/Bchart';
 import Pchart from '../../components/Pchart';
 
-const ChartPage = () => {
+const Chart = () => {
   return (
     <div>
-      <Row>
+      <Row
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '1250px',
+        }}
+      >
         <Col sm={6}>
           <Bchart />
         </Col>
@@ -19,4 +25,4 @@ const ChartPage = () => {
   );
 };
 
-export default ChartPage;
+export default Chart;
