@@ -11,8 +11,6 @@ import lombok.*;
 public class SocketMessage {
     private String senderName;
     private String receiverName;
-    private String message;
-    private String date;
     private Status status;
     private Object data;
 }
