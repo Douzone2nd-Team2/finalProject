@@ -31,6 +31,7 @@ public class ReservationManagementDto {
     private String reservName;
     private Long resourceNo;
     private Long userNo;
+    private String userName;
     private LocalDateTime reservCreateAt;
     private LocalDateTime reservModifyAt;
 
@@ -43,6 +44,7 @@ public class ReservationManagementDto {
     private Integer people;
     private String availableTime;
     private Long adminNo;
+    private String adminName;
     private String option;
     private String fuel;
     private LocalDateTime resourceCreateAt;
@@ -62,16 +64,37 @@ public class ReservationManagementDto {
 
     @QueryProjection
     @Builder
-    public ReservationManagementDto(Long reservNo, String able, Date startTime, Date endTime, String reservName, String resourceName, LocalDateTime reservCreateAt, LocalDateTime reservModifyAt, String category) {
+    public ReservationManagementDto(Long reservNo, String able, Date startTime, Date endTime, String reservName, Long resourceNo, String resourceName, LocalDateTime reservCreateAt, LocalDateTime reservModifyAt, String category) {
         this.reservNo = reservNo;
         this.able = able;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.resourceNo = resourceNo;
         this.reservName = reservName;
         this.resourceName = resourceName;
         this.reservCreateAt = reservCreateAt;
         this.reservModifyAt = reservModifyAt;
         this.category = category;
+    }
+
+    @QueryProjection
+    @Builder
+    public ReservationManagementDto(Long reservNo, String able, String cateName, Long cateNo, String resourceName, Long resourceNo,
+                                    Long userNo, String userName, Date startTime, Date endTime, Long adminNo,
+                                    String availableTime, String adminName){
+        this.reservNo = reservNo;
+        this.able = able;
+        this.category = cateName;
+        this.cateNo = cateNo;
+        this.resourceName = resourceName;
+        this.resourceNo = resourceNo;
+        this.userNo = userNo;
+        this.userName = userName;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.adminNo = adminNo;
+        this.adminName = adminName;
+        this.availableTime = availableTime;
     }
 
     public Reservation toEntity() throws ParseException {

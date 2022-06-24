@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface ResourceRepository extends JpaRepository<Resource, Long> {
-    @Query(value = "select r.resourceNo as resourceNo , r.cateNo as cateNo, r.able as able,\n" +
+    @Query(value = "select r.resourceNo as resourceNo , r.cateNo as cateNo, c.cateName as cateName, r.able as able,\n" +
             "            r.resourceName as resourceName, r.location as location, r.fuel as fuel, \n" +
             "            r.people as people, r.availableTime as availableTime, r.adminNo as adminNo, " +
             "            r.option as option, r.createAt as createAt, r.modifyAt as modifyAt\n" +
@@ -23,7 +23,7 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
             "            order by r.resourceNo")
     List<IResourceAdminDto> findAllResource();
 
-    @Query(value="select r.resourceNo as resourceNo , r.cateNo as cateNo, r.able as able, r.people as people," +
+    @Query(value="select r.resourceNo as resourceNo , r.cateNo as cateNo, c.cateName as cateName, r.able as able, r.people as people," +
             "r.resourceName as resourceName, r.location as location, " +
             " r.availableTime as availableTime, r.adminNo as adminNo, r.option as option, r.createAt as createAt, r.modifyAt as modifyAt" +
             " from Resource r " +

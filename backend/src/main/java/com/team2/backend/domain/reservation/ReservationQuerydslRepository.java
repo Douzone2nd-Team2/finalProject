@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.util.List;
 
 public interface ReservationQuerydslRepository {
-    List<ReservationManagementDto> getReservList(Long userNo, String classification) throws ParseException;
+    List<ReservationManagementDto> getReservList(Long userNo, String classification, String division) throws ParseException;
     void updateReservation(ReservationManagementDto reservationManagementDto);
+    List<ReservationManagementDto> getReservationView(Long reservNo);
 }

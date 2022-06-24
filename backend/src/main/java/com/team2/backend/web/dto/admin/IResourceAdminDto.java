@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public interface IResourceAdminDto { // office
     Long getResourceNo();
     Long getCateNo();
+    String getCateName();
     String getAble();
     String getResourceName();
     String getLocation();
