@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -71,6 +72,20 @@ public class ReservationService {
         Message message = Message.builder()
                 .resCode(1000)
                 .message("[Success] Update Reservation")
+                .build();
+        return new JsonResponse().send(200, message);
+    }
+
+    @Transactional
+    public ResponseEntity<Message> reservationView(HttpServletRequest req, Long reservNo){
+
+        List<ReservationManagementDto> reservationView = reservationQuerydslRepository.getReservationView(reservNo);
+
+
+        Message message = Message.builder()
+                .resCode(1000)
+                .message("[Success] Select ReservationView")
+                .data(reservationView)
                 .build();
         return new JsonResponse().send(200, message);
     }

@@ -1,12 +1,14 @@
 package com.team2.backend.service.admin;
 
 import com.team2.backend.domain.bookmark.BookmarkRepository;
+import com.team2.backend.domain.reservation.ReservationQuerydslRepository;
 import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.resource.ResourceRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.admin.BookmarkResAdminDto;
 import com.team2.backend.web.dto.admin.IResourceAdminDto;
+import com.team2.backend.web.dto.admin.ReservationManagementDto;
 import com.team2.backend.web.dto.admin.ResourceAdminDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +16,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class ResourceService {
     private final ResourceRepository resourceRepository;
-
     private final BookmarkRepository bookmarkRepository;
+    private final ReservationQuerydslRepository reservationQuerydslRepository;
 
     @Transactional
     public ResponseEntity<Message> getResourceList(){
@@ -160,7 +165,7 @@ public class ResourceService {
         if(updateResource != null ){
             System.out.println("updateResource존재");
 
-            updateResource.update(resource.getCateNo(), resource.getAble(), resource.getResourceName(), resource.getPeople(),
+            updateResource.update(resource.getCateNo(), resource.getAble(), resource.getResourceName(), resource.getLocation(), resource.getPeople(),
                     resource.getAvailableTime(), resource.getAdminNo(), resource.getOption(), resource.getFuel());
 
             Message message = Message.builder()
@@ -195,6 +200,24 @@ public class ResourceService {
         Message message = Message.builder()
                 .resCode(3001)
                 .message("실패: 해당 자원 없음")
+                .build();
+        return new JsonResponse().send(400, message);
+    }
+
+    @Transactional
+    public ResponseEntity<Message> resourceBookingList(HttpServletRequest request, Long resourceNo) throws ParseException {
+
+        List<ReservationManagementDto> presentReservList = reservationQuerydslRepository.getReservList(resourceNo, "Present", "resource");
+        List<ReservationManagementDto> pastReservList = reservationQuerydslRepository.getReservList(resourceNo, "Past", "resource");
+
+        Map<String,List<ReservationManagementDto>> list = new HashMap<>();
+        list.put("presentReservList",presentReservList);
+        list.put("pastReservList",pastReservList);
+
+        Message message = Message.builder()
+                .resCode(1000)
+                .message("[Success] : Select resourceBookingList")
+                .data(list)
                 .build();
         return new JsonResponse().send(400, message);
     }

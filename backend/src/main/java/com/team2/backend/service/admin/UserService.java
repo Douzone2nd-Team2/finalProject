@@ -90,18 +90,13 @@ public class UserService {
     @Transactional
     public ResponseEntity<Message> getUserBookingList(HttpServletRequest req, Long userNo) throws ParseException {
 
-        List<ReservationManagementDto> presentReservList = reservationQuerydslRepository.getReservList(userNo, "Present");
+        List<ReservationManagementDto> presentReservList = reservationQuerydslRepository.getReservList(userNo, "Present", "user");
 
-        List<ReservationManagementDto> pastReservList = reservationQuerydslRepository.getReservList(userNo,"Past");
+        List<ReservationManagementDto> pastReservList = reservationQuerydslRepository.getReservList(userNo,"Past", "user");
 
-        for (int i=0;i<pastReservList.size();i++) {
-            System.out.println(pastReservList.get(i));
-
-        }
         Map<String,List<ReservationManagementDto>> list = new HashMap<>();
         list.put("presentReservList",presentReservList);
         list.put("pastReservList",pastReservList);
-
 
         Message message = Message.builder()
                 .resCode(1000)
