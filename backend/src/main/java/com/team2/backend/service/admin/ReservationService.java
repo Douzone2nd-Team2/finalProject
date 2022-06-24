@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,21 +29,53 @@ public class ReservationService {
     @Transactional
     public ResponseEntity<Message> saveReservation(HttpServletRequest req, ReservationManagementDto body) throws ParseException {
 
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         Reservation reservation = body.toEntity();
 
-        Long reservNo = reservationRepository.save(reservation).getReservNo();
+       // Long reservNo = reservationRepository.save(reservation).getReservNo();
 
-        System.out.println(body.getEmpNoList());
+        String[] start = formatter.format(body.getStartTime()).split(" ");
+        String[] end = formatter.format(body.getEndTime()).split(" ");
 
-        if(body.getResourceNo().equals("2")){  //자원이 회의실일 경우
-            for (int i=0;i<body.getEmpNoList().size();i++){
-                PeopleCnt peopleCnt = PeopleCnt.builder()
-                        .reservNo(reservNo)
-                        .userNo(Long.parseLong(body.getEmpNoList().get(i)))
-                        .build();
-                peopleCntRepository.save(peopleCnt);
-            }
-        }
+        System.out.println(body.getStartTime());
+        System.out.println(formatter.format(body.getStartTime()));
+
+        System.out.println(start[1]);
+
+
+        String startDate = start[0];
+        String[] startTime = start[1].split(":");
+        int startHour = Integer.parseInt(startTime[0]);
+        int startMinute = Integer.parseInt(startTime[1]);
+
+        String endDate = end[0];
+        String[] endTime = end[1].split(":");
+        int endHour = Integer.parseInt(endTime[0]);
+        int endMinute = Integer.parseInt(endTime[1]);
+
+        int[] timeList = new int[2];
+        timeList[0] = startHour*2 + (startMinute == 30 ? 1 : 0);
+        timeList[1] = endHour*2 + (endMinute == 30 ? 1 : 0);
+
+
+
+
+
+
+
+
+
+
+//        if(body.getResourceNo().equals("2")){  //자원이 회의실일 경우
+//            for (int i=0;i<body.getEmpNoList().size();i++){
+//                PeopleCnt peopleCnt = PeopleCnt.builder()
+//                        .reservNo(reservNo)
+//                        .userNo(Long.parseLong(body.getEmpNoList().get(i)))
+//                        .build();
+//                peopleCntRepository.save(peopleCnt);
+//            }
+//        }
 
         Message message = Message.builder()
                          .resCode(1000)

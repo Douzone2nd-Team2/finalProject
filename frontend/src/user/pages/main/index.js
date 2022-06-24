@@ -14,8 +14,8 @@ const Main = () => {
 
   return (
     <>
-      <Sidebar />
       <MainContainer>
+        <Sidebar />
         <Container>
           <Chart />
           <Category />
