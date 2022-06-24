@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 
 import {
@@ -12,13 +13,36 @@ import {
   DropDown,
   Margin1,
   Margin2,
+  MenuContainer,
 } from '../styles/Header';
 
 const Header = () => {
   const [isOpenBook, setIsOpenBook] = useState(false);
   const [isOpenMypage, setIsOpenMypage] = useState(false);
+  const [searchTitle, setSearchTitle] = useState('');
+
   const bookRef = useRef(null);
   const myPageRef = useRef(null);
+  const searchIcon = useRef(null);
+
+  const [cookies, removeCookie] = useCookies(['accessToken']);
+
+  const navigate = useNavigate();
+
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      searchIcon.current.click();
+    }
+  };
+
+  const InitSearchTitle = (e) => {
+    setSearchTitle('');
+  };
+
+  const deleteCookie = (e) => {
+    removeCookie('accessToken');
+    navigate('/');
+  };
 
   useEffect(() => {
     const handleClickBookOutside = (e) => {
@@ -48,7 +72,7 @@ const Header = () => {
     <div>
       <HeaderContainer>
         <LogoContainer>
-          <Link to="/main" style={{ textDecoration: 'none', color: '#0a58ca' }}>
+          <Link to="/main" style={{ textDecoration: 'none', color: 'white' }}>
             42DA
           </Link>
         </LogoContainer>
@@ -59,7 +83,7 @@ const Header = () => {
               setIsOpenMypage(false);
             }}
           >
-            예약
+            <MenuContainer>예약</MenuContainer>
           </Margin1>
           {isOpenBook && (
             <ListContainer theme={{ borderColor: 'black' }} ref={bookRef}>
@@ -73,16 +97,32 @@ const Header = () => {
             </ListContainer>
           )}
         </DropDown>
-        <div>공지사항</div>
         <SearchContainer>
           <input
             className="searchBox"
             type="text"
             placeholder="검색할 상품명을 입력하세요... "
-            // value, onChange
+            onChange={(e) => {
+              setSearchTitle(e.target.value);
+            }}
+            value={searchTitle}
+            onKeyPress={onKeyPress}
           />
-          <span className="fa-solid fa-magnifying-glass" />
+          <Link
+            to="/search"
+            state={{
+              title: searchTitle,
+            }}
+          >
+            <span
+              className="fa-solid fa-magnifying-glass"
+              ref={searchIcon}
+              onClick={InitSearchTitle}
+            />
+          </Link>
         </SearchContainer>
+        <MenuContainer>공지사항</MenuContainer>
+
         <DropDown>
           <Margin2
             onClick={() => {
@@ -90,7 +130,7 @@ const Header = () => {
               setIsOpenBook(false);
             }}
           >
-            마이페이지
+            <MenuContainer>마이페이지</MenuContainer>
           </Margin2>
           {isOpenMypage && (
             <ListContainer ref={myPageRef}>
@@ -110,7 +150,9 @@ const Header = () => {
             </ListContainer>
           )}
         </DropDown>
-        <Button variant="secondary">로그아웃</Button>
+        <Button variant="secondary" onClick={deleteCookie}>
+          로그아웃
+        </Button>
       </HeaderContainer>
     </div>
   );

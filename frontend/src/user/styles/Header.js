@@ -14,9 +14,9 @@ const LogoContainer = styled.div`
   color: #0a58ca;
 `;
 
-const SearchContainer = styled.div`
-  margin-left: 60px;
+const SearchContainer = styled.form`
   position: relative;
+  margin-right: 100px;
   input {
     font-size: 12px;
     height: 30px;
@@ -36,7 +36,7 @@ const Ul1 = styled.ul`
   text-align: center;
   width: 80px;
   list-style: none;
-  line-height: 15px;
+  line-height: 13px;
   margin-right: 30px;
   margin-top: 15px;
 `;
@@ -49,10 +49,15 @@ const Ul2 = styled.ul`
   line-height: 15px;
   margin-right: 30px;
   margin-top: 15px;
+  li a {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
 const Margin1 = styled.div`
   margin-left: 100px;
+  cursor: pointer;
 `;
 
 const Margin2 = styled.div`
@@ -75,10 +80,15 @@ const ListContainer = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   padding: 3px;
-  margin-top: 15px;
+  margin-top: 23px;
   margin-left: 60px;
   position: absolute;
   z-index: 1000;
+`;
+
+const MenuContainer = styled.div`
+  cursor: pointer;
+  width: 80px;
 `;
 
 export {
@@ -91,4 +101,5 @@ export {
   ListContainer,
   Margin1,
   Margin2,
+  MenuContainer,
 };

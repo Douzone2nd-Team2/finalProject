@@ -51,7 +51,7 @@ const Bchart = () => {
           data={DATA}
           x="quarter"
           y="earnings"
-          barWidth={8}
+          barWidth={10}
           style={{
             data: { fill: '#328895' },
           }}
