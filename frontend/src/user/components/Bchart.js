@@ -1,6 +1,6 @@
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 
-import { Container, TitleContainer, BarContainer } from '../styles/Bchart';
+import { BarContainer, TitleContainer } from '../styles/Bchart';
 
 const DATA = [
   { quarter: 1, earnings: 13000 },
@@ -19,38 +19,45 @@ const DATA = [
 
 const Bchart = () => {
   return (
-    <>
+    <BarContainer>
       <TitleContainer>회의실 사용시간</TitleContainer>
-      <Container>
-        <BarContainer>
-          <VictoryChart
-            domainPadding={30}
-            theme={VictoryTheme.material}
-            colorScale={'warm'}
-          >
-            <VictoryAxis
-              tickValues={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
-              tickFormat={[
-                '08',
-                '10',
-                '12',
-                '14',
-                '16',
-                '18',
-                '20',
-                '22',
-                '00',
-                '02',
-                '04',
-                '06',
-              ]}
-            />
-            <VictoryAxis dependentAxis tickFormat={(x) => `${x / 200}%`} />
-            <VictoryBar data={DATA} x="quarter" y="earnings" />
-          </VictoryChart>
-        </BarContainer>
-      </Container>
-    </>
+      <VictoryChart
+        domainPadding={20}
+        theme={VictoryTheme.material}
+        colorScale={'warm'}
+        style={{
+          background: { fill: 'white' },
+        }}
+      >
+        <VictoryAxis
+          tickValues={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+          tickFormat={[
+            '08',
+            '10',
+            '12',
+            '14',
+            '16',
+            '18',
+            '20',
+            '22',
+            '00',
+            '02',
+            '04',
+            '06',
+          ]}
+        />
+        <VictoryAxis dependentAxis tickFormat={(x) => `${x / 200}%`} />
+        <VictoryBar
+          data={DATA}
+          x="quarter"
+          y="earnings"
+          barWidth={8}
+          style={{
+            data: { fill: '#328895' },
+          }}
+        />
+      </VictoryChart>
+    </BarContainer>
   );
 };
 

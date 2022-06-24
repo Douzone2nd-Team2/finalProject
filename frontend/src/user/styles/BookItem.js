@@ -2,40 +2,47 @@ import styled from 'styled-components';
 
 const BookContainer = styled.div`
   margin: 30px;
+  font-family: NanumGothic;
   .thumbnail {
     img {
-      width: 300px;
-      height: 200px;
+      width: 200px;
+      height: 150px;
       margin: auto;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
   }
   .contents {
-    background-color: white;
-    width: 300px;
-    height: 210px;
+    padding: 20px;
+    background-color: #dcdcdc;
+    opacity: 0.8;
+    width: 200px;
+    height: 200px;
     margin: auto;
-    h2 {
-      margin: 0;
+
+    .location {
+      font-size: 15px;
     }
-    .discount {
-      margin-left: 10rem;
-      border: 2px solid orange;
-      border-radius: 50px;
-      background-color: orange;
-      color: white;
-      font-size: 13px;
+
+    .title {
+      font-size: 23px;
     }
+
+    .type {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
     .price_origin {
       text-decoration: line-through;
       color: gray;
-      font-size: 20px;
+      font-size: 10px;
     }
     .p_discount {
       margin-left: 0.5rem;
       text-decoration: none;
       color: red;
-      font-size: 20px;
+      font-size: 10px;
     }
   }
   & + & {

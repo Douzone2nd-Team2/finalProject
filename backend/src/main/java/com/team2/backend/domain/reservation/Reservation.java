@@ -12,6 +12,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -39,7 +40,7 @@ public class Reservation extends BaseTime {
     @Column(name="resourceNo")
     private Long resourceNo;
 
-    @ManyToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Employee.class)
     @JoinColumn(name="userNo", insertable = false, updatable = false)
     @JsonIgnore
     private Employee user;

@@ -6,14 +6,16 @@ import SamplePrevArrow from './SamplePrevArrow';
 import SampleNextArrow from './SampleNextArrow';
 import BookItem from '../BookItem';
 
+import './test.css';
+
 const settings = {
   dots: true,
   infinite: true,
   speed: 500,
-  slidesToShow: 2,
-  slidesToScroll: 2,
-  prevArrow: <SamplePrevArrow />,
-  nextArrow: <SampleNextArrow />,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+  prevArrow: <SamplePrevArrow className="slick-prev" />,
+  nextArrow: <SampleNextArrow className="slick-next" />,
 };
 
 const BookCarousel = () => {

@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 
 import {
   HeaderContainer,
+  LogoContainer,
   SearchContainer,
   Ul1,
   Ul2,
@@ -45,10 +46,12 @@ const Header = () => {
 
   return (
     <div>
-      <Link to="/main">
-        <img src={process.env.PUBLIC_URL + '/logo.png'} alt="Logo" />
-      </Link>
       <HeaderContainer>
+        <LogoContainer>
+          <Link to="/main" style={{ textDecoration: 'none', color: '#0a58ca' }}>
+            42DA
+          </Link>
+        </LogoContainer>
         <DropDown>
           <Margin1
             onClick={() => {
@@ -92,7 +95,9 @@ const Header = () => {
           {isOpenMypage && (
             <ListContainer ref={myPageRef}>
               <Ul2>
-                <li>개인정보 조회</li>
+                <li>
+                  <Link to="/info">개인정보 조회</Link>
+                </li>
                 <hr />
                 <li>즐겨찾기</li>
                 <hr />

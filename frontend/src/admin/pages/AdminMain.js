@@ -1,6 +1,6 @@
-import Header from "../components/Share/Header";
-import Sidebar from "../components/Share/Sidebar";
-import Reservation from "../components/reservation/Reservation";
+import Header from '../styles/Header';
+import Sidebar from '../styles/Sidebar';
+import Reservation from '../components/reservation/Reservation';
 
 const AdminMain = () => {
   return (

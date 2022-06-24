@@ -3,7 +3,13 @@ const SamplePrevArrow = (props) => {
   return (
     <div
       className={className}
-      style={{ ...style, display: 'block', background: 'black' }}
+      style={{
+        ...style,
+        display: 'block',
+        background: 'none',
+        opacity: 1,
+        color: 'black',
+      }}
       onClick={onClick}
     />
   );

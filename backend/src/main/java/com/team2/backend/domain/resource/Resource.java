@@ -1,6 +1,7 @@
 package com.team2.backend.domain.resource;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.team2.backend.domain.user.Employee;
 import com.team2.backend.domain.util.BaseTime;
 import com.team2.backend.web.dto.admin.ResourceDto;
@@ -21,6 +22,7 @@ import javax.persistence.*;
 @DynamicInsert
 @DynamicUpdate
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Resource extends BaseTime {
 
     @Id
@@ -35,8 +37,8 @@ public class Resource extends BaseTime {
     @Column(name = "cateNo")
     private Long cateNo;
 
-    @Column(name = "able", columnDefinition = "char(1) default 'Y'")
-    private char able;
+    @Column(name = "able", columnDefinition = "varchar(1) default 'Y'")
+    private String able;
 
     @Column(name = "resourceName")
     private String resourceName;
@@ -64,8 +66,8 @@ public class Resource extends BaseTime {
     @Column(name = "fuel")
     private String fuel;   //차량만 사용
 
-    public void update(Long category, char able, String resourceName, String location, int people, String availableTime,
-                       Long adminNo, String option, String fuel) {
+    public void update(Long category, String able, String resourceName, String location, Integer people,
+                       String availableTime, Long adminNo, String option, String fuel) {
         this.cateNo = category;
         this.able = able;
         this.resourceName = resourceName;
