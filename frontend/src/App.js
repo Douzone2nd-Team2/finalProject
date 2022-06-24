@@ -6,6 +6,7 @@ import Login from './user/pages/Login';
 import Main from './user/pages/main';
 import Reset from './user/pages/Reset';
 import MyInfo from './user/pages/MyInfo';
+import Search from './user/pages/Search';
 
 import AdminMain from './admin/pages/AdminMain';
 import AdminLoginPage from './admin/pages/AdminLoginPage';
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="main" element={<Main />} />
           <Route path="reset" element={<Reset />} />
           <Route path="info" element={<MyInfo />} />
+          <Route path="search" element={<Search />} />
         </Route>
         <Route path="admin" element={<AdminMain />} />
         <Route path="/admin/login" element={<AdminLoginPage />} />

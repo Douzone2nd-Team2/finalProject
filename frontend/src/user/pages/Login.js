@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import axios from 'axios';
@@ -29,6 +30,8 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  const [cookies, setCookie] = useCookies(['accessToken']);
+
   const handleChangeId = (e) => {
     setInputId(e.target.value);
   };
@@ -57,6 +60,8 @@ const Login = () => {
       };
       axios.post(`http://localhost:8090/login`, data).then((res) => {
         setToken(res.headers.authorization);
+        setCookie('accessToken', res.headers.authorization);
+        console.log(res);
         if (res.data.resCode === 0) {
           navigate('/main');
         } else {

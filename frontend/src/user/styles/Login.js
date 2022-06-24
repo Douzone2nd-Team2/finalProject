@@ -34,7 +34,7 @@ const LoginTitle = styled.div`
 const ImageContainer1 = styled.div`
   img {
     width: 180%;
-    margin-left: -70px;
+    margin-left: -71px;
     display: block;
   }
   margin-left: -67px;
