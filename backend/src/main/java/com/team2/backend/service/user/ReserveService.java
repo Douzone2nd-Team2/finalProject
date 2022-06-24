@@ -62,9 +62,9 @@ public class ReserveService {
         for (int i = 0; i < peopleCnt.size(); i++) {
             peopleCntRepository.save(
                     PeopleCnt.builder()
-                            .reservNo(reservation.getReservNo())
-                            .userNo(Long.parseLong(peopleCnt.get(i)))
-                            .build()
+                    .reservNo(reservation.getReservNo())
+                    .userNo(Long.parseLong(peopleCnt.get(i)))
+                    .build()
             );
         }
 

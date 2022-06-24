@@ -32,5 +32,6 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
             " where r.cateNo = :cateNo")
     List<IResourceAdminDto> findByCateNo(@Param("cateNo") long cateNo);
 
+
     Resource findByResourceNo(long resourceNo);
 }

@@ -4,6 +4,7 @@ import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.service.admin.ResourceService;
 import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.admin.ResourceAdminDto;
+import com.team2.backend.web.dto.admin.ResourcefileDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,6 @@ public class ResourceController {
 
     @PutMapping("/update")
     public ResponseEntity<Message> updateresourceList(HttpServletRequest req, @RequestParam("resourceNo") Long resourceNo , @RequestBody Resource resource){
-        System.out.println("updateController시작");
         return resourceService.resourceUpdate(req, resourceNo, resource);
     }
 

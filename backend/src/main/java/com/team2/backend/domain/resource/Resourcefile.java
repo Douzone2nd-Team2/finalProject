@@ -1,6 +1,6 @@
-package com.team2.backend.domain.user;
+package com.team2.backend.domain.resource;
 
-import com.team2.backend.domain.resource.Resource;
+import com.team2.backend.domain.util.BaseTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,20 +8,20 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="employee_file")
+@Table(name="resource_file")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicUpdate
 @DynamicInsert
 @Builder
-public class EmployeeFile {
-
+public class Resourcefile extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="imageNo", updatable = false, nullable = false)
@@ -30,10 +30,11 @@ public class EmployeeFile {
     @Column(name="able", columnDefinition = "varchar(1) default 'Y'")
     private String able;
 
-//    @OneToOne(targetEntity = Employee.class, fetch = FetchType.LAZY)
-//    @JoinColumn(name="userNo")
-    @Column(name="userNo")
-    private Long userNo;
+    @ManyToOne(targetEntity= Resource.class)
+    @JoinColumn(name="resourceNo", insertable = false, updatable = false)
+    private Resource resource;
+    @Column(name="resourceNo")
+    private Long resourceNo;
 
     @Column(name="path")
     private String path;
@@ -44,8 +45,14 @@ public class EmployeeFile {
     @Column(name="imageSize")
     private String imageSize;
 
-    @CreatedDate
-    @Column(name="createAt")
-    private LocalDateTime createAt;
+    @Builder
+    public Resourcefile(Long resourceNo, String path, String type, String imageSize) {
+        this.resourceNo = resourceNo;
+        this.path = path;
+        this.type = type;
+        this.imageSize = imageSize;
+
+    }
+
 
 }

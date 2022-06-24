@@ -3,26 +3,33 @@ package com.team2.backend.service.admin;
 import com.team2.backend.domain.bookmark.BookmarkRepository;
 import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.resource.ResourceRepository;
+import com.team2.backend.domain.resource.Resourcefile;
+import com.team2.backend.domain.resource.ResourcefileRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.admin.BookmarkResAdminDto;
 import com.team2.backend.web.dto.admin.IResourceAdminDto;
 import com.team2.backend.web.dto.admin.ResourceAdminDto;
+import com.team2.backend.web.dto.admin.ResourcefileDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.team2.backend.domain.resource.QResourcefile.resourcefile;
 
 @RequiredArgsConstructor
 @Service
 public class ResourceService {
     private final ResourceRepository resourceRepository;
-
     private final BookmarkRepository bookmarkRepository;
+    private final ResourcefileRepository resourcefileRepository;
 
     @Transactional
     public ResponseEntity<Message> getResourceList(){
@@ -51,14 +58,14 @@ public class ResourceService {
         if (officeList.isEmpty()) {
             Message message = Message.builder()
                     .resCode(3001)
-                    .message("실패: 전체조회 실패")
+                    .message("실패: 각 자원 조회 실패")
                     .build();
             return new JsonResponse().send(400, message);
         }
 
         Message message = Message.builder()
                 .resCode(3000)
-                .message("성공: 전체조회 성공")
+                .message("성공: 각 자원 조회 성공")
                 .data(officeList)
                 .build();
         return new JsonResponse().send(200, message);
@@ -81,7 +88,7 @@ public class ResourceService {
 
     @Transactional
     public ResponseEntity<Message> resourceRegister(HttpServletRequest req, ResourceAdminDto resourceAdminDto){
-                if(resourceAdminDto.getCateNo() == 1){
+            if(resourceAdminDto.getCateNo() == 1){
                     Resource office = resourceRepository.save(
                             Resource.builder()
                                     .cateNo(resourceAdminDto.getCateNo())
@@ -94,6 +101,8 @@ public class ResourceService {
                                     .option(resourceAdminDto.getOption())
                                     .build()
                     );
+                    fileupload(resourceAdminDto);
+
                     Message message = Message.builder()
                             .resCode(3000)
                             .message("성공: 회의실 등록")
@@ -115,6 +124,7 @@ public class ResourceService {
                                     .build()
 
                     );
+                    fileupload(resourceAdminDto);
                     Message message = Message.builder()
                             .resCode(3000)
                             .message("성공: 차량 등록")
@@ -136,6 +146,7 @@ public class ResourceService {
                                     .build()
 
                     );
+                    fileupload(resourceAdminDto);
                     Message message = Message.builder()
                             .resCode(3000)
                             .message("성공: 노트북 등록")
@@ -149,6 +160,17 @@ public class ResourceService {
                         .message("실패: 자원 등록 실패")
                         .build();
             return new JsonResponse().send(400, message);
+    }
+
+    public void fileupload(ResourceAdminDto resourceAdminDto){
+        List<Resourcefile> resourcefile = resourceAdminDto.getResourcefile();
+
+        Map<String, Resourcefile> map = new HashMap<>();
+
+        for (int i = 0; i < resourcefile.size(); i++){
+            map.put("resourcefile", resourcefile.get(i));
+            resourcefileRepository.save(map.get("resourcefile"));
+        }
     }
 
 
