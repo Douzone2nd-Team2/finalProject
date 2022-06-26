@@ -19,6 +19,8 @@ import {
   DropDownContainer,
   MenuContainer,
   HeaderRightContainer,
+  ButtonContainer,
+  VerticalLine,
 } from '../styles/Header';
 
 const Header = () => {
@@ -112,7 +114,11 @@ const Header = () => {
       <HeaderRightContainer>
         <MenuContainer>
           <DropDownContainer onClick={openBookmenu}>
-            예약
+            <div style={{ display: 'flex' }}>
+              예약
+              <VerticalLine />
+            </div>
+
             {isOpenBook && (
               <BookListContainer theme={{ borderColor: 'black' }} ref={bookRef}>
                 <BookList>
@@ -126,7 +132,10 @@ const Header = () => {
             )}
           </DropDownContainer>
           <DropDownContainer onClick={openMypagemenu}>
-            마이페이지
+            <div style={{ display: 'flex' }}>
+              마이페이지
+              <VerticalLine />
+            </div>
             {isOpenMypage && (
               <MyPageListContainer ref={myPageRef}>
                 <MyPageList>
@@ -145,10 +154,12 @@ const Header = () => {
               </MyPageListContainer>
             )}
           </DropDownContainer>
+          <ButtonContainer>
+            <button className="secondary" onClick={deleteCookie}>
+              로그아웃
+            </button>
+          </ButtonContainer>
         </MenuContainer>
-        <Button variant="secondary" onClick={deleteCookie}>
-          로그아웃
-        </Button>
       </HeaderRightContainer>
     </HeaderContainer>
   );
