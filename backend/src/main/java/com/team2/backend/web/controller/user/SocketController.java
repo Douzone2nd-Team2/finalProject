@@ -13,6 +13,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,12 +31,12 @@ public class SocketController {
     }
 
     @MessageMapping("/timelist")
-    public SocketMessage getTimelist(@Payload SocketMessage message){
+    public SocketMessage getTimelist(@Payload SocketMessage message) throws ParseException {
         return socketService.getTimelist(message);
     }
 
-    @MessageMapping("/progress")
-    public SocketMessage checkReservation(@Payload SocketMessage message) {
+    @MessageMapping("/check")
+    public SocketMessage checkReservation(@Payload SocketMessage message) throws ParseException {
         return socketService.checkReservation(message);
     }
     @MessageMapping("/finish")

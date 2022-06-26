@@ -27,14 +27,18 @@ public class Timelist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="listNo")
+    @JsonIgnore
     private Long listNo;
 
     @Column(name="timeNo")
-    private Long timeNo;
+    private Integer timeNo;
 
+    // 필요없을지도?
     @ManyToOne(targetEntity = ReservationCheck.class)
     @JoinColumn(name="checkNo", insertable = false, updatable = false)
+    @JsonIgnore
     private ReservationCheck check;
     @Column(name="checkNo")
+    @JsonIgnore
     private Long checkNo;
 }
