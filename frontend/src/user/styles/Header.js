@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const HeaderContainer = styled.header`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   padding: 10px 30px;
   background-color: #1296ec;
@@ -10,38 +10,69 @@ const HeaderContainer = styled.header`
 `;
 
 const LogoContainer = styled.div`
-  font-size: 35px;
+  font-size: 40px;
   color: #0a58ca;
 `;
 
 const SearchContainer = styled.form`
   position: relative;
-  margin-right: 100px;
+  margin-left: 148px;
+  //margin: auto;
+  //margin-right: 100px;
   input {
     font-size: 12px;
-    height: 30px;
-    width: 350px;
-    border-radius: 50px;
+    height: 40px;
+    width: 430px;
+    border-radius: 30px;
+    padding: 10px;
+  }
+  button {
+    border: none;
+    background-color: transparent;
   }
   .fa-magnifying-glass {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 15px;
+    right: 8px;
     cursor: pointer;
   }
 `;
 
-const Ul1 = styled.ul`
+const HeaderRightContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const MenuContainer = styled.div`
+  display: flex;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+`;
+
+const DropDownContainer = styled.div`
+  background-color: #1296ec;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  position: relative;
+  padding-right: 30px;
+  //width: 250px;
+`;
+
+const BookList = styled.ul`
   text-align: center;
-  width: 80px;
+  width: 70px;
+  font-size: 12px;
   list-style: none;
   line-height: 13px;
   margin-right: 30px;
-  margin-top: 15px;
+  margin-top: 20px;
 `;
 
-const Ul2 = styled.ul`
+const MyPageList = styled.ul`
   text-align: center;
   width: 80px;
   list-style: none;
@@ -55,51 +86,41 @@ const Ul2 = styled.ul`
   }
 `;
 
-const Margin1 = styled.div`
-  margin-left: 100px;
-  cursor: pointer;
-`;
-
-const Margin2 = styled.div`
-  margin-left: 80px;
-`;
-
-const DropDown = styled.div`
-  background-color: #1296ec;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  outline: none;
-  position: relative;
-  width: 250px;
-`;
-
-const ListContainer = styled.div`
+const MyPageListContainer = styled.div`
   border: 1px solid ${(props) => props.theme.borderColor};
-  background-color: lightgray;
+  background-color: white;
+  color: black;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
+  border-radius: 2px;
   padding: 3px;
-  margin-top: 23px;
-  margin-left: 60px;
+  margin-top: 29px;
+  margin-left: -22px;
   position: absolute;
   z-index: 1000;
 `;
 
-const MenuContainer = styled.div`
-  cursor: pointer;
-  width: 80px;
+const BookListContainer = styled.div`
+  border: 1px solid ${(props) => props.theme.borderColor};
+  background-color: white;
+  color: black;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  padding: 3px;
+  margin-top: 29px;
+  margin-left: -38px;
+  position: absolute;
+  z-index: 1000;
 `;
 
 export {
   HeaderContainer,
   LogoContainer,
   SearchContainer,
-  Ul1,
-  Ul2,
-  DropDown,
-  ListContainer,
-  Margin1,
-  Margin2,
+  BookList,
+  MyPageList,
+  DropDownContainer,
+  MyPageListContainer,
   MenuContainer,
+  HeaderRightContainer,
+  BookListContainer,
 };

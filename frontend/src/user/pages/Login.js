@@ -7,7 +7,7 @@ import axios from 'axios';
 import logo from '../assets/logo.png';
 import login from '../assets/login.png';
 
-import { tokenState } from '../recoil/Token';
+import { tokenState } from '../recoil/token';
 
 import Button from 'react-bootstrap/Button';
 
@@ -77,7 +77,7 @@ const Login = () => {
     <Container>
       <LoginContainer>
         <ImageContainer1>
-          <img src={login} alt="Login" />
+          <img src={login} alt="Login" className="login" />
         </ImageContainer1>
         <div>
           <ImageContainer2>
@@ -111,7 +111,7 @@ const Login = () => {
                 />
               </InputContainer>
               <ButtonContainer>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" className="loginBtn">
                   LOGIN
                 </Button>
               </ButtonContainer>
