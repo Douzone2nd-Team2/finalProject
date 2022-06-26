@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 
-import { tokenState } from '../../recoil/Token';
+import { tokenState } from '../../recoil/token';
 
 import Sidebar from '../../outlets/Sidebar';
 import { MainContainer, Container } from '../../styles/Main';
@@ -14,8 +14,8 @@ const Main = () => {
 
   return (
     <>
-      <Sidebar />
       <MainContainer>
+        <Sidebar />
         <Container>
           <Chart />
           <Category />
