@@ -7,6 +7,7 @@ const HeaderContainer = styled.header`
   padding: 10px 30px;
   background-color: #1296ec;
   font-weight: bold;
+  font-family: NanumGothicBold;
 `;
 
 const LogoContainer = styled.div`
@@ -16,15 +17,21 @@ const LogoContainer = styled.div`
 
 const SearchContainer = styled.form`
   position: relative;
-  margin-left: 148px;
+  margin-left: 170px;
   //margin: auto;
   //margin-right: 100px;
   input {
+    //border: 1px solid black;
     font-size: 12px;
     height: 40px;
     width: 430px;
+    border: none;
     border-radius: 30px;
     padding: 10px;
+  }
+  input:focus {
+    outline: 1px solid black;
+    //border: none;
   }
   button {
     border: none;
@@ -50,6 +57,7 @@ const MenuContainer = styled.div`
   cursor: pointer;
   color: white;
   font-size: 14px;
+  margin-right: 20px;
 `;
 
 const DropDownContainer = styled.div`
@@ -58,7 +66,8 @@ const DropDownContainer = styled.div`
   border: none;
   outline: none;
   position: relative;
-  padding-right: 30px;
+  padding-right: 20px;
+  //padding-right: 30px;
   //width: 250px;
 `;
 
@@ -93,7 +102,7 @@ const MyPageListContainer = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 2px;
   padding: 3px;
-  margin-top: 29px;
+  margin-top: 28px;
   margin-left: -22px;
   position: absolute;
   z-index: 1000;
@@ -106,10 +115,27 @@ const BookListContainer = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 2px;
   padding: 3px;
-  margin-top: 29px;
+  margin-top: 28px;
   margin-left: -38px;
   position: absolute;
   z-index: 1000;
+`;
+
+const ButtonContainer = styled.div`
+  button {
+    font-weight: bold;
+    outline: none;
+    background-color: #1296ec;
+    color: white;
+    border: none;
+    //border-radius: 10px;
+  }
+`;
+
+const VerticalLine = styled.div`
+  height: 24px;
+  margin-left: 20px;
+  border-left: 1px solid black;
 `;
 
 export {
@@ -123,4 +149,6 @@ export {
   MenuContainer,
   HeaderRightContainer,
   BookListContainer,
+  ButtonContainer,
+  VerticalLine,
 };

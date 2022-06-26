@@ -32,12 +32,13 @@ const Search = () => {
     <>
       <div>회의실 목록</div>
       <hr />
-      {items &&
+      {/* {items &&
         items.map((book) => (
           <div key={book.id}>
             <SearchItem book={book} />
           </div>
-        ))}
+        ))} */}
+      {title}
     </>
   );
 };
