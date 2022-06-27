@@ -6,8 +6,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { searchState } from '../recoil/search';
 
-import Button from 'react-bootstrap/Button';
-
 import {
   HeaderContainer,
   LogoContainer,
@@ -109,7 +107,6 @@ const Header = () => {
 
         <button type="submit" className="fa-solid fa-magnifying-glass" />
       </SearchContainer>
-      {/* <MenuContainer>공지사항</MenuContainer> */}
 
       <HeaderRightContainer>
         <MenuContainer>

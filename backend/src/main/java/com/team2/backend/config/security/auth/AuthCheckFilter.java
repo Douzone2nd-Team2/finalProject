@@ -55,7 +55,7 @@ public class AuthCheckFilter extends BasicAuthenticationFilter {
             Authentication authentication = new UsernamePasswordAuthenticationToken(employeeDetails.getUsername(), null, employeeDetails.getAuthorities());
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            System.out.println("ㅍㄹ터 : " + userNo);
+            System.out.println("필터 : " + userNo);
             request.setAttribute("userNo", userNo);
 
             chain.doFilter(request, response);
