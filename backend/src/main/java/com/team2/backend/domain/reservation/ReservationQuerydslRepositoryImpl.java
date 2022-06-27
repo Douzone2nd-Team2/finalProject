@@ -21,6 +21,8 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
+import static com.team2.backend.domain.reservation.QTimelist.timelist;
+import static com.team2.backend.domain.reservation.QReservationCheck.reservationCheck;
 import static com.team2.backend.domain.reservation.QReservation.reservation;
 import static com.team2.backend.domain.resource.QCategory.category;
 import static com.team2.backend.domain.resource.QResource.resource;
@@ -102,7 +104,7 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
 
     @Override
     public List<ReservationManagementDto> getReservationView(Long reservNo){
-        System.out.println(reservNo);
+
         return (List<ReservationManagementDto>) jpaQueryFactory
                 .select(new QReservationManagementDto(
                         reservation.reservNo,
@@ -127,4 +129,51 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                 .where(reservation.reservNo.eq(reservNo))
                 .fetch();
     }
+
+    @Override
+    public List<ReservationManagementDto> findByReservCheckdate(Long resourceNo, String checkdate, int startTime, int endTime) {
+        return (List<ReservationManagementDto>) jpaQueryFactory
+                .select(new QReservationManagementDto(
+                        reservationCheck.checkNo,
+                        reservationCheck.resourceNo,
+                        reservationCheck.checkDate,
+                        reservationCheck.cateNo,
+                        reservationCheck.reservNo,
+                        timelist.timeNo
+                ))
+                .from(timelist)
+                .join(timelist.check, reservationCheck)
+                .where(reservationCheck.checkDate.eq(checkdate)
+                        .and(timelist.timeNo.goe(startTime))
+                        .and(timelist.timeNo.loe(endTime)))
+                .fetch()
+                ;
+    }
+
+    @Override
+    public void deleteByReservNo(Long reservNo) {
+        jpaQueryFactory
+                .delete(reservationCheck)
+                .where(reservationCheck.reservNo.eq(reservNo))
+                .execute();
+    }
+
+    @Override
+    public List<Long> findByCheckNo(Long reservNo){
+        List<Long> checkNo =  jpaQueryFactory
+                .select(reservationCheck.checkNo)
+                .from(reservationCheck)
+                .where(reservationCheck.reservNo.eq(reservNo))
+                .fetch();
+        return checkNo;
+    }
+
+    @Override
+    public void deleteTimelistByCheckNo(Long checkNo){
+        jpaQueryFactory
+                .delete(timelist)
+                .where(timelist.checkNo.eq(checkNo))
+                .execute();
+    }
+
 }

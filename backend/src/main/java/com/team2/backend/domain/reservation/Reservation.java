@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -50,9 +51,11 @@ public class Reservation extends BaseTime {
     @Column(name="reservName")
     private String reservName;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name="startTime")
     private Date startTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name="endTime")
     private Date endTime;
 

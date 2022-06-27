@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.querydsl.core.annotations.QueryProjection;
 import com.team2.backend.domain.reservation.Reservation;
+import com.team2.backend.domain.reservation.ReservationCheck;
 import com.team2.backend.domain.resource.PeopleCnt;
 import lombok.Builder;
 import lombok.Getter;
@@ -62,6 +63,11 @@ public class ReservationManagementDto {
     private Long peopleNo;
     private List<String> empNoList;   //직원고유번호, 사원번호
 
+    //timelist
+    private Long checkNo;
+    private String checkDate;
+    private Long timeNo;
+
     @QueryProjection
     @Builder
     public ReservationManagementDto(Long reservNo, String able, Date startTime, Date endTime, String reservName, Long resourceNo, String resourceName, LocalDateTime reservCreateAt, LocalDateTime reservModifyAt, String category) {
@@ -95,6 +101,17 @@ public class ReservationManagementDto {
         this.adminNo = adminNo;
         this.adminName = adminName;
         this.availableTime = availableTime;
+    }
+
+    @QueryProjection
+    @Builder
+    public ReservationManagementDto(Long checkNo, Long resourceNo, String checkDate, Long cateNo, Long reservNo, Long timeNo) {
+        this.checkNo = checkNo;
+        this.resourceNo = resourceNo;
+        this.checkDate = checkDate;
+        this.reservNo = reservNo;
+        this.cateNo = cateNo;
+        this.timeNo = timeNo;
     }
 
     public Reservation toEntity() throws ParseException {

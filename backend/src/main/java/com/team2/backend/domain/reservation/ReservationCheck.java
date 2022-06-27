@@ -43,9 +43,10 @@ public class ReservationCheck {
     @Column(name="cateNo")
     private Long cateNo;
 
-    @ManyToOne(targetEntity = Resource.class)
+    @ManyToOne(targetEntity = Reservation.class)
     @JoinColumn(name="reservNo", insertable = false, updatable = false)
     private Resource reserv;
     @Column(name="reservNo")
     private Long reservNo;
+
 }
