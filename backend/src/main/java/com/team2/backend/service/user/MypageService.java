@@ -47,4 +47,26 @@ public class MypageService {
                 .build();
         return new JsonResponse().send(200, message);
     }
+
+    @Transactional
+    public ResponseEntity<Message> employeeView(HttpServletRequest request) {
+
+        Employee employee = employeeRepository.findByNo((Long)request.getAttribute("userNo"));
+
+        Message message = Message.builder()
+                .resCode(2000)
+                .message("[SUCCESS] Select Employee View")
+                .data(employee)
+                .build();
+        return new JsonResponse().send(200, message);
+    }
 }
+
+
+
+
+
+
+
+
+

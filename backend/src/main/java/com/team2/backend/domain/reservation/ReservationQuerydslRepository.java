@@ -10,7 +10,7 @@ public interface ReservationQuerydslRepository {
     void updateReservation(ReservationManagementDto reservationManagementDto);
     List<ReservationManagementDto> getReservationView(Long reservNo);
 
-    List<ReservationManagementDto> findByReservCheckdate(Long resourceNo, String checkdate, int startTime, int endTime);
+    List<ReservationManagementDto> findByReservCheckdate(Long resourceNo, String checkdate, int startTime, int endTime, String classification);
 
     void deleteByReservNo(Long reservNo); //reservation_check에서 삭제
 

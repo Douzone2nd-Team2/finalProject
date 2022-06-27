@@ -57,6 +57,12 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
         }
     }
 
+//    private BooleanExpression dateType(String classification, int endTime){
+//        if(classification.equals("start")){
+//            return  timelist.timeNo.lt(endTime)
+//        }
+//    }
+
     @Override
     public List<ReservationManagementDto> getReservList(Long no, String classification, String division) throws ParseException {
 
@@ -131,7 +137,11 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
     }
 
     @Override
-    public List<ReservationManagementDto> findByReservCheckdate(Long resourceNo, String checkdate, int startTime, int endTime) {
+    public List<ReservationManagementDto> findByReservCheckdate(Long resourceNo, String checkdate, int startTime, int endTime, String classification) {
+        System.out.println(checkdate);
+        System.out.println(startTime);
+        System.out.println(endTime);
+
         return (List<ReservationManagementDto>) jpaQueryFactory
                 .select(new QReservationManagementDto(
                         reservationCheck.checkNo,
@@ -143,11 +153,13 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                 ))
                 .from(timelist)
                 .join(timelist.check, reservationCheck)
-                .where(reservationCheck.checkDate.eq(checkdate)
+                .join(reservationCheck.reserv, reservation)
+                .where(reservation.able.eq("Y")
+                        .and(reservationCheck.resourceNo.eq(resourceNo))
+                        .and(reservationCheck.checkDate.eq(checkdate))
                         .and(timelist.timeNo.goe(startTime))
                         .and(timelist.timeNo.loe(endTime)))
-                .fetch()
-                ;
+                .fetch();
     }
 
     @Override
