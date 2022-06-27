@@ -61,5 +61,7 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
 
     Resource findByResourceNo(long resourceNo);
 
+    @Query(value="select r.cateNo from Resource r where r.resourceNo = :#{#resourceNo}")
+    Long findByCategory(long resourceNo);
 
 }

@@ -1,12 +1,13 @@
 package com.team2.backend.service.admin;
 
-import com.team2.backend.domain.reservation.Reservation;
-import com.team2.backend.domain.reservation.ReservationQuerydslRepository;
-import com.team2.backend.domain.reservation.ReservationRepository;
+import com.team2.backend.domain.reservation.*;
 import com.team2.backend.domain.resource.PeopleCnt;
 import com.team2.backend.domain.resource.PeopleCntRepository;
+import com.team2.backend.domain.resource.Resource;
+import com.team2.backend.domain.resource.ResourceRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
+import com.team2.backend.web.dto.admin.IResourceAdminDto;
 import com.team2.backend.web.dto.admin.ReservationManagementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -24,31 +31,213 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final PeopleCntRepository peopleCntRepository;
     private final ReservationQuerydslRepository reservationQuerydslRepository;
+    private final ReservationCheckRepository reservationCheckRepository;
+    private final TimelistRepository timelistRepository;
+    private final ResourceRepository resourceRepository;
 
     @Transactional
     public ResponseEntity<Message> saveReservation(HttpServletRequest req, ReservationManagementDto body) throws ParseException {
 
+        Message message;
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+
         Reservation reservation = body.toEntity();
 
-        Long reservNo = reservationRepository.save(reservation).getReservNo();
+        String[] start = formatter.format(body.getStartTime()).split(" ");
+        String[] end = formatter.format(body.getEndTime()).split(" ");
 
-        System.out.println(body.getEmpNoList());
+        String startDate = start[0];
+        String[] startTime = start[1].split(":");
+        int startHour = Integer.parseInt(startTime[0]);
+        int startMinute = Integer.parseInt(startTime[1]);
 
-        if(body.getResourceNo().equals("2")){  //자원이 회의실일 경우
-            for (int i=0;i<body.getEmpNoList().size();i++){
-                PeopleCnt peopleCnt = PeopleCnt.builder()
+        String endDate = end[0];
+        String[] endTime = end[1].split(":");
+        int endHour = Integer.parseInt(endTime[0]);
+        int endMinute = Integer.parseInt(endTime[1]);
+
+        int[] timeList = new int[2];
+        timeList[0] = startHour*2 + (startMinute == 30 ? 1 : 0);
+        timeList[1] = endHour*2 + (endMinute == 30 ? 1 : 0);
+
+
+
+        int rowcnt = (int)((formatter2.parse(end[0]).getTime() - formatter2.parse(start[0]).getTime())/3600000/24) +1;
+
+        List<String> dateList = duringDate(formatter2.parse(start[0]),formatter2.parse(end[0]));
+
+        if(reservationCheck(reservation, dateList, timeList[0], timeList[1])) {  // 중복예약 내역이 없을 때
+
+            Long reservNo = reservationRepository.save(reservation).getReservNo();
+
+            Long cateNo = resourceRepository.findByCategory(body.getResourceNo());
+
+            for (int i = 0; i < dateList.size(); i++) {  //날짜마다 insert
+                ReservationCheck reservationCheck = ReservationCheck.builder()
+                        .resourceNo(body.getResourceNo())
+                        .checkDate(dateList.get(i))
+                        .cateNo(cateNo)
                         .reservNo(reservNo)
-                        .userNo(Long.parseLong(body.getEmpNoList().get(i)))
                         .build();
-                peopleCntRepository.save(peopleCnt);
+                Long checkNo = reservationCheckRepository.save(reservationCheck).getCheckNo();
+
+
+                //[timelist - insert]    - 이전에 존재하는 시간인지 확인해야함
+                //1)하루안에 시간 차이   06-24 13:00 ~ 06-24 19:00
+                //2)2일 06-24 13:00 ~ 06-25 15:00
+                //3)2일 이상 06-24 13:00 ~ 06-27 14:00
+
+                if (dateList.size() == 1) { //예약 기간 : 1일
+                    for (int j = timeList[0]; j <= timeList[1]; j++) {
+                        Timelist timelist1 = Timelist.builder()
+                                .checkNo(checkNo)
+                                .timeNo(Long.valueOf(j))
+                                .build();
+                        timelistRepository.save(timelist1);
+                    }
+                } else if (dateList.size() >= 2) { //예약 기간 : 2일 이상
+                    if (i == 0) {
+                        for (int j = timeList[0]; j < 48; j++) {
+                            Timelist timeList2 = Timelist.builder()
+                                    .checkNo(checkNo)
+                                    .timeNo(Long.valueOf(j))
+                                    .build();
+                            timelistRepository.save(timeList2);
+                        }
+                    } else if (i == dateList.size() - 1) {
+                        for (int j = 0; j <= timeList[1]; j++) {
+                            Timelist timeList2 = Timelist.builder()
+                                    .checkNo(checkNo)
+                                    .timeNo(Long.valueOf(j))
+                                    .build();
+                            timelistRepository.save(timeList2);
+                        }
+                    } else {
+                        for (int j = 0; j < 48; j++) {
+                            Timelist timeList2 = Timelist.builder()
+                                    .checkNo(checkNo)
+                                    .timeNo(Long.valueOf(j))
+                                    .build();
+                            timelistRepository.save(timeList2);
+                        }
+                    }
+                }
+            }
+
+            if (cateNo == 1) {  //자원이 회의실일 경우
+                for (int i = 0; i < body.getEmpNoList().size(); i++) {
+                    System.out.println(body.getEmpNoList());
+                    PeopleCnt peopleCnt = PeopleCnt.builder()
+                            .reservNo(reservNo)
+                            .userNo(Long.parseLong(body.getEmpNoList().get(i)))
+                            .build();
+                    peopleCntRepository.save(peopleCnt);
+                }
+            }
+
+             message = Message.builder()
+                    .resCode(1000)
+                    .message("[Success] Insert Reservation")
+                    .build();
+            return new JsonResponse().send(200, message);
+        }
+        message = Message.builder()
+                .resCode(1001)
+                .message("[Fail] Insert Reservation, Duplicated Reservation")
+                .build();
+        return new JsonResponse().send(200, message);
+    }
+
+    public List<String> duringDate(Date start, Date end){
+        Calendar startC = Calendar.getInstance();
+        Calendar endC = Calendar.getInstance();
+
+        startC.setTime(start);
+        endC.setTime(end);
+
+        List<String> dateList = new ArrayList<>();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        while(startC.compareTo(endC) != 1){
+            dateList.add(simpleDateFormat.format(startC.getTime()).toString());
+            startC.add(Calendar.DATE, 1);
+        }
+        return dateList;
+    }
+
+    public Boolean reservationCheck(Reservation reservation, List<String> dateList, int startTime, int endTime){
+        System.out.println("reservation check enter!!! "   +dateList.size()+"///" +dateList.get(0) +"///"+startTime +" ~~~"+endTime);
+
+        Long resourceNo = reservation.getResourceNo();
+
+        List<ReservationManagementDto> reservationCheckList = null;
+        List<ReservationManagementDto> reservationCheckList2 = null;
+        List<ReservationManagementDto> reservationCheckList3 = null;
+        List<ReservationManagementDto> reservationCheckList4 = null;
+
+        Boolean flag = false;
+
+        if(dateList.size() == 1){
+           reservationCheckList = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(0), startTime, endTime);
+        }else if(dateList.size()>=2) {
+            for (int i = 0; i < dateList.size() - 1; i++) {
+                    if (i == 0) {
+                        reservationCheckList2 = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(i), startTime, 47);
+                        System.out.println("2 : " + reservationCheckList2);
+                    } else if (i == dateList.size() - 1) {
+                        reservationCheckList3 = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(i), 0, endTime);
+                        System.out.println("3 : " + reservationCheckList3);
+                    } else {
+                        reservationCheckList4 = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(i), 0, 47);
+                        System.out.println("4 : " + reservationCheckList4);
+                    }
+
+                if(reservationCheckList2 != null){
+                    if(reservationCheckList2.isEmpty()){
+                        flag = true;
+                    }else{
+                        flag = false;
+                        System.out.println("혹시 여기?");
+                        break;
+                    }
+                }else if(reservationCheckList3 != null){
+                    if(reservationCheckList3.isEmpty()){
+                        flag = true;
+                    }else{
+                        flag = false;
+                        break;
+                    }
+                }else if(reservationCheckList4 != null){
+                    if(reservationCheckList4.isEmpty()){
+                        flag = true;
+                    }else{
+                        flag = false;
+                        break;
+                    }
+                }
             }
         }
 
-        Message message = Message.builder()
-                         .resCode(1000)
-                         .message("[Success] Insert Reservation")
-                        .build();
-        return new JsonResponse().send(200, message);
+        if(reservationCheckList != null){
+            System.out.println("reservationCheckList != null");
+            if(reservationCheckList.isEmpty()){
+                System.out.println("reservationCheckList.isEmpty()");
+                flag = true;
+            }else{
+                System.out.println("reservationCheckList.isNotEmpty()");
+                flag = false;
+            }
+        }else if (reservationCheckList == null && reservationCheckList2 == null
+                && reservationCheckList3 == null && reservationCheckList4 == null) {
+            System.out.println("all null");
+            return true;
+        }else{
+            flag = false;
+        }
+        return flag;
     }
 
     @Transactional
@@ -56,24 +245,121 @@ public class ReservationService {
 
         Reservation reservation = body.toEntity();
 
-        reservationQuerydslRepository.updateReservation(body);
+        Message message;
 
-        if(body.getResourceNo().equals("2")){  //자원이 회의실일 경우
-            for (int i=0;i<body.getEmpNoList().size();i++){
-                peopleCntRepository.deleteByReservNo(body.getReservNo());
-                PeopleCnt peopleCnt = PeopleCnt.builder()
-                        .reservNo(body.getReservNo())
-                        .userNo(Long.parseLong(body.getEmpNoList().get(i)))
-                        .build();
-                peopleCntRepository.save(peopleCnt);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+
+        String[] start = formatter.format(body.getStartTime()).split(" ");
+        String[] end = formatter.format(body.getEndTime()).split(" ");
+
+        String startDate = start[0];
+        String[] startTime = start[1].split(":");
+        int startHour = Integer.parseInt(startTime[0]);
+        int startMinute = Integer.parseInt(startTime[1]);
+
+        String endDate = end[0];
+        String[] endTime = end[1].split(":");
+        int endHour = Integer.parseInt(endTime[0]);
+        int endMinute = Integer.parseInt(endTime[1]);
+
+        int[] timeList = new int[2];
+        timeList[0] = startHour*2 + (startMinute == 30 ? 1 : 0);
+        timeList[1] = endHour*2 + (endMinute == 30 ? 1 : 0);
+
+        int rowcnt = (int)((formatter2.parse(end[0]).getTime() - formatter2.parse(start[0]).getTime())/3600000/24) +1;
+
+        List<String> dateList = duringDate(formatter2.parse(start[0]),formatter2.parse(end[0]));
+
+        if(reservationCheck(reservation, dateList, timeList[0], timeList[1])) {  // 중복예약 내역이 없을 때
+
+            reservationQuerydslRepository.updateReservation(body);
+            List<Long> checkNo = reservationQuerydslRepository.findByCheckNo(body.getReservNo());  // reservation_check에서 예약번호로 check번호 찾기
+
+            if(checkNo.size()>1) { //이전 예약 시간 삭제( checkNo 가지고 와서) -timelist
+                for (int i = 0; i < checkNo.size(); i++) {
+                    reservationQuerydslRepository.deleteTimelistByCheckNo(checkNo.get(i)); //이전 예약 시간 삭제 -timelist
+                }
+            }else{
+                reservationQuerydslRepository.deleteTimelistByCheckNo(checkNo.get(0)); //이전 예약 시간 삭제 -timelist
             }
+
+            reservationQuerydslRepository.deleteByReservNo(body.getReservNo()); //reservation_check table에서 삭제
+
+            Long cateNo = resourceRepository.findByCategory(body.getResourceNo());
+
+            for (int i = 0; i < dateList.size(); i++) {  //날짜마다 insert
+                ReservationCheck reservationCheck = ReservationCheck.builder()
+                        .resourceNo(body.getResourceNo())
+                        .checkDate(dateList.get(i))
+                        .cateNo(cateNo)
+                        .reservNo(body.getReservNo())
+                        .build();
+                Long saveCheckNo = reservationCheckRepository.save(reservationCheck).getCheckNo();
+
+                if (dateList.size() == 1) { //예약 기간 : 1일
+                    for (int j = timeList[0]; j <= timeList[1]; j++) {
+                        Timelist timelist1 = Timelist.builder()
+                                .checkNo(saveCheckNo)
+                                .timeNo(Long.valueOf(j))
+                                .build();
+                        timelistRepository.save(timelist1);
+                    }
+                } else if (dateList.size() >= 2) { //예약 기간 : 2일 이상
+                    if (i == 0) {
+                        for (int j = timeList[0]; j < 48; j++) {
+                            Timelist timeList2 = Timelist.builder()
+                                    .checkNo(saveCheckNo)
+                                    .timeNo(Long.valueOf(j))
+                                    .build();
+                            timelistRepository.save(timeList2);
+                        }
+                    } else if (i == dateList.size() - 1) {
+                        for (int j = 0; j <= timeList[1]; j++) {
+                            Timelist timeList2 = Timelist.builder()
+                                    .checkNo(saveCheckNo)
+                                    .timeNo(Long.valueOf(j))
+                                    .build();
+                            timelistRepository.save(timeList2);
+                        }
+                    } else {
+                        for (int j = 0; j < 48; j++) {
+                            Timelist timeList2 = Timelist.builder()
+                                    .checkNo(saveCheckNo)
+                                    .timeNo(Long.valueOf(j))
+                                    .build();
+                            timelistRepository.save(timeList2);
+                        }
+                    }
+                }
+            }
+
+            if (cateNo == 1) {  //자원이 회의실일 경우
+                for (int i = 0; i < body.getEmpNoList().size(); i++) {
+                    peopleCntRepository.deleteByReservNo(body.getReservNo());
+                    PeopleCnt peopleCnt = PeopleCnt.builder()
+                            .reservNo(body.getReservNo())
+                            .userNo(Long.parseLong(body.getEmpNoList().get(i)))
+                            .build();
+                    peopleCntRepository.save(peopleCnt);
+                }
+            }
+
+            message = Message.builder()
+                    .resCode(1000)
+                    .message("[Success] Update Reservation")
+                    .build();
+            return new JsonResponse().send(200, message);
+        }else{
+            message = Message.builder()
+                    .resCode(1001)
+                    .message("[Fail] Update Reservation Duplicated Reservation")
+                    .build();
+            return new JsonResponse().send(200, message);
         }
 
-        Message message = Message.builder()
-                .resCode(1000)
-                .message("[Success] Update Reservation")
-                .build();
-        return new JsonResponse().send(200, message);
+
+
     }
 
     @Transactional

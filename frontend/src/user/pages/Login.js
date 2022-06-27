@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import axios from 'axios';
@@ -6,7 +7,7 @@ import axios from 'axios';
 import logo from '../assets/logo.png';
 import login from '../assets/login.png';
 
-import { tokenState } from '../recoil/Token';
+import { tokenState } from '../recoil/token';
 
 import Button from 'react-bootstrap/Button';
 
@@ -28,6 +29,8 @@ const Login = () => {
   const [inputPwd, setInputPwd] = useState('');
 
   const navigate = useNavigate();
+
+  const [cookies, setCookie] = useCookies(['accessToken']);
 
   const handleChangeId = (e) => {
     setInputId(e.target.value);
@@ -55,14 +58,18 @@ const Login = () => {
         userId: inputId,
         password: inputPwd,
       };
-      axios.post(`http://localhost:8090/login`, data).then((res) => {
-        setToken(res.headers.authorization);
-        if (res.data.resCode === 0) {
-          navigate('/main');
-        } else {
-          alert(`잘못된 정보를 입력하셨습니다.`);
-        }
-      });
+      axios
+        .post(`${process.env.REACT_APP_SERVER_PORT}/login`, data)
+        .then((res) => {
+          setToken(res.headers.authorization);
+          setCookie('accessToken', res.headers.authorization);
+          console.log(res);
+          if (res.data.resCode === 0) {
+            navigate('/main');
+          } else {
+            alert(`잘못된 정보를 입력하셨습니다.`);
+          }
+        });
     } catch (e) {
       console.log(e);
     }
@@ -72,7 +79,7 @@ const Login = () => {
     <Container>
       <LoginContainer>
         <ImageContainer1>
-          <img src={login} alt="Login" />
+          <img src={login} alt="Login" className="login" />
         </ImageContainer1>
         <div>
           <ImageContainer2>
@@ -106,7 +113,7 @@ const Login = () => {
                 />
               </InputContainer>
               <ButtonContainer>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" className="loginBtn">
                   LOGIN
                 </Button>
               </ButtonContainer>

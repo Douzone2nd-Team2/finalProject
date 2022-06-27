@@ -9,6 +9,7 @@ const SidebarContainer = styled.div`
   width: 150px;
   height: 360px;
   font-family: NanumGothicBold;
+  z-index: 999;
 `;
 
 const ContentContainer = styled.div`

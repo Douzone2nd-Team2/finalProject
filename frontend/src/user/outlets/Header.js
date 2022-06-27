@@ -1,24 +1,71 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { useSetRecoilState } from 'recoil';
+
+import { Link, useNavigate } from 'react-router-dom';
+
+import { searchState } from '../recoil/search';
+
 import Button from 'react-bootstrap/Button';
 
 import {
   HeaderContainer,
   LogoContainer,
   SearchContainer,
-  Ul1,
-  Ul2,
-  ListContainer,
-  DropDown,
-  Margin1,
-  Margin2,
+  BookList,
+  MyPageList,
+  MyPageListContainer,
+  BookListContainer,
+  DropDownContainer,
+  MenuContainer,
+  HeaderRightContainer,
+  ButtonContainer,
+  VerticalLine,
 } from '../styles/Header';
 
 const Header = () => {
+  const setSearchState = useSetRecoilState(searchState);
+
   const [isOpenBook, setIsOpenBook] = useState(false);
   const [isOpenMypage, setIsOpenMypage] = useState(false);
+  const [searchTitle, setSearchTitle] = useState('');
+
   const bookRef = useRef(null);
   const myPageRef = useRef(null);
+
+  const [_, removeCookie] = useCookies(['accessToken']);
+
+  const navigate = useNavigate();
+
+  const InitSearchTitle = () => {
+    setSearchTitle('');
+  };
+
+  const deleteCookie = () => {
+    removeCookie('accessToken');
+    navigate('/');
+  };
+
+  const openBookmenu = () => {
+    setIsOpenBook((prev) => !prev);
+    setIsOpenMypage(false);
+  };
+
+  const openMypagemenu = () => {
+    setIsOpenMypage((prev) => !prev);
+    setIsOpenBook(false);
+  };
+
+  const searchEvent = (e) => {
+    e.preventDefault();
+    InitSearchTitle();
+    setSearchState(searchTitle);
+    navigate('/search');
+  };
+
+  const changeTitle = (e) => {
+    setSearchTitle(e.target.value);
+  };
 
   useEffect(() => {
     const handleClickBookOutside = (e) => {
@@ -45,74 +92,76 @@ const Header = () => {
   }, [isOpenBook, isOpenMypage]);
 
   return (
-    <div>
-      <HeaderContainer>
-        <LogoContainer>
-          <Link to="/main" style={{ textDecoration: 'none', color: '#0a58ca' }}>
-            42DA
-          </Link>
-        </LogoContainer>
-        <DropDown>
-          <Margin1
-            onClick={() => {
-              setIsOpenBook((prev) => !prev);
-              setIsOpenMypage(false);
-            }}
-          >
-            예약
-          </Margin1>
-          {isOpenBook && (
-            <ListContainer theme={{ borderColor: 'black' }} ref={bookRef}>
-              <Ul1>
-                <li>회의실</li>
-                <hr />
-                <li>차량</li>
-                <hr />
-                <li>비품</li>
-              </Ul1>
-            </ListContainer>
-          )}
-        </DropDown>
-        <div>공지사항</div>
-        <SearchContainer>
-          <input
-            className="searchBox"
-            type="text"
-            placeholder="검색할 상품명을 입력하세요... "
-            // value, onChange
-          />
-          <span className="fa-solid fa-magnifying-glass" />
-        </SearchContainer>
-        <DropDown>
-          <Margin2
-            onClick={() => {
-              setIsOpenMypage((prev) => !prev);
-              setIsOpenBook(false);
-            }}
-          >
-            마이페이지
-          </Margin2>
-          {isOpenMypage && (
-            <ListContainer ref={myPageRef}>
-              <Ul2>
-                <li>
-                  <Link to="/info">개인정보 조회</Link>
-                </li>
-                <hr />
-                <li>즐겨찾기</li>
-                <hr />
-                <li>
-                  <Link to="/reset">비밀번호 변경</Link>
-                </li>
-                <hr />
-                <li>예약현황</li>
-              </Ul2>
-            </ListContainer>
-          )}
-        </DropDown>
-        <Button variant="secondary">로그아웃</Button>
-      </HeaderContainer>
-    </div>
+    <HeaderContainer>
+      <LogoContainer>
+        <Link to="/main" style={{ textDecoration: 'none', color: 'white' }}>
+          42DA
+        </Link>
+      </LogoContainer>
+      <SearchContainer onSubmit={searchEvent}>
+        <input
+          className="searchBox"
+          type="text"
+          placeholder="검색할 자원명을 입력하세요... "
+          onChange={changeTitle}
+          value={searchTitle}
+        />
+
+        <button type="submit" className="fa-solid fa-magnifying-glass" />
+      </SearchContainer>
+      {/* <MenuContainer>공지사항</MenuContainer> */}
+
+      <HeaderRightContainer>
+        <MenuContainer>
+          <DropDownContainer onClick={openBookmenu}>
+            <div style={{ display: 'flex' }}>
+              예약
+              <VerticalLine />
+            </div>
+
+            {isOpenBook && (
+              <BookListContainer theme={{ borderColor: 'black' }} ref={bookRef}>
+                <BookList>
+                  <li>회의실</li>
+                  <hr />
+                  <li>차량</li>
+                  <hr />
+                  <li>비품</li>
+                </BookList>
+              </BookListContainer>
+            )}
+          </DropDownContainer>
+          <DropDownContainer onClick={openMypagemenu}>
+            <div style={{ display: 'flex' }}>
+              마이페이지
+              <VerticalLine />
+            </div>
+            {isOpenMypage && (
+              <MyPageListContainer ref={myPageRef}>
+                <MyPageList>
+                  <li>
+                    <Link to="/info">개인정보 조회</Link>
+                  </li>
+                  <hr />
+                  <li>즐겨찾기</li>
+                  <hr />
+                  <li>
+                    <Link to="/reset">비밀번호 변경</Link>
+                  </li>
+                  <hr />
+                  <li>예약현황</li>
+                </MyPageList>
+              </MyPageListContainer>
+            )}
+          </DropDownContainer>
+          <ButtonContainer>
+            <button className="secondary" onClick={deleteCookie}>
+              로그아웃
+            </button>
+          </ButtonContainer>
+        </MenuContainer>
+      </HeaderRightContainer>
+    </HeaderContainer>
   );
 };
 

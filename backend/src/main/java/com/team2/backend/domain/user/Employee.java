@@ -1,5 +1,6 @@
 package com.team2.backend.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.team2.backend.domain.util.BaseTime;
 import lombok.*;
@@ -51,12 +52,14 @@ public class Employee extends BaseTime {
 
     @ManyToOne(targetEntity=Department.class)
     @JoinColumn(name="deptNo", insertable = false, updatable = false)
+    @JsonIgnore
     private Department dept;
     @Column(name="deptNo")
     private Long deptNo;
 
     @ManyToOne(targetEntity=Grade.class)
     @JoinColumn(name="gradeNo", insertable = false, updatable = false)
+    @JsonIgnore
     private Grade grade;
     @Column(name="gradeNo")
     private Long gradeNo;
