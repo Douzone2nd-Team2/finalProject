@@ -6,10 +6,10 @@ const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  font-family: NanumGothicBold;
 `;
 
 const Container = styled.div`
-  font-family: NanumGothicBold;
   padding: 70px;
   margin-left: 10%;
 `;

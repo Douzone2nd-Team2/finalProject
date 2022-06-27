@@ -5,6 +5,8 @@ import { searchState } from '../../recoil/search';
 
 import SearchItem from '../search/SearchItem';
 
+import Container from '../../styles/Search';
+
 const Search = () => {
   const title = useRecoilValue(searchState);
   console.log('title = ', title);
@@ -29,17 +31,14 @@ const Search = () => {
   }, []);
   //console.log(books);
   return (
-    <>
-      <div>회의실 목록</div>
-      <hr />
-      {/* {items &&
+    <Container>
+      {items &&
         items.map((book) => (
           <div key={book.id}>
             <SearchItem book={book} />
           </div>
-        ))} */}
-      {title}
-    </>
+        ))}
+    </Container>
   );
 };
 
