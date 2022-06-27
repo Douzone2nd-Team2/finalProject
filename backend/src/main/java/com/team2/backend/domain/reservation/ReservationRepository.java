@@ -11,4 +11,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     Reservation findByReservNo(Long reservNo);
 
     List<Reservation> findAllByResourceNo(Long resourceNo); // 와 이거 어쩜
+
+    Boolean findByResourceNo(Long resourceNo);
 }
