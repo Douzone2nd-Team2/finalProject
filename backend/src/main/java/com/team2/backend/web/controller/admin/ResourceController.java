@@ -1,15 +1,17 @@
 package com.team2.backend.web.controller.admin;
 
+import com.team2.backend.config.security.auth.EmployeeDetails;
 import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.service.admin.ResourceService;
 import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.admin.ResourceAdminDto;
-import com.team2.backend.web.dto.admin.ResourcefileDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -33,9 +35,14 @@ public class ResourceController {
         return resourceService.getBookmark();
     }
 
+    @PostMapping("/fileupload") // 사진 등록
+    public ResponseEntity<Message> fileRegister(@RequestPart(value = "able") String able, @RequestPart(value = "resourceNo") String resourceNo, @RequestPart(value = "image") List<MultipartFile> multipartFile){
+        return resourceService.fileupload(able, resourceNo, multipartFile);
+    }
+
     @PostMapping("/register") // 자원 등록
-    public ResponseEntity<Message> resourseRegister(HttpServletRequest req, @RequestBody ResourceAdminDto resourceAdminDto){
-        return resourceService.resourceRegister(req, resourceAdminDto);
+    public ResponseEntity<Message> resourseRegister(@RequestBody ResourceAdminDto resourceAdminDto){
+        return resourceService.resourceRegister(resourceAdminDto);
     }
 
     @PutMapping("/update")

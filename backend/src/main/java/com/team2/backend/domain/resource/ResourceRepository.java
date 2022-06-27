@@ -32,6 +32,34 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
             " where r.cateNo = :cateNo")
     List<IResourceAdminDto> findByCateNo(@Param("cateNo") long cateNo);
 
+    @Query(value="select r.resourceNo as resourceNo , r.cateNo as cateNo, c.cateName as cateName, r.able as able, r.people as people," +
+            "r.resourceName as resourceName, r.location as location, " +
+            " r.availableTime as availableTime, r.adminNo as adminNo, r.option as option, r.createAt as createAt, r.modifyAt as modifyAt" +
+            " from Resource r " +
+            " join Employee e on r.adminNo = e.no\n" +
+            " join Category c on c.cateNo = r.cateNo"+
+            " where r.resourceName = :resourceName")
+    List<IResourceAdminDto> findByResourceName(@Param("resourceName") String resourceName);
+
+    @Query(value="select r.resourceNo as resourceNo , r.cateNo as cateNo, c.cateName as cateName, r.able as able, r.people as people," +
+            "r.resourceName as resourceName, r.location as location, " +
+            " r.availableTime as availableTime, r.adminNo as adminNo, r.option as option, r.createAt as createAt, r.modifyAt as modifyAt" +
+            " from Resource r " +
+            " join Employee e on r.adminNo = e.no\n" +
+            " join Category c on c.cateNo = r.cateNo"+
+            " where r.option = :option")
+    List<IResourceAdminDto> findByOption(@Param("option") String option);
+
+    @Query(value="select r.resourceNo as resourceNo , r.cateNo as cateNo, c.cateName as cateName, r.able as able, r.people as people," +
+            "r.resourceName as resourceName, r.location as location, " +
+            " r.availableTime as availableTime, r.adminNo as adminNo, r.option as option, r.createAt as createAt, r.modifyAt as modifyAt" +
+            " from Resource r " +
+            " join Employee e on r.adminNo = e.no\n" +
+            " join Category c on c.cateNo = r.cateNo"+
+            " where r.fuel = :fuel")
+    List<IResourceAdminDto> findByFuel(@Param("fuel") String fuel);
 
     Resource findByResourceNo(long resourceNo);
+
+
 }

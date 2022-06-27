@@ -8,6 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ResourcefileRepository extends JpaRepository<Resourcefile, Long> {
+    Resourcefile findByResourceNo(long resourceNo);
 
-    void save(List<ResourcefileDto> resourcefileDtoList);
+    List<Resourcefile> findByResource_ResourceNo(Long resourceNo);
+    void deleteByResource_ResourceNo(Long resourceNo);
+
 }

@@ -19,7 +19,6 @@ import java.util.Map;
 public class ResourceAdminDto implements IResourceAdminDto{
     @NotNull
     private Long resourceNo;
-    @NotNull
     private Long cateNo;
     private String cateName;
     private String able;
