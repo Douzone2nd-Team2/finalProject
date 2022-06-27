@@ -35,12 +35,13 @@ public class AuthCheckFilter extends BasicAuthenticationFilter {
 
         String header = jwtTokenProvider.getAccessTokenFromHeader(request);
 
-        if (header == null || !header.startsWith("Bearer/")) {
+        if (header == null || !header.startsWith("Bearer%")) {
+            System.out.println("[ERROR] Invalid Token");
             chain.doFilter(request, response);
             return;
         }
 
-        String accessToken = header.split("/")[1];
+        String accessToken = header.split("%")[1];
 
         if (jwtTokenProvider.isValidAccessToken(accessToken)) {
             Long userNo = jwtTokenProvider.verifyAccessToken(accessToken).getClaim("userNo").asLong();
@@ -54,6 +55,7 @@ public class AuthCheckFilter extends BasicAuthenticationFilter {
             Authentication authentication = new UsernamePasswordAuthenticationToken(employeeDetails.getUsername(), null, employeeDetails.getAuthorities());
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            System.out.println("ㅍㄹ터 : " + userNo);
             request.setAttribute("userNo", userNo);
 
             chain.doFilter(request, response);
