@@ -39,7 +39,7 @@ public class SocketController {
     public SocketMessage checkReservation(@Payload SocketMessage message) throws ParseException {
         return socketService.checkReservation(message);
     }
-    @MessageMapping("/finish")
+    @MessageMapping("/reserve")
     public SocketMessage makeReservation(@Payload SocketMessage message) {
         return socketService.makeReservation(message);
     }

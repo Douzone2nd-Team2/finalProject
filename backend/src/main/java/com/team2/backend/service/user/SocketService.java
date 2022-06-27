@@ -26,20 +26,38 @@ public class SocketService {
     public SocketMessage getTimelist(SocketMessage message) throws ParseException {
         HashMap<String, String> data = (HashMap<String, String>) message.getData();
         Long resourceNo = Long.parseLong(data.get("resourceNo"));
-        Date checkDate = formatter.parse(data.get("checkDate"));
+        Date startDate = formatter.parse(data.get("startTime"));
+        Date endDate = formatter.parse(data.get("endTime"));
 
-        ReservationCheck check = reservationCheckRepository.findByResourceNoAndCheckDate(resourceNo, checkDate);
-        if (check == null) {
+        List<Date> dateList = new ArrayList<>();
+        for (Date i = startDate; i.before(endDate) || i.equals(endDate); i = new Date(i.getTime() + (1000 * 60 * 60 * 24))) {
+            dateList.add(i);
+        }
+
+        HashMap<String, Integer[]> timelists = new HashMap<>();
+
+        for (int i = 0; i < dateList.size(); i++) {
+            ReservationCheck check = reservationCheckRepository.findByResourceNoAndCheckDate(resourceNo, dateList.get(i));
+            if (check == null) {
+                continue;
+            }
+            else {
+                Integer[] timelist =  timelistRepository.findAllByCheckNo(check.getCheckNo());
+                timelists.put(formatter.format(dateList.get(i)), timelist);
+            }
+        }
+
+        if (timelists.isEmpty()) {
             message.setResCode(4000);
-            message.setMessage("[SUCCESS] 빈 예약 리스트 전송");
+            message.setMessage("[SUCCESS] 빈 예약 리스트");
         }
         else {
-            Integer[] timelist =  timelistRepository.findAllByCheckNo(check.getCheckNo());
-            message.setData(timelist); // 예약된 시간 리스트 보냄 - 여기 있는 시간들만 disable 시키면 됨
+            message.setData(timelists); // 예약된 시간 리스트 보냄 - 여기 있는 시간들만 disable 시키면 됨
             message.setResCode(4000);
             message.setMessage("[SUCCESS] 예약 리스트 전송");
         }
-        simpMessagingTemplate.convertAndSendToUser(message.getSenderName(),"/reserve", message);
+
+        simpMessagingTemplate.convertAndSendToUser(message.getSenderName(),"/do", message);
 
         return message;
     }
@@ -122,7 +140,7 @@ public class SocketService {
                 message.setMessage("[ERROR] 알 수 없는 오류");
                 throw new RuntimeException();
         }
-        simpMessagingTemplate.convertAndSendToUser(message.getSenderName(),"/reserve", message);
+        simpMessagingTemplate.convertAndSendToUser(message.getSenderName(),"/do", message);
         return message;
     }
 
