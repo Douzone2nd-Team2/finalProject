@@ -66,6 +66,7 @@ public class Resource extends BaseTime {
     @Column(name = "fuel")
     private String fuel;   //차량만 사용
 
+
     public void update(Long category, String able, String resourceName, String location, Integer people,
                        String availableTime, Long adminNo, String option, String fuel) {
         this.cateNo = category;
@@ -78,4 +79,5 @@ public class Resource extends BaseTime {
         this.option = option;
         this.fuel = fuel;
     }
+
 }

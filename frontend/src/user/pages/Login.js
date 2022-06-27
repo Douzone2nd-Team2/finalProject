@@ -58,16 +58,18 @@ const Login = () => {
         userId: inputId,
         password: inputPwd,
       };
-      axios.post(`http://localhost:8090/login`, data).then((res) => {
-        setToken(res.headers.authorization);
-        setCookie('accessToken', res.headers.authorization);
-        console.log(res);
-        if (res.data.resCode === 0) {
-          navigate('/main');
-        } else {
-          alert(`잘못된 정보를 입력하셨습니다.`);
-        }
-      });
+      axios
+        .post(`${process.env.REACT_APP_SERVER_PORT}/login`, data)
+        .then((res) => {
+          setToken(res.headers.authorization);
+          setCookie('accessToken', res.headers.authorization);
+          console.log(res);
+          if (res.data.resCode === 0) {
+            navigate('/main');
+          } else {
+            alert(`잘못된 정보를 입력하셨습니다.`);
+          }
+        });
     } catch (e) {
       console.log(e);
     }
