@@ -6,7 +6,7 @@ import Login from './user/pages/Login';
 import Main from './user/pages/main';
 import Reset from './user/pages/Reset';
 import MyInfo from './user/pages/MyInfo';
-import Search from './user/pages/Search';
+import Search from './user/pages/search';
 
 import AdminMain from './admin/pages/AdminMain';
 import AdminLoginPage from './admin/pages/AdminLoginPage';
