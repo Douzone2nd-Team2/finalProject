@@ -1,5 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 
+// import PublicRoute from './user/components/PublicRoute';
+// import PrivateRoute from './user/components/PrivateRoute';
+
 import Layout from './user/components/Layout';
 
 import Login from './user/pages/Login';

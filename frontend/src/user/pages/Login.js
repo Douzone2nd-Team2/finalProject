@@ -8,6 +8,7 @@ import logo from '../assets/logo.png';
 import login from '../assets/login.png';
 
 import { tokenState } from '../recoil/token';
+import { userNoState, userNameState } from '../recoil/user';
 
 import Button from 'react-bootstrap/Button';
 
@@ -24,6 +25,8 @@ import {
 
 const Login = () => {
   const setToken = useSetRecoilState(tokenState);
+  const setUserNo = useSetRecoilState(userNoState);
+  const setUserName = useSetRecoilState(userNameState);
 
   const [inputId, setInputId] = useState('');
   const [inputPwd, setInputPwd] = useState('');
@@ -61,9 +64,11 @@ const Login = () => {
       axios
         .post(`${process.env.REACT_APP_SERVER_PORT}/login`, data)
         .then((res) => {
-          setToken(res.headers.authorization);
-          setCookie('accessToken', res.headers.authorization);
           console.log(res);
+          setToken(res.headers.authorization);
+          setUserName(res.data.data.name);
+          setUserNo(res.data.data.userNo);
+          setCookie('accessToken', res.headers.authorization);
           if (res.data.resCode === 0) {
             navigate('/main');
           } else {

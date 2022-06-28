@@ -1,4 +1,4 @@
-import Header from '../styles/Header';
+import Header from '../components/Header';
 import Sidebar from '../styles/Sidebar';
 import Reservation from '../components/reservation/Reservation';
 
