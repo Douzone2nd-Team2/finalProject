@@ -31,6 +31,7 @@ public class UserMainController {
 
     @GetMapping("/search")
     public ResponseEntity<Message> getSearchList(@RequestParam(value = "keyword") String keyword){
+        System.out.println("search enter!!");
         return userMainService.getSearchList(keyword);
     }
 
@@ -38,5 +39,4 @@ public class UserMainController {
     public ResponseEntity<Message> getEachList(@PathVariable Long cateNo){
         return resourceService.getEachList(cateNo);
     }
-
 }
