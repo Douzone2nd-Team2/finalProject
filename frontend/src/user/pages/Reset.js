@@ -20,6 +20,7 @@ import {
 
 const Reset = () => {
   const token = useRecoilValue(tokenState);
+  console.log('너 나오니?');
 
   // 현재 비밀번호, 수정 비밀번호, 비밀번호 확인
   const [ppwd, setPpwd] = useState();

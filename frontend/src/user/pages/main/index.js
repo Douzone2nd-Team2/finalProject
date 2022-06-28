@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
+
 import { useRecoilValue } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 import { tokenState } from '../../recoil/token';
 
@@ -11,6 +14,10 @@ import Book from './Book';
 const Main = () => {
   const token = useRecoilValue(tokenState);
   console.log('access token : ', token);
+
+  // useEffect(() => {
+  //   token = useSetRecoilState(tokenState);
+  // }, [token])
 
   return (
     <>

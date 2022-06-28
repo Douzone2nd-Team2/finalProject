@@ -42,12 +42,12 @@ const Search = () => {
   //console.log(books);
   return (
     <Container>
-      {/* {items &&
+      {items &&
         items.map((book) => (
           <div key={book.id}>
             <SearchItem book={book} />
           </div>
-        ))} */}
+        ))}
       <div>test</div>
     </Container>
   );
