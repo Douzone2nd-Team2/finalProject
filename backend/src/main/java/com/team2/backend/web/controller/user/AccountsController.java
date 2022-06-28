@@ -28,10 +28,10 @@ public class AccountsController {
     }
 
     // TEST
-    @PostMapping("/main")
-    public ResponseEntity<Message> main() {
-        return accountsService.main();
-    }
+//    @PostMapping("/main")
+//    public ResponseEntity<Message> main() {
+//        return accountsService.main();
+//    }
 
     @PostMapping("/admin")
     public ResponseEntity<Message> admin() {

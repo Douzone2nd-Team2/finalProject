@@ -1,15 +1,24 @@
 package com.team2.backend.service.user;
 
+import com.team2.backend.domain.reservation.IMainReservationDto;
+import com.team2.backend.domain.reservation.Reservation;
+import com.team2.backend.domain.reservation.ReservationQuerydslRepository;
+import com.team2.backend.domain.reservation.ReservationRepository;
 import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.resource.ResourceRepository;
+import com.team2.backend.domain.user.Employee;
+import com.team2.backend.domain.user.EmployeeRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.admin.IResourceAdminDto;
+import com.team2.backend.web.dto.admin.QReservationManagementDto;
+import com.team2.backend.web.dto.admin.ReservationManagementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -17,6 +26,8 @@ import java.util.List;
 public class UserMainService {
 
     private final ResourceRepository resourceRepository;
+    private final ReservationRepository reservationRepository;
+    private final ReservationQuerydslRepository reservationQuerydslRepository;
 
     @Transactional
     public ResponseEntity<Message> getResourcenameList(String resourceName) {
@@ -72,6 +83,20 @@ public class UserMainService {
                 .resCode(3000)
                 .message("성공: fuel으로 검색 성공")
                 .data(selectResourcefuelList)
+                .build();
+        return new JsonResponse().send(200, message);
+    }
+
+    @Transactional
+    public ResponseEntity<Message> getMainList(HttpServletRequest request) {
+
+        Long userNo = (Long)request.getAttribute("userNo");
+        List<IMainReservationDto> reservationList = reservationRepository.getMainReservList(userNo);
+
+        Message message = Message.builder()
+                .message("[SUCCESS] Select ReservationList")
+                .data(reservationList)
+                .resCode(1000)
                 .build();
         return new JsonResponse().send(200, message);
     }

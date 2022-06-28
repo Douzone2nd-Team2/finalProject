@@ -10,11 +10,14 @@ import org.springframework.stereotype.Repository;
 import com.team2.backend.domain.user.Employee;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Employee findByUserId(String userId);
     Employee findByNo(Long userNo);
     Boolean existsByUserId(String userId);
     Employee findByEmpNo(String empNo);
+
 
 }
