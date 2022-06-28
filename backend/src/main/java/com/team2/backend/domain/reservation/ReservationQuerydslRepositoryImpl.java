@@ -1,8 +1,10 @@
 package com.team2.backend.domain.reservation;
 
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.DateTemplate;
 import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import com.team2.backend.web.dto.admin.QReservationManagementDto;
@@ -26,6 +28,7 @@ import static com.team2.backend.domain.reservation.QReservationCheck.reservation
 import static com.team2.backend.domain.reservation.QReservation.reservation;
 import static com.team2.backend.domain.resource.QCategory.category;
 import static com.team2.backend.domain.resource.QResource.resource;
+import static com.team2.backend.domain.resource.QResourcefile.resourcefile;
 import static com.team2.backend.domain.user.QEmployee.employee;
 
 @Repository
@@ -187,5 +190,25 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                 .where(timelist.checkNo.eq(checkNo))
                 .execute();
     }
+
+/*    @Override
+    public List<ReservationManagementDto> getMainReservList(Long userNo) {
+        return (List<ReservationManagementDto>) jpaQueryFactory
+                .select(new QReservationManagementDto(
+                        reservation.reservNo,
+                        reservation.resourceNo,
+                        reservation.reservName,
+                        ExpressionUtils.as(JPAExpressions.select(resourcefile.path)
+                                .from(resourcefile)
+                                .join(resourcefile.resource, resource)
+                                .join(reservation.resource, resource)
+                                .orderBy(resourcefile.createAt.desc())
+                                .limit(1), "imageUrl")
+                )).from(reservation)
+                .join(reservation.resource, resource)
+                .leftJoin(JPAExpressions.select(path, imageNo).from(resourcefile)., resource)
+                .where(reservation.userNo.eq(userNo))
+                .fetch();
+    }*/
 
 }

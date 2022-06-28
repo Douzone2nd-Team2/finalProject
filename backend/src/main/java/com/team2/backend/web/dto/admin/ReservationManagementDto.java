@@ -3,6 +3,7 @@ package com.team2.backend.web.dto.admin;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.querydsl.core.annotations.QueryProjection;
+import com.querydsl.core.types.Expression;
 import com.team2.backend.domain.reservation.Reservation;
 import com.team2.backend.domain.reservation.ReservationCheck;
 import com.team2.backend.domain.resource.PeopleCnt;
@@ -54,6 +55,7 @@ public class ReservationManagementDto {
     //자원 이미지
     private Long imageNo;
     private String imageUrl;
+    private Expression imagePath;
 
     //직원
     private String empNo;
@@ -112,6 +114,16 @@ public class ReservationManagementDto {
         this.reservNo = reservNo;
         this.cateNo = cateNo;
         this.timeNo = timeNo;
+    }
+
+    //사용자
+    @QueryProjection
+    @Builder
+    public ReservationManagementDto(Long reservNo, Long resourceNo, String reservName, Expression imagePath) {
+        this.reservNo = reservNo;
+        this.resourceNo = resourceNo;
+        this.reservName = reservName;
+        this.imagePath = imagePath;
     }
 
     public Reservation toEntity() throws ParseException {
