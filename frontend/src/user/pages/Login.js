@@ -8,7 +8,7 @@ import logo from '../assets/logo.png';
 import login from '../assets/login.png';
 
 import { tokenState } from '../recoil/token';
-// import { userNoState, userNameState } from '../recoil/user';
+import { userNoState, userNameState } from '../recoil/user';
 
 import Button from 'react-bootstrap/Button';
 
@@ -25,8 +25,8 @@ import {
 
 const Login = () => {
   const setToken = useSetRecoilState(tokenState);
-  // const setUserNo = useSetRecoilState(userNoState);
-  // const setUserName = useSetRecoilState(userNameState);
+  const setUserNo = useSetRecoilState(userNoState);
+  const setUserName = useSetRecoilState(userNameState);
 
   const [inputId, setInputId] = useState('');
   const [inputPwd, setInputPwd] = useState('');
@@ -66,9 +66,10 @@ const Login = () => {
         .then((res) => {
           console.log(res);
           setToken(res.headers.authorization);
-          // setUserName(res.data.data.name);
-          // setUserNo(res.data.data.userNo);
+          setUserName(res.data.data.name);
+          setUserNo(res.data.data.userNo);
           setCookie('accessToken', res.headers.authorization);
+          console.log(res);
           if (res.data.resCode === 0) {
             navigate('/main');
           } else {
