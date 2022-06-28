@@ -7,6 +7,7 @@ import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.user.MypageDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,5 +24,10 @@ public class MypageController {
     @PostMapping("/mypage/changepw")
     public ResponseEntity<Message> chagePw(HttpServletRequest request, @RequestBody MypageDto body){
         return mypageService.changePw(request, body);
+    }
+
+    @GetMapping("/mypage/view")
+    public ResponseEntity<Message> employeeView(HttpServletRequest request){
+        return mypageService.employeeView(request);
     }
 }
