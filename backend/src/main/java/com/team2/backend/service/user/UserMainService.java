@@ -56,6 +56,9 @@ public class UserMainService {
         Long userNo = (Long)request.getAttribute("userNo");
         List<IMainReservationDto> reservationList = reservationRepository.getMainReservList(userNo);
 
+        List<ReservationManagementDto> frequenchUsageList = reservationQuerydslRepository.getMainFrequencyUsageList();
+
+
         Message message = Message.builder()
                 .message("[SUCCESS] Select ReservationList")
                 .data(reservationList)

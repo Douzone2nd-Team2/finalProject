@@ -69,6 +69,7 @@ const Login = () => {
           setUserName(res.data.data.name);
           setUserNo(res.data.data.userNo);
           setCookie('accessToken', res.headers.authorization);
+          console.log(res);
           if (res.data.resCode === 0) {
             navigate('/main');
           } else {
