@@ -29,12 +29,9 @@ public class UserMainController {
         return userMainService.getMainList(request);
     }
 
-    @GetMapping("/search/resourceName")
-    public ResponseEntity<Message> getResourcenameList(@RequestParam String resourceName){
-        return userMainService.getResourcenameList(resourceName);
-
     @GetMapping("/search")
     public ResponseEntity<Message> getSearchList(@RequestParam(value = "keyword") String keyword){
+        System.out.println("search enter!!");
         return userMainService.getSearchList(keyword);
     }
 
@@ -42,5 +39,4 @@ public class UserMainController {
     public ResponseEntity<Message> getEachList(@PathVariable Long cateNo){
         return resourceService.getEachList(cateNo);
     }
-
 }
