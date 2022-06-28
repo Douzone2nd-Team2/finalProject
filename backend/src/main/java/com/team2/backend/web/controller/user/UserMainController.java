@@ -17,12 +17,11 @@ import static com.amazonaws.services.elasticbeanstalk.model.ConfigurationOptionV
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/main")
+@RequestMapping("main")
 public class UserMainController {
 
     private final UserMainService userMainService;
     private final ResourceService resourceService;
-
 
     @GetMapping
     public ResponseEntity<Message> main(HttpServletRequest request){
@@ -33,17 +32,12 @@ public class UserMainController {
     @GetMapping("/search/resourceName")
     public ResponseEntity<Message> getResourcenameList(@RequestParam String resourceName){
         return userMainService.getResourcenameList(resourceName);
+
+    @GetMapping("/search")
+    public ResponseEntity<Message> getSearchList(@RequestParam(value = "keyword") String keyword){
+        return userMainService.getSearchList(keyword);
     }
 
-    @GetMapping("/search/option")
-    public ResponseEntity<Message> getResourceoptionList(@RequestParam String option){
-        return userMainService.getResourceoptionList(option);
-    }
-
-    @GetMapping("/search/fuel")
-    public ResponseEntity<Message> getResourceofuelList(@RequestParam String fuel){
-        return userMainService.getResourceofuelList(fuel);
-    }
     @GetMapping("/{cateNo}") // 각 자원별 전체 조회
     public ResponseEntity<Message> getEachList(@PathVariable Long cateNo){
         return resourceService.getEachList(cateNo);

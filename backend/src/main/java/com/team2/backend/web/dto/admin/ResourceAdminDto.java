@@ -38,7 +38,6 @@ public class ResourceAdminDto implements IResourceAdminDto{
     private String fuel;
 
     private List<Resourcefile> resourcefile;
-//    private Map<String, Object> resourcefile;
 
     @Builder
     public ResourceAdminDto(Long resourceNo, Long cateNo, String able, String resourceName,List<Resourcefile> resourcefile){
@@ -48,5 +47,6 @@ public class ResourceAdminDto implements IResourceAdminDto{
         this.resourceName = resourceName;
         this.resourcefile = resourcefile;
     }
+
 }
 
