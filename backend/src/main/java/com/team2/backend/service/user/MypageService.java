@@ -2,9 +2,11 @@ package com.team2.backend.service.user;
 
 import com.team2.backend.config.security.auth.EmployeeDetails;
 import com.team2.backend.domain.user.Employee;
+import com.team2.backend.domain.user.EmployeeQuerydslRepository;
 import com.team2.backend.domain.user.EmployeeRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
+import com.team2.backend.web.dto.admin.EmployeeManagementDto;
 import com.team2.backend.web.dto.user.MypageDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +16,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class MypageService {
 
     private final EmployeeRepository employeeRepository;
+    private final EmployeeQuerydslRepository employeeQuerydslRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
@@ -55,7 +59,8 @@ public class MypageService {
     @Transactional
     public ResponseEntity<Message> employeeView(HttpServletRequest request) {
 
-        Employee employee = employeeRepository.findByNo((Long)request.getAttribute("userNo"));
+        System.out.println(request.getAttribute("userNo"));
+        List<EmployeeManagementDto> employee = employeeQuerydslRepository.getMainEmployee((Long)request.getAttribute("userNo"));
 
         Message message = Message.builder()
                 .resCode(2000)
