@@ -9,6 +9,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -37,7 +38,7 @@ public class SocketService {
         HashMap<String, Integer[]> timelists = new HashMap<>();
 
         for (int i = 0; i < dateList.size(); i++) {
-            ReservationCheck check = reservationCheckRepository.findByResourceNoAndCheckDate(resourceNo, dateList.get(i));
+            ReservationCheck check = reservationCheckRepository.findByResourceNoAndCheckDate(resourceNo, formatter.format(dateList.get(i)));
             if (check == null) {
                 continue;
             }
@@ -66,15 +67,15 @@ public class SocketService {
     public SocketMessage checkReservation(SocketMessage message) throws ParseException {
         HashMap<String, String> data = (HashMap<String, String>) message.getData();
         Long resourceNo = Long.parseLong(data.get("resourceNo"));
-        String from = data.get("startTime");
-        String to = data.get("endTime");
-        Date startDate = formatter.parse(from);
-        Date endDate = formatter.parse(to);
-        Integer startTime = timeParser(from.split(" ")[1]);
-        Integer endTime = timeParser(to.split(" ")[1]);
+        String startDate = data.get("startTime").split(" ")[0];
+        String endDate = data.get("endTime").split(" ")[0];
+        Date from = formatter.parse(startDate);
+        Date to = formatter.parse(endDate);
+        Integer startTime = timeParser(data.get("startTime").split(" ")[1]);
+        Integer endTime = timeParser(data.get("endTime").split(" ")[1]);
 
         List<Date> dateList = new ArrayList<>();
-        for (Date i = startDate; i.before(endDate) || i.equals(endDate); i = new Date(i.getTime() + (1000 * 60 * 60 * 24))) {
+        for (Date i = from; i.before(to) || i.equals(endDate); i = new Date(i.getTime() + (1000 * 60 * 60 * 24))) {
             dateList.add(i);
         }
 
@@ -84,7 +85,7 @@ public class SocketService {
                     ReservationCheck newCheck = reservationCheckRepository.save(
                             ReservationCheck.builder()
                                     .resourceNo(resourceNo)
-                                    .checkDate(dateList.get(i))
+                                    .checkDate(formatter.format(dateList.get(i)))
                                     .build()
                     );
                     if (dateList.size() > 1) {
@@ -108,7 +109,7 @@ public class SocketService {
                 break;
             case "OK":
                 for (int i = 0; i < dateList.size(); i++) {
-                    ReservationCheck findCheck = reservationCheckRepository.findByResourceNoAndCheckDate(resourceNo, dateList.get(i));
+                    ReservationCheck findCheck = reservationCheckRepository.findByResourceNoAndCheckDate(resourceNo, formatter.format(dateList.get(i)));
                     if (dateList.size() > 1) {
                         if (i == 0) {
                             saveTimelist(findCheck.getCheckNo(), startTime, 48);
@@ -145,7 +146,7 @@ public class SocketService {
     }
 
     @Transactional(rollbackFor = {RuntimeException.class, Exception.class})
-    public String isAvailable(Long resourceNo, Date startDate , Integer startTime, Date endDate, Integer endTime) throws ParseException {
+    public String isAvailable(Long resourceNo, String startDate , Integer startTime, String endDate, Integer endTime) throws ParseException {
         
         // 당일 예약이라면
         if (startDate.equals(endDate)) {
@@ -187,8 +188,32 @@ public class SocketService {
     //        3. 예약 완료 -> 예약 완료 테이블에 넣고 현재 예약중에서 state 예약 완료로 변경
 //        4. 소켓 끊음
     @Transactional
-    public SocketMessage makeReservation(SocketMessage message) {
+    public SocketMessage fixReservation(SocketMessage message) throws ParseException {
+        HashMap<String, String> data = (HashMap<String, String>) message.getData();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Long resourceNo = Long.parseLong(data.get("resourceNo"));
+        Date startTime = dateFormatter.parse(data.get("startTime"));
+        Date endTime = dateFormatter.parse(data.get("endTime"));
+        String reservName = data.get("reservName");
+//        Long userNo = Long.parseLong((String) req.getAttribute("userNo"));
+
+        System.out.println(resourceNo);
+        System.out.println(startTime);
+        System.out.println(endTime);
+        System.out.println(reservName);
+//        String peopleCnt = data.get("peopleCnt"); // 보류
+
+//        Reservation reservation = reservationRepository.save(
+//            Reservation.builder()
+//                .resourceNo(resourceNo)
+//                .userNo(userNo)
+//                .reservName(reservName)
+//                .startTime(startTime)
+//                .endTime(endTime)
+//                .build()
+//        );
         // 현재 예약중 테이블 state 예약 완료로 변경
+
         // 예약 테이블에 save
         // 예약 성공 메세지 전송 - 클라이언트는 예약 완료 페이지로 이동
         // 예약 실패 메세지 전송(db에러?) - 클라이언트는 알수없는 오류 모달? - 초기화면으로 이동

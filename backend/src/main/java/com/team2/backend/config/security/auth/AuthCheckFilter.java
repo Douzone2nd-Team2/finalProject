@@ -9,6 +9,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -19,12 +21,12 @@ import java.io.IOException;
 
 public class AuthCheckFilter extends BasicAuthenticationFilter {
 
-    private EmployeeRepository employeeRepository;
+    private EmployeeDetailsService employeeDetailsService;
     private JwtTokenProvider jwtTokenProvider;
 
-    public AuthCheckFilter(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, EmployeeRepository employeeRepository) {
+    public AuthCheckFilter(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, EmployeeDetailsService employeeDetailsService) {
         super(authenticationManager);
-        this.employeeRepository = employeeRepository;
+        this.employeeDetailsService = employeeDetailsService;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
@@ -35,26 +37,26 @@ public class AuthCheckFilter extends BasicAuthenticationFilter {
 
         String header = jwtTokenProvider.getAccessTokenFromHeader(request);
 
-        if (header == null || !header.startsWith("Bearer/")) {
+        if (header == null || !header.startsWith("Bearer")) {
             chain.doFilter(request, response);
             return;
         }
 
-        String accessToken = header.split("/")[1];
+        String accessToken = header.split("%")[1];
 
         if (jwtTokenProvider.isValidAccessToken(accessToken)) {
-            Long userNo = jwtTokenProvider.verifyAccessToken(accessToken).getClaim("userNo").asLong();
-            if (userNo == null) {
-                System.out.println("[WARN] Invalid claim 'userNo'");
+            String userId = jwtTokenProvider.verifyAccessToken(accessToken).getClaim("userId").asString();
+            if (userId == null || userId.isEmpty()) {
+                System.out.println("[WARN] Invalid claim 'userId'");
                 return;
             }
 
-            Employee employee = employeeRepository.findByNo(userNo);
-            EmployeeDetails employeeDetails = new EmployeeDetails(employee);
-            Authentication authentication = new UsernamePasswordAuthenticationToken(employeeDetails.getUsername(), null, employeeDetails.getAuthorities());
+            UserDetails employeeDetails = employeeDetailsService.loadUserByUsername(userId);
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(employeeDetails, null, employeeDetails.getAuthorities());
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            request.setAttribute("userNo", userNo);
+            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
             chain.doFilter(request, response);
         }

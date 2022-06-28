@@ -39,7 +39,7 @@ public class ReservationCheck {
     private Long resourceNo;
 
     @Column(name="checkDate")
-    private Date checkDate;
+    private String checkDate;
 
     @ManyToOne(targetEntity = Category.class)
     @JoinColumn(name="cateNo", insertable = false, updatable = false)

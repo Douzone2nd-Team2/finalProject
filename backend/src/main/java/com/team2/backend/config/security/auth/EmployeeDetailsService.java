@@ -20,12 +20,12 @@ public class EmployeeDetailsService implements UserDetailsService {
     private final EmployeeRepository employeeRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        if (!employeeRepository.existsByUserId(userId)) {
+        if (!employeeRepository.existsByUserId(username)) {
             System.out.println("[WARN] Invalid employee");
         }
-        Employee emp = employeeRepository.findByUserId(userId);
+        Employee emp = employeeRepository.findByUserId(username);
         return new EmployeeDetails(emp);
     }
 }

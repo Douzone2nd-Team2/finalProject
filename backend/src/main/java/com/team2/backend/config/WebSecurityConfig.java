@@ -1,6 +1,7 @@
 package com.team2.backend.config;
 
 import com.team2.backend.config.security.auth.AuthCheckFilter;
+import com.team2.backend.config.security.auth.EmployeeDetailsService;
 import com.team2.backend.config.security.auth.LoginFilter;
 import com.team2.backend.config.security.cors.CORSFilter;
 import com.team2.backend.config.security.utils.JwtTokenProvider;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -27,7 +29,7 @@ import java.util.Arrays;
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeDetailsService employeeDetailsService;
     private final CORSFilter corsFilter;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -61,29 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthCheckFilter authCheckFilter() throws Exception {
-        return new AuthCheckFilter(authenticationManager(), jwtTokenProvider, employeeRepository);
+        return new AuthCheckFilter(authenticationManager(), jwtTokenProvider, employeeDetailsService);
     }
-
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowCredentials(true);
-        configuration.addAllowedOrigin("http://localhost:3000");
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
-//        configuration.setAllowedHeaders(Arrays.asList("X-Requested-With", "Origin","Content-Type","Accept"));
-        configuration.addAllowedMethod("*");
-
-
-        configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Headers", "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, " +
-                "Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"));
-        configuration.setExposedHeaders(Arrays.asList("Authorization"));
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-
-        return source;
-    }
-
 
 }

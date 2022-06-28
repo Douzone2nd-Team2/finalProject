@@ -1,5 +1,6 @@
 package com.team2.backend.web.controller.user;
 
+import com.team2.backend.config.security.auth.EmployeeDetails;
 import com.team2.backend.domain.reservation.Reservation;
 import com.team2.backend.domain.reservation.ReservationRepository;
 import com.team2.backend.domain.user.Employee;
@@ -11,8 +12,14 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.text.ParseException;
 import java.util.List;
 
@@ -36,11 +43,13 @@ public class SocketController {
     }
 
     @MessageMapping("/check")
-    public SocketMessage checkReservation(@Payload SocketMessage message) throws ParseException {
+    public SocketMessage checkReservation(Principal principal, @Payload SocketMessage message) throws ParseException {
+
+        System.out.println("ㅎㅇ"  + principal.getName());
         return socketService.checkReservation(message);
     }
     @MessageMapping("/reserve")
-    public SocketMessage makeReservation(@Payload SocketMessage message) {
-        return socketService.makeReservation(message);
+    public SocketMessage fixReservation(@Payload SocketMessage message) throws ParseException {
+        return socketService.fixReservation(message);
     }
 }
