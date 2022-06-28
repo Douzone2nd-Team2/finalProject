@@ -1,5 +1,6 @@
 package com.team2.backend.domain.user;
 
+import com.team2.backend.domain.resource.Resource;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -46,4 +47,5 @@ public class EmployeeFile {
     @CreatedDate
     @Column(name="createAt")
     private LocalDateTime createAt;
+
 }

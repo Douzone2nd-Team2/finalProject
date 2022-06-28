@@ -1,6 +1,10 @@
 package com.team2.backend.domain.reservation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.querydsl.core.annotations.QueryProjection;
+import com.querydsl.core.types.Expression;
+import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.jpa.JPAExpressions;
 import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.user.Employee;
 import com.team2.backend.domain.util.BaseTime;
@@ -10,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -50,10 +55,21 @@ public class Reservation extends BaseTime {
     @Column(name="reservName")
     private String reservName;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name="startTime")
     private Date startTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name="endTime")
     private Date endTime;
 
+    private Expression imageUrl;
+
+
+    public Reservation(Long reservNo, Long resourceNo, String reservName, Expression imageUrl) {
+        this.reservNo = reservNo;
+        this.resourceNo = resourceNo;
+        this.reservName = reservName;
+        this.imageUrl = imageUrl;
+    }
 }

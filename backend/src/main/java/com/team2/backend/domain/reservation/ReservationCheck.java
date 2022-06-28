@@ -48,14 +48,14 @@ public class ReservationCheck {
     @Column(name="cateNo")
     private Long cateNo;
 
-    // 보류 - timelist에 있어야되는거 아닌가?
-//    @ManyToOne(targetEntity = Resource.class)
-//    @JoinColumn(name="reservNo", insertable = false, updatable = false)
-//    @JsonIgnore
-//    private Resource reserv;
-//    @Column(name="reservNo")
-//    private Long reservNo;
 
     @OneToMany(mappedBy = "checkNo")
     private List<Timelist> timelist;
+
+    @ManyToOne(targetEntity = Reservation.class)
+    @JoinColumn(name="reservNo", insertable = false, updatable = false)
+    private Resource reserv;
+    @Column(name="reservNo")
+    private Long reservNo;
+
 }

@@ -3,7 +3,9 @@ package com.team2.backend.web.dto.admin;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.querydsl.core.annotations.QueryProjection;
+import com.querydsl.core.types.Expression;
 import com.team2.backend.domain.reservation.Reservation;
+import com.team2.backend.domain.reservation.ReservationCheck;
 import com.team2.backend.domain.resource.PeopleCnt;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,6 +55,7 @@ public class ReservationManagementDto {
     //자원 이미지
     private Long imageNo;
     private String imageUrl;
+    private Expression imagePath;
 
     //직원
     private String empNo;
@@ -61,6 +64,11 @@ public class ReservationManagementDto {
     //회의실 예약 인원
     private Long peopleNo;
     private List<String> empNoList;   //직원고유번호, 사원번호
+
+    //timelist
+    private Long checkNo;
+    private String checkDate;
+    private Long timeNo;
 
     @QueryProjection
     @Builder
@@ -95,6 +103,27 @@ public class ReservationManagementDto {
         this.adminNo = adminNo;
         this.adminName = adminName;
         this.availableTime = availableTime;
+    }
+
+    @QueryProjection
+    @Builder
+    public ReservationManagementDto(Long checkNo, Long resourceNo, String checkDate, Long cateNo, Long reservNo, Long timeNo) {
+        this.checkNo = checkNo;
+        this.resourceNo = resourceNo;
+        this.checkDate = checkDate;
+        this.reservNo = reservNo;
+        this.cateNo = cateNo;
+        this.timeNo = timeNo;
+    }
+
+    //사용자
+    @QueryProjection
+    @Builder
+    public ReservationManagementDto(Long reservNo, Long resourceNo, String reservName, Expression imagePath) {
+        this.reservNo = reservNo;
+        this.resourceNo = resourceNo;
+        this.reservName = reservName;
+        this.imagePath = imagePath;
     }
 
     public Reservation toEntity() throws ParseException {

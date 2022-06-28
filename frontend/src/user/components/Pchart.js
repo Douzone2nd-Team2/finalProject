@@ -18,7 +18,7 @@ const PChart = () => {
   return (
     <Container>
       <PieContainer>
-        <TitleContainer>자주 사용하는 자원</TitleContainer>
+        <TitleContainer>오늘의 자원 사용률</TitleContainer>
         <InnerContainer>
           <VictoryPie
             data={DATA}

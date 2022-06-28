@@ -1,12 +1,17 @@
 import styled from 'styled-components';
-const Container = styled.div`
-  width: 90%;
-  margin: auto;
+
+const MainContainer = styled.div`
+  background-color: '#fafafa';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   font-family: NanumGothicBold;
-  background-color: #fafafa;
-  padding: 70px;
-  margin-left: 160px;
-  margin-bottom: -77px;
 `;
 
-export default Container;
+const Container = styled.div`
+  padding: 70px;
+  margin-left: 10%;
+`;
+
+export { MainContainer, Container };

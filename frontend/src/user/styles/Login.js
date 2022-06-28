@@ -22,6 +22,17 @@ const LoginContainer = styled.div`
   opacity: 0.8;
   border-radius: 5px;
   box-shadow: 1px 1px 1px 1px lightgray;
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+    align-items: center;
+    height: 400px;
+    .login {
+      display: none;
+    }
+    .loginBtn {
+      margin-bottom: 30px;
+    }
+  }
 `;
 
 const LoginTitle = styled.div`
@@ -34,7 +45,7 @@ const LoginTitle = styled.div`
 const ImageContainer1 = styled.div`
   img {
     width: 180%;
-    margin-left: -70px;
+    margin-left: -71px;
     display: block;
   }
   margin-left: -67px;

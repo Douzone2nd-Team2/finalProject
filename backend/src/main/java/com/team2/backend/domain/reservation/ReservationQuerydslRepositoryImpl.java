@@ -1,8 +1,10 @@
 package com.team2.backend.domain.reservation;
 
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.DateTemplate;
 import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import com.team2.backend.web.dto.admin.QReservationManagementDto;
@@ -21,9 +23,12 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
+import static com.team2.backend.domain.reservation.QTimelist.timelist;
+import static com.team2.backend.domain.reservation.QReservationCheck.reservationCheck;
 import static com.team2.backend.domain.reservation.QReservation.reservation;
 import static com.team2.backend.domain.resource.QCategory.category;
 import static com.team2.backend.domain.resource.QResource.resource;
+import static com.team2.backend.domain.resource.QResourcefile.resourcefile;
 import static com.team2.backend.domain.user.QEmployee.employee;
 
 @Repository
@@ -54,6 +59,12 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
             return null;
         }
     }
+
+//    private BooleanExpression dateType(String classification, int endTime){
+//        if(classification.equals("start")){
+//            return  timelist.timeNo.lt(endTime)
+//        }
+//    }
 
     @Override
     public List<ReservationManagementDto> getReservList(Long no, String classification, String division) throws ParseException {
@@ -102,7 +113,7 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
 
     @Override
     public List<ReservationManagementDto> getReservationView(Long reservNo){
-        System.out.println(reservNo);
+
         return (List<ReservationManagementDto>) jpaQueryFactory
                 .select(new QReservationManagementDto(
                         reservation.reservNo,
@@ -127,4 +138,89 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                 .where(reservation.reservNo.eq(reservNo))
                 .fetch();
     }
+
+    @Override
+    public List<ReservationManagementDto> findByReservCheckdate(Long resourceNo, String checkdate, int startTime, int endTime, String classification) {
+        System.out.println(checkdate);
+        System.out.println(startTime);
+        System.out.println(endTime);
+
+        return (List<ReservationManagementDto>) jpaQueryFactory
+                .select(new QReservationManagementDto(
+                        reservationCheck.checkNo,
+                        reservationCheck.resourceNo,
+                        reservationCheck.checkDate,
+                        reservationCheck.cateNo,
+                        reservationCheck.reservNo,
+                        timelist.timeNo
+                ))
+                .from(timelist)
+                .join(timelist.check, reservationCheck)
+                .join(reservationCheck.reserv, reservation)
+                .where(reservation.able.eq("Y")
+                        .and(reservationCheck.resourceNo.eq(resourceNo))
+                        .and(reservationCheck.checkDate.eq(checkdate))
+                        .and(timelist.timeNo.goe(startTime))
+                        .and(timelist.timeNo.loe(endTime)))
+                .fetch();
+    }
+
+    @Override
+    public void deleteByReservNo(Long reservNo) {
+        jpaQueryFactory
+                .delete(reservationCheck)
+                .where(reservationCheck.reservNo.eq(reservNo))
+                .execute();
+    }
+
+    @Override
+    public List<Long> findByCheckNo(Long reservNo){
+        List<Long> checkNo =  jpaQueryFactory
+                .select(reservationCheck.checkNo)
+                .from(reservationCheck)
+                .where(reservationCheck.reservNo.eq(reservNo))
+                .fetch();
+        return checkNo;
+    }
+
+    @Override
+    public void deleteTimelistByCheckNo(Long checkNo){
+        jpaQueryFactory
+                .delete(timelist)
+                .where(timelist.checkNo.eq(checkNo))
+                .execute();
+    }
+
+    @Override
+    public List<ReservationManagementDto> getMainFrequencyUsageList() {
+
+        return null;
+
+//        return (List<ReservationManagementDto>) jpaQueryFactory
+//                .select(new ReservationManagementDto(
+//
+//
+//                ));
+    }
+
+/*    @Override
+    public List<ReservationManagementDto> getMainReservList(Long userNo) {
+        return (List<ReservationManagementDto>) jpaQueryFactory
+                .select(new QReservationManagementDto(
+                        reservation.reservNo,
+                        reservation.resourceNo,
+                        reservation.reservName,
+                        ExpressionUtils.as(JPAExpressions.select(resourcefile.path)
+                                .from(resourcefile)
+                                .join(resourcefile.resource, resource)
+                                .join(reservation.resource, resource)
+                                .orderBy(resourcefile.createAt.desc())
+                                .limit(1), "imageUrl")
+                )).from(reservation)
+                .join(reservation.resource, resource)
+                .leftJoin(JPAExpressions.select(path, imageNo).from(resourcefile)., resource)
+                .where(reservation.userNo.eq(userNo))
+                .fetch();
+    }*/
+
 }

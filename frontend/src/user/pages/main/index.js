@@ -1,27 +1,34 @@
-import { useRecoilValue } from 'recoil';
+import { useEffect } from 'react';
 
-import { tokenState } from '../../recoil/Token';
+import { useRecoilValue } from 'recoil';
+import { useSetRecoilState } from 'recoil';
+
+import { tokenState } from '../../recoil/token';
 
 import Sidebar from '../../outlets/Sidebar';
-import Container from '../../styles/Main';
+import { MainContainer, Container } from '../../styles/Main';
 import Chart from './Chart';
 import Category from './Category';
 import Book from './Book';
 
 const Main = () => {
   const token = useRecoilValue(tokenState);
-  console.log(token);
+  console.log('access token : ', token);
+
+  // useEffect(() => {
+  //   token = useSetRecoilState(tokenState);
+  // }, [token])
 
   return (
     <>
-      <Sidebar />
-      <div style={{ backgroundColor: '#fafafa' }}>
+      <MainContainer>
+        <Sidebar />
         <Container>
           <Chart />
           <Category />
           <Book />
         </Container>
-      </div>
+      </MainContainer>
     </>
   );
 };

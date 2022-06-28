@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -70,13 +71,20 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String userId = ((EmployeeDetails) authResult.getPrincipal()).getEmployee().getUserId();
         System.out.println(userId);
 
+        Long userNo = ((EmployeeDetails) authResult.getPrincipal()).getEmployee().getNo();
+        String name = ((EmployeeDetails) authResult.getPrincipal()).getEmployee().getName();
+
         String accessToken = jwtTokenProvider.createAccessToken(userId);
         accessToken = URLEncoder.encode(accessToken, "utf-8");
         response.setHeader(jwtTokenProvider.getACCESS_TOKEN_HEADER(), jwtTokenProvider.getACCESS_TOKEN_PREFIX() + accessToken);
 
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("userNo", userNo);
+        data.put("name", name);
         Message message = Message.builder()
                 .resCode(0)
                 .message("Login Success")
+                .data(data)
                 .build();
         HttpResponse.sendMessage(response, message);
     }

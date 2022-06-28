@@ -46,38 +46,38 @@ public class ReserveService {
         return new JsonResponse().send(200, message);
     }
 
-//    @Transactional
-//    public ResponseEntity<Message> reserveOffice(HttpServletRequest req, UserReservationDto body) {
-//
-////        Reservation reservation = reservationRepository.save(
-////                Reservation.builder()
-////                        .resourceNo(body.getResourceNo())
-////                        .userNo(body.getUserNo())
-////                        .reservName(body.getReservName())
-////                        .startTime(body.getStartTime())
-////                        .endTime(body.getEndTime())
-////                        .build()
-////        );
-////
-////        List<String> peopleCnt = body.getPeopleCnt();
-////
-////        for (int i = 0; i < peopleCnt.size(); i++) {
-////            peopleCntRepository.save(
-////                    PeopleCnt.builder()
-////                            .reservNo(reservation.getReservNo())
-////                            .userNo(Long.parseLong(peopleCnt.get(i)))
-////                            .build()
-////            );
-////        }
-////
-////        // Test
-////        Reservation r = reservationRepository.findByReservNo(2L);
-//
-//        Message message = Message.builder()
-//                .resCode(4000)
-//                .message("[SUCCESS] Save reservation")
-//                .data(req.getAttribute("userNo"))
-//                .build();
-//        return new JsonResponse().send(200, message);
-//    }
+    @Transactional
+    public ResponseEntity<Message> reserveOffice(HttpServletRequest req, UserReservationDto body) {
+
+        Reservation reservation = reservationRepository.save(
+                Reservation.builder()
+                        .resourceNo(body.getResourceNo())
+                        .userNo(body.getUserNo())
+                        .reservName(body.getReservName())
+                        .startTime(body.getStartTime())
+                        .endTime(body.getEndTime())
+                        .build()
+        );
+
+        List<String> peopleCnt = body.getPeopleCnt();
+
+        for (int i = 0; i < peopleCnt.size(); i++) {
+            peopleCntRepository.save(
+                    PeopleCnt.builder()
+                    .reservNo(reservation.getReservNo())
+                    .userNo(Long.parseLong(peopleCnt.get(i)))
+                    .build()
+            );
+        }
+
+        // Test
+        Reservation r = reservationRepository.findByReservNo(2L);
+
+        Message message = Message.builder()
+                .resCode(4000)
+                .message("[SUCCESS] Save reservation")
+                .data(r)
+                .build();
+        return new JsonResponse().send(200, message);
+    }
 }
