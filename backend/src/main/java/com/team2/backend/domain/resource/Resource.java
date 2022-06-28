@@ -80,4 +80,5 @@ public class Resource extends BaseTime {
         this.fuel = fuel;
     }
 
+
 }
