@@ -1,9 +1,17 @@
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import { Cookies } from 'react-cookie';
 
 import Header from '../../outlets/Header';
 import Footer from '../../outlets/Footer';
 
-const Layout = () => {
+const PrivateRoute = () => {
+  const cookies = new Cookies();
+
+  const accessToken = cookies.get('accessToken');
+
+  // console.log('Layout accessToken', accessToken);
+  if (!accessToken || accessToken === 'undefined') return <Navigate to="/" />;
+
   return (
     <>
       <Header />
@@ -14,4 +22,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default PrivateRoute;

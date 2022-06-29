@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const SidebarContainer = styled.div`
   background-color: #dcdcdc;
   position: fixed;
-  top: 143px;
+  top: 151px;
   bottom: 90px;
   left: 0;
   width: 150px;
