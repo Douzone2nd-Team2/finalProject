@@ -25,8 +25,12 @@ public class UserMainController {
 
     @GetMapping
     public ResponseEntity<Message> main(HttpServletRequest request){
-        System.out.println("main enter!!!!");
         return userMainService.getMainList(request);
+    }
+
+    @GetMapping("/stickchart")
+    public ResponseEntity<Message> mainStickChart(HttpServletRequest request, @RequestParam Long cateNo){
+        return userMainService.getMainStickChart(request, cateNo);
     }
 
     @GetMapping("/search")

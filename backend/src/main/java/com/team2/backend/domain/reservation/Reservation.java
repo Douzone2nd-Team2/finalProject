@@ -63,7 +63,13 @@ public class Reservation extends BaseTime {
     @Column(name="endTime")
     private Date endTime;
 
+    @Transient
     private Expression imageUrl;
+
+    @Transient
+    private Long cnt;
+    @Transient
+    private Integer hour;
 
 
     public Reservation(Long reservNo, Long resourceNo, String reservName, Expression imageUrl) {
@@ -71,5 +77,10 @@ public class Reservation extends BaseTime {
         this.resourceNo = resourceNo;
         this.reservName = reservName;
         this.imageUrl = imageUrl;
+    }
+
+    public Reservation(Integer hour, Long cnt){
+        this.hour = hour;
+        this.cnt = cnt;
     }
 }

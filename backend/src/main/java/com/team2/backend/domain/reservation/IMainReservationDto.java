@@ -12,6 +12,10 @@ public interface IMainReservationDto {
      String getImageUrl();
      Date getStartTime();
      Date getEndTime();
-
+     Integer getTimeCnt();
+     Integer getResourceCnt();
+     Long getImageNo();
+     Integer getHour();
+     Long getCnt();
 
 }

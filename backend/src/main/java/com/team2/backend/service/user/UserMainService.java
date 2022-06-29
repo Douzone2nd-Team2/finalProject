@@ -17,10 +17,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import software.amazon.ion.Decimal;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
@@ -56,13 +60,74 @@ public class UserMainService {
         Long userNo = (Long)request.getAttribute("userNo");
         List<IMainReservationDto> reservationList = reservationRepository.getMainReservList(userNo);
 
-        List<ReservationManagementDto> frequenchUsageList = reservationQuerydslRepository.getMainFrequencyUsageList();
+        //카테고리별 분류
+        IMainReservationDto frequencyUsageList1 = reservationRepository.getMainFrequencyUsageList(1);
+        IMainReservationDto frequencyUsageList2 = reservationRepository.getMainFrequencyUsageList(2);
+        IMainReservationDto frequencyUsageList3 = reservationRepository.getMainFrequencyUsageList(3);
 
+        Double conferenece;
+        Double car;
+        Double notebook;
+
+        if(frequencyUsageList1 == null){
+            conferenece = 0.0;
+        }else{
+            conferenece = (((double) frequencyUsageList1.getTimeCnt() / (double) frequencyUsageList1.getResourceCnt()));
+        }
+
+        if(frequencyUsageList2 == null){
+            car = 0.0;
+        }else{
+            car = (((double) frequencyUsageList2.getTimeCnt() / (double) frequencyUsageList2.getResourceCnt()));
+        }
+
+        if(frequencyUsageList3 == null){
+            notebook = 0.0;
+        }else{
+            notebook = (((double) frequencyUsageList3.getTimeCnt() / (double) frequencyUsageList3.getResourceCnt()));
+        }
+
+        IMainReservationDto recommendConference = reservationRepository.getMainRecommendList(1);
+        IMainReservationDto recommendCar = reservationRepository.getMainRecommendList(2);
+        IMainReservationDto recommendNotebook = reservationRepository.getMainRecommendList(3);
+
+        ArrayList<Map> data = new ArrayList<>();
+
+        HashMap<String, Double> data1= new HashMap<>();
+
+        data1.put("frequencyUsageList1", conferenece);
+        data1.put("frequencyUsageList2", car);
+        data1.put("frequencyUsageList3", notebook);
+
+        HashMap<String, IMainReservationDto> data2 = new HashMap<>();
+        data2.put("recommendConference", recommendConference);
+        data2.put("recommendCar", recommendCar);
+        data2.put("recommendNotebook", recommendNotebook);
+
+        HashMap<String, List<IMainReservationDto>> data3 = new HashMap<>();
+        data3.put("reservationList",reservationList);
+
+        data.add(data1);
+        data.add(data2);
+        data.add(data3);
 
         Message message = Message.builder()
-                .message("[SUCCESS] Select ReservationList")
-                .data(reservationList)
+                .message("[SUCCESS] Select MainDashBoard - piechart, recommend, reservationList")
+                .data(data)
                 .resCode(1000)
+                .build();
+        return new JsonResponse().send(200, message);
+    }
+
+    @Transactional
+    public ResponseEntity<Message> getMainStickChart(HttpServletRequest request, Long cateNo){
+
+        List<IMainReservationDto> hourConference = reservationRepository.getMainHourList(cateNo);
+
+        Message message = Message.builder()
+                .message("[SUCCESS] Select MainStickChart")
+                .resCode(1000)
+                .data(hourConference)
                 .build();
         return new JsonResponse().send(200, message);
     }
