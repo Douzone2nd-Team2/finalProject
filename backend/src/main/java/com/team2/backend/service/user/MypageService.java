@@ -62,6 +62,7 @@ public class MypageService {
         System.out.println(request.getAttribute("userNo"));
         List<EmployeeManagementDto> employee = employeeQuerydslRepository.getMainEmployee((Long)request.getAttribute("userNo"));
 
+        System.out.println("size" + employee.size());
         Message message = Message.builder()
                 .resCode(2000)
                 .message("[SUCCESS] Select Employee View")

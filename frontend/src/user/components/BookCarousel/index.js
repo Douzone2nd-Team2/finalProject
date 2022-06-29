@@ -34,7 +34,7 @@ const BookCarousel = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log(books);
+  // console.log(books);
   return (
     <div style={{ margin: '0 96px' }}>
       <Slider {...settings}>

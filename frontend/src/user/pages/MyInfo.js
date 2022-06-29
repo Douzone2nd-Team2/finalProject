@@ -1,9 +1,5 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-
+import { userState } from '../recoil/user';
 import { useRecoilValue } from 'recoil';
-
-import { tokenState } from '../recoil/token';
 
 import {
   Container,
@@ -16,26 +12,7 @@ import {
 import profile from '../assets/profile.jpeg';
 
 const MyInfo = () => {
-  const token = useRecoilValue(tokenState);
-  const [userInfo, setUserInfo] = useState([]);
-
-  const fetchData = async () => {
-    const res = await axios.get(
-      `${process.env.REACT_APP_SERVER_PORT}/mypage/view`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      },
-    );
-    console.log(res.data);
-    console.log(res.data.data.name);
-    setUserInfo(res.data.data);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const user = useRecoilValue(userState);
 
   return (
     <>
@@ -54,7 +31,7 @@ const MyInfo = () => {
                 name="name"
                 id="name"
                 disabled="disabled"
-                value={userInfo.name || ''}
+                value={user.name || ''}
               />
             </ContentContainer>
             <ContentContainer>
@@ -64,7 +41,7 @@ const MyInfo = () => {
                 name="id"
                 id="id"
                 disabled="disabled"
-                value={userInfo.userId || ''}
+                value={user.userId || ''}
               />
             </ContentContainer>
             <ContentContainer>
@@ -73,8 +50,8 @@ const MyInfo = () => {
                 type="text"
                 name="birth"
                 id="birth"
-                disabled="disabled"
-                value={userInfo.birth || ''}
+                disabled
+                value={user.birth || ''}
               />
             </ContentContainer>
             <ContentContainer>
@@ -84,7 +61,7 @@ const MyInfo = () => {
                 name="dept"
                 id="dept"
                 disabled="disabled"
-                value={userInfo.deptNo || ''}
+                value={user.deptNo || ''}
               />
             </ContentContainer>
             <ContentContainer>
@@ -94,7 +71,7 @@ const MyInfo = () => {
                 name="rank"
                 id="rank"
                 disabled="disabled"
-                value={userInfo.gradeNo || ''}
+                value={user.gradeNo || ''}
               />
             </ContentContainer>
             <ContentContainer>
@@ -104,7 +81,7 @@ const MyInfo = () => {
                 name="wnum"
                 id="wnum"
                 disabled="disabled"
-                value={userInfo.empNo || ''}
+                value={user.empNo || ''}
               />
             </ContentContainer>
             <ContentContainer>
@@ -114,7 +91,7 @@ const MyInfo = () => {
                 name="pnum"
                 id="pnum"
                 disabled="disabled"
-                value={userInfo.phone || ''}
+                value={user.phone || ''}
               />
             </ContentContainer>
             <ContentContainer>
@@ -124,7 +101,7 @@ const MyInfo = () => {
                 name="email"
                 id="email"
                 disabled="disabled"
-                value={userInfo.email || ''}
+                value={user.email || ''}
               />
             </ContentContainer>
           </form>

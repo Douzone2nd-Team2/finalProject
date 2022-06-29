@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 
-import { userNameState } from '../recoil/user';
+import { userState } from '../recoil/user';
 
 import {
   SidebarContainer,
@@ -13,8 +13,7 @@ import {
 import profile from '../assets/profile.jpeg';
 
 const Sidebar = () => {
-  const userName = useRecoilValue(userNameState);
-  console.log(userName);
+  const user = useRecoilValue(userState);
   return (
     <SidebarContainer>
       <ContentContainer>
@@ -22,11 +21,11 @@ const Sidebar = () => {
           <img src={profile} alt="profile" />
         </ImageContainer>
         <InfoContainer>
-          <NameContainer>{userName}</NameContainer>
-          <div>가수</div>
-          <div>아이즈원</div>
-          <div>라비앙로즈</div>
-          <div>2001년생</div>
+          <NameContainer>{user.name}</NameContainer>
+          <div>아이디 : {user.empNo}</div>
+          <div>생년월일 : {user.birth}</div>
+          <div>부서 : {user.deptNo}</div>
+          <div>직급 : {user.gradeNo}</div>
         </InfoContainer>
       </ContentContainer>
     </SidebarContainer>
