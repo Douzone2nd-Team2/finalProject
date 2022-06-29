@@ -191,17 +191,7 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                 .execute();
     }
 
-    @Override
-    public List<ReservationManagementDto> getMainFrequencyUsageList() {
 
-        return null;
-
-//        return (List<ReservationManagementDto>) jpaQueryFactory
-//                .select(new ReservationManagementDto(
-//
-//
-//                ));
-    }
 
 /*    @Override
     public List<ReservationManagementDto> getMainReservList(Long userNo) {

@@ -72,9 +72,9 @@ public class EmployeeManagementDto{
     }
 
     @QueryProjection
-    public EmployeeManagementDto(Long no, String able, String userId, String birth, String phone, String email, String empNo, String deptName, String gradeName){
+    public EmployeeManagementDto(Long no, String name, String userId, String birth, String phone, String email, String empNo, String deptName, String gradeName){
         this.no = no;
-        this.able = able;
+        this.name = name;
         this.userId = userId;
         this.birth = birth;
         this.phone = phone;

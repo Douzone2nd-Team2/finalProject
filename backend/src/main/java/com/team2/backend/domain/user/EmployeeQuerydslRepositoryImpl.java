@@ -78,7 +78,7 @@ public class EmployeeQuerydslRepositoryImpl implements  EmployeeQuerydslReposito
         return (List<EmployeeManagementDto>) jpaQueryFactory
                 .select(new QEmployeeManagementDto(
                         employee.no,
-                        employee.able,
+                        employee.name,
                         employee.userId,
                         employee.birth,
                         employee.phone,

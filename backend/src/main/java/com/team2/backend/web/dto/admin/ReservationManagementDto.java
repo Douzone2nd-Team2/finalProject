@@ -70,6 +70,9 @@ public class ReservationManagementDto {
     private String checkDate;
     private Long timeNo;
 
+    private Integer hour;
+    private Long cnt;
+
     @QueryProjection
     @Builder
     public ReservationManagementDto(Long reservNo, String able, Date startTime, Date endTime, String reservName, Long resourceNo, String resourceName, LocalDateTime reservCreateAt, LocalDateTime reservModifyAt, String category) {
