@@ -71,6 +71,19 @@ public class EmployeeManagementDto{
         this.deptName = deptName;
     }
 
+    @QueryProjection
+    public EmployeeManagementDto(Long no, String name, String userId, String birth, String phone, String email, String empNo, String deptName, String gradeName){
+        this.no = no;
+        this.name = name;
+        this.userId = userId;
+        this.birth = birth;
+        this.phone = phone;
+        this.email = email;
+        this.empNo = empNo;
+        this.deptName = deptName;
+        this.gradeName = gradeName;
+    }
+
     public Employee toEntity(){
         return Employee.builder()
                 .userId(userId)

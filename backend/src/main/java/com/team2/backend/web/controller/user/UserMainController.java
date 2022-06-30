@@ -25,12 +25,20 @@ public class UserMainController {
 
     @GetMapping
     public ResponseEntity<Message> main(HttpServletRequest request){
-        System.out.println("main enter!!!!");
         return userMainService.getMainList(request);
     }
 
+<<<<<<< HEAD
+=======
+    @GetMapping("/stickchart")
+    public ResponseEntity<Message> mainStickChart(HttpServletRequest request, @RequestParam Long cateNo){
+        return userMainService.getMainStickChart(request, cateNo);
+    }
+
+>>>>>>> fdc45e9a1ec0b4e083e6345c7d19ff49bb63966a
     @GetMapping("/search")
     public ResponseEntity<Message> getSearchList(@RequestParam(value = "keyword") String keyword){
+        System.out.println("search enter!!");
         return userMainService.getSearchList(keyword);
     }
 
@@ -38,5 +46,4 @@ public class UserMainController {
     public ResponseEntity<Message> getEachList(@PathVariable Long cateNo){
         return resourceService.getEachList(cateNo);
     }
-
 }

@@ -4,10 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import axios from 'axios';
 
+import { getCookie } from '../utils/cookie';
+
 import logo from '../assets/logo.png';
 import login from '../assets/login.png';
 
-import { tokenState } from '../recoil/token';
+import { userState } from '../recoil/user';
 
 import Button from 'react-bootstrap/Button';
 
@@ -23,7 +25,7 @@ import {
 } from '../styles/Login';
 
 const Login = () => {
-  const setToken = useSetRecoilState(tokenState);
+  const setUser = useSetRecoilState(userState);
 
   const [inputId, setInputId] = useState('');
   const [inputPwd, setInputPwd] = useState('');
@@ -52,24 +54,48 @@ const Login = () => {
     postLogin();
   };
 
-  const postLogin = () => {
+  const postLogin = async () => {
     try {
       const data = {
         userId: inputId,
         password: inputPwd,
       };
-      axios
-        .post(`${process.env.REACT_APP_SERVER_PORT}/login`, data)
-        .then((res) => {
-          setToken(res.headers.authorization);
-          setCookie('accessToken', res.headers.authorization);
-          console.log(res);
-          if (res.data.resCode === 0) {
-            navigate('/main');
-          } else {
-            alert(`잘못된 정보를 입력하셨습니다.`);
-          }
-        });
+
+      const res = await axios.post(
+        `${process.env.REACT_APP_SERVER_PORT}/login`,
+        data,
+      );
+
+      if (res.data.resCode === 0) {
+        setCookie('accessToken', res.headers.authorization);
+        console.log(res);
+      } else {
+        alert(`잘못된 정보를 입력하셨습니다.`);
+        return;
+      }
+
+      const userData = await axios.get(
+        `${process.env.REACT_APP_SERVER_PORT}/mypage/view`,
+        {
+          headers: {
+            Authorization: getCookie('accessToken'),
+          },
+        },
+      );
+      console.log(userData);
+      setUser({
+        //name: userData.data[0].data.name,
+        userId: userData.data.data[0].userId,
+        birth: userData.data.data[0].birth,
+        deptName: userData.data.data[0].deptName,
+        email: userData.data.data[0].email,
+        empNo: userData.data.data[0].empNo,
+        gradeName: userData.data.data[0].gradeName,
+        no: userData.data.data[0].no,
+        phone: userData.data.data[0].phone,
+      });
+
+      navigate('/main');
     } catch (e) {
       console.log(e);
     }

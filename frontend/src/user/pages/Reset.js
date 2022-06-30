@@ -1,13 +1,9 @@
-import axios from 'axios';
-
-import { useRecoilValue } from 'recoil';
-
-import { tokenState } from '../recoil/token';
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
+
+import { getCookie } from '../utils/cookie';
 
 import {
   Container,
@@ -19,7 +15,7 @@ import {
 } from '../styles/Reset';
 
 const Reset = () => {
-  const token = useRecoilValue(tokenState);
+  console.log('너 나오니?');
 
   // 현재 비밀번호, 수정 비밀번호, 비밀번호 확인
   const [ppwd, setPpwd] = useState();
@@ -53,7 +49,7 @@ const Reset = () => {
       axios
         .post(`${process.env.REACT_APP_SERVER_PORT}/mypage/changepw`, data, {
           headers: {
-            Authorization: token,
+            Authorization: getCookie('accessToken'),
           },
         })
         .then((res) => {

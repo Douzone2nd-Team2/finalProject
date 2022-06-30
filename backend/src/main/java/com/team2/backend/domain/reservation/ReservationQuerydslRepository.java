@@ -15,6 +15,5 @@ public interface ReservationQuerydslRepository {
     void deleteByReservNo(Long reservNo); //reservation_check에서 삭제
     List<Long> findByCheckNo(Long reservNo);
     void deleteTimelistByCheckNo(Long checkNo);
-//    List<ReservationManagementDto> getMainReservList(Long userNo);
 
 }

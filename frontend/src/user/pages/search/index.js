@@ -1,18 +1,15 @@
+import { useState, useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 
-import { useRecoilValue } from 'recoil';
-
-import { tokenState } from '../../recoil/token';
-import { useState, useEffect } from 'react';
 import { searchState } from '../../recoil/search';
+import { getCookie } from '../../utils/cookie';
 
 import SearchItem from '../search/SearchItem';
-
 import Container from '../../styles/Search';
 
 const Search = () => {
   const title = useRecoilValue(searchState);
-  const token = useRecoilValue(tokenState);
 
   console.log('title = ', title);
 
@@ -24,7 +21,7 @@ const Search = () => {
         `${process.env.REACT_APP_SERVER_PORT}/main/search/resourceName?${title}`,
         {
           headers: {
-            Authorization: token,
+            Authorization: getCookie('accessToken'),
           },
         },
       );
@@ -42,12 +39,12 @@ const Search = () => {
   //console.log(books);
   return (
     <Container>
-      {/* {items &&
+      {items &&
         items.map((book) => (
           <div key={book.id}>
             <SearchItem book={book} />
           </div>
-        ))} */}
+        ))}
       <div>test</div>
     </Container>
   );

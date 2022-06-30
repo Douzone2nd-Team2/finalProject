@@ -26,7 +26,7 @@ public class MypageController {
         return mypageService.changePw(request, body);
     }
 
-    @GetMapping("/mypage/view")
+    @GetMapping("/mypage/user")
     public ResponseEntity<Message> employeeView(HttpServletRequest request){
         return mypageService.employeeView(request);
     }
