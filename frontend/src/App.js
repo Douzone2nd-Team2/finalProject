@@ -14,6 +14,7 @@ import Reset from './user/pages/Reset';
 import MyInfo from './user/pages/MyInfo';
 import Search from './user/pages/search';
 
+import AdminLayout from './admin/components/AdminLayout';
 import AdminMain from './admin/pages/AdminMain';
 import AdminLoginPage from './admin/pages/AdminLoginPage';
 import EmployeePage from './admin/pages/EmployeePage';
@@ -30,7 +31,7 @@ const App = () => {
 
     if (accessToken && isEmptyObject(user)) {
       axios
-        .get(`${process.env.REACT_APP_SERVER_PORT}/mypage/view`, {
+        .get(`${process.env.REACT_APP_SERVER_PORT}/mypage/user`, {
           headers: {
             Authorization: accessToken,
           },

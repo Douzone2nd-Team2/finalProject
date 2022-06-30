@@ -23,19 +23,25 @@ public class UserMainController {
     private final UserMainService userMainService;
     private final ResourceService resourceService;
 
-    @GetMapping
-    public ResponseEntity<Message> main(HttpServletRequest request){
-        return userMainService.getMainList(request);
+    @GetMapping("/book")
+    public ResponseEntity<Message> mainBook(HttpServletRequest request){
+        return userMainService.getbookList(request);
+    }
+    @GetMapping("/piechart")
+    public ResponseEntity<Message> mainPieChart(HttpServletRequest request){
+        return userMainService.getpiechartList(request);
     }
 
-<<<<<<< HEAD
-=======
+    @GetMapping("/recommend")
+    public ResponseEntity<Message> mainRecommend(HttpServletRequest request){
+        return userMainService.getrecommendList(request);
+    }
+
     @GetMapping("/stickchart")
     public ResponseEntity<Message> mainStickChart(HttpServletRequest request, @RequestParam Long cateNo){
         return userMainService.getMainStickChart(request, cateNo);
     }
 
->>>>>>> fdc45e9a1ec0b4e083e6345c7d19ff49bb63966a
     @GetMapping("/search")
     public ResponseEntity<Message> getSearchList(@RequestParam(value = "keyword") String keyword){
         System.out.println("search enter!!");

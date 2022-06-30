@@ -90,7 +90,7 @@ public class EmployeeQuerydslRepositoryImpl implements  EmployeeQuerydslReposito
                 .from(employee)
                 .join(employee.dept, department)
                 .join(employee.grade, grade)
-                .where(employee.able.eq("Y"),
+                .where(employee.able.eq("Y").or(employee.able.eq("A")),
                         employee.no.eq(no))
                 .fetch();
     }
