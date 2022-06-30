@@ -29,7 +29,7 @@ const App = () => {
 
     if (accessToken && isEmptyObject(user)) {
       axios
-        .get(`${process.env.REACT_APP_SERVER_PORT}/mypage/view`, {
+        .get(`${process.env.REACT_APP_SERVER_PORT}/mypage/user`, {
           headers: {
             Authorization: accessToken,
           },

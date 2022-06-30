@@ -23,10 +23,19 @@ public class UserMainController {
     private final UserMainService userMainService;
     private final ResourceService resourceService;
 
+
     @GetMapping
     public ResponseEntity<Message> main(HttpServletRequest request){
         return userMainService.getMainList(request);
     }
+//    @GetMapping
+//    public ResponseEntity<Message> main(HttpServletRequest request){
+//        return userMainService.getMainList(request);
+//    }
+//    @GetMapping
+//    public ResponseEntity<Message> main(HttpServletRequest request){
+//        return userMainService.getMainList(request);
+//    }
 
     @GetMapping("/stickchart")
     public ResponseEntity<Message> mainStickChart(HttpServletRequest request, @RequestParam Long cateNo){
