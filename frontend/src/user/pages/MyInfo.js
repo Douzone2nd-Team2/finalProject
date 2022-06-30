@@ -61,7 +61,7 @@ const MyInfo = () => {
                 name="dept"
                 id="dept"
                 disabled="disabled"
-                value={user.deptNo || ''}
+                value={user.deptName || ''}
               />
             </ContentContainer>
             <ContentContainer>
@@ -71,7 +71,7 @@ const MyInfo = () => {
                 name="rank"
                 id="rank"
                 disabled="disabled"
-                value={user.gradeNo || ''}
+                value={user.gradeName || ''}
               />
             </ContentContainer>
             <ContentContainer>
