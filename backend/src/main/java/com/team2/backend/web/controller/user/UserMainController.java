@@ -29,10 +29,6 @@ public class UserMainController {
         return userMainService.getMainList(request);
     }
 
-    @GetMapping("/search/resourceName")
-    public ResponseEntity<Message> getResourcenameList(@RequestParam String resourceName){
-        return userMainService.getResourcenameList(resourceName);
-
     @GetMapping("/search")
     public ResponseEntity<Message> getSearchList(@RequestParam(value = "keyword") String keyword){
         return userMainService.getSearchList(keyword);

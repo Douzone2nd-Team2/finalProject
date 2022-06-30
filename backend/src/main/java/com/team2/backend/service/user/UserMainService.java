@@ -1,18 +1,12 @@
 package com.team2.backend.service.user;
 
 import com.team2.backend.domain.reservation.IMainReservationDto;
-import com.team2.backend.domain.reservation.Reservation;
 import com.team2.backend.domain.reservation.ReservationQuerydslRepository;
 import com.team2.backend.domain.reservation.ReservationRepository;
-import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.resource.ResourceRepository;
-import com.team2.backend.domain.user.Employee;
-import com.team2.backend.domain.user.EmployeeRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.admin.IResourceAdminDto;
-import com.team2.backend.web.dto.admin.QReservationManagementDto;
-import com.team2.backend.web.dto.admin.ReservationManagementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
