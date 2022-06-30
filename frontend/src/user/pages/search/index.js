@@ -18,7 +18,7 @@ const Search = () => {
   const fetchData = async () => {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_SERVER_PORT}/main/search/resourceName?${title}`,
+        `${process.env.REACT_APP_SERVER_PORT}/main/search?keyword=${title}`,
         {
           headers: {
             Authorization: getCookie('accessToken'),
@@ -35,18 +35,19 @@ const Search = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [title]);
   //console.log(books);
   return (
-    <Container>
-      {items &&
-        items.map((book) => (
-          <div key={book.id}>
-            <SearchItem book={book} />
-          </div>
-        ))}
-      <div>test</div>
-    </Container>
+    // <Container>
+    //   {items &&
+    //     items.map((book) => (
+    //       <div key={book.id}>
+    //         <SearchItem book={book} />
+    //       </div>
+    //     ))}
+    //   <div>test</div>
+    // </Container>
+    <div>test</div>
   );
 };
 

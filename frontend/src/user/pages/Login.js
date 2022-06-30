@@ -75,7 +75,7 @@ const Login = () => {
       }
 
       const userData = await axios.get(
-        `${process.env.REACT_APP_SERVER_PORT}/mypage/view`,
+        `${process.env.REACT_APP_SERVER_PORT}/mypage/user`,
         {
           headers: {
             Authorization: getCookie('accessToken'),

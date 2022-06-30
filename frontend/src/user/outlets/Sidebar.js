@@ -24,8 +24,8 @@ const Sidebar = () => {
           <NameContainer>{user.name}</NameContainer>
           <div>아이디 : {user.empNo}</div>
           <div>생년월일 : {user.birth}</div>
-          <div>부서 : {user.deptNo}</div>
-          <div>직급 : {user.gradeNo}</div>
+          <div>부서 : {user.deptName}</div>
+          <div>직급 : {user.gradeName}</div>
         </InfoContainer>
       </ContentContainer>
     </SidebarContainer>
