@@ -14,9 +14,11 @@ import Reset from './user/pages/Reset';
 import MyInfo from './user/pages/MyInfo';
 import Search from './user/pages/search';
 
+import AdminLayout from './admin/components/AdminLayout';
 import AdminMain from './admin/pages/AdminMain';
 import AdminLoginPage from './admin/pages/AdminLoginPage';
 import EmployeePage from './admin/pages/EmployeePage';
+import ResourcePage from './admin/components/Resource/ResourcePage';
 
 const App = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -61,9 +63,12 @@ const App = () => {
           <Route path="info" element={<MyInfo />} />
           <Route path="search" element={<Search />} />
         </Route>
-        <Route path="admin" element={<AdminMain />} />
-        <Route path="/admin/login" element={<AdminLoginPage />} />
-        <Route path="/admin/employee" element={<EmployeePage />} />
+        <Route element={<AdminLayout />}>
+          <Route path="admin" element={<AdminMain />} />
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin/resource" element={<ResourcePage />} />
+          <Route path="/admin/employee" element={<EmployeePage />} />
+        </Route>
       </Routes>
     </>
   );

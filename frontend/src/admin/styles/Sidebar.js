@@ -1,0 +1,27 @@
+import styled from 'styled-components';
+
+export const SbContainer = styled.div`
+  position: fixed;
+  top: 50px;
+  background-color: #d2d2d2;
+  width: 15%;
+  height: 100vh;
+  font-size: 20px;
+`;
+
+export const SbUl = styled.ul`
+  padding: 0%;
+`;
+export const SbLi = styled.li`
+  list-style: none;
+
+  border: 1px solid #969696;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  padding: 10px;
+  &:hover {
+    background-color: rgb(0, 0, 0, 0.2);
+    color: rgb(255, 255, 255, 100);
+  }
+`;
