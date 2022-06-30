@@ -23,9 +23,18 @@ public class UserMainController {
     private final UserMainService userMainService;
     private final ResourceService resourceService;
 
-    @GetMapping
-    public ResponseEntity<Message> main(HttpServletRequest request){
-        return userMainService.getMainList(request);
+    @GetMapping("/book")
+    public ResponseEntity<Message> mainBook(HttpServletRequest request){
+        return userMainService.getbookList(request);
+    }
+    @GetMapping("/piechart")
+    public ResponseEntity<Message> mainPieChart(HttpServletRequest request){
+        return userMainService.getpiechartList(request);
+    }
+
+    @GetMapping("/recommend")
+    public ResponseEntity<Message> mainRecommend(HttpServletRequest request){
+        return userMainService.getrecommendList(request);
     }
 
     @GetMapping("/stickchart")
