@@ -23,6 +23,7 @@ public class MainReservationDto implements IMainReservationDto{
     private Date startTime;
     private Date endTime;
     private Long imageNo;
+    private String fuel;
 
     private Integer timeCnt;
     private Integer resourceCnt;

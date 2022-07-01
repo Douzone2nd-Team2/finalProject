@@ -31,7 +31,7 @@ public class UserMainService {
     @Transactional
     public ResponseEntity<Message> getSearchList(String keyword){
         List<IResourceAdminDto> searchList = resourceRepository.getfindKeyword(keyword);
-
+        System.out.println("service : "+keyword);
         if(searchList.isEmpty()) {
             Message message = Message.builder()
                     .resCode(3001)

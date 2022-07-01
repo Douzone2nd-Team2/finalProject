@@ -16,15 +16,8 @@ const ItemContainer = styled.div`
   }
 
   .price_origin {
-    text-decoration: line-through;
     color: gray;
-    font-size: 10px;
-  }
-  .p_discount {
-    margin-left: 0.5rem;
-    text-decoration: none;
-    color: red;
-    font-size: 10px;
+    font-size: 12px;
   }
 `;
 

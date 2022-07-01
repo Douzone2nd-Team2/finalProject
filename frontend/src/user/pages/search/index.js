@@ -26,7 +26,7 @@ const Search = () => {
         },
       );
       console.log(res.data);
-      //setItems(res.data.trips);
+      setItems(res.data.data);
       //console.log(items);
     } catch (e) {
       console.log(e);
@@ -36,18 +36,19 @@ const Search = () => {
   useEffect(() => {
     fetchData();
   }, [title]);
-  //console.log(books);
+
+  //console.log(items);
+
   return (
-    // <Container>
-    //   {items &&
-    //     items.map((book) => (
-    //       <div key={book.id}>
-    //         <SearchItem book={book} />
-    //       </div>
-    //     ))}
-    //   <div>test</div>
-    // </Container>
-    <div>test</div>
+    <Container>
+      {items &&
+        items.map((book, idx) => (
+          <div key={idx}>
+            <SearchItem book={book} />
+          </div>
+        ))}
+    </Container>
+    // <div>test</div>
   );
 };
 
