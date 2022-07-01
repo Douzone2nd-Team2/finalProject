@@ -67,7 +67,7 @@ public class ReservationService {
 
         List<String> dateList = duringDate(formatter2.parse(start[0]), formatter2.parse(end[0]));
 
-        if (reservationCheck(reservation, dateList, timeList[0], timeList[1])) {  // 중복예약 내역이 없을 때
+        if (reservationCheck(reservation, dateList, timeList[0], timeList[1], "insert" , Long.parseLong("0"))) {  // 중복예약 내역이 없을 때
 
             Long reservNo = reservationRepository.save(reservation).getReservNo();
 
@@ -81,7 +81,6 @@ public class ReservationService {
                         .reservNo(reservNo)
                         .build();
                 Long checkNo = reservationCheckRepository.save(reservationCheck).getCheckNo();
-
 
                 //[timelist - insert]    - 이전에 존재하는 시간인지 확인해야함
                 //1)하루안에 시간 차이   06-24 13:00 ~ 06-24 19:00
@@ -167,7 +166,7 @@ public class ReservationService {
         return dateList;
     }
 
-    public Boolean reservationCheck(Reservation reservation, List<String> dateList, int startTime, int endTime) {
+    public Boolean reservationCheck(Reservation reservation, List<String> dateList, int startTime, int endTime, String type, Long reservNo) {
         System.out.println("reservation check enter!!! " + dateList.size() + "///" + dateList.get(0) + "///" + startTime + " ~~~" + endTime);
 
         Long resourceNo = reservation.getResourceNo();
@@ -181,7 +180,7 @@ public class ReservationService {
 
         if (dateList.size() == 1) {
             System.out.println("하루");
-            reservationCheckList = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(0), startTime, endTime, "one");
+            reservationCheckList = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(0), startTime, endTime, type, reservNo);
             System.out.println(reservationCheckList);
             if (reservationCheckList != null) {
                 System.out.println("reservationCheckList != null");
@@ -196,7 +195,7 @@ public class ReservationService {
         } else if (dateList.size() >= 2) {
             for (int i = 0; i <= dateList.size() - 1; i++) {
                 if (i == 0) {
-                    reservationCheckList2 = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(i), startTime, 47, "start");
+                    reservationCheckList2 = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(i), startTime, 47, type, reservNo);
                     System.out.println("2 : " + reservationCheckList2);
                     if (reservationCheckList2 != null) {
                         System.out.println("list2 not null");
@@ -204,13 +203,16 @@ public class ReservationService {
                             System.out.println("설마");
                             flag = true;
                         } else {
-                            System.out.println("혹시 여기?");
+                            System.out.println("혹시 여기?"+reservationCheckList2.size());
+                            for (int k=0;k<reservationCheckList2.size();k++){
+                                System.out.println(reservationCheckList2.get(k).getTimeNo());
+                            }
                             flag = false;
                             break;
                         }
                     }
                 } else if (i == dateList.size() - 1) {
-                    reservationCheckList3 = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(i), 0, endTime, "end");
+                    reservationCheckList3 = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(i), 0, endTime, type, reservNo);
                     System.out.println("3 : " + reservationCheckList3);
                     if (reservationCheckList3 != null) {
                         System.out.println("list3 not null");
@@ -224,7 +226,7 @@ public class ReservationService {
                         }
                     }
                 } else {
-                    reservationCheckList4 = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(i), 0, 47, "middle");
+                    reservationCheckList4 = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(i), 0, 47, type, reservNo);
                     System.out.println("4 : " + reservationCheckList4);
                     if (reservationCheckList4 != null) {
                         System.out.println("list4 not null");
@@ -282,11 +284,9 @@ public class ReservationService {
 
         List<String> dateList = duringDate(formatter2.parse(start[0]), formatter2.parse(end[0]));
 
-        // reservationQuerydslRepository.updateReservation(body);
-
         List<Long> checkNo = reservationQuerydslRepository.findByCheckNo(body.getReservNo());  // reservation_check에서 예약번호로 check번호 찾기
 
-        if (reservationCheck(reservation, dateList, timeList[0], timeList[1])) {  // 중복예약 내역이 없을 때
+        if (reservationCheck(reservation, dateList, timeList[0], timeList[1], "update", body.getReservNo())) {  // 중복예약 내역이 없을 때
 
         if (checkNo.size() > 1) { //이전 예약 시간 삭제( checkNo 가지고 와서) -timelist
             for (int i = 0; i < checkNo.size(); i++) {
@@ -300,20 +300,19 @@ public class ReservationService {
         reservationQuerydslRepository.deleteByReservNo(body.getReservNo()); //reservation_check table에서 삭제
 
         Long cateNo = resourceRepository.findByCategory(body.getResourceNo());
+            System.out.println("cateNo : "+cateNo);
 
         if(cateNo== 1) {
-            for (int i = 0; i < body.getEmpNoList().size(); i++) {
-                peopleCntRepository.deleteByReservNo(body.getReservNo());
-            }
+           if(!peopleCntRepository.findByReservNo(body.getReservNo()).isEmpty()) {
+                   peopleCntRepository.deleteByReservNo(body.getReservNo());
+           }
         }
         //reservation table 예약 내역 삭제
-        reservationRepository.deleteById(body.getReservNo());
+        reservationRepository.deleteByReservNo(body.getReservNo());
 
             Long reservNo = reservationRepository.save(reservation).getReservNo();
-            if(cateNo == 1) {
-                //자원이 회의실일 경우   //peopleCnt 삭제
+            if(body.getCateNo().equals("1")) {//자원이 회의실일 경우
                 for (int i = 0; i < body.getEmpNoList().size(); i++) {
-                    // peopleCntRepository.deleteByReservNo(body.getReservNo());
                     if (cateNo == 1) {
                         PeopleCnt peopleCnt = PeopleCnt.builder()
                                 .reservNo(reservNo)

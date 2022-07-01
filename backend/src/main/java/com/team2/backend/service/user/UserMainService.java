@@ -45,7 +45,7 @@ public class UserMainService {
                     .message("성공: keyword검색 성공")
                     .data(searchList)
                     .build();
-        return new JsonResponse().send(400, message);
+        return new JsonResponse().send(200, message);
     }
     @Transactional
     public ResponseEntity<Message> getpiechartList(HttpServletRequest request) {

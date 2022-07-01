@@ -29,4 +29,6 @@ public class MainReservationDto implements IMainReservationDto{
 
     private Integer hour;
     private Long cnt;
+
+    private String fuel;
 }
