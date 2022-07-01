@@ -31,7 +31,7 @@ public class UserMainService {
     @Transactional
     public ResponseEntity<Message> getSearchList(String keyword){
         List<IResourceAdminDto> searchList = resourceRepository.getfindKeyword(keyword);
-
+        System.out.println("service : "+keyword);
         if(searchList.isEmpty()) {
             Message message = Message.builder()
                     .resCode(3001)
@@ -45,7 +45,7 @@ public class UserMainService {
                     .message("성공: keyword검색 성공")
                     .data(searchList)
                     .build();
-        return new JsonResponse().send(400, message);
+        return new JsonResponse().send(200, message);
     }
     @Transactional
     public ResponseEntity<Message> getpiechartList(HttpServletRequest request) {

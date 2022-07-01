@@ -14,6 +14,7 @@ import profile from '../assets/profile.jpeg';
 
 const Sidebar = () => {
   const user = useRecoilValue(userState);
+  console.log(user);
   return (
     <SidebarContainer>
       <ContentContainer>
@@ -23,7 +24,6 @@ const Sidebar = () => {
         <InfoContainer>
           <NameContainer>{user.name}</NameContainer>
           <div>아이디 : {user.empNo}</div>
-          <div>생년월일 : {user.birth}</div>
           <div>부서 : {user.deptName}</div>
           <div>직급 : {user.gradeName}</div>
         </InfoContainer>

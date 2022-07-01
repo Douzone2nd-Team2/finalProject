@@ -17,5 +17,6 @@ public interface IMainReservationDto {
      Long getImageNo();
      Integer getHour();
      Long getCnt();
+     String getFuel();
 
 }

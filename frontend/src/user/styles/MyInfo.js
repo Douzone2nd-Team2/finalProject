@@ -21,9 +21,8 @@ const TitleContainer = styled.h1`
 
 const InfoContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  margin-top: 30px 0 30px 0;
 `;
 
 const ImgContainer = styled.div`
@@ -31,7 +30,6 @@ const ImgContainer = styled.div`
   align-items: center;
   img {
     padding: 30px;
-    margin-right: 50px;
     height: 300px;
   }
   margin-bottom: 30px;
@@ -39,17 +37,18 @@ const ImgContainer = styled.div`
 
 const ContentContainer = styled.div`
   display: flex;
-  margin-bottom: 8px;
-  label {
-    font-weight: bold;
-    min-width: 75px;
-  }
-  input {
-    border: 1px solid black;
-  }
-  input:focus {
-    outline: none;
-  }
+  margin-bottom: 12px;
+  margin-right: 50px;
+  font-size: 18px;
+`;
+
+const KeyContainer = styled.div`
+  font-weight: bold;
+  min-width: 80px;
+`;
+
+const ValueContainer = styled.div`
+  margin-left: 50px;
 `;
 
 export {
@@ -58,4 +57,6 @@ export {
   TitleContainer,
   ImgContainer,
   ContentContainer,
+  KeyContainer,
+  ValueContainer,
 };

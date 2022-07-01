@@ -84,13 +84,13 @@ const Login = () => {
       );
       console.log(userData);
       setUser({
-        //name: userData.data[0].data.name,
         userId: userData.data.data[0].userId,
         birth: userData.data.data[0].birth,
         deptName: userData.data.data[0].deptName,
         email: userData.data.data[0].email,
         empNo: userData.data.data[0].empNo,
         gradeName: userData.data.data[0].gradeName,
+        name: userData.data.data[0].name,
         no: userData.data.data[0].no,
         phone: userData.data.data[0].phone,
       });

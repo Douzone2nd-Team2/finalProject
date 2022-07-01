@@ -137,13 +137,13 @@ const Header = () => {
               <MyPageListContainer ref={myPageRef}>
                 <MyPageList>
                   <li>
-                    <Link to="/info">개인정보 조회</Link>
+                    <Link to="/mypage/user">개인정보 조회</Link>
                   </li>
                   <hr />
                   <li>즐겨찾기</li>
                   <hr />
                   <li>
-                    <Link to="/reset">비밀번호 변경</Link>
+                    <Link to="/mypage/changepw">비밀번호 변경</Link>
                   </li>
                   <hr />
                   <li>예약현황</li>
