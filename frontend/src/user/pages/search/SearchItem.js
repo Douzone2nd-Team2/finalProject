@@ -7,16 +7,15 @@ import {
 } from '../../styles/SearchItem';
 
 const SearchItem = ({ book }) => {
-  const { location, title, price_origin, price_discounted, thumbnail } = book;
+  const { resourceName, cateName, people, thumbnail } = book;
 
   return (
     <ItemContainer>
       <LeftContainer>
         <TitleContainer>
-          <h2 className="title">{title}</h2>
-          <h3 className="location">{location}</h3>
-          <span className="price_origin">{price_origin}원</span>
-          <span className="p_discount">{price_discounted}원~</span>
+          <h2 className="title">{resourceName}</h2>
+          <h3 className="location">[{cateName}]</h3>
+          <span className="price_origin">인원 : {people}</span>
         </TitleContainer>
         <ImageContainer>
           <img src={thumbnail} alt="thumbnail" />

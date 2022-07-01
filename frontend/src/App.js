@@ -46,6 +46,7 @@ const App = () => {
             email: data.email,
             empNo: data.empNo,
             gradeName: data.gradeName,
+            name: data.name,
             no: data.no,
             phone: data.phone,
           }),
@@ -59,8 +60,8 @@ const App = () => {
         <Route path="/" element={<Login />} />
         <Route element={<PrivateRoute />}>
           <Route path="main" element={<Main />} />
-          <Route path="reset" element={<Reset />} />
-          <Route path="info" element={<MyInfo />} />
+          <Route path="mypage/changepw" element={<Reset />} />
+          <Route path="mypage/user" element={<MyInfo />} />
           <Route path="search" element={<Search />} />
         </Route>
         <Route element={<AdminLayout />}>

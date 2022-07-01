@@ -12,41 +12,31 @@ const BookContainer = styled.div`
     }
   }
   .contents {
-    padding: 20px;
+    padding: 15px;
     background-color: #dcdcdc;
     opacity: 0.8;
     width: 200px;
     height: 200px;
     margin: auto;
 
-    .location {
+    .resouceName {
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .startTime {
       font-size: 15px;
     }
 
-    .title {
-      font-size: 23px;
+    .endTime {
+      font-size: 15px;
     }
 
-    .type {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 30px;
-    }
-
-    .price_origin {
-      text-decoration: line-through;
+    .reservName {
+      margin-top: -10px;
       color: gray;
-      font-size: 10px;
+      font-size: 13px;
     }
-    .p_discount {
-      margin-left: 0.5rem;
-      text-decoration: none;
-      color: red;
-      font-size: 10px;
-    }
-  }
-  & + & {
-    margin-top: 3rem;
   }
 `;
 
