@@ -61,4 +61,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             " order by t.timeno) reservT " +
             "on gs.cnt = reservT.timeno ", nativeQuery = true)
     List<IMainReservationDto> getMainHourList(@Param("cateNo") Long cateNo);
+
+    void deleteByReservNo(Long reservNo);
 }

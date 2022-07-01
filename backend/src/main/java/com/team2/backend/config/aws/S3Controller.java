@@ -23,7 +23,7 @@ public class S3Controller {
     @PostMapping("/main/imageInsert")
     @ResponseBody
     public ResponseEntity<Message> insertUserImage(@RequestPart(value = "image") MultipartFile multipartFile) {
-
+        System.out.println("imageInsert enter!");
         try {
             String awsUrl = s3Uploader.uploadFiles(multipartFile, "static");
             System.out.println("aswUrl : " + awsUrl);

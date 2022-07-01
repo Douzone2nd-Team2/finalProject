@@ -53,8 +53,6 @@ public class UserMainController {
 
     @GetMapping("/search")
     public ResponseEntity<Message> getSearchList(@RequestParam(value = "keyword") String keyword){
-        System.out.println("search enter!!");
-        System.out.println(keyword);
         return userMainService.getSearchList(keyword);
     }
 
