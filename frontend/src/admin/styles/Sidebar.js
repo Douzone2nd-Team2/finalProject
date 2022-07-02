@@ -13,8 +13,8 @@ export const SbUl = styled.ul`
   padding: 0%;
 `;
 export const SbLi = styled.li`
+  cursor: pointer;
   list-style: none;
-
   border: 1px solid #969696;
   border-left: none;
   border-right: none;
@@ -23,5 +23,24 @@ export const SbLi = styled.li`
   &:hover {
     background-color: rgb(0, 0, 0, 0.2);
     color: rgb(255, 255, 255, 100);
+  }
+`;
+
+export const SbChildUl = styled.ul`
+  display: none;
+  border-top: 1px solid #969696;
+  padding: 0px;
+`;
+
+export const SbChildLi = styled.li`
+  cursor: pointer;
+  list-style: none;
+  padding: 10px 10px 10px 10px;
+  border-top: 1px solid #969696;
+  &:hover {
+    background-color: rgb(0, 0, 0, 0.2);
+    color: rgb(255, 255, 255, 100);
+  }
+
   }
 `;
