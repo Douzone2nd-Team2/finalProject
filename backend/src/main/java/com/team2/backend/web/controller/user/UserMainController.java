@@ -47,8 +47,8 @@ public class UserMainController {
 //    }
 
     @GetMapping("/stickchart")
-    public ResponseEntity<Message> mainStickChart(HttpServletRequest request, @RequestParam Long cateNo){
-        return userMainService.getMainStickChart(request, cateNo);
+    public ResponseEntity<Message> mainStickChart(HttpServletRequest request){
+        return userMainService.getMainStickChart(request);
     }
 
     @GetMapping("/search")
