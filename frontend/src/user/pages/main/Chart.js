@@ -1,7 +1,7 @@
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import Bchart from '../../components/Bchart';
+import Bchart from '../../components/Barchart/BchartItem';
 import Pchart from '../../components/Pchart';
 
 const Chart = () => {
