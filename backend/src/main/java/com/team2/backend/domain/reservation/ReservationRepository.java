@@ -49,10 +49,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "order by b.imageno asc limit 1 ", nativeQuery = true)
     IMainReservationDto getMainRecommendList(@Param("cateNo") int cateNo);
 
-    @Query(value="select gs.cnt as hour, reservT.listNo as cnt " +
+    @Query(value="select gs.cnt as hour, coalesce(reservT.listNo,0) as cnt " +
             "from " +
             "(select generate_series as cnt from generate_series(0,47)) as gs " +
-            "join " +
+            "left join " +
             "(select t.timeno, count(listno) as listNo " +
             " from reservation_check " +
             "          join timelist t on reservation_check.checkno = t.checkno " +

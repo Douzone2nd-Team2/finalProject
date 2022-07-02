@@ -66,7 +66,7 @@ public class S3Uploader {
     }
 
 
-    public void delete(String fileName) {
+    public void remove(String fileName) {
         try {
             System.out.println("fileName : "+fileName);
             //Delete 객체 생성

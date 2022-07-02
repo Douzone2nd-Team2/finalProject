@@ -44,7 +44,7 @@ public class S3Controller {
 
         String fileName = map.get("fileName");
         try {
-            s3Uploader.delete(fileName);
+            s3Uploader.remove(fileName);
         }catch (AmazonServiceException e) {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
