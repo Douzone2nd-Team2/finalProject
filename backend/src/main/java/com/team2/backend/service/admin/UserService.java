@@ -67,7 +67,7 @@ public class UserService {
 
         Employee emp = employeeRepository.findByEmpNo(body.getEmpNo());
 
-        if(emp != null && body.getEmpNo().equals(emp.getEmpNo())){
+        if(emp != null ){ //&& body.getEmpNo().equals(emp.getEmpNo())
             employee.changeEmployee(emp.getNo(),emp.getAble(), emp.getCreateAt());
             employeeRepository.save(employee);
             message = Message.builder()
