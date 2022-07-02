@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import { getCookie } from '../utils/cookie';
 
-// import { getCookie } from '../../utils/cookie';
 import { VictoryPie, VictoryLegend } from 'victory';
 
 import {
@@ -36,9 +35,6 @@ const PChart = () => {
           },
         },
       );
-      // console.log(res.data.data.frequencyUsageList1.toFixed(2));
-      // console.log(res.data.data.frequencyUsageList2.toFixed(2));
-
       setPdata(res.data.data);
     } catch (e) {
       console.log(e);
