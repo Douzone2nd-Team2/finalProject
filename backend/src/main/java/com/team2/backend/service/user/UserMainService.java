@@ -137,21 +137,14 @@ public class UserMainService {
     }
 
     @Transactional
-    public ResponseEntity<Message> getMainStickChart(HttpServletRequest request){
+    public ResponseEntity<Message> getMainStickChart(HttpServletRequest request, Long cateNo){
 
-        List<IMainReservationDto> hourConference = reservationRepository.getMainHourList(1L);
-        List<IMainReservationDto> hourCar = reservationRepository.getMainHourList(2L);
-        List<IMainReservationDto> hourNoteBook = reservationRepository.getMainHourList(3L);
-
-        HashMap<String, List<IMainReservationDto>> data = new HashMap<>();
-        data.put("hourConference", hourConference);
-        data.put("hourCar", hourCar);
-        data.put("hourNoteBook", hourNoteBook);
+        List<IMainReservationDto> hourConference = reservationRepository.getMainHourList(cateNo);
 
         Message message = Message.builder()
                 .message("[SUCCESS] Select MainStickChart")
                 .resCode(1000)
-                .data(data)
+                .data(hourConference)
                 .build();
         return new JsonResponse().send(200, message);
     }
