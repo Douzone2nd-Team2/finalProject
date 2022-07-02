@@ -137,7 +137,7 @@ public class UserMainService {
     }
 
     @Transactional
-    public ResponseEntity<Message> getMainStickChart(HttpServletRequest request, Long cateNo){
+    public ResponseEntity<Message> getMainStickChart(HttpServletRequest request){
 
         List<IMainReservationDto> hourConference = reservationRepository.getMainHourList(1L);
         List<IMainReservationDto> hourCar = reservationRepository.getMainHourList(2L);
