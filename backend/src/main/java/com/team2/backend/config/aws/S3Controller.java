@@ -23,7 +23,7 @@ public class S3Controller {
     @PostMapping("/main/imageInsert")
     @ResponseBody
     public ResponseEntity<Message> insertUserImage(@RequestPart(value = "image") MultipartFile multipartFile) {
-
+        System.out.println("imageInsert enter!");
         try {
             String awsUrl = s3Uploader.uploadFiles(multipartFile, "static");
             System.out.println("aswUrl : " + awsUrl);
@@ -44,7 +44,7 @@ public class S3Controller {
 
         String fileName = map.get("fileName");
         try {
-            s3Uploader.delete(fileName);
+            s3Uploader.remove(fileName);
         }catch (AmazonServiceException e) {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.BAD_REQUEST);

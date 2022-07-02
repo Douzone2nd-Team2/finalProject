@@ -55,7 +55,7 @@ const UnderLine = styled.div`
 
 const VerticalLine = styled.div`
   height: 24px;
-  padding-left: 20px;
+  padding-left: 18px;
   border-left: 1px solid black;
 `;
 

@@ -7,6 +7,8 @@ import {
   InfoContainer,
   ImgContainer,
   ContentContainer,
+  KeyContainer,
+  ValueContainer,
 } from '../styles/MyInfo';
 
 import profile from '../assets/profile.jpeg';
@@ -23,88 +25,40 @@ const MyInfo = () => {
           <ImgContainer>
             <img src={profile} alt="Profile" />
           </ImgContainer>
-          <form>
+          <div>
             <ContentContainer>
-              <label htmlFor="name">이름</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                disabled="disabled"
-                value={user.name || ''}
-              />
+              <KeyContainer>이름</KeyContainer>
+              <ValueContainer>{user.name || ''}</ValueContainer>
             </ContentContainer>
             <ContentContainer>
-              <label htmlFor="id">아이디</label>
-              <input
-                type="text"
-                name="id"
-                id="id"
-                disabled="disabled"
-                value={user.userId || ''}
-              />
+              <KeyContainer>아이디</KeyContainer>
+              <ValueContainer>{user.userId || ''}</ValueContainer>
             </ContentContainer>
             <ContentContainer>
-              <label htmlFor="birth">생년월일</label>
-              <input
-                type="text"
-                name="birth"
-                id="birth"
-                disabled
-                value={user.birth || ''}
-              />
+              <KeyContainer>생년월일</KeyContainer>
+              <ValueContainer>{user.birth || ''}</ValueContainer>
             </ContentContainer>
             <ContentContainer>
-              <label htmlFor="dept">부서</label>
-              <input
-                type="text"
-                name="dept"
-                id="dept"
-                disabled="disabled"
-                value={user.deptNo || ''}
-              />
+              <KeyContainer>부서</KeyContainer>
+              <ValueContainer>{user.deptName || ''}</ValueContainer>
             </ContentContainer>
             <ContentContainer>
-              <label htmlFor="rank">직급</label>
-              <input
-                type="text"
-                name="rank"
-                id="rank"
-                disabled="disabled"
-                value={user.gradeNo || ''}
-              />
+              <KeyContainer>직급</KeyContainer>
+              <ValueContainer>{user.gradeName || ''}</ValueContainer>
             </ContentContainer>
             <ContentContainer>
-              <label htmlFor="wnum">사원번호</label>
-              <input
-                type="num"
-                name="wnum"
-                id="wnum"
-                disabled="disabled"
-                value={user.empNo || ''}
-              />
+              <KeyContainer>사원번호</KeyContainer>
+              <ValueContainer>{user.empNo || ''}</ValueContainer>
             </ContentContainer>
             <ContentContainer>
-              <label htmlFor="pnum">전화번호</label>
-              <input
-                type="tel"
-                name="pnum"
-                id="pnum"
-                disabled="disabled"
-                value={user.phone || ''}
-              />
+              <KeyContainer>전화번호</KeyContainer>
+              <ValueContainer>{user.phone || ''}</ValueContainer>
             </ContentContainer>
             <ContentContainer>
-              <label htmlFor="email">이메일</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                disabled="disabled"
-                value={user.email || ''}
-              />
+              <KeyContainer>이메일</KeyContainer>
+              <ValueContainer>{user.email || ''}</ValueContainer>
             </ContentContainer>
-          </form>
+          </div>
         </InfoContainer>
       </Container>
     </>

@@ -1,24 +1,64 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+import { getCookie } from '../../utils/cookie';
+
 import {
   Container,
   ImageContainer,
   TitleContainer,
 } from '../../styles/Category';
 
-import room from '../../assets/room.jpeg';
-import car from '../../assets/car.jpeg';
-import usb from '../../assets/usb.png';
-
 const Category = () => {
+  const [popular, setPopular] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_SERVER_PORT}/main/recommend`,
+        {
+          headers: {
+            Authorization: getCookie('accessToken'),
+          },
+        },
+      );
+      console.log(res);
+      setPopular(res.data.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
-      <TitleContainer>각 카테고리별 추천 비품</TitleContainer>
+      <TitleContainer>오늘의 인기 자원</TitleContainer>
       <Container>
-        <ImageContainer src={room} alt="room" className="room" />
-        <ImageContainer src={car} alt="car" className="car" />
-        <ImageContainer src={usb} alt="usb" className="usb" />
+        {popular && (
+          <>
+            <ImageContainer
+              src={popular.recommendCar?.imageUrl}
+              alt="room"
+              className="room"
+            />
+            <ImageContainer
+              src={popular.recommendConference?.imageUrl}
+              alt="car"
+              className="car"
+            />
+          </>
+        )}
+
+        {/* <ImageContainer
+          src={popular.recommendCar.imageUrl}
+          alt="usb"
+          className="usb"
+        /> */}
       </Container>
     </>
   );
 };
-
 export default Category;
