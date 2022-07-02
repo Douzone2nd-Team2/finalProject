@@ -1,24 +1,23 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Row, Col } from 'react-bootstrap';
 
 import ResourceItem from './ResourceItem';
 
-import { Container, ResourceSelect } from '../../styles/ResourceStyle';
+import { ResourceCardUI, Container } from '../../styles/Resource';
 
-const ResourceCard = () => {
+const ResourceCard = ({ selected }) => {
   const [resources, setResources] = useState([]);
+  console.log(selected);
 
   const getTest = async () => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_PORT}/resource`)
+      .get(`${process.env.REACT_APP_SERVER_PORT}/resource/${selected}`)
       .then((response) => {
         console.log('연결성공');
         console.log(response);
         setResources(response.data.data);
-        // console.log(resources);
       })
       .catch((error) => {
         console.log(error);
@@ -27,19 +26,19 @@ const ResourceCard = () => {
   useEffect(() => {
     getTest();
     console.log(resources);
-  }, []);
+  }, [selected]);
 
   return (
     <Container>
-      <Row>
-        {resources.map((resource, idx) => (
-          <Col sm={3} key={idx}>
-            <ResourceSelect>
+      <ResourceCardUI>
+        <Row style={{ width: '1000px' }}>
+          {resources.map((resource, idx) => (
+            <Col sm={3} key={idx} style={{ marginTop: '30px' }}>
               <ResourceItem resource={resource} />
-            </ResourceSelect>
-          </Col>
-        ))}
-      </Row>
+            </Col>
+          ))}
+        </Row>
+      </ResourceCardUI>
     </Container>
   );
 };

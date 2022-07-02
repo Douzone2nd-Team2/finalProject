@@ -1,6 +1,6 @@
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 
-import { BarContainer, TitleContainer } from '../styles/Bchart';
+import { BarContainer, TitleContainer } from '../../styles/Bchart';
 
 const DATA = [
   { quarter: 1, earnings: 13000 },
@@ -17,7 +17,7 @@ const DATA = [
   { quarter: 12, earnings: 19000 },
 ];
 
-const Bchart = () => {
+const BchartItem = () => {
   return (
     <BarContainer>
       <TitleContainer>회의실 사용시간</TitleContainer>
@@ -61,4 +61,4 @@ const Bchart = () => {
   );
 };
 
-export default Bchart;
+export default BchartItem;
