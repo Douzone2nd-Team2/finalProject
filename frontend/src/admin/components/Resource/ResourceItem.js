@@ -1,6 +1,6 @@
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 
-const ResourceItem = ({ resource }) => {
+const ResourceItem = ({ resource, resource_file }) => {
   const {
     resourceNo,
     category,
@@ -15,9 +15,13 @@ const ResourceItem = ({ resource }) => {
     createAt,
     modifyAt,
   } = resource;
-
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card
+      style={{
+        width: '200px',
+        marginRight: '30px',
+      }}
+    >
       <Card.Img variant="top" src="" />
       <Card.Body>
         {resourceNo}
