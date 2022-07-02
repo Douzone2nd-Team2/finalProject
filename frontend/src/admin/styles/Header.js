@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
   display: flex;
+  justify-content: space-between;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -10,17 +11,15 @@ export const HeaderContainer = styled.header`
   border-bottom: 10px solid #3d73ff;
   font-family: NanumGothicBold;
   background-color: white;
-  //padding-left: 10px;
-  //justify-content: left;
 `;
 
 export const LogoContainer = styled.div`
   font-size: 30px;
   color: #0a58ca;
+  margin-left: 20px;
 `;
 export const LogoutContainer = styled.div`
-  justify-content: right;
-  /* float: right; */
+  margin-right: 20px;
   font-size: 20px;
   border: none;
   border-radius: 5px;
