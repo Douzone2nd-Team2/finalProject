@@ -17,10 +17,10 @@ const DATA = [
   { quarter: 12, earnings: 19000 },
 ];
 
-const BchartItem = () => {
+const BchartItem = ({ selected }) => {
   return (
     <BarContainer>
-      <TitleContainer>회의실 사용시간</TitleContainer>
+      <TitleContainer>{selected} 사용시간</TitleContainer>
       <VictoryChart
         domainPadding={20}
         theme={VictoryTheme.material}
