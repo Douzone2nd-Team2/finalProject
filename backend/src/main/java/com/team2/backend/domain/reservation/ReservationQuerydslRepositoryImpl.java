@@ -109,7 +109,7 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                 .set(reservation.endTime, reservationManagementDto.getEndTime())
                 .set(reservation.resourceNo, reservationManagementDto.getResourceNo())
                 .set(reservation.userNo, reservationManagementDto.getUserNo())
-                .set(reservation.modifyAt, LocalDateTime.now().plusHours(9L))
+                .set(reservation.modifyAt, LocalDateTime.now())
                 .execute();
     }
 
