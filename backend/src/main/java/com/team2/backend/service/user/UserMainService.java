@@ -30,20 +30,19 @@ public class UserMainService {
 
     @Transactional
     public ResponseEntity<Message> getSearchList(String keyword){
-        List<IResourceAdminDto> searchList = resourceRepository.getfindKeyword(keyword);
-        System.out.println("service : "+keyword);
-        if(searchList.isEmpty()) {
-            Message message = Message.builder()
-                    .resCode(3001)
-                    .message("실패: keyword검색 실패")
-                    .build();
-            return new JsonResponse().send(400, message);
+        List<IResourceAdminDto> searchConferenceList = resourceRepository.getfindKeyword(keyword, 1L);
+        List<IResourceAdminDto> searchCarList = resourceRepository.getfindKeyword(keyword, 2L);
+        List<IResourceAdminDto> searchNotebookList = resourceRepository.getfindKeyword(keyword, 3L);
 
-        }
+        HashMap<String, List<IResourceAdminDto>> data = new HashMap<>();
+        data.put("searchConferenceList",searchConferenceList);
+        data.put("searchCarList",searchCarList);
+        data.put("searchNotebookList",searchNotebookList);
+
         Message message = Message.builder()
                     .resCode(3000)
-                    .message("성공: keyword검색 성공")
-                    .data(searchList)
+                    .message("[SUCCESS]: keyword검색 성공")
+                    .data(data)
                     .build();
         return new JsonResponse().send(200, message);
     }

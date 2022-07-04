@@ -40,8 +40,9 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
             " from Resource r " +
             " join Employee e on r.adminNo = e.no " +
             " join Category c on c.cateNo = r.cateNo"+
-            " where r.resourceName like %:keyword% or r.option like %:keyword% or r.fuel like %:keyword% ")
-    List<IResourceAdminDto> getfindKeyword(@Param("keyword") String keyword);
+            " where r.cateNo =:cateNo " +
+            " and (r.resourceName like %:keyword% or r.option like %:keyword% or r.fuel like %:keyword% )", nativeQuery = true)
+    List<IResourceAdminDto> getfindKeyword(@Param("keyword") String keyword, @Param("cateNo") Long cateNo);
 
     Resource findByResourceNo(long resourceNo);
 
