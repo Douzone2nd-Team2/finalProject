@@ -1,3 +1,8 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+import { getCookie } from '../utils/cookie';
+
 import EmployeePage from '../pages/EmployeePage';
 import ResourcePage from '../components/Resource/ResourcePage';
 
@@ -13,6 +18,31 @@ import {
 import Button from 'react-bootstrap/Button';
 
 const AdminMain = () => {
+  const [empList, setEmpList] = useState([]);
+
+  const data = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_SERVER_PORT}/admin/userlist`,
+        {
+          headers: {
+            // Authorization: getCookie('accessToken'),
+            Authorization:
+              'Bearer%eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJ1c2VyTm8iOjIsImV4cCI6MTY1Njc2NDE0MH0.E9H43GYDDc7j2Y0_6uX2d-rOFrnMayxbZCPi7XaIJ5Y',
+          },
+        },
+      );
+      console.log(res.data.data);
+      setEmpList(res.data.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    data();
+  }, []);
+
   return (
     <Container>
       <HeadContainer>
@@ -29,7 +59,24 @@ const AdminMain = () => {
           <th>전화번호</th>
           <th>이메일</th>
           <th />
-          <tr>
+          {empList.map((emp, idx) => {
+            return (
+              <tr key={emp.no}>
+                <td>{empList.length - idx}</td>
+                <td>{emp.empNo}</td>
+                <td>{emp.name}</td>
+                <td>{emp.deptName}</td>
+                <td>{emp.gradeName}</td>
+                <td>{emp.phone}</td>
+                <td>{emp.email}</td>
+                <td className="btnMargin">
+                  <Button variant="primary">수정</Button>
+                  <Button variant="danger">삭제</Button>
+                </td>
+              </tr>
+            );
+          })}
+          {/* <tr>
             <td>1</td>
             <td>2017131032</td>
             <td>엄채린</td>
@@ -80,7 +127,7 @@ const AdminMain = () => {
               <Button variant="primary">수정</Button>
               <Button variant="danger">삭제</Button>
             </td>
-          </tr>
+          </tr> */}
         </table>
       </TableContainer>
     </Container>
