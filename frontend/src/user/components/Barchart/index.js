@@ -2,25 +2,29 @@ import { useState } from 'react';
 
 import BchartItem from './BchartItem';
 
+import SelectContainer from '../../styles/Select';
+
 const Bchart = () => {
-  const [selected, setSelected] = useState('');
+  const [catenum, setCatenum] = useState('');
 
   const handleChange = (e) => {
-    setSelected(e.target.value);
+    setCatenum(e.target.value);
   };
 
   return (
     <div>
-      <select
-        onChange={handleChange}
-        value={selected}
-        style={{ float: 'right', marginTop: '9px', marginRight: '170px' }}
-      >
-        <option value="1">회의실</option>
-        <option value="2">차량</option>
-        <option value="3">노트북</option>
-      </select>
-      <BchartItem selected={selected} />
+      <SelectContainer>
+        <select
+          onChange={handleChange}
+          value={catenum}
+          style={{ float: 'right', marginTop: '9px', marginRight: '170px' }}
+        >
+          <option value="1">회의실</option>
+          <option value="2">차량</option>
+          <option value="3">비품</option>
+        </select>
+      </SelectContainer>
+      <BchartItem catenum={catenum} />
     </div>
   );
 };

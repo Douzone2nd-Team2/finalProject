@@ -7,7 +7,9 @@ import {
 } from '../../styles/SearchItem';
 
 const SearchItem = ({ book }) => {
-  const { resourceName, cateName, people, thumbnail } = book;
+  const { resourceName, cateName, people, thumbnail, cateNo } = book;
+
+  console.log(cateNo);
 
   return (
     <ItemContainer>

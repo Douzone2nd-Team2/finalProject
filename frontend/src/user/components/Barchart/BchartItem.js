@@ -1,3 +1,8 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+import { getCookie } from '../../utils/cookie';
+
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 
 import { BarContainer, TitleContainer } from '../../styles/Bchart';
@@ -17,10 +22,53 @@ const DATA = [
   { quarter: 12, earnings: 19000 },
 ];
 
-const BchartItem = ({ selected }) => {
+const BchartItem = ({ catenum }) => {
+  console.log(catenum);
+
+  const [title, setTitle] = useState('');
+
+  const changeTitle = () => {
+    if (catenum == 1 || catenum == '') {
+      setTitle('회의실');
+    } else if (catenum == 2) {
+      setTitle('차량');
+    } else if (catenum == 3) {
+      setTitle('비품');
+    }
+  };
+
+  const getTest = () => {
+    axios
+      .get(
+        `${process.env.REACT_APP_SERVER_PORT}/main/stickchart?cateNo=${
+          catenum === '' ? 1 : catenum
+        }`,
+        {
+          headers: {
+            Authorization: getCookie('accessToken'),
+          },
+        },
+      )
+      .then((response) => {
+        changeTitle();
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getTest();
+    changeTitle();
+
+    // console.log('change catenum');
+    // console.log(title);
+  }, [catenum]);
+
   return (
     <BarContainer>
-      <TitleContainer>{selected} 사용시간</TitleContainer>
+      <TitleContainer>{title} 사용시간</TitleContainer>
       <VictoryChart
         domainPadding={20}
         theme={VictoryTheme.material}
