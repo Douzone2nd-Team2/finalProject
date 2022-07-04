@@ -14,6 +14,9 @@ const Search = () => {
   console.log('title = ', title);
 
   const [items, setItems] = useState([]);
+  const [meeting, setMeeting] = useState([]);
+  const [car, setCar] = useState([]);
+  const [equip, setEquip] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -25,19 +28,31 @@ const Search = () => {
           },
         },
       );
-      console.log(res.data);
+      console.log(res.data.data);
       setItems(res.data.data);
-      //console.log(items);
     } catch (e) {
       console.log(e);
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, [title]);
+  const setData = () => {
+    if (items) {
+      items.map((item) =>
+        item.cateNo === 1
+          ? setMeeting([...meeting, item])
+          : item.cateNo === 2
+          ? setCar([...car, item])
+          : setEquip([...equip, item]),
+      );
+    }
+  };
 
-  //console.log(items);
+  useEffect(() => {
+    fetchData().then(setData);
+    // console.log(meeting);
+    // console.log(car);
+    // console.log(equip);
+  }, [title]);
 
   return (
     <Container>
@@ -48,7 +63,6 @@ const Search = () => {
           </div>
         ))}
     </Container>
-    // <div>test</div>
   );
 };
 

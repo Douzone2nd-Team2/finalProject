@@ -41,12 +41,12 @@ const Category = () => {
           <>
             <ImageContainer
               src={popular.recommendCar?.imageUrl}
-              alt="room"
+              alt="No Image"
               className="room"
             />
             <ImageContainer
               src={popular.recommendConference?.imageUrl}
-              alt="car"
+              alt="No Image"
               className="car"
             />
           </>
