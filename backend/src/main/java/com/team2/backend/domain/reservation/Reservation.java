@@ -1,4 +1,4 @@
-package com.team2.backend.domain.bookmark.reservation;
+package com.team2.backend.domain.reservation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.querydsl.core.annotations.QueryProjection;

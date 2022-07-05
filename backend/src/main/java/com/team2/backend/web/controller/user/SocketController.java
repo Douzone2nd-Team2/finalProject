@@ -1,6 +1,6 @@
 package com.team2.backend.web.controller.user;
 
-import com.team2.backend.domain.bookmark.reservation.ReservationRepository;
+import com.team2.backend.domain.reservation.ReservationRepository;
 import com.team2.backend.domain.user.EmployeeRepository;
 import com.team2.backend.service.user.SocketService;
 import com.team2.backend.web.dto.SocketMessage;

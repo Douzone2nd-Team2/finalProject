@@ -1,4 +1,4 @@
-package com.team2.backend.domain.bookmark.reservation;
+package com.team2.backend.domain.reservation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.team2.backend.domain.resource.Category;

@@ -1,4 +1,4 @@
-package com.team2.backend.domain.bookmark.reservation;
+package com.team2.backend.domain.reservation;
 
 import com.team2.backend.web.dto.admin.QReservationManagementDto;
 import com.team2.backend.web.dto.admin.ReservationManagementDto;

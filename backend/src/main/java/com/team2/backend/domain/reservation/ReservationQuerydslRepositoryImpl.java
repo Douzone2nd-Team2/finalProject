@@ -1,4 +1,4 @@
-package com.team2.backend.domain.bookmark.reservation;
+package com.team2.backend.domain.reservation;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
@@ -15,9 +15,9 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.team2.backend.domain.reservation.QTimelist.timelist;
-import static com.team2.backend.domain.reservation.QReservationCheck.reservationCheck;
 import static com.team2.backend.domain.reservation.QReservation.reservation;
+import static com.team2.backend.domain.reservation.QReservationCheck.reservationCheck;
+import static com.team2.backend.domain.reservation.QTimelist.timelist;
 import static com.team2.backend.domain.resource.QCategory.category;
 import static com.team2.backend.domain.resource.QResource.resource;
 import static com.team2.backend.domain.user.QEmployee.employee;

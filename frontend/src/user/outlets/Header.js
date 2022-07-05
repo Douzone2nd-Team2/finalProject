@@ -116,7 +116,7 @@ const Header = () => {
               <VerticalLine />
             </div>
 
-            {isOpenBook && (
+            {/* {isOpenBook && (
               <BookListContainer theme={{ borderColor: 'black' }} ref={bookRef}>
                 <BookList>
                   <li>회의실</li>
@@ -126,7 +126,7 @@ const Header = () => {
                   <li>비품</li>
                 </BookList>
               </BookListContainer>
-            )}
+            )} */}
           </DropDownContainer>
           <DropDownContainer onClick={openMypagemenu}>
             <div style={{ display: 'flex' }}>
