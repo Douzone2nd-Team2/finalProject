@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 public class SocketMessage {
     private String senderName;
-    private String receiverName;
-    private Status status;
+    private Integer resCode;
+    private String message;
     private Object data;
 }

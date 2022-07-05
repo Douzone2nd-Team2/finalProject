@@ -13,6 +13,7 @@ import Main from './user/pages/main';
 import Reset from './user/pages/Reset';
 import MyInfo from './user/pages/MyInfo';
 import Search from './user/pages/search';
+import Reservation from './user/pages/Reservation';
 
 import AdminPrivateRoute from './admin/components/AdminLayout';
 import AdminMain from './admin/pages/AdminMain';
@@ -65,6 +66,7 @@ const App = () => {
           <Route path="mypage/changepw" element={<Reset />} />
           <Route path="mypage/user" element={<MyInfo />} />
           <Route path="search" element={<Search />} />
+          <Route path="reserve" element={<Reservation />} />
         </Route>
         <Route path="/admin/login" element={<AdminLoginPage />} />
         <Route element={<AdminPrivateRoute />}>
