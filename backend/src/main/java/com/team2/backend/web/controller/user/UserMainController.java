@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.text.ParseException;
 import java.util.List;
 
 import static com.amazonaws.services.elasticbeanstalk.model.ConfigurationOptionValueType.List;
@@ -41,7 +42,7 @@ public class UserMainController {
     }
 
     @GetMapping("/stickchart")
-    public ResponseEntity<Message> mainStickChart(HttpServletRequest request, @RequestParam Long cateNo){
+    public ResponseEntity<Message> mainStickChart(HttpServletRequest request, @RequestParam Long cateNo) throws ParseException {
         return userMainService.getMainStickChart(request, cateNo);
     }
 
