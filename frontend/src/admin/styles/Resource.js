@@ -23,7 +23,4 @@ export const ResourceCardUI = styled.div`
   height: 150px;
   font-size: 10px;
   margin-left: 100px;
-  /* display: flex;
-  justify-content: space-between; */
-  /* padding: 40px; */
 `;

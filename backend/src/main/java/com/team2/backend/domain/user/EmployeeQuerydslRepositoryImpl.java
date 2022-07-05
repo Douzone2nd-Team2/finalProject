@@ -75,7 +75,7 @@ public class EmployeeQuerydslRepositoryImpl implements  EmployeeQuerydslReposito
     }
 
     @Override
-    public List<EmployeeManagementDto> getMainEmployee(Long no) {
+    public List<EmployeeManagementDto> getMainEmployee(String userId) {
         return (List<EmployeeManagementDto>) jpaQueryFactory
                 .select(new QEmployeeManagementDto(
                         employee.no,
@@ -92,7 +92,7 @@ public class EmployeeQuerydslRepositoryImpl implements  EmployeeQuerydslReposito
                 .join(employee.dept, department)
                 .join(employee.grade, grade)
                 .where(employee.able.eq("Y").or(employee.able.eq("A")),
-                        employee.no.eq(no))
+                        employee.userId.eq(userId))
                 .fetch();
     }
 }
