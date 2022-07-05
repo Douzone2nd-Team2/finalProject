@@ -10,10 +10,8 @@ import {
   HeaderContainer,
   LogoContainer,
   SearchContainer,
-  BookList,
   MyPageList,
   MyPageListContainer,
-  BookListContainer,
   DropDownContainer,
   MenuContainer,
   HeaderRightContainer,
@@ -28,7 +26,7 @@ const Header = () => {
   const [isOpenMypage, setIsOpenMypage] = useState(false);
   const [searchTitle, setSearchTitle] = useState('');
 
-  const bookRef = useRef(null);
+  // const bookRef = useRef(null);
   const myPageRef = useRef(null);
 
   const [_, removeCookie] = useCookies(['accessToken']);
@@ -44,14 +42,14 @@ const Header = () => {
     navigate('/');
   };
 
-  const openBookmenu = () => {
-    setIsOpenBook((prev) => !prev);
-    setIsOpenMypage(false);
-  };
+  // const openBookmenu = () => {
+  //   setIsOpenBook((prev) => !prev);
+  //   setIsOpenMypage(false);
+  // };
 
   const openMypagemenu = () => {
     setIsOpenMypage((prev) => !prev);
-    setIsOpenBook(false);
+    // setIsOpenBook(false);
   };
 
   const searchEvent = (e) => {
@@ -66,13 +64,13 @@ const Header = () => {
   };
 
   useEffect(() => {
-    const handleClickBookOutside = (e) => {
-      if (
-        isOpenBook &&
-        (!bookRef.current || !bookRef.current.contains(e.target))
-      )
-        setIsOpenBook(false);
-    };
+    // const handleClickBookOutside = (e) => {
+    //   if (
+    //     isOpenBook &&
+    //     (!bookRef.current || !bookRef.current.contains(e.target))
+    //   )
+    //     setIsOpenBook(false);
+    // };
     const handleClickMypageOutside = (e) => {
       if (
         isOpenMypage &&
@@ -80,14 +78,14 @@ const Header = () => {
       )
         setIsOpenMypage(false);
     };
-    window.addEventListener('click', handleClickBookOutside);
+    // window.addEventListener('click', handleClickBookOutside);
     window.addEventListener('click', handleClickMypageOutside);
 
     return () => {
-      window.removeEventListener('click', handleClickBookOutside);
+      // window.removeEventListener('click', handleClickBookOutside);
       window.removeEventListener('click', handleClickMypageOutside);
     };
-  }, [isOpenBook, isOpenMypage]);
+  }, [isOpenMypage]);
 
   return (
     <HeaderContainer>
@@ -110,13 +108,13 @@ const Header = () => {
 
       <HeaderRightContainer>
         <MenuContainer>
-          <DropDownContainer onClick={openBookmenu}>
+          <DropDownContainer>
             <div style={{ display: 'flex' }}>
               예약
               <VerticalLine />
             </div>
 
-            {isOpenBook && (
+            {/* {isOpenBook && (
               <BookListContainer theme={{ borderColor: 'black' }} ref={bookRef}>
                 <BookList>
                   <li>회의실</li>
@@ -126,7 +124,7 @@ const Header = () => {
                   <li>비품</li>
                 </BookList>
               </BookListContainer>
-            )}
+            )} */}
           </DropDownContainer>
           <DropDownContainer onClick={openMypagemenu}>
             <div style={{ display: 'flex' }}>
