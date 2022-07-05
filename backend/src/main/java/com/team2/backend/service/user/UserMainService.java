@@ -15,6 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -135,14 +141,30 @@ public class UserMainService {
     }
 
     @Transactional
-    public ResponseEntity<Message> getMainStickChart(HttpServletRequest request, Long cateNo){
+    public ResponseEntity<Message> getMainStickChart(HttpServletRequest request, Long cateNo) throws ParseException {
 
         List<IMainReservationDto> hourConference = reservationRepository.getMainHourList(cateNo);
+
+        int totalCnt = reservationRepository.getResourceTotalCnt(cateNo);
+
+        String startDate = reservationRepository.getStartDate();
+        System.out.println(startDate);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date start = format.parse(startDate);
+        Date now = Calendar.getInstance().getTime();
+
+        long Days = (now.getTime() - start.getTime())/(1000*24*60*60);
+
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("days", Days+1L);
+        data.put("totalCnt", totalCnt);
+        data.put("hourConference", hourConference);
 
         Message message = Message.builder()
                 .message("[SUCCESS] Select MainStickChart")
                 .resCode(1000)
-                .data(hourConference)
+                .data(data)
                 .build();
         return new JsonResponse().send(200, message);
     }

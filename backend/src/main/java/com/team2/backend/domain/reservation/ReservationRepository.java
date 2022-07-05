@@ -26,12 +26,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "on r.resourceno = rf.resourceno " +
             "where r.userno = :userNo " +
             "and r.endTime > now()", nativeQuery = true)
-<<<<<<< HEAD:backend/src/main/java/com/team2/backend/domain/reservation/ReservationRepository.java
     List<IMainReservationDto> getMainReservList(@Param("userNo") Long userNo);  //이미지 가장 최신 것 뽑아옴
 
-=======
-    List<IMainReservationDto> getMainReservList(@Param("userNo") Long userNo);
->>>>>>> refs/remotes/origin/develop:backend/src/main/java/com/team2/backend/domain/bookmark/reservation/ReservationRepository.java
     @Query(value="select count(t.timeno) as timeCnt , (select count(*)* 48 from resource where cateno = :cateNo)as resourceCnt " +
                  "from reservation_check rc " +
                     "join timelist t on rc.checkno = t.checkno " +
@@ -69,4 +65,11 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<IMainReservationDto> getMainHourList(@Param("cateNo") Long cateNo);
 
     void deleteByReservNo(Long reservNo);
+
+    @Query(value="select count(*) as cnt from resource where able = 'Y' and cateno = :cateNo", nativeQuery = true)
+    int getResourceTotalCnt(@Param("cateNo") Long cateNo);
+
+    @Query(value="select to_char(starttime, 'yyyy-mm-dd') as startDate from reservation order by starttime asc limit 1", nativeQuery = true)
+    String getStartDate();
+
 }
