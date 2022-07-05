@@ -26,9 +26,9 @@ const AdminMain = () => {
         `${process.env.REACT_APP_SERVER_PORT}/admin/userlist`,
         {
           headers: {
-            // Authorization: getCookie('accessToken'),
-            Authorization:
-              'Bearer%eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJ1c2VyTm8iOjIsImV4cCI6MTY1Njc2NDE0MH0.E9H43GYDDc7j2Y0_6uX2d-rOFrnMayxbZCPi7XaIJ5Y',
+            Authorization: getCookie('accessToken'),
+            //   Authorization:
+            //     'Bearer%eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJ1c2VyTm8iOjIsImV4cCI6MTY1Njc2NDE0MH0.E9H43GYDDc7j2Y0_6uX2d-rOFrnMayxbZCPi7XaIJ5Y',
           },
         },
       );

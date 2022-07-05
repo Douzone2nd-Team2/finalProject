@@ -28,7 +28,7 @@ const TitleContainer = styled.div`
   padding-top: 10px;
   padding-bottom: 10px;
   color: black;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bolder;
   background-color: #e2e2e2;
   width: 450px;
