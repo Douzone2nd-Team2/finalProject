@@ -1,16 +1,20 @@
 package com.team2.backend.domain.reservation;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     Reservation findByReservNo(Long reservNo);
     List<Reservation> findAllByResourceNo(Long resourceNo); // 와 이거 어쩜
+
+    List<Reservation> findAllByUserNo(Long userNo);
 
     @Query(value = "select r.reservNo as reservNo, r.resourceNo as resourceNo, r.reservName as reservName, " +
             "r.startTime as startTime, r.endTime as endTime, " +
@@ -71,5 +75,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     @Query(value="select to_char(starttime, 'yyyy-mm-dd') as startDate from reservation order by starttime asc limit 1", nativeQuery = true)
     String getStartDate();
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Reservation WHERE reservNo = :reservNo")
+    void deleteAllByReservNo(@Param("reservNo")Long reservNo);
 
 }

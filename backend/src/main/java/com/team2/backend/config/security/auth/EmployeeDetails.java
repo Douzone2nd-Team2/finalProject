@@ -1,26 +1,26 @@
 package com.team2.backend.config.security.auth;
 
 import com.team2.backend.domain.user.Employee;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class EmployeeDetails implements UserDetails {
+public class EmployeeDetails implements UserDetails, Principal {
     private final Employee employee;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        System.out.println("able : "+employee.getAble());
-
         if (employee.getAble().equals("Y")) {
             authorities.add(() -> "ROLE_USER");
         }
@@ -58,5 +58,10 @@ public class EmployeeDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String getName() {
+        return employee.getUserId();
     }
 }
