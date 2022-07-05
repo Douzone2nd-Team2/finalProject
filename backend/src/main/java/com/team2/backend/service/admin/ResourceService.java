@@ -105,6 +105,7 @@ public class ResourceService {
                             .people(resourceAdminDto.getPeople())
                             .adminNo(resourceAdminDto.getAdminNo())
                             .option(resourceAdminDto.getOption())
+                            .content(resourceAdminDto.getContent())
                             .build()
             );
 
@@ -126,6 +127,7 @@ public class ResourceService {
                             .adminNo(resourceAdminDto.getAdminNo())
                             .option(resourceAdminDto.getOption())
                             .fuel(resourceAdminDto.getFuel())
+                            .content(resourceAdminDto.getContent())
                             .build()
 
             );
@@ -149,6 +151,7 @@ public class ResourceService {
                             .people(resourceAdminDto.getPeople())
                             .adminNo(resourceAdminDto.getAdminNo())
                             .option(resourceAdminDto.getOption())
+                            .content(resourceAdminDto.getContent())
                             .build()
 
             );
@@ -170,7 +173,7 @@ public class ResourceService {
     }
 
     @Transactional
-    public ResponseEntity<Message> fileupload(String able, String resourceNo, List<MultipartFile> multipartFile) {
+    public ResponseEntity<Message> fileupload(List<MultipartFile> multipartFile) {
         try {
             List<Resourcefile> resourcefileList = new ArrayList<>();
 
@@ -180,8 +183,8 @@ public class ResourceService {
 
                 Resourcefile file = resourcefileRepository.save(
                         Resourcefile.builder()
-                                .able(able)
-                                .resourceNo(Long.valueOf(resourceNo))
+//                                .able(able)
+//                                .resourceNo(Long.valueOf(resourceNo))
                                 .type(multipartFile.get(i).getContentType())
                                 .imageSize(String.valueOf(multipartFile.get(i).getSize()))
                                 .path(awsUrl)

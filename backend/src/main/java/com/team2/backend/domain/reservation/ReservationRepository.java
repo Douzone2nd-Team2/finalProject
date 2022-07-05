@@ -1,6 +1,5 @@
 package com.team2.backend.domain.reservation;
 
-import com.team2.backend.web.dto.admin.ReservationManagementDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,8 +26,12 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "on r.resourceno = rf.resourceno " +
             "where r.userno = :userNo " +
             "and r.endTime > now()", nativeQuery = true)
+<<<<<<< HEAD:backend/src/main/java/com/team2/backend/domain/reservation/ReservationRepository.java
     List<IMainReservationDto> getMainReservList(@Param("userNo") Long userNo);  //이미지 가장 최신 것 뽑아옴
 
+=======
+    List<IMainReservationDto> getMainReservList(@Param("userNo") Long userNo);
+>>>>>>> refs/remotes/origin/develop:backend/src/main/java/com/team2/backend/domain/bookmark/reservation/ReservationRepository.java
     @Query(value="select count(t.timeno) as timeCnt , (select count(*)* 48 from resource where cateno = :cateNo)as resourceCnt " +
                  "from reservation_check rc " +
                     "join timelist t on rc.checkno = t.checkno " +

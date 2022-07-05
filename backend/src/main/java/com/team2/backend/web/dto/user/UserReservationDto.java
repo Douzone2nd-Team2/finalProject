@@ -1,15 +1,9 @@
 package com.team2.backend.web.dto.user;
 
-import com.team2.backend.domain.reservation.Reservation;
-import com.team2.backend.domain.resource.PeopleCnt;
-import com.team2.backend.domain.resource.Resource;
-import com.team2.backend.domain.user.Employee;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 

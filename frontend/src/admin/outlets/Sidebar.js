@@ -62,16 +62,20 @@ function Sidebar() {
         </SbLi>
         <SbChildUl ref={toggleInfo}>
           <SbChildLi>
-            <BsArrowReturnRight />
-            &nbsp;예약등록
+            <Link to="/admin/registerbook">
+              <BsArrowReturnRight />
+              &nbsp;예약등록
+            </Link>
           </SbChildLi>
           <SbChildLi>
             <BsArrowReturnRight />
             &nbsp;사용자별 예약관리
           </SbChildLi>
           <SbChildLi>
-            <BsArrowReturnRight />
-            &nbsp;자원별 예약관리
+            <Link to="/admin/resourcelist">
+              <BsArrowReturnRight />
+              &nbsp;자원별 예약관리
+            </Link>
           </SbChildLi>
         </SbChildUl>
         <SbLi>

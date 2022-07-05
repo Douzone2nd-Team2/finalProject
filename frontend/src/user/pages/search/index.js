@@ -4,16 +4,23 @@ import axios from 'axios';
 
 import { searchState } from '../../recoil/search';
 import { getCookie } from '../../utils/cookie';
+import { arrayIsEmpty } from '../../utils/jsFunction';
 
 import SearchItem from '../search/SearchItem';
-import Container from '../../styles/Search';
+import {
+  Container,
+  TitleContainer,
+  NotContentContainer,
+} from '../../styles/Search';
 
 const Search = () => {
   const title = useRecoilValue(searchState);
 
   console.log('title = ', title);
 
-  const [items, setItems] = useState([]);
+  const [meeting, setMeeting] = useState([]);
+  const [car, setCar] = useState([]);
+  const [equip, setEquip] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -25,9 +32,10 @@ const Search = () => {
           },
         },
       );
-      console.log(res.data);
-      setItems(res.data.data);
-      //console.log(items);
+      console.log(res.data.data);
+      setMeeting(res.data.data.searchConferenceList);
+      setCar(res.data.data.searchCarList);
+      setEquip(res.data.data.searchNotebookList);
     } catch (e) {
       console.log(e);
     }
@@ -35,20 +43,48 @@ const Search = () => {
 
   useEffect(() => {
     fetchData();
+    console.log(car);
   }, [title]);
 
-  //console.log(items);
-
   return (
-    <Container>
-      {items &&
-        items.map((book, idx) => (
-          <div key={idx}>
-            <SearchItem book={book} />
-          </div>
-        ))}
-    </Container>
-    // <div>test</div>
+    <>
+      <TitleContainer>회의실</TitleContainer>
+      <Container>
+        {arrayIsEmpty(meeting) === true ? (
+          <NotContentContainer>검색 결과가 없습니다...</NotContentContainer>
+        ) : (
+          meeting.map((book, idx) => (
+            <div key={idx}>
+              <SearchItem book={book} />
+            </div>
+          ))
+        )}
+      </Container>
+      <TitleContainer>차량</TitleContainer>
+      <Container>
+        {arrayIsEmpty(car) === true ? (
+          <NotContentContainer>검색 결과가 없습니다...</NotContentContainer>
+        ) : (
+          car.map((book, idx) => (
+            <div key={idx}>
+              <SearchItem book={book} />
+            </div>
+          ))
+        )}
+      </Container>
+      <TitleContainer>비품</TitleContainer>
+      <Container>
+        {arrayIsEmpty(equip) === true ? (
+          <NotContentContainer>검색 결과가 없습니다...</NotContentContainer>
+        ) : (
+          equip.map((book, idx) => (
+            <div key={idx}>
+              <SearchItem book={book} />
+            </div>
+          ))
+        )}
+      </Container>
+    </>
   );
 };
 

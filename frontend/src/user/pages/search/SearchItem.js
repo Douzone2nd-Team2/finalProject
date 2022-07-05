@@ -8,6 +8,7 @@ import {
 
 const SearchItem = ({ book }) => {
   const { resourceName, cateName, people, thumbnail } = book;
+  console.log('book : ', book.cateName);
 
   return (
     <ItemContainer>

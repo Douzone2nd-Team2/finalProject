@@ -1,6 +1,6 @@
-import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Card, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
-const ResourceItem = ({ resource, resource_file }) => {
+const ResourceItem = ({ resource }) => {
   const {
     resourceNo,
     category,
@@ -15,6 +15,7 @@ const ResourceItem = ({ resource, resource_file }) => {
     createAt,
     modifyAt,
   } = resource;
+
   return (
     <Card
       style={{
@@ -27,7 +28,7 @@ const ResourceItem = ({ resource, resource_file }) => {
         {resourceNo}
         <Card.Title> {resourceName}</Card.Title>
         <Card.Subtitle>
-          {category},{location},{people},{option},{able},{availavleTime}
+          {category},{location},{people},{option},{able},{availavleTime},{fuel}
         </Card.Subtitle>
       </Card.Body>
       <ListGroup className="list-group-flush">

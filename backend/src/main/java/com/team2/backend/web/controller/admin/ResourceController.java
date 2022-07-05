@@ -36,8 +36,8 @@ public class ResourceController {
     }
 
     @PostMapping("/fileupload") // 사진 등록
-    public ResponseEntity<Message> fileRegister(@RequestPart(value = "able") String able, @RequestPart(value = "resourceNo") String resourceNo, @RequestPart(value = "image") List<MultipartFile> multipartFile){
-        return resourceService.fileupload(able, resourceNo, multipartFile);
+    public ResponseEntity<Message> fileRegister(@RequestPart(value = "image") List<MultipartFile> multipartFile){
+        return resourceService.fileupload(multipartFile);
     }
 
     @PostMapping("/register") // 자원 등록
@@ -50,8 +50,8 @@ public class ResourceController {
         return resourceService.resourceUpdate(req, resourceNo, resource);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Message> delResource(@RequestParam("resourceNo") Long resourceNo){
+    @PostMapping("/{resourceNo}")
+    public ResponseEntity<Message> delResource(@PathVariable Long resourceNo){
         return resourceService.delresourceList(resourceNo);
     }
 
