@@ -21,7 +21,7 @@ const Bchart = () => {
         >
           <option value="1">회의실</option>
           <option value="2">차량</option>
-          <option value="3">비품</option>
+          <option value="3">노트북</option>
         </select>
       </SelectContainer>
       <BchartItem catenum={catenum} />
