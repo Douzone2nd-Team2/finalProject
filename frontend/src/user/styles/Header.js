@@ -71,15 +71,15 @@ const DropDownContainer = styled.div`
   //width: 250px;
 `;
 
-const BookList = styled.ul`
-  text-align: center;
-  width: 70px;
-  font-size: 12px;
-  list-style: none;
-  line-height: 13px;
-  margin-right: 30px;
-  margin-top: 20px;
-`;
+// const BookList = styled.ul`
+//   text-align: center;
+//   width: 70px;
+//   font-size: 12px;
+//   list-style: none;
+//   line-height: 13px;
+//   margin-right: 30px;
+//   margin-top: 20px;
+// `;
 
 const MyPageList = styled.ul`
   text-align: center;
@@ -108,18 +108,18 @@ const MyPageListContainer = styled.div`
   z-index: 1000;
 `;
 
-const BookListContainer = styled.div`
-  border: 1px solid ${(props) => props.theme.borderColor};
-  background-color: white;
-  color: black;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 2px;
-  padding: 3px;
-  margin-top: 28px;
-  margin-left: -38px;
-  position: absolute;
-  z-index: 1000;
-`;
+// const BookListContainer = styled.div`
+//   border: 1px solid ${(props) => props.theme.borderColor};
+//   background-color: white;
+//   color: black;
+//   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+//   border-radius: 2px;
+//   padding: 3px;
+//   margin-top: 28px;
+//   margin-left: -38px;
+//   position: absolute;
+//   z-index: 1000;
+// `;
 
 const ButtonContainer = styled.div`
   button {
@@ -142,13 +142,11 @@ export {
   HeaderContainer,
   LogoContainer,
   SearchContainer,
-  BookList,
   MyPageList,
   DropDownContainer,
   MyPageListContainer,
   MenuContainer,
   HeaderRightContainer,
-  BookListContainer,
   ButtonContainer,
   VerticalLine,
 };

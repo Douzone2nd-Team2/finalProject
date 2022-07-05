@@ -57,10 +57,10 @@ public class MypageService {
     }
 
     @Transactional
-    public ResponseEntity<Message> employeeView(HttpServletRequest request) {
+    public ResponseEntity<Message> employeeView(HttpServletRequest request, @AuthenticationPrincipal EmployeeDetails employeeDetails) {
 
-        System.out.println(request.getAttribute("userNo"));
-        List<EmployeeManagementDto> employee = employeeQuerydslRepository.getMainEmployee((Long)request.getAttribute("userNo"));
+       // System.out.println(request.getAttribute("userId"));
+        List<EmployeeManagementDto> employee = employeeQuerydslRepository.getMainEmployee(employeeDetails.getEmployee().getUserId());
 
         System.out.println("size" + employee.size());
         Message message = Message.builder()

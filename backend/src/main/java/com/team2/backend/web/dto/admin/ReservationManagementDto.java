@@ -5,18 +5,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.querydsl.core.annotations.QueryProjection;
 import com.querydsl.core.types.Expression;
 import com.team2.backend.domain.reservation.Reservation;
-import com.team2.backend.domain.reservation.ReservationCheck;
-import com.team2.backend.domain.resource.PeopleCnt;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)

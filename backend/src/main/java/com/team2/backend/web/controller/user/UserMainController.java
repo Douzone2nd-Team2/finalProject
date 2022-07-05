@@ -1,16 +1,19 @@
 package com.team2.backend.web.controller.user;
 
 import com.amazonaws.services.medialive.model.Reservation;
+import com.team2.backend.config.security.auth.EmployeeDetails;
 import com.team2.backend.service.admin.ResourceService;
 import com.team2.backend.service.user.UserMainService;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.text.ParseException;
 import java.util.List;
 
 import static com.amazonaws.services.elasticbeanstalk.model.ConfigurationOptionValueType.List;
@@ -25,8 +28,8 @@ public class UserMainController {
 
 
     @GetMapping("/book")
-    public ResponseEntity<Message> mainBook(HttpServletRequest request){
-        return userMainService.getbookList(request);
+    public ResponseEntity<Message> mainBook(HttpServletRequest request, @AuthenticationPrincipal EmployeeDetails employeeDetails){
+        return userMainService.getbookList(request, employeeDetails);
     }
     @GetMapping("/piechart")
     public ResponseEntity<Message> mainPieChart(HttpServletRequest request){
@@ -37,17 +40,9 @@ public class UserMainController {
     public ResponseEntity<Message> mainRecommend(HttpServletRequest request){
         return userMainService.getrecommendList(request);
     }
-//    @GetMapping
-//    public ResponseEntity<Message> main(HttpServletRequest request){
-//        return userMainService.getMainList(request);
-//    }
-//    @GetMapping
-//    public ResponseEntity<Message> main(HttpServletRequest request){
-//        return userMainService.getMainList(request);
-//    }
 
     @GetMapping("/stickchart")
-    public ResponseEntity<Message> mainStickChart(HttpServletRequest request, @RequestParam Long cateNo){
+    public ResponseEntity<Message> mainStickChart(HttpServletRequest request, @RequestParam Long cateNo) throws ParseException {
         return userMainService.getMainStickChart(request, cateNo);
     }
 

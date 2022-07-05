@@ -1,11 +1,12 @@
 package com.team2.backend.domain.reservation;
 
-import com.team2.backend.web.dto.admin.ReservationManagementDto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -13,18 +14,23 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     Reservation findByReservNo(Long reservNo);
     List<Reservation> findAllByResourceNo(Long resourceNo); // 와 이거 어쩜
 
+    List<Reservation> findAllByUserNo(Long userNo);
+
     @Query(value = "select r.reservNo as reservNo, r.resourceNo as resourceNo, r.reservName as reservName, " +
             "r.startTime as startTime, r.endTime as endTime, " +
             "re.option as option, re.resourceName as resourceName, c.cateName as cateName, rf.path as imageUrl from reservation r " +
             "join resource re " +
             "on r.resourceno = re.resourceno " +
             "join category c " +
-            "on re.cateno = c.cateno "
-            +"left join (select resourceno, path, row_number() over(partition by resourceno order by createat desc) from resource_file where able='Y' limit 1) rf " +
+            "on re.cateno = c.cateno "+
+            "left join (select * from " +
+            " (select resourceno, path, row_number() over(partition by resourceno order by createat desc) as row " +
+            "   from resource_file where able='Y') a " +
+            "   where a.row = 1 ) rf " +
             "on r.resourceno = rf.resourceno " +
             "where r.userno = :userNo " +
             "and r.endTime > now()", nativeQuery = true)
-    List<IMainReservationDto> getMainReservList(@Param("userNo") Long userNo);  //이미지 한개만 뽑는 걸로 수정해야함
+    List<IMainReservationDto> getMainReservList(@Param("userNo") Long userNo);  //이미지 가장 최신 것 뽑아옴
 
     @Query(value="select count(t.timeno) as timeCnt , (select count(*)* 48 from resource where cateno = :cateNo)as resourceCnt " +
                  "from reservation_check rc " +
@@ -63,4 +69,16 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<IMainReservationDto> getMainHourList(@Param("cateNo") Long cateNo);
 
     void deleteByReservNo(Long reservNo);
+
+    @Query(value="select count(*) as cnt from resource where able = 'Y' and cateno = :cateNo", nativeQuery = true)
+    int getResourceTotalCnt(@Param("cateNo") Long cateNo);
+
+    @Query(value="select to_char(starttime, 'yyyy-mm-dd') as startDate from reservation order by starttime asc limit 1", nativeQuery = true)
+    String getStartDate();
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Reservation WHERE reservNo = :reservNo")
+    void deleteAllByReservNo(@Param("reservNo")Long reservNo);
+
 }

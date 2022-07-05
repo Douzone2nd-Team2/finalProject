@@ -10,7 +10,7 @@ import lombok.*;
 public class BookmarkResAdminDto{
     private Long bookmarkNo;
     private Long userNo;
-    private Integer resourceNo;
+    private Long resourceNo;
 
 
 }

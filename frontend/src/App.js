@@ -13,13 +13,16 @@ import Main from './user/pages/main';
 import Reset from './user/pages/Reset';
 import MyInfo from './user/pages/MyInfo';
 import Search from './user/pages/search';
+import Reservation from './user/pages/Reservation';
 
-import AdminLayout from './admin/components/AdminLayout';
+import AdminPrivateRoute from './admin/components/AdminLayout';
 import AdminMain from './admin/pages/AdminMain';
 import AdminLoginPage from './admin/pages/AdminLoginPage';
 import EmployeePage from './admin/pages/EmployeePage';
 import ResourcePage from './admin/components/Resource/ResourcePage';
 import ResourceDetail from './admin/components/Resource/ResourceDetail';
+import RegisterBook from './admin/pages/RegisterBook';
+import ResourceList from './admin/pages/ResourceList';
 
 const App = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -64,13 +67,16 @@ const App = () => {
           <Route path="mypage/changepw" element={<Reset />} />
           <Route path="mypage/user" element={<MyInfo />} />
           <Route path="search" element={<Search />} />
+          <Route path="reserve" element={<Reservation />} />
         </Route>
         <Route path="/admin/login" element={<AdminLoginPage />} />
-        <Route element={<AdminLayout />}>
+        <Route element={<AdminPrivateRoute />}>
           <Route path="admin" element={<AdminMain />} />
           <Route path="/admin/resource" element={<ResourcePage />} />
           <Route path="/admin/employee" element={<EmployeePage />} />
           <Route path="/admin/resourcedetail" element={<ResourceDetail />} />
+          <Route path="/admin/registerbook" element={<RegisterBook />} />
+          <Route path="/admin/resourcelist" element={<ResourceList />} />
         </Route>
       </Routes>
     </>

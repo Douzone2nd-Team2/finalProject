@@ -1,6 +1,7 @@
 package com.team2.backend.config;
 
 import com.team2.backend.config.security.auth.AuthCheckFilter;
+import com.team2.backend.config.security.auth.EmployeeDetailsService;
 import com.team2.backend.config.security.auth.LoginFilter;
 import com.team2.backend.config.security.cors.CORSFilter;
 import com.team2.backend.config.security.utils.JwtTokenProvider;
@@ -27,7 +28,7 @@ import java.util.Arrays;
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeDetailsService employeeDetailsService;
     private final CORSFilter corsFilter;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -44,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/main/**").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers("/reserve/**").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers("/admin/**").hasRole("ROLE_ADMIN")
                 .anyRequest().permitAll();
     }
 
@@ -61,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthCheckFilter authCheckFilter() throws Exception {
-        return new AuthCheckFilter(authenticationManager(), jwtTokenProvider, employeeRepository);
+        return new AuthCheckFilter(authenticationManager(), jwtTokenProvider, employeeDetailsService);
     }
 
     @Bean

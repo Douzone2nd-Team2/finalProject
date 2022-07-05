@@ -32,6 +32,10 @@ const LoginContainer = styled.div`
     .loginBtn {
       margin-bottom: 30px;
     }
+    .title {
+      position: absolute;
+      width: 57px;
+    }
   }
 `;
 
@@ -52,16 +56,25 @@ const ImageContainer1 = styled.div`
 `;
 
 const ImageContainer2 = styled.div`
+  position: relative;
   img {
-    margin: auto;
-    display: block;
+    margin-left: 30px;
   }
 `;
 
 const TitleContainer = styled.div`
+  z-index: 100;
+  /* top: 50%; */
+  transform: translateY(-70%);
   float: right;
-  input {
+  position: absoulte;
+  span {
     border: 1px solid;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px lightgray;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 2px;
   }
 `;
 

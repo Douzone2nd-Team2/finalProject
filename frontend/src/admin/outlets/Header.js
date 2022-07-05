@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+
 import {
   HeaderContainer,
   LogoContainer,
   LogoutContainer,
 } from '../styles/Header';
-import { Link } from 'react-router-dom';
+
 import { FiLogOut } from 'react-icons/fi';
 
 function Header() {
+  const navigate = useNavigate();
+
+  const [_, removeCookie] = useCookies(['accessToken']);
+
+  const deleteCookie = () => {
+    console.log('delete cookie click');
+    removeCookie('accessToken');
+    navigate('/admin/login');
+  };
+
   return (
     <HeaderContainer>
       <LogoContainer>
@@ -16,8 +29,10 @@ function Header() {
         </Link>
       </LogoContainer>
       <LogoutContainer>
-        로그아웃
-        <FiLogOut />
+        <button onClick={deleteCookie}>
+          로그아웃
+          <span className="fa-solid fa-right-from-bracket" />
+        </button>
       </LogoutContainer>
     </HeaderContainer>
   );

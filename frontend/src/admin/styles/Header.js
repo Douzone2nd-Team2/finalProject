@@ -21,7 +21,11 @@ export const LogoContainer = styled.div`
 export const LogoutContainer = styled.div`
   margin-right: 20px;
   font-size: 20px;
-  border: none;
-  border-radius: 5px;
+
   padding: 8px;
+  button {
+    font-weight: bold;
+    border: none;
+    background-color: white;
+  }
 `;
