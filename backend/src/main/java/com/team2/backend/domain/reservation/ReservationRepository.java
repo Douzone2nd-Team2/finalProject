@@ -65,4 +65,11 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<IMainReservationDto> getMainHourList(@Param("cateNo") Long cateNo);
 
     void deleteByReservNo(Long reservNo);
+
+    @Query(value="select count(*) as cnt from resource where able = 'Y' and cateno = :cateNo", nativeQuery = true)
+    int getResourceTotalCnt(@Param("cateNo") Long cateNo);
+
+    @Query(value="select to_char(starttime, 'yyyy-mm-dd') as startDate from reservation order by starttime asc limit 1", nativeQuery = true)
+    String getStartDate();
+
 }
