@@ -13,8 +13,6 @@ import {
   PeopleGridContainer,
   PeopleNameTag,
   CountInfoTitle,
-  ButtonContainer,
-  ReserveButton,
 } from './style';
 
 const Count = () => {
@@ -41,9 +39,6 @@ const Count = () => {
         <PeopleNameTag>엄채린</PeopleNameTag>
         <PeopleNameTag>이정민</PeopleNameTag>
       </PeopleGridContainer>
-      <ButtonContainer>
-        <ReserveButton>예약</ReserveButton>
-      </ButtonContainer>
     </FlexContainer>
   );
 };

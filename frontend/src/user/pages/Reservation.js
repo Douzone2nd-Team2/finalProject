@@ -11,8 +11,8 @@ const Reservation = () => {
       <ReservationHeader></ReservationHeader>
       <Container>
         <ResourceInfo></ResourceInfo>
-        <CalendarInfo></CalendarInfo>
-        {/* <AdditionalInfo></AdditionalInfo> */}
+        {/* <CalendarInfo></CalendarInfo> */}
+        <AdditionalInfo></AdditionalInfo>
       </Container>
     </MainContainer>
   );
