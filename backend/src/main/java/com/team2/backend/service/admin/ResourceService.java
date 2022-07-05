@@ -2,7 +2,7 @@ package com.team2.backend.service.admin;
 
 import com.team2.backend.config.aws.S3Uploader;
 import com.team2.backend.domain.bookmark.BookmarkRepository;
-import com.team2.backend.domain.reservation.ReservationQuerydslRepository;
+import com.team2.backend.domain.bookmark.reservation.ReservationQuerydslRepository;
 import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.resource.ResourceRepository;
 import com.team2.backend.domain.resource.Resourcefile;

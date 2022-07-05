@@ -1,13 +1,11 @@
 package com.team2.backend.service.admin;
 
-import com.team2.backend.domain.reservation.*;
+import com.team2.backend.domain.bookmark.reservation.*;
 import com.team2.backend.domain.resource.PeopleCnt;
 import com.team2.backend.domain.resource.PeopleCntRepository;
-import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.resource.ResourceRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
-import com.team2.backend.web.dto.admin.IResourceAdminDto;
 import com.team2.backend.web.dto.admin.ReservationManagementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

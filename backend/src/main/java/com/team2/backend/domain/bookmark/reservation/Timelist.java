@@ -1,9 +1,6 @@
-package com.team2.backend.domain.reservation;
+package com.team2.backend.domain.bookmark.reservation;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.team2.backend.domain.resource.Resource;
-import com.team2.backend.domain.user.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

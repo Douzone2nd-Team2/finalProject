@@ -1,8 +1,8 @@
 package com.team2.backend.service.user;
 
-import com.team2.backend.domain.reservation.IMainReservationDto;
-import com.team2.backend.domain.reservation.ReservationQuerydslRepository;
-import com.team2.backend.domain.reservation.ReservationRepository;
+import com.team2.backend.domain.bookmark.reservation.IMainReservationDto;
+import com.team2.backend.domain.bookmark.reservation.ReservationQuerydslRepository;
+import com.team2.backend.domain.bookmark.reservation.ReservationRepository;
 import com.team2.backend.domain.resource.ResourceRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
@@ -11,14 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import software.amazon.ion.Decimal;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
