@@ -1,10 +1,7 @@
-package com.team2.backend.domain.reservation;
+package com.team2.backend.domain.bookmark.reservation;
 
-import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.DateTemplate;
 import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import com.team2.backend.web.dto.admin.QReservationManagementDto;
@@ -14,13 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.beans.Expression;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 import static com.team2.backend.domain.reservation.QTimelist.timelist;
@@ -28,7 +20,6 @@ import static com.team2.backend.domain.reservation.QReservationCheck.reservation
 import static com.team2.backend.domain.reservation.QReservation.reservation;
 import static com.team2.backend.domain.resource.QCategory.category;
 import static com.team2.backend.domain.resource.QResource.resource;
-import static com.team2.backend.domain.resource.QResourcefile.resourcefile;
 import static com.team2.backend.domain.user.QEmployee.employee;
 
 @Repository

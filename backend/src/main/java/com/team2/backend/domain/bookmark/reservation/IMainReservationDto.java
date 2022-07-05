@@ -1,4 +1,4 @@
-package com.team2.backend.domain.reservation;
+package com.team2.backend.domain.bookmark.reservation;
 
 import java.util.Date;
 

@@ -1,8 +1,6 @@
 package com.team2.backend.web.controller.user;
 
-import com.team2.backend.domain.reservation.Reservation;
-import com.team2.backend.domain.reservation.ReservationRepository;
-import com.team2.backend.domain.user.Employee;
+import com.team2.backend.domain.bookmark.reservation.ReservationRepository;
 import com.team2.backend.domain.user.EmployeeRepository;
 import com.team2.backend.service.user.SocketService;
 import com.team2.backend.web.dto.SocketMessage;
@@ -10,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller

@@ -1,7 +1,7 @@
 package com.team2.backend.service.user;
 
-import com.team2.backend.domain.reservation.Reservation;
-import com.team2.backend.domain.reservation.ReservationRepository;
+import com.team2.backend.domain.bookmark.reservation.Reservation;
+import com.team2.backend.domain.bookmark.reservation.ReservationRepository;
 import com.team2.backend.web.dto.SocketMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

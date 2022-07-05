@@ -8,18 +8,18 @@ import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 import { BarContainer, TitleContainer } from '../../styles/Bchart';
 
 const DATA = [
-  { quarter: 1, earnings: 13000 },
-  { quarter: 2, earnings: 16500 },
-  { quarter: 3, earnings: 14250 },
-  { quarter: 4, earnings: 19000 },
-  { quarter: 5, earnings: 13000 },
-  { quarter: 6, earnings: 16500 },
-  { quarter: 7, earnings: 14250 },
-  { quarter: 8, earnings: 19000 },
-  { quarter: 9, earnings: 13000 },
-  { quarter: 10, earnings: 16500 },
-  { quarter: 11, earnings: 14250 },
-  { quarter: 12, earnings: 19000 },
+  { quarter: 1, earnings: 5 },
+  { quarter: 2, earnings: 7 },
+  { quarter: 3, earnings: 8 },
+  { quarter: 4, earnings: 11 },
+  { quarter: 5, earnings: 13 },
+  { quarter: 6, earnings: 15 },
+  { quarter: 7, earnings: 13 },
+  { quarter: 8, earnings: 14 },
+  { quarter: 9, earnings: 19 },
+  { quarter: 10, earnings: 20 },
+  { quarter: 11, earnings: 13 },
+  { quarter: 12, earnings: 10 },
 ];
 
 const BchartItem = ({ catenum }) => {
@@ -70,16 +70,14 @@ const BchartItem = ({ catenum }) => {
     <BarContainer>
       <TitleContainer>{title} 사용시간</TitleContainer>
       <VictoryChart
-        domainPadding={20}
+        domainPadding={30}
         theme={VictoryTheme.material}
-        colorScale={'warm'}
         style={{
-          background: { fill: 'white' },
+          background: { fill: 'lightGray' },
         }}
       >
         <VictoryAxis
-          tickValues={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
-          tickFormat={[
+          tickValues={[
             '08',
             '10',
             '12',
@@ -93,13 +91,19 @@ const BchartItem = ({ catenum }) => {
             '04',
             '06',
           ]}
+          tickFormat={(t) => `${t}`}
         />
-        <VictoryAxis dependentAxis tickFormat={(x) => `${x / 200}%`} />
+        <VictoryAxis
+          dependentAxis
+          tickValues={[4, 8, 12, 16, 20]}
+          tickFormat={(x) => `${x}`}
+        />
+        {/* <VictoryAxis /> */}
         <VictoryBar
           data={DATA}
           x="quarter"
           y="earnings"
-          barWidth={10}
+          barWidth={12}
           style={{
             data: { fill: '#328895' },
           }}
