@@ -25,7 +25,6 @@ const CalendarTest = styled.div`
 const CalendarDetatilTest = styled.div`
   width: 100%;
   height: 100%;
-  background-color: white;
   padding-top: 24px;
   display: flex;
   align-items: center;
@@ -119,6 +118,96 @@ const ReserveButton = styled.button`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 6px 16px;
 `;
 
+const QuantityContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+`;
+
+const RestDiv = styled.div`
+  position: relative;
+  flex: 1 1 0%;
+  padding: 0px 0px 4px;
+  overflow: hidden;
+  border-right: 1px solid rgb(176, 176, 176);
+  display: flex;
+`;
+
+const RestTitle = styled.span`
+  width: 100%;
+  position: relative;
+  top: 12px px;
+  left: 12px;
+  right: 12px;
+  margin: 0px;
+  padding: 0px;
+  pointer-events: none;
+  font-size: 12px;
+  line-height: 12px;
+  color: rgb(34, 34, 34);
+  text-transform: uppercase;
+  font-weight: 800;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const RestSpan = styled.span`
+  width: 100%;
+  height: 100%;
+  margin: 3px;
+  padding: 4px 12px;
+  font-size: 18px;
+  font-weight: 400;
+`;
+
+const QuantityDiv = styled.div`
+  position: relative;
+  flex: 1 1 0%;
+  padding: 0px 0px 4px;
+  overflow: hidden;
+  margin-left: 30px;
+  display: flex;
+`;
+
+const QuantityTitle = styled.span`
+  width: 100%;
+  position: relative;
+  top: 12px px;
+  left: 12px;
+  right: 12px;
+  margin: 0px;
+  padding: 0px;
+  pointer-events: none;
+  font-size: 12px;
+  line-height: 12px;
+  color: rgb(34, 34, 34);
+  text-transform: uppercase;
+  font-weight: 800;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const QuantityInput = styled.input`
+  width: 100%;
+  height: 100%;
+  margin: 3px;
+  padding: 4px 12px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 36px;
+  outline: none;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+  text-align: center;
+`;
+
 export {
   CalendarContainer,
   CalendarTest,
@@ -130,4 +219,11 @@ export {
   TimeSpan,
   ButtonContainer,
   ReserveButton,
+  QuantityContainer,
+  RestDiv,
+  RestTitle,
+  RestSpan,
+  QuantityDiv,
+  QuantityTitle,
+  QuantityInput,
 };

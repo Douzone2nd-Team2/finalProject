@@ -9,6 +9,13 @@ import {
   TimeSpan,
   ButtonContainer,
   ReserveButton,
+  QuantityContainer,
+  RestDiv,
+  RestTitle,
+  RestSpan,
+  QuantityDiv,
+  QuantityTitle,
+  QuantityInput,
 } from './style.js';
 
 const CalendarInfo = () => {
@@ -29,6 +36,16 @@ const CalendarInfo = () => {
           </DateTimeDiv>
         </DateTimeContainer>
       </CalendarDetatilTest>
+      {/* <QuantityContainer> 얘네는 노트북만
+        <RestDiv>
+          <RestTitle>잔여 개수</RestTitle>
+          <RestSpan>0</RestSpan>
+        </RestDiv>
+        <QuantityDiv>
+          <QuantityTitle>선택 개수</QuantityTitle>
+          <QuantityInput></QuantityInput>
+        </QuantityDiv>
+      </QuantityContainer> */}
       <ButtonContainer>
         <ReserveButton>다음</ReserveButton>
       </ButtonContainer>

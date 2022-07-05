@@ -5,17 +5,17 @@ import ResourceInfo from '../components/Reservation/ResourceInfo/ResourceInfo';
 import AdditionalInfo from '../components/Reservation/AdditionalInfo/AdditionalInfo.js';
 import CalendarInfo from '../components/Reservation/Calendar/CalendarInfo.js';
 
-const Reservation = () => {
+const Reserve = () => {
   return (
     <MainContainer>
       <ReservationHeader></ReservationHeader>
       <Container>
         <ResourceInfo></ResourceInfo>
-        {/* <CalendarInfo></CalendarInfo> */}
-        <AdditionalInfo></AdditionalInfo>
+        <CalendarInfo></CalendarInfo>
+        {/* <AdditionalInfo></AdditionalInfo> */}
       </Container>
     </MainContainer>
   );
 };
 
-export default Reservation;
+export default Reserve;
