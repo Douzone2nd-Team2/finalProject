@@ -8,7 +8,9 @@ const CalendarInfo = () => {
   return (
     <CalendarContainer>
       <CalendarTest></CalendarTest>
-      <CalendarDetatilTest></CalendarDetatilTest>
+      <CalendarDetatilTest>
+        
+      </CalendarDetatilTest>
     </CalendarContainer>
   );
 };

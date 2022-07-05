@@ -27,7 +27,9 @@ const CalendarDetatilTest = styled.div`
   height: 200px;
   background-color: white;
   position: relative;
-  padding: 20px;
+  padding-top: 24px;
 `;
+
+const DateTimeContainer = styled.di;
 
 export { CalendarContainer, CalendarTest, CalendarDetatilTest };

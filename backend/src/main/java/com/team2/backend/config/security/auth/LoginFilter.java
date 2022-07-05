@@ -31,7 +31,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException {
 
         System.out.println("--------------- ApiLoginFilter ---------------");
 
@@ -48,8 +49,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String type = employee.getAble();
 
         try {
-            UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(userId, password);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userId,
+                    password);
 
             Authentication authentication = getAuthenticationManager().authenticate(authenticationToken);
 
@@ -57,8 +58,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
                 String able = ((EmployeeDetails) authentication.getPrincipal()).getEmployee().getAble();
                 if (able.equals("A")) {
                     return authentication;
-                }
-                else {
+                } else {
                     throw new NullPointerException();
                 }
             }
@@ -75,7 +75,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+            Authentication authResult) throws IOException, ServletException {
         System.out.println("[SUCCESS] Verify Access Token");
 
         String userId = ((EmployeeDetails) authResult.getPrincipal()).getEmployee().getUserId();
@@ -85,9 +86,11 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         String accessToken = jwtTokenProvider.createAccessToken(userId);
         accessToken = URLEncoder.encode(accessToken, "utf-8");
-        response.setHeader(jwtTokenProvider.getACCESS_TOKEN_HEADER(), jwtTokenProvider.getACCESS_TOKEN_PREFIX() + accessToken);
+        response.setHeader(jwtTokenProvider.getACCESS_TOKEN_HEADER(),
+                jwtTokenProvider.getACCESS_TOKEN_PREFIX() + accessToken);
 
         HashMap<String, Object> data = new HashMap<>();
+        data.put("userId", userId);
         data.put("userNo", userNo);
         data.put("name", name);
         Message message = Message.builder()
@@ -99,7 +102,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException failed) throws IOException, ServletException {
         System.out.println("[FAIL] Verify Faild Access Token");
 
         Message message = Message.builder()
@@ -109,7 +113,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         HttpResponse.sendMessage(response, message);
     }
 
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, NullPointerException failed) throws IOException {
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+            NullPointerException failed) throws IOException {
         System.out.println("[FAIL] Verify Faild Access Token");
 
         Message message = Message.builder()
