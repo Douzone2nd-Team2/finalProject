@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 
 import ResourceItem from './ResourceItem';
 
@@ -11,20 +11,58 @@ const ResourceCard = ({ selected }) => {
   const [resources, setResources] = useState([]);
   console.log(selected);
 
-  const getTest = async () => {
+  const getAll = async () => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_PORT}/resource/${selected}`)
+      .get(`${process.env.REACT_APP_SERVER_PORT}/resource`)
       .then((response) => {
-        console.log('연결성공');
-        console.log(response);
         setResources(response.data.data);
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  const getSelect = async () => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_PORT}/resource/${selected}`)
+      .then((response) => {
+        setResources(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getBookmark = async () => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_PORT}/resource/bookmark`)
+      .then((response) => {
+        setResources(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleDelete = (resourceNo) => {
+    axios
+      .post(`${process.env.REACT_APP_SERVER_PORT}/resource/${resourceNo}`, {
+        resourceNo: resourceNo,
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
-    getTest();
+    if (selected == '0') {
+      getAll();
+    } else if (selected == '4') {
+      getBookmark();
+    } else {
+      getSelect();
+    }
+
     console.log(resources);
   }, [selected]);
 
@@ -35,6 +73,15 @@ const ResourceCard = ({ selected }) => {
           {resources.map((resource, idx) => (
             <Col sm={3} key={idx} style={{ marginTop: '30px' }}>
               <ResourceItem resource={resource} />
+              <Button variant="primary">수정</Button>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  handleDelete();
+                }}
+              >
+                삭제
+              </Button>
             </Col>
           ))}
         </Row>
