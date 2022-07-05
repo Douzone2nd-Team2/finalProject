@@ -139,10 +139,17 @@ public class UserMainService {
 
         List<IMainReservationDto> hourConference = reservationRepository.getMainHourList(cateNo);
 
+        int totalCnt = reservationRepository.getResourceTotalCnt(cateNo);
+
+        HashMap<String, Object> data = new HashMap<>();
+
+        data.put("hourConference", hourConference);
+        data.put("totalCnt", totalCnt);
+
         Message message = Message.builder()
                 .message("[SUCCESS] Select MainStickChart")
                 .resCode(1000)
-                .data(hourConference)
+                .data(data)
                 .build();
         return new JsonResponse().send(200, message);
     }
