@@ -41,6 +41,7 @@ public class EmployeeQuerydslRepositoryImpl implements  EmployeeQuerydslReposito
                .from(employee)
                .join(employee.dept, department)
                .join(employee.grade, grade)
+               .orderBy(employee.no.desc())
                .fetch();
     }
 

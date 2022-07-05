@@ -14,21 +14,17 @@ const SidebarContainer = styled.div`
 
 const SidebarContainer2 = styled.div`
   position: fixed;
-  top: 114px;
+  top: 150px;
   left: 0;
-  width: 180px;
-  height: 100px;
-  font-family: NanumGothicBold;
-  display: flex;
+  button {
+    background-color: white;
+  }
 `;
 
 const ContentContainer = styled.div`
   padding: 20px 20px 0 20px;
-  display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
 `;
 
 const ImageContainer = styled.div`
@@ -56,12 +52,23 @@ const NameContainer = styled.div`
 
 const ToggleContainer = styled.div`
   display: flex;
-  align-items: center;
-  margin-right: 15px;
   button {
     border: 0;
     outline: 0;
     background-color: #dcdcdc;
+  }
+  button: hover {
+    color: darkgray;
+  }
+`;
+
+const ToggleContainer2 = styled.div`
+  position: fixed;
+  top: 295px;
+  left: 0;
+  button {
+    border: 0;
+    outline: 0;
   }
   button: hover {
     color: darkgray;
@@ -76,4 +83,5 @@ export {
   InfoContainer,
   NameContainer,
   ToggleContainer,
+  ToggleContainer2,
 };

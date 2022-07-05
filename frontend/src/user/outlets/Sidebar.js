@@ -12,6 +12,7 @@ import {
   InfoContainer,
   NameContainer,
   ToggleContainer,
+  ToggleContainer2,
 } from '../styles/Sidebar';
 
 import profile from '../assets/profile.jpeg';
@@ -20,14 +21,19 @@ const Sidebar = () => {
   const user = useRecoilValue(userState);
   const [isOpenToggle, setIsOpenToggle] = useState(false);
   const toggleInfo = useRef();
-
   const hideInfo = () => {
-    toggleInfo.current.style.display = 'none';
+    toggleInfo.current.style.visibility = 'hidden';
+    toggleInfo.current.style.opacity = '0';
+    toggleInfo.current.style.transition =
+      'visibility 0s linear 500ms, opacity 600ms';
     setIsOpenToggle(!isOpenToggle);
   };
 
   const showInfo = () => {
-    toggleInfo.current.style.display = 'flex';
+    toggleInfo.current.style.visibility = 'visible';
+    toggleInfo.current.style.opacity = '1';
+    toggleInfo.current.style.transition =
+      'visibility 0s linear 0s, opacity 600ms';
     setIsOpenToggle(!isOpenToggle);
   };
 
@@ -52,13 +58,13 @@ const Sidebar = () => {
         </ToggleContainer>
       </SidebarContainer>
       <SidebarContainer2>
-        <ToggleContainer>
+        <ToggleContainer2>
           {isOpenToggle && (
             <button onClick={showInfo}>
               <span className="fa-solid fa-arrow-right" />
             </button>
           )}
-        </ToggleContainer>
+        </ToggleContainer2>
       </SidebarContainer2>
     </>
   );

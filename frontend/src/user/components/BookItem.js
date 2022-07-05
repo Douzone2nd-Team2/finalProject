@@ -10,7 +10,7 @@ const BookItem = ({ book }) => {
     <BookContainer>
       {imageUrl && (
         <div className="thumbnail">
-          <img src={imageUrl} alt="thumbnail" />
+          <img src={imageUrl} alt="No Image" />
         </div>
       )}
       <div className="contents">
