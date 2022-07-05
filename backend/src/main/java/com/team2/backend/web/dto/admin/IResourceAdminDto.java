@@ -16,6 +16,10 @@ public interface IResourceAdminDto { // office
     String getAvailableTime();
     Long getAdminNo();
     String getOption();
+
+    String getPath();
+
+    String getContent();
     LocalDateTime getCreateAt();
     LocalDateTime getModifyAt();
 }

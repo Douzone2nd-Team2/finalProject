@@ -16,8 +16,6 @@ export const ResourceContainer = styled.div`
   margin-left: 100px;
 `;
 
-export const ResourceContainer2 = styled.div``;
-
 export const ResourceCardUI = styled.div`
   width: 80px;
   height: 150px;

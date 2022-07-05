@@ -235,7 +235,7 @@ public class ResourceService {
 
 
     @Transactional
-    public ResponseEntity<Message> delresourceList(Long resourceNo) {
+    public ResponseEntity<Message> ㄴdelresourceList(Long resourceNo) {
         Resource delresourse = resourceRepository.findByResourceNo(resourceNo);
         List<Resourcefile> delresourcefile = resourcefileRepository.findByResource_ResourceNo(resourceNo);
 

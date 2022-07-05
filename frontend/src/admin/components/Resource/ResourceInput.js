@@ -58,18 +58,22 @@ const ResourceInput = () => {
   };
 
   const postTest = async () => {
+    const resourceInsert = {
+      cateNo: undefined ? 1 : valued,
+      resourceName: resourceName,
+      people: people,
+      location: location,
+      time: startTime,
+      option: option,
+      fuel: fuel,
+      content: content,
+      able: able,
+    };
     axios
-      .post(`${process.env.REACT_APP_SERVER_PORT}/resource/register`, {
-        cateNo: valued,
-        resourceName: resourceName,
-        people: people,
-        location: location,
-        time: startTime,
-        option: option,
-        fuel: fuel,
-        content: content,
-        able: able,
-      })
+      .post(
+        `${process.env.REACT_APP_SERVER_PORT}/resource/register`,
+        resourceInsert,
+      )
       .then((response) => {
         console.log('연결성공');
         console.log(response);
@@ -234,15 +238,6 @@ const ResourceInput = () => {
                 controlId="exampleForm.ControlInput1"
               >
                 <Row>
-                  <Col>
-                    <Form.Label>옵션</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={option}
-                      onChange={handleOption}
-                      placeholder="option"
-                    />
-                  </Col>
                   <Col>
                     <Form.Label>개수</Form.Label>
                     <Form.Control

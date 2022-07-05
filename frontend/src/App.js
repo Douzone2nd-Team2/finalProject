@@ -19,6 +19,7 @@ import AdminMain from './admin/pages/AdminMain';
 import AdminLoginPage from './admin/pages/AdminLoginPage';
 import EmployeePage from './admin/pages/EmployeePage';
 import ResourcePage from './admin/components/Resource/ResourcePage';
+import ResourceDetail from './admin/components/Resource/ResourceDetail';
 
 const App = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -69,6 +70,7 @@ const App = () => {
           <Route path="admin" element={<AdminMain />} />
           <Route path="/admin/resource" element={<ResourcePage />} />
           <Route path="/admin/employee" element={<EmployeePage />} />
+          <Route path="/admin/resourcedetail" element={<ResourceDetail />} />
         </Route>
       </Routes>
     </>
