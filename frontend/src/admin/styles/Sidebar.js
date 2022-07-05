@@ -7,6 +7,8 @@ export const SbContainer = styled.div`
   width: 15%;
   height: 100vh;
   font-size: 20px;
+  font-weight: 600;
+  min-width: 151px;
 `;
 
 export const SbUl = styled.ul`
@@ -37,10 +39,9 @@ export const SbChildLi = styled.li`
   list-style: none;
   padding: 10px 10px 10px 10px;
   border-top: 1px solid #969696;
+  font-size: 17px;
   &:hover {
     background-color: rgb(0, 0, 0, 0.2);
     color: rgb(255, 255, 255, 100);
-  }
-
   }
 `;

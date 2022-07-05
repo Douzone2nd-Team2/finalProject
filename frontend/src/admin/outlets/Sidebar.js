@@ -30,7 +30,7 @@ function Sidebar() {
       setReservation(true);
       toggleInfo.current.style.display = 'none';
     }
-    console.log(reservation);
+    // console.log(reservation);
   };
 
   const floatRight = {
