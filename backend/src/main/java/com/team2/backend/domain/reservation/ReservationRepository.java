@@ -19,12 +19,15 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "join resource re " +
             "on r.resourceno = re.resourceno " +
             "join category c " +
-            "on re.cateno = c.cateno "
-            +"left join (select resourceno, path, row_number() over(partition by resourceno order by createat desc) from resource_file where able='Y' limit 1) rf " +
+            "on re.cateno = c.cateno "+
+            "left join (select * from " +
+            " (select resourceno, path, row_number() over(partition by resourceno order by createat desc) as row " +
+            "   from resource_file where able='Y') a " +
+            "   where a.row = 1 ) rf " +
             "on r.resourceno = rf.resourceno " +
             "where r.userno = :userNo " +
             "and r.endTime > now()", nativeQuery = true)
-    List<IMainReservationDto> getMainReservList(@Param("userNo") Long userNo);  //이미지 한개만 뽑는 걸로 수정해야함
+    List<IMainReservationDto> getMainReservList(@Param("userNo") Long userNo);  //이미지 가장 최신 것 뽑아옴
 
     @Query(value="select count(t.timeno) as timeCnt , (select count(*)* 48 from resource where cateno = :cateNo)as resourceCnt " +
                  "from reservation_check rc " +
