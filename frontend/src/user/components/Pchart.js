@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import { isEmpty } from '../utils/jsFunction';
 import { getCookie } from '../utils/cookie';
 
 import { VictoryPie, VictoryLegend } from 'victory';
@@ -15,14 +16,35 @@ import {
 
 const PChart = () => {
   const [pdata, setPdata] = useState([]);
+  const [bookdata, setBookdata] = useState(null);
+  const [cardata, setCardata] = useState(null);
+  const [notebookdata, setNotebookdata] = useState(null);
 
   const DATA = [
-    //   { x: '회의실', y: pdata.frequencyUsageList1?.toFixed(2) * 100 },
-    //   { x: '차량', y: pdata.frequencyUsageList2?.toFixed(2) * 100 },
-    //   { x: '비품', y: pdata.frequencyUsageList3?.toFixed(2) * 100 },
-    { x: '회의실', y: 3 },
-    { x: '차량', y: 3 },
-    { x: '비품', y: 3 },
+    {
+      x: '회의실',
+      y:
+        isEmpty(bookdata) === false &&
+        isEmpty(cardata) === false &&
+        isEmpty(notebookdata) === false &&
+        (bookdata / (bookdata + cardata + notebookdata)).toFixed(2) * 10,
+    },
+    {
+      x: '차량',
+      y:
+        isEmpty(bookdata) === false &&
+        isEmpty(cardata) === false &&
+        isEmpty(notebookdata) === false &&
+        (cardata / (bookdata + cardata + notebookdata)).toFixed(2) * 10,
+    },
+    {
+      x: '노트북',
+      y:
+        isEmpty(bookdata) === false &&
+        isEmpty(cardata) === false &&
+        isEmpty(notebookdata) === false &&
+        (notebookdata / (bookdata + cardata + notebookdata)).toFixed(2) * 10,
+    },
   ];
 
   const fetchData = async () => {
@@ -35,7 +57,11 @@ const PChart = () => {
           },
         },
       );
-      setPdata(res.data.data);
+      // setPdata(res.data.data);
+      setBookdata(parseFloat(res.data.data.frequencyUsageList1.toFixed(4)));
+      setCardata(parseFloat(res.data.data.frequencyUsageList2.toFixed(4)));
+      setNotebookdata(parseFloat(res.data.data.frequencyUsageList3.toFixed(4)));
+      console.log(res);
     } catch (e) {
       console.log(e);
     }
@@ -43,7 +69,14 @@ const PChart = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+    console.log(bookdata);
+    console.log(cardata);
+    console.log(notebookdata);
+    console.log(bookdata + cardata + notebookdata);
+    console.log(
+      (notebookdata / (bookdata + cardata + notebookdata)).toFixed(2) * 10,
+    );
+  }, [bookdata, cardata, notebookdata]);
 
   return (
     <Container>
@@ -51,24 +84,53 @@ const PChart = () => {
         <TitleContainer>오늘의 자원 사용률</TitleContainer>
         <InnerContainer>
           <VictoryPie
-            data={DATA}
-            width={210}
-            height={210}
-            startAngle={130}
-            endAngle={600}
-            innerRadius={100}
             colorScale={['#095BF4', '#9EA9B3', '#033F7B']}
+            data={DATA}
+            // width={100}
+            // height={200}
+            // startAngle={130}
+            // endAngle={600}
+            // innerRadius={100}
+            // colorScale={['#095BF4', '#9EA9B3', '#033F7B']}
             style={{
               data: {
-                fillOpacity: 0.8,
+                fillOpacity: 1,
                 stroke: 'black',
                 strokeWidth: 0,
               },
               labels: {
-                fontSize: 11,
+                fontSize: 20,
                 fill: 'black',
+                fontWeight: 'bold',
               },
             }}
+            events={[
+              {
+                target: 'data',
+                eventHandlers: {
+                  onClick: () => {
+                    return [
+                      {
+                        target: 'data',
+                        mutation: ({ style }) => {
+                          return style.fill === '#c43a31'
+                            ? null
+                            : { style: { fill: '#c43a31' } };
+                        },
+                      },
+                      {
+                        target: 'labels',
+                        mutation: ({ text }) => {
+                          return text === 'clicked'
+                            ? null
+                            : { text: 'clicked' };
+                        },
+                      },
+                    ];
+                  },
+                },
+              },
+            ]}
           />
         </InnerContainer>
         <LegendContainer>
@@ -82,7 +144,7 @@ const PChart = () => {
             rowGutter={{ top: 0, bottom: 10 }}
             style={{ border: { stroke: 'black' } }}
             colorScale={['#095BF4', '#9EA9B3', '#033F7B']}
-            data={[{ name: '회의실' }, { name: '차량' }, { name: '비품' }]}
+            data={[{ name: '회의실' }, { name: '차량' }, { name: '노트북' }]}
           />
         </LegendContainer>
       </PieContainer>
