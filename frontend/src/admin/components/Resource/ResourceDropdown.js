@@ -16,9 +16,11 @@ const ResourceDropdown = () => {
         value={selected}
         style={{ float: 'right', marginTop: '10px' }}
       >
+        <option value="0">전체</option>
         <option value="1">회의실</option>
         <option value="2">차량</option>
         <option value="3">노트북</option>
+        <option value="4">북마크</option>
       </select>
       <ResourceCard selected={selected} />
     </div>
