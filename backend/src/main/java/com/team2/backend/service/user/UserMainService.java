@@ -1,14 +1,16 @@
 package com.team2.backend.service.user;
 
-import com.team2.backend.domain.bookmark.reservation.IMainReservationDto;
-import com.team2.backend.domain.bookmark.reservation.ReservationQuerydslRepository;
-import com.team2.backend.domain.bookmark.reservation.ReservationRepository;
+import com.team2.backend.config.security.auth.EmployeeDetails;
+import com.team2.backend.domain.reservation.IMainReservationDto;
+import com.team2.backend.domain.reservation.ReservationQuerydslRepository;
+import com.team2.backend.domain.reservation.ReservationRepository;
 import com.team2.backend.domain.resource.ResourceRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.admin.IResourceAdminDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -106,9 +108,10 @@ public class UserMainService {
     }
 
     @Transactional
-    public ResponseEntity<Message> getbookList(HttpServletRequest request) {
+    public ResponseEntity<Message> getbookList(HttpServletRequest request, @AuthenticationPrincipal EmployeeDetails employeeDetails) {
 
-        Long userNo = (Long)request.getAttribute("userNo");
+//        Long userNo = (Long)request.getAttribute("userNo");
+        Long userNo = employeeDetails.getEmployee().getNo();
         List<IMainReservationDto> reservationList = reservationRepository.getMainReservList(userNo);
 
         HashMap<String, List<IMainReservationDto>> data = new HashMap<>();

@@ -60,6 +60,7 @@ const Login = () => {
       const data = {
         userId: inputId,
         password: inputPwd,
+        able: 'admin',
       };
 
       const res = await axios.post(
@@ -96,7 +97,7 @@ const Login = () => {
         phone: userData.data.data[0].phone,
       });
 
-      navigate('/main');
+      navigate('/admin');
     } catch (e) {
       console.log(e);
     }
@@ -108,8 +109,12 @@ const Login = () => {
         <ImageContainer1>
           <img src={login} alt="Login" className="login" />
         </ImageContainer1>
+
         <div>
-          <TitleContainer>관리자</TitleContainer>
+          <TitleContainer>
+            <span className="title">관리자</span>
+          </TitleContainer>
+
           <ImageContainer2>
             <img src={logo} alt="Logo" />
           </ImageContainer2>

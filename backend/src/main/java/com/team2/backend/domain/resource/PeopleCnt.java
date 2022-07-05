@@ -1,6 +1,6 @@
 package com.team2.backend.domain.resource;
 
-import com.team2.backend.domain.bookmark.reservation.Reservation;
+import com.team2.backend.domain.reservation.Reservation;
 import com.team2.backend.domain.user.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

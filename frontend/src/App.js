@@ -14,7 +14,7 @@ import Reset from './user/pages/Reset';
 import MyInfo from './user/pages/MyInfo';
 import Search from './user/pages/search';
 
-import AdminLayout from './admin/components/AdminLayout';
+import AdminPrivateRoute from './admin/components/AdminLayout';
 import AdminMain from './admin/pages/AdminMain';
 import AdminLoginPage from './admin/pages/AdminLoginPage';
 import EmployeePage from './admin/pages/EmployeePage';
@@ -67,7 +67,7 @@ const App = () => {
           <Route path="search" element={<Search />} />
         </Route>
         <Route path="/admin/login" element={<AdminLoginPage />} />
-        <Route element={<AdminLayout />}>
+        <Route element={<AdminPrivateRoute />}>
           <Route path="admin" element={<AdminMain />} />
           <Route path="/admin/resource" element={<ResourcePage />} />
           <Route path="/admin/employee" element={<EmployeePage />} />

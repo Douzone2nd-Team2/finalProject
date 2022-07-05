@@ -1,6 +1,7 @@
 package com.team2.backend.service.admin;
 
 import com.team2.backend.domain.bookmark.reservation.*;
+import com.team2.backend.domain.reservation.*;
 import com.team2.backend.domain.resource.PeopleCnt;
 import com.team2.backend.domain.resource.PeopleCntRepository;
 import com.team2.backend.domain.resource.ResourceRepository;

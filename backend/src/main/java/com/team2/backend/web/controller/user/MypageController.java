@@ -27,7 +27,7 @@ public class MypageController {
     }
 
     @GetMapping("/mypage/user")
-    public ResponseEntity<Message> employeeView(HttpServletRequest request){
-        return mypageService.employeeView(request);
+    public ResponseEntity<Message> employeeView(HttpServletRequest request, @AuthenticationPrincipal EmployeeDetails employeeDetails){
+        return mypageService.employeeView(request, employeeDetails);
     }
 }

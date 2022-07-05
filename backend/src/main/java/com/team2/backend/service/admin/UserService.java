@@ -1,6 +1,6 @@
 package com.team2.backend.service.admin;
 
-import com.team2.backend.domain.bookmark.reservation.ReservationQuerydslRepository;
+import com.team2.backend.domain.reservation.ReservationQuerydslRepository;
 import com.team2.backend.domain.user.*;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;

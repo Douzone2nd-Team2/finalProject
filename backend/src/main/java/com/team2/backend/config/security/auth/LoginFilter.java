@@ -45,6 +45,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         String userId = employee.getUserId();
         String password = employee.getPassword();
+        String type = employee.getAble();
 
         try {
             UsernamePasswordAuthenticationToken authenticationToken =
@@ -52,9 +53,24 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
             Authentication authentication = getAuthenticationManager().authenticate(authenticationToken);
 
-            return authentication;
+            if (type.equals("admin")) {
+                String able = ((EmployeeDetails) authentication.getPrincipal()).getEmployee().getAble();
+                System.out.println("admin "+ able);
+                if (able.equals("A")) {
+                    System.out.println("여기?");
+                    return authentication;
+                }
+                else {
+                    System.out.println("null pointerException");
+                    throw new NullPointerException();
+                }
+            }else{
+                return authentication;
+            }
+
         } catch (NullPointerException e) {
             try {
+                System.out.println("unsuccesfull");
                 unsuccessfulAuthentication(request, response, e);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -68,15 +84,18 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         System.out.println("[SUCCESS] Verify Access Token");
 
-        Long userNo = ((EmployeeDetails) authResult.getPrincipal()).getEmployee().getNo();
+        String userId = ((EmployeeDetails) authResult.getPrincipal()).getEmployee().getUserId();
         String name = ((EmployeeDetails) authResult.getPrincipal()).getEmployee().getName();
+//
+//        String able = request.get
 
-        String accessToken = jwtTokenProvider.createAccessToken(userNo);
+        String accessToken = jwtTokenProvider.createAccessToken(userId);
         accessToken = URLEncoder.encode(accessToken, "utf-8");
         response.setHeader(jwtTokenProvider.getACCESS_TOKEN_HEADER(), jwtTokenProvider.getACCESS_TOKEN_PREFIX() + accessToken);
 
+        request.setAttribute("userId", userId);
         HashMap<String, Object> data = new HashMap<>();
-        data.put("userNo", userNo);
+        data.put("userId", userId);
         data.put("name", name);
         Message message = Message.builder()
                 .resCode(0)
