@@ -13,16 +13,16 @@ const CalendarContainer = styled.div`
   padding: 24px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
   margin: 0px 0px 0px 80px;
+  overflow: hidden;
 `;
 
 const CalendarTest = styled.div`
   width: 100%;
-  height: 400px;
-  background-color: skyblue;
-  position: relative;
+  display: flex;
+  justify-content: center;
 `;
 
-const CalendarDetatilTest = styled.div`
+const CalendarDetatil = styled.div`
   width: 100%;
   height: 100%;
   padding-top: 24px;
@@ -66,9 +66,9 @@ const DateTimeDiv = styled.div`
   padding: 10px 0px;
 `;
 
-const DateSpan = styled.span`
+const DateSpan = styled.div`
   width: 200px;
-  min-height: 32px;
+  height: 42px;
   margin: 3px;
   padding: 2px 12px;
   font-size: 18px;
@@ -79,11 +79,11 @@ const DateSpan = styled.span`
   box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
 `;
 
-const TimeSpan = styled.span`
+const TimeSelect = styled.select`
   width: 200px;
-  min-height: 32px;
+  height: 42px;
   margin: 3px 3px 3px 12px;
-  padding: 2px 12px;
+  padding: 8px 12px;
   font-size: 18px;
   font-weight: 400;
   line-height: 36px;
@@ -91,6 +91,8 @@ const TimeSpan = styled.span`
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
 `;
+
+const TimeOption = styled.option``;
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -211,12 +213,13 @@ const QuantityInput = styled.input`
 export {
   CalendarContainer,
   CalendarTest,
-  CalendarDetatilTest,
+  CalendarDetatil,
   DateTimeContainer,
   DateTimeDiv,
   DateTimeTitle,
   DateSpan,
-  TimeSpan,
+  TimeSelect,
+  TimeOption,
   ButtonContainer,
   ReserveButton,
   QuantityContainer,

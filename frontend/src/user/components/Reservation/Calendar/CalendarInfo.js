@@ -1,12 +1,17 @@
+import { React, useState, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 import {
   CalendarContainer,
   CalendarTest,
-  CalendarDetatilTest,
+  CalendarDetatil,
   DateTimeContainer,
   DateTimeTitle,
   DateTimeDiv,
   DateSpan,
-  TimeSpan,
+  TimeSelect,
+  TimeOption,
   ButtonContainer,
   ReserveButton,
   QuantityContainer,
@@ -18,36 +23,94 @@ import {
   QuantityInput,
 } from './style.js';
 
-const CalendarInfo = () => {
+import TimeList from './TimeList.js';
+
+const CalendarInfo = (props) => {
+  const onNextStep = () => {
+    props.callback((step) => step + 1);
+  };
+
+  const [timeList, setTimeList] = useState(TimeList);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [selectedStartDate, setSelectedStartDate] = useState('');
+  const [selectedEndDate, setSelectedEndDate] = useState('');
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+
+  const onDateChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    start && setSelectedStartDate(start.toLocaleDateString());
+    end && setSelectedEndDate(end.toLocaleDateString());
+  };
+
+  const handleStartTime = (e) => {
+    setStartTime(e.target.value);
+  };
+
+  const handleEndTime = (e) => {
+    setEndTime(e.target.value);
+  };
+
+  const clearEndDate = useEffect(() => {
+    setSelectedEndDate('');
+  }, [startDate]);
+
   return (
     <CalendarContainer>
-      <CalendarTest></CalendarTest>
-      <CalendarDetatilTest>
+      <CalendarTest>
+        <DatePicker
+          onChange={onDateChange}
+          startDate={startDate}
+          endDate={endDate}
+          selectsRange
+          selectsDisabledDaysInRange
+          inline
+        />
+      </CalendarTest>
+      <CalendarDetatil>
         <DateTimeContainer>
           <DateTimeTitle>시작일</DateTimeTitle>
           <DateTimeDiv>
-            <DateSpan>2022.01.01</DateSpan>
-            <TimeSpan>00:00:00</TimeSpan>
+            <DateSpan>{selectedStartDate}</DateSpan>
+            <TimeSelect onChange={handleStartTime}>
+              {timeList.map((item) => (
+                <TimeOption key={item.id} value={item.value}>
+                  {item.value}
+                </TimeOption>
+              ))}
+            </TimeSelect>
           </DateTimeDiv>
           <DateTimeTitle>종료일</DateTimeTitle>
           <DateTimeDiv>
-            <DateSpan>2022.01.01</DateSpan>
-            <TimeSpan>01:00:00</TimeSpan>
+            <DateSpan>{selectedEndDate}</DateSpan>
+            <TimeSelect onChange={handleEndTime}>
+              {timeList.map((item) => (
+                <TimeOption key={item.id} value={item.value}>
+                  {item.value}
+                </TimeOption>
+              ))}
+            </TimeSelect>
           </DateTimeDiv>
         </DateTimeContainer>
-      </CalendarDetatilTest>
-      {/* <QuantityContainer> 얘네는 노트북만
-        <RestDiv>
-          <RestTitle>잔여 개수</RestTitle>
-          <RestSpan>0</RestSpan>
-        </RestDiv>
-        <QuantityDiv>
-          <QuantityTitle>선택 개수</QuantityTitle>
-          <QuantityInput></QuantityInput>
-        </QuantityDiv>
-      </QuantityContainer> */}
+      </CalendarDetatil>
+      {props.cateNo === 3 ? (
+        <QuantityContainer>
+          <RestDiv>
+            <RestTitle>잔여 개수</RestTitle>
+            <RestSpan>0</RestSpan>
+          </RestDiv>
+          <QuantityDiv>
+            <QuantityTitle>선택 개수</QuantityTitle>
+            <QuantityInput></QuantityInput>
+          </QuantityDiv>
+        </QuantityContainer>
+      ) : null}
+
       <ButtonContainer>
-        <ReserveButton>다음</ReserveButton>
+        <ReserveButton onClick={onNextStep}>다음</ReserveButton>
       </ButtonContainer>
     </CalendarContainer>
   );

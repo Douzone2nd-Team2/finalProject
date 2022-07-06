@@ -3,6 +3,7 @@ import {
   UserInfoContainer,
   UserInfoTitle,
   UserInfoDetail,
+  UserInfoInput,
 } from './style.js';
 
 const UserInfo = () => {
@@ -14,7 +15,7 @@ const UserInfo = () => {
       </UserInfoContainer>
       <UserInfoContainer>
         <UserInfoTitle>예약명</UserInfoTitle>
-        <UserInfoDetail>팀 파이널 프로젝트 회의</UserInfoDetail>
+        <UserInfoInput></UserInfoInput>
       </UserInfoContainer>
     </FlexContainer>
   );
