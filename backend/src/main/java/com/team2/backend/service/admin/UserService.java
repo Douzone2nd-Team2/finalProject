@@ -57,31 +57,44 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseEntity<Message> saveUser(HttpServletRequest req, EmployeeManagementDto body){
-
-        Employee employee = body.toEntity();
-        employee.encodePassword(bCryptPasswordEncoder.encode(body.getPassword()));
-
+    public ResponseEntity<Message> saveUser(MultipartFile multipartFile, EmployeeManagementDto body){
         Message message;
 
-        Employee emp = employeeRepository.findByEmpNo(body.getEmpNo());
+        try{
+            Employee employee = body.toEntity();
+            employee.encodePassword(bCryptPasswordEncoder.encode(body.getPassword()));
 
-        if(emp != null ){ //&& body.getEmpNo().equals(emp.getEmpNo())
-            employee.changeEmployee(emp.getNo(),emp.getAble(), emp.getPassword(), emp.getCreateAt(),"");
-            employeeRepository.save(employee);
-            message = Message.builder()
-                    .resCode(1000)
-                    .message("[Success] Update Employee")
-                    .build();
-            return new JsonResponse().send(200, message);
+           // Employee emp = employeeRepository.findByEmpNo(body.getEmpNo());
+
+
+                String imgUrl="";
+                if(multipartFile != null) {
+                    imgUrl = s3Uploader.uploadFiles(multipartFile, "static");
+                    System.out.println(" : " + imgUrl);
+                }
+                System.out.println("imgUrl:  "+imgUrl);
+
+                employee.chaneImgUrl(imgUrl);
+                employeeRepository.save(employee);
+                message = Message.builder()
+                        .resCode(1000)
+                        .message("[Success] Update Employee")
+                        .build();
+                return new JsonResponse().send(200, message);
+
+//            employeeRepository.save(employee);
+//            message = Message.builder()
+//                    .resCode(1000)
+//                    .message("[SUCCESS] insert Employee")
+//                    .build();
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
-        employeeRepository.save(employee);
         message = Message.builder()
                 .resCode(1000)
-                .message("[SUCCESS] insert Employee")
+                .message("[Fail] insert Employee")
                 .build();
-
 
         return new JsonResponse().send(200, message);
     }

@@ -79,4 +79,8 @@ public class Employee extends BaseTime {
         this.imageUrl = imageUrl;
     }
 
+    public void chaneImgUrl(String imageUrl){
+        this.imageUrl = imageUrl;
+    }
+
 }

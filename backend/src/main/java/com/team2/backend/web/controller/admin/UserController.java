@@ -46,11 +46,12 @@ public class UserController {
     }
 
     /*
-    * 관리자- 사용자 관리>사용자 등록 및 수정
+    * 관리자- 사용자 관리>사용자 등록 
     */
     @PostMapping("/admin/usersave")
-    public ResponseEntity<Message> userInsert(HttpServletRequest request, @RequestBody EmployeeManagementDto body){
-        return userService.saveUser(request, body);
+    public ResponseEntity<Message> userInsert( @RequestPart(value = "file", required = false) MultipartFile[] multipartFile, @RequestPart(value="employee") EmployeeManagementDto employee){
+        System.out.println(multipartFile[0]);
+        return userService.saveUser(multipartFile == null? null :multipartFile[0], employee);
     }
 
     @PostMapping("/admin/user/changepw")
@@ -59,9 +60,9 @@ public class UserController {
         return userService.changePw(body);
     }
 
-    @PostMapping("/admin/userfile")
+    @PostMapping("/admin/userfile") //사용자 수정
     public ResponseEntity<Message> userFileInsert(
-            @RequestPart(value = "file", required = false) MultipartFile[] multipartFile, @RequestPart(value="employee") EmployeeManagementDto employee) throws JsonProcessingException {
+            @RequestPart(value = "file", required = false) MultipartFile[] multipartFile, @RequestPart(value="employee") EmployeeManagementDto employee) {
 //            @RequestParam Map<String, Object> allParameters) throws JsonProcessingException {
         //System.out.println(multipartFile[0]);
 //        if(multipartFile.length == 0)
