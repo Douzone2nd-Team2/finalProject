@@ -58,7 +58,6 @@ const AdminMain = () => {
 
   return (
     <>
-      {}
       <Employee
         empList={empList}
         loading={loading}

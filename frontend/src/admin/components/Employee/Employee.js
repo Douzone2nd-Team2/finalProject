@@ -17,10 +17,11 @@ const Employee = ({ empList, loading, page, items }) => {
   // const [userNo, setUserNo] = useState(null);
 
   const modifyEmp = (userNo) => {
-    // console.log(userNo);
-
-    console.log(userNo);
     navigate('/admin/employee', { state: userNo });
+  };
+
+  const handleRegist = () => {
+    navigate('/admin/employee/regist');
   };
 
   return (
@@ -29,7 +30,9 @@ const Employee = ({ empList, loading, page, items }) => {
       <Container>
         <HeadContainer>
           <TitleContainer>사원목록</TitleContainer>
-          <Button variant="primary">등록</Button>
+          <Button variant="primary" onClick={handleRegist}>
+            등록
+          </Button>
         </HeadContainer>
         <TableContainer>
           <table border="2">

@@ -11,7 +11,6 @@ import {
   TitleContainer,
   UserContainer,
   ImageContainer,
-  NameContainer,
   ContentContainer,
   ContentSort,
   ButtonContainer,
@@ -123,10 +122,6 @@ const EmployeePage = () => {
     }
   };
 
-  // const postEmployee = async () => {
-  //   axios.post(`${process.env.REACT_APP_SERVER_PORT}`);
-  // };
-
   const postEmployee = async () => {
     const fd = new FormData();
 
@@ -149,7 +144,6 @@ const EmployeePage = () => {
       email: email,
       imageUrl: imageUrl,
     };
-    // console.log(employee);
 
     fd.append(
       'employee',
@@ -193,8 +187,6 @@ const EmployeePage = () => {
         </HeadContainer>
       </Container>
       <UserContainer>
-        {/* <NameContainer>{employee.name}님</NameContainer>
-        <hr /> */}
         <ContentContainer>
           <form>
             <ImageContainer>
@@ -204,7 +196,6 @@ const EmployeePage = () => {
               ) : (
                 <div>
                   <span class="fa-solid fa-circle-user fa-9x"></span>
-                  {/* <p>기본이미지</p> */}
                 </div>
               )}
               <div className="fileInput">
