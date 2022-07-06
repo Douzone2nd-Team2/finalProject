@@ -9,6 +9,7 @@ export const SbContainer = styled.div`
   font-size: 20px;
   font-weight: 600;
   min-width: 151px;
+  max-width: 230px;
 `;
 
 export const SbUl = styled.ul`
@@ -40,8 +41,15 @@ export const SbChildLi = styled.li`
   padding: 10px 10px 10px 10px;
   border-top: 1px solid #969696;
   font-size: 17px;
+  a {
+    text-decoration: none;
+    color: black;
+  }
   &:hover {
     background-color: rgb(0, 0, 0, 0.2);
+    color: rgb(255, 255, 255, 100);
+  }
+  &:hover > a {
     color: rgb(255, 255, 255, 100);
   }
 `;

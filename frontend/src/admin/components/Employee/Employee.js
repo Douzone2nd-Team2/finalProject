@@ -1,4 +1,7 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { getCookie } from '../../utils/cookie';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Container,
@@ -9,7 +12,17 @@ import {
 
 import Button from 'react-bootstrap/Button';
 
-const Employee = ({ empList, loading }) => {
+const Employee = ({ empList, loading, page, items }) => {
+  const navigate = useNavigate();
+  // const [userNo, setUserNo] = useState(null);
+
+  const modifyEmp = (userNo) => {
+    // console.log(userNo);
+
+    console.log(userNo);
+    navigate('/admin/employee', { state: userNo });
+  };
+
   return (
     <>
       {loading && <div> loading ...</div>}
@@ -20,6 +33,16 @@ const Employee = ({ empList, loading }) => {
         </HeadContainer>
         <TableContainer>
           <table border="2">
+            <colgroup>
+              <col width="5%" />
+              <col width="20%" />
+              <col width="15%" />
+              <col width="10%" />
+              <col width="10%" />
+              <col width="15%" />
+              <col width="15%" />
+            </colgroup>
+
             <th>No.</th>
             <th>사원번호</th>
             <th>이름</th>
@@ -28,23 +51,33 @@ const Employee = ({ empList, loading }) => {
             <th>전화번호</th>
             <th>이메일</th>
             <th />
-            {empList.map((emp, idx) => {
-              return (
-                <tr key={emp.no}>
-                  <td>{empList.length - idx}</td>
-                  <td>{emp.empNo}</td>
-                  <td>{emp.name}</td>
-                  <td>{emp.deptName}</td>
-                  <td>{emp.gradeName}</td>
-                  <td>{emp.phone}</td>
-                  <td>{emp.email}</td>
-                  <td className="btnMargin">
-                    <Button variant="primary">수정</Button>
-                    <Button variant="danger">삭제</Button>
-                  </td>
-                </tr>
-              );
-            })}
+
+            {empList
+              .slice(items * (page - 1), items * (page - 1) + items)
+              .map((emp, idx) => {
+                return (
+                  <tr key={emp.no}>
+                    <td>{empList.length - items * (page - 1) - idx}</td>
+                    <td>{emp.empNo}</td>
+                    <td>{emp.name}</td>
+                    <td>{emp.deptName}</td>
+                    <td>{emp.gradeName}</td>
+                    <td>{emp.phone}</td>
+                    <td>{emp.email}</td>
+                    <td className="btnMargin">
+                      <Button
+                        variant="primary"
+                        onClick={() => {
+                          modifyEmp(emp.no);
+                        }}
+                      >
+                        수정
+                      </Button>
+                      <Button variant="danger">삭제</Button>
+                    </td>
+                  </tr>
+                );
+              })}
           </table>
         </TableContainer>
       </Container>

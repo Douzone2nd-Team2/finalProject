@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
 import { getCookie } from '../utils/cookie';
 import Pagination from 'react-js-pagination';
 
+import { PaginationBox } from '../styles/Pagination';
+
 import Employee from '../components/Employee/Employee';
-// import Pagination from '../components/Pagination';
-
-// import EmployeePage from '../pages/EmployeePage';
 import ResourcePage from '../components/Resource/ResourcePage';
-
 import Reservation from '../components/reservation/Reservation';
 
 import {
@@ -25,16 +22,15 @@ const AdminMain = () => {
   const [empList, setEmpList] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage] = useState(5);
-
-  const indexOfLastPost = currentPage * postPerPage;
-  const indexOfFirstPost = indexOfLastPost - postPerPage;
-
-  const currentPosts = empList.slice(indexOfFirstPost, indexOfLastPost);
+  const [page, setPage] = useState(1);
+  const [items, setItems] = useState(5);
 
   const pageHandler = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    setPage(pageNumber);
+  };
+
+  const itemChane = (e) => {
+    setItems(Number(e.tart.value));
   };
 
   const fetchData = async () => {
@@ -45,8 +41,6 @@ const AdminMain = () => {
         {
           headers: {
             Authorization: getCookie('accessToken'),
-            //   Authorization:
-            //     'Bearer%eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJ1c2VyTm8iOjIsImV4cCI6MTY1Njc2NDE0MH0.E9H43GYDDc7j2Y0_6uX2d-rOFrnMayxbZCPi7XaIJ5Y',
           },
         },
       );
@@ -64,17 +58,22 @@ const AdminMain = () => {
 
   return (
     <>
-      <Employee empList={currentPosts} loading={loading}></Employee>
-      {/* <Pagination
-        postsPerPage={postPerPage}
-        totalPosts={empList.length}
-        paginate={setCurrentPage}
-      ></Pagination> */}
-      <Pagination
-        onChangepage={pageHandler}
-        postPerPage={postPerPage}
-        totalPosts={empList.length}
-      />
+      {}
+      <Employee
+        empList={empList}
+        loading={loading}
+        page={page}
+        items={items}
+      ></Employee>
+      <PaginationBox>
+        <Pagination
+          activePage={page}
+          itemsCountPerPage={items}
+          totalItemsCount={empList.length - 1}
+          pageRangeDisplayed={5}
+          onChange={pageHandler}
+        ></Pagination>
+      </PaginationBox>
     </>
   );
 };

@@ -54,7 +54,7 @@ const App = () => {
           }),
         );
     }
-    console.log('user = ', user);
+    // console.log('user = ', user);
   }, [user, setUser, accessToken]);
   return (
     <>

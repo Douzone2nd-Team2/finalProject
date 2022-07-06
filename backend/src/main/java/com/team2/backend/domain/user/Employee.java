@@ -71,10 +71,12 @@ public class Employee extends BaseTime {
         this.password = password;
     }
 
-    public void changeEmployee(Long no, String able, LocalDateTime createAt){
+    public void changeEmployee(Long no, String able,String password, LocalDateTime createAt, String imageUrl){
         this.no = no;
+        this.password = password;
         this.able = able;
         changeTime(createAt);
+        this.imageUrl = imageUrl;
     }
 
 }

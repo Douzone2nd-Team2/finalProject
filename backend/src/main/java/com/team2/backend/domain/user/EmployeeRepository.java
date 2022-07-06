@@ -19,5 +19,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Boolean existsByUserId(String userId);
     Employee findByEmpNo(String empNo);
 
-
+//    @Query(value="update employee set password = :password where no = :userNo", nativeQuery = true)
+//    void changePw(@Param(value="userNo") Long userNo, @Param(value="password") String password);
 }
