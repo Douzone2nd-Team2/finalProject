@@ -20,5 +20,9 @@ export const ResourceCardUI = styled.div`
   width: 80px;
   height: 150px;
   font-size: 10px;
-  margin-left: 100px;
+  margin-left: 60px;
+`;
+
+export const ResourceForm = styled.div`
+  padding-left: 100px;
 `;

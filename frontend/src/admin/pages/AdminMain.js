@@ -8,9 +8,9 @@ import Employee from '../components/Employee/Employee';
 // import Pagination from '../components/Pagination';
 
 // import EmployeePage from '../pages/EmployeePage';
-import ResourcePage from '../components/Resource/ResourcePage';
+import ResourcePage from '../pages/ResourcePage';
 
-import Reservation from '../components/reservation/Reservation';
+import Reservation from '../components/Reservation/Reservation';
 
 import {
   Container,

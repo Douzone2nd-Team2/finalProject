@@ -40,12 +40,15 @@ const ResourceInput = () => {
   };
   const handleStartTime = (e) => {
     setStartTime(e.target.value);
+    console.log(startTime);
   };
   const handleEndTime = (e) => {
     setEndTime(e.target.value);
+    console.log(endTime);
   };
   const handleTime = (e) => {
     setTime(e.target.value);
+    console.log(time);
   };
   const handleOption = (e) => {
     setOption(e.target.value);
@@ -59,11 +62,11 @@ const ResourceInput = () => {
 
   const postTest = async () => {
     const resourceInsert = {
-      cateNo: undefined ? 1 : valued,
+      cateNo: valued,
       resourceName: resourceName,
       people: people,
       location: location,
-      time: startTime,
+      availableTime: time == null ? time : startTime + ' ~ ' + endTime,
       option: option,
       fuel: fuel,
       content: content,
@@ -76,7 +79,7 @@ const ResourceInput = () => {
       )
       .then((response) => {
         console.log('연결성공');
-        console.log(response);
+        alert('등록성공!');
       })
       .catch((error) => {
         console.log(error);
@@ -86,6 +89,16 @@ const ResourceInput = () => {
   const handleSubmit = (e) => {
     postTest();
   };
+
+  useEffect(() => {
+    if (valued === '') {
+      console.log('valued empty');
+      setValued('1');
+      console.log(valued);
+    } else {
+      console.log('valued is not empty');
+    }
+  }, []);
 
   return (
     <>
@@ -124,10 +137,22 @@ const ResourceInput = () => {
                   <Form.Label>사용여부</Form.Label>
                 </Col>
                 <Col>
-                  <Form.Check name="checked" value="Y" onClick={handleAble} />Y
+                  <Form.Check
+                    type="radio"
+                    name="checked"
+                    value="Y"
+                    onClick={handleAble}
+                  />
+                  Y
                 </Col>
                 <Col>
-                  <Form.Check name="checked" value="N" onClick={handleAble} />N
+                  <Form.Check
+                    type="radio"
+                    name="checked"
+                    value="N"
+                    onClick={handleAble}
+                  />
+                  N
                 </Col>
               </Row>
             </Form.Group>
@@ -259,7 +284,7 @@ const ResourceInput = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button variant="primary" type="submit" onClick={handleSubmit}>
             Save
           </Button>
         </Modal.Footer>

@@ -43,17 +43,6 @@ const ResourceCard = ({ selected }) => {
         console.log(error);
       });
   };
-
-  const handleDelete = (resourceNo) => {
-    axios
-      .post(`${process.env.REACT_APP_SERVER_PORT}/resource/${resourceNo}`, {
-        resourceNo: resources.resourceNo,
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   useEffect(() => {
     if (selected == '0') {
       getAll();

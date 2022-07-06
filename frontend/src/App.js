@@ -19,10 +19,12 @@ import AdminPrivateRoute from './admin/components/AdminLayout';
 import AdminMain from './admin/pages/AdminMain';
 import AdminLoginPage from './admin/pages/AdminLoginPage';
 import EmployeePage from './admin/pages/EmployeePage';
-import ResourcePage from './admin/components/Resource/ResourcePage';
+import ResourcePage from './admin/pages/ResourcePage';
 import ResourceDetail from './admin/components/Resource/ResourceDetail';
 import RegisterBook from './admin/pages/RegisterBook';
+import EmployeeBook from './admin/pages/EmployeeBook';
 import ResourceList from './admin/pages/ResourceList';
+import Employee from './admin/components/Employee/Employee';
 
 const App = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -76,6 +78,7 @@ const App = () => {
           <Route path="/admin/employee" element={<EmployeePage />} />
           <Route path="/admin/resourcedetail" element={<ResourceDetail />} />
           <Route path="/admin/registerbook" element={<RegisterBook />} />
+          <Route path="/admin/employeebook" element={<EmployeeBook />} />
           <Route path="/admin/resourcelist" element={<ResourceList />} />
         </Route>
       </Routes>
