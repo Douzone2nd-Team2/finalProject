@@ -72,7 +72,7 @@ const Search = () => {
           ))
         )}
       </Container>
-      <TitleContainer>비품</TitleContainer>
+      <TitleContainer>노트북</TitleContainer>
       <Container>
         {arrayIsEmpty(equip) === true ? (
           <NotContentContainer>검색 결과가 없습니다...</NotContentContainer>

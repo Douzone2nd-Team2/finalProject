@@ -11,17 +11,15 @@ import {
 } from '../styles/RegisterBook';
 
 import Button from 'react-bootstrap/Button';
-
 const RegisterBook = () => {
   return (
     <>
       <Container>
         <HeadContainer>
-          <TitleContainer>
-            예약관리 <span className="fa-solid fa-arrow-right-long" /> 예약등록
-          </TitleContainer>
+          예약관리 <span className="fa-solid fa-arrow-right-long" /> 예약등록
         </HeadContainer>
       </Container>
+      예약관리 <span className="fa-solid fa-arrow-right-long" /> 예약등록
       <BookContainer>
         <NameContainer>예약 등록</NameContainer>
         <hr />
@@ -47,7 +45,7 @@ const RegisterBook = () => {
               <input type="text" id="option" />
             </ContentSort>
             <ContentSort>
-              <label htmlfor="dataSort">연료</label>    
+              <label htmlfor="dataSort">연료</label>
               <select id="dataSort">
                 <option value="1">휘발유</option>
                 <option value="2">경유</option>

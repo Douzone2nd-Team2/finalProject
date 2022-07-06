@@ -11,12 +11,10 @@ import {
   BsFillPersonFill,
   BsReverseLayoutTextSidebarReverse,
   BsCalendar4Week,
-  BsVolumeUp,
   BsArrowReturnRight,
 } from 'react-icons/bs';
 
 import { BiDownArrow } from 'react-icons/bi';
-import Reservation from '../components/reservation/Reservation';
 
 function Sidebar() {
   const [reservation, setReservation] = useState(false);
@@ -65,8 +63,10 @@ function Sidebar() {
             </Link>
           </SbChildLi>
           <SbChildLi>
-            <BsArrowReturnRight />
-            &nbsp;사용자별 예약관리
+            <Link to="/admin/employeebook">
+              <BsArrowReturnRight />
+              &nbsp;사용자별 예약관리
+            </Link>
           </SbChildLi>
           <SbChildLi>
             <Link to="/admin/resourcelist">
@@ -75,9 +75,6 @@ function Sidebar() {
             </Link>
           </SbChildLi>
         </SbChildUl>
-        <SbLi>
-          <BsVolumeUp /> 공지사항 관리
-        </SbLi>
       </SbUl>
     </SbContainer>
   );

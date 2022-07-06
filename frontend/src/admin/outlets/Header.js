@@ -24,7 +24,10 @@ function Header() {
   return (
     <HeaderContainer>
       <LogoContainer>
-        <Link to="/admin" style={{ textDecoration: 'none', color: '#3d73ff' }}>
+        <Link
+          to="/admin/main"
+          style={{ textDecoration: 'none', color: '#3d73ff' }}
+        >
           42DA
         </Link>
       </LogoContainer>
