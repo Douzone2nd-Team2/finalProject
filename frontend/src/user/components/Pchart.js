@@ -15,7 +15,6 @@ import {
 } from '../styles/Pchart';
 
 const PChart = () => {
-  const [pdata, setPdata] = useState([]);
   const [bookdata, setBookdata] = useState(null);
   const [cardata, setCardata] = useState(null);
   const [notebookdata, setNotebookdata] = useState(null);
@@ -57,11 +56,9 @@ const PChart = () => {
           },
         },
       );
-      // setPdata(res.data.data);
       setBookdata(parseFloat(res.data.data.frequencyUsageList1.toFixed(4)));
       setCardata(parseFloat(res.data.data.frequencyUsageList2.toFixed(4)));
       setNotebookdata(parseFloat(res.data.data.frequencyUsageList3.toFixed(4)));
-      console.log(res);
     } catch (e) {
       console.log(e);
     }
@@ -69,13 +66,6 @@ const PChart = () => {
 
   useEffect(() => {
     fetchData();
-    console.log(bookdata);
-    console.log(cardata);
-    console.log(notebookdata);
-    console.log(bookdata + cardata + notebookdata);
-    console.log(
-      (notebookdata / (bookdata + cardata + notebookdata)).toFixed(2) * 10,
-    );
   }, [bookdata, cardata, notebookdata]);
 
   return (
@@ -84,14 +74,8 @@ const PChart = () => {
         <TitleContainer>오늘의 자원 사용률</TitleContainer>
         <InnerContainer>
           <VictoryPie
-            colorScale={['#095BF4', '#9EA9B3', '#033F7B']}
             data={DATA}
-            // width={100}
-            // height={200}
-            // startAngle={130}
-            // endAngle={600}
-            // innerRadius={100}
-            // colorScale={['#095BF4', '#9EA9B3', '#033F7B']}
+            colorScale={['#095BF4', '#9EA9B3', '#033F7B']}
             style={{
               data: {
                 fillOpacity: 1,
