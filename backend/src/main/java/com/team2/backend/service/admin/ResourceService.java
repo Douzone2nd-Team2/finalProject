@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -212,12 +213,12 @@ public class ResourceService {
 
     @Transactional
     public ResponseEntity<Message> resourceUpdate(HttpServletRequest req, Long resourceNo, Resource resource) {
-
+        System.out.println("resourceNo: " + resourceNo);
         Resource updateResource = resourceRepository.findByResourceNo(resourceNo);
 
         if (updateResource != null) {
             updateResource.update(resource.getCateNo(), resource.getAble(), resource.getResourceName(), resource.getLocation(), resource.getPeople(),
-                    resource.getAvailableTime(), resource.getAdminNo(), resource.getOption(), resource.getFuel());
+                    resource.getAvailableTime(), resource.getAdminNo(), resource.getOption(), resource.getFuel(), resource.getContent());
             Message message = Message.builder()
                     .resCode(3000)
                     .message("성공: 자원 수정 성공")
@@ -235,7 +236,7 @@ public class ResourceService {
 
 
     @Transactional
-    public ResponseEntity<Message> ㄴdelresourceList(Long resourceNo) {
+    public ResponseEntity<Message> delresourceList(Long resourceNo) {
         Resource delresourse = resourceRepository.findByResourceNo(resourceNo);
         List<Resourcefile> delresourcefile = resourcefileRepository.findByResource_ResourceNo(resourceNo);
 
@@ -244,12 +245,15 @@ public class ResourceService {
                     .map(resourcefile -> {
                         return resourcefile.getImageNo();
                     }).collect(Collectors.toList());
+
             delIdList.stream().map(
                     id -> {
                         resourcefileRepository.deleteById(id);
+                        System.out.println(id);
                         return id;
                     }
             ).collect(Collectors.toList());
+
             resourceRepository.deleteById(resourceNo);
 
             Message message = Message.builder()
