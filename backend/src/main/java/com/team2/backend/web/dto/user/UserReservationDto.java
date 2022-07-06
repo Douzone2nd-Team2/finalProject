@@ -1,9 +1,16 @@
 package com.team2.backend.web.dto.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.team2.backend.domain.reservation.Reservation;
+import com.team2.backend.domain.resource.PeopleCnt;
+import com.team2.backend.domain.resource.Resource;
+import com.team2.backend.domain.user.Employee;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -11,16 +18,19 @@ import java.util.List;
 @NoArgsConstructor
 public class UserReservationDto {
 
+    private Long reservNo;
+
     private String able;
     private Long resourceNo;
     private Long userNo;
     private String reservName;
-    private Date startTime;
-    private Date endTime;
+    private String startTime;
+    private String endTime;
     private List<String> peopleCnt;
 
     @Builder
-    public  UserReservationDto(Long resourceNo, Long userNo, String reservName, Date startTime, Date endTime, String[] peopleCnt) {
+    public  UserReservationDto(Long reservNo, Long resourceNo, Long userNo, String reservName, String startTime, String endTime, String[] peopleCnt) {
+        this.reservNo = reservNo;
         this.resourceNo = resourceNo;
         this.userNo = userNo;
         this.reservName = reservName;
@@ -33,7 +43,8 @@ public class UserReservationDto {
     }
 
     @Builder
-    public  UserReservationDto(Long resourceNo, Long userNo, String reservName, Date startTime, Date endTime) {
+    public  UserReservationDto(Long reservNo, Long resourceNo, Long userNo, String reservName, String startTime, String endTime) {
+        this.reservNo = reservNo;
         this.resourceNo = resourceNo;
         this.userNo = userNo;
         this.reservName = reservName;

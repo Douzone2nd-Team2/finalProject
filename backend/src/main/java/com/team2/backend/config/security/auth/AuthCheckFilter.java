@@ -21,7 +21,6 @@ import java.io.IOException;
 
 public class AuthCheckFilter extends BasicAuthenticationFilter {
 
-//    private EmployeeRepository employeeRepository;
     private EmployeeDetailsService employeeDetailsService;
     private JwtTokenProvider jwtTokenProvider;
 
@@ -39,13 +38,11 @@ public class AuthCheckFilter extends BasicAuthenticationFilter {
         String header = jwtTokenProvider.getAccessTokenFromHeader(request);
 
         if (header == null || !header.startsWith("Bearer%")) {
-            System.out.println("[ERROR] Invalid Token");
             chain.doFilter(request, response);
             return;
         }
 
         String accessToken = header.split("%")[1];
-
 
         if (jwtTokenProvider.isValidAccessToken(accessToken)) {
             String userId = jwtTokenProvider.verifyAccessToken(accessToken).getClaim("userId").asString();
@@ -53,21 +50,6 @@ public class AuthCheckFilter extends BasicAuthenticationFilter {
                 System.out.println("[WARN] Invalid claim 'userId'");
                 return;
             }
-//        if (jwtTokenProvider.isValidAccessToken(accessToken)) {
-//            Long userNo = jwtTokenProvider.verifyAccessToken(accessToken).getClaim("userNo").asLong();
-//            if (userNo == null) {
-//                System.out.println("[WARN] Invalid claim 'userNo'");
-//                return;
-//            }
-
-//            Employee employee = employeeRepository.findByNo(userNo);
-//            EmployeeDetails employeeDetails = new EmployeeDetails(employee);
-//            Authentication authentication = new UsernamePasswordAuthenticationToken(employeeDetails.getUsername(), null, employeeDetails.getAuthorities());
-//
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-//            System.out.println("필터 : " + userNo);
-//            System.out.println(employeeDetails.getAuthorities());
-//            request.setAttribute("userNo", userNo);
 
             UserDetails employeeDetails = employeeDetailsService.loadUserByUsername(userId);
             UsernamePasswordAuthenticationToken authenticationToken =

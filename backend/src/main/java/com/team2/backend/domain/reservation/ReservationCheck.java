@@ -11,6 +11,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="reservation_check")
@@ -48,5 +49,15 @@ public class ReservationCheck {
     private Reservation reserv;
     @Column(name="reservNo")
     private Long reservNo;
+
+    @OneToMany(mappedBy = "checkNo")
+    private List<Timelist> timelist;
+
+    @Builder
+    public ReservationCheck(Long resourceNo, String checkDate, Long reservNo) {
+        this.resourceNo = resourceNo;
+        this.checkDate = checkDate;
+        this.reservNo = reservNo;
+    }
 
 }
