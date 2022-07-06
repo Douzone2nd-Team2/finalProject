@@ -1,19 +1,16 @@
-import {
-  Container,
-  HeadContainer,
-  TitleContainer,
-} from '../styles/RegisterBook';
+import { Container, HeadContainer } from '../styles/RegisterBook';
+
+import ReservationDropdown from '../components/Reservation/ReservationDropdown';
 
 const ResourceList = () => {
   return (
     <>
       <Container>
         <HeadContainer>
-          <TitleContainer>
-            예약관리 <span className="fa-solid fa-arrow-right-long" /> 자원별
-            예약관리
-          </TitleContainer>
+          예약관리 <span className="fa-solid fa-arrow-right-long" /> 자원별
+          예약관리
         </HeadContainer>
+        <ReservationDropdown />
       </Container>
     </>
   );

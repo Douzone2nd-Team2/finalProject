@@ -71,7 +71,7 @@ public class Resource extends BaseTime {
 
 
     public void update(Long category, String able, String resourceName, String location, Integer people,
-                       String availableTime, Long adminNo, String option, String fuel) {
+                       String availableTime, Long adminNo, String option, String fuel, String content) {
         this.cateNo = category;
         this.able = able;
         this.resourceName = resourceName;
@@ -81,6 +81,7 @@ public class Resource extends BaseTime {
         this.adminNo = adminNo;
         this.option = option;
         this.fuel = fuel;
+        this.content = content;
     }
 
 

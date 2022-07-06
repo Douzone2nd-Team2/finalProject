@@ -50,8 +50,8 @@ public class ResourceController {
         return resourceService.resourceUpdate(req, resourceNo, resource);
     }
 
-    @PostMapping("/{resourceNo}")
-    public ResponseEntity<Message> delResource(@PathVariable Long resourceNo){
+    @PostMapping("/delete")
+    public ResponseEntity<Message> delResource(@RequestParam("resourceNo") Long resourceNo){
         return resourceService.delresourceList(resourceNo);
     }
 
