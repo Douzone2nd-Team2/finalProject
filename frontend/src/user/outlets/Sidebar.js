@@ -46,7 +46,7 @@ const Sidebar = () => {
           </ImageContainer>
           <InfoContainer>
             <NameContainer>{user.name}</NameContainer>
-            <div>아이디 : {user.empNo}</div>
+            {/* <div>아이디 : {user.empNo}</div> */}
             <div>부서 : {user.deptName}</div>
             <div>직급 : {user.gradeName}</div>
           </InfoContainer>
