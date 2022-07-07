@@ -131,6 +131,10 @@ public class UserService {
                 if(multipartFile != null) {
                     imgUrl = s3Uploader.uploadFiles(multipartFile, "static");
                     System.out.println(" : " + imgUrl);
+                }else{
+                    if(emp.getImageUrl()!=null){
+                        imgUrl = emp.getImageUrl();
+                    }
                 }
                 employee.changeEmployee(emp.getNo(),body.getAble(), emp.getPassword(), emp.getCreateAt(), imgUrl);
                 employeeRepository.save(employee);

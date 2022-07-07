@@ -6,8 +6,6 @@ import Pagination from 'react-js-pagination';
 import { PaginationBox } from '../styles/Pagination';
 
 import Employee from '../components/Employee/Employee';
-import ResourcePage from '../components/Resource/ResourcePage';
-import Reservation from '../components/reservation/Reservation';
 
 import {
   Container,
@@ -29,10 +27,6 @@ const AdminMain = () => {
     setPage(pageNumber);
   };
 
-  const itemChane = (e) => {
-    setItems(Number(e.tart.value));
-  };
-
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -44,7 +38,6 @@ const AdminMain = () => {
           },
         },
       );
-      console.log(res.data.data);
       setEmpList(res.data.data);
       setLoading(false);
     } catch (e) {
@@ -60,6 +53,7 @@ const AdminMain = () => {
     <>
       <Employee
         empList={empList}
+        callback={setEmpList}
         loading={loading}
         page={page}
         items={items}
@@ -68,7 +62,7 @@ const AdminMain = () => {
         <Pagination
           activePage={page}
           itemsCountPerPage={items}
-          totalItemsCount={empList.length - 1}
+          totalItemsCount={empList.length}
           pageRangeDisplayed={5}
           onChange={pageHandler}
         ></Pagination>

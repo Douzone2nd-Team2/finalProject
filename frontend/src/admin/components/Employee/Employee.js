@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import axios from 'axios';
+import { arrayIsEmpty } from '../../utils/jsFunction';
 import { getCookie } from '../../utils/cookie';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,17 +13,44 @@ import {
 
 import Button from 'react-bootstrap/Button';
 
-const Employee = ({ empList, loading, page, items }) => {
+const Employee = ({ empList, callback, loading, page, items }) => {
   const navigate = useNavigate();
-  // const [userNo, setUserNo] = useState(null);
+
+  const [employeeList, setEmployeeList] = useState([]);
 
   const modifyEmp = (userNo) => {
     navigate('/admin/employee', { state: userNo });
   };
 
+  const deletePost = async (userNo) => {
+    const body = { no: userNo };
+    await axios
+      .post(`${process.env.REACT_APP_SERVER_PORT}/admin/userdelete`, body, {
+        headers: {
+          Authorization: getCookie('accessToken'),
+        },
+      })
+      .then(() => {
+        alert('삭제가 완료되었습니다.');
+        const empTemp = employeeList.filter((item) => item.no != userNo);
+        setEmployeeList(empTemp);
+        callback(empTemp);
+      });
+  };
+
+  const deleteEmp = async (userNo) => {
+    await deletePost(userNo);
+  };
+
   const handleRegist = () => {
     navigate('/admin/employee/regist');
   };
+
+  useLayoutEffect(() => {
+    if (arrayIsEmpty(employeeList)) {
+      setEmployeeList(empList);
+    }
+  });
 
   return (
     <>
@@ -55,7 +83,7 @@ const Employee = ({ empList, loading, page, items }) => {
             <th>이메일</th>
             <th />
 
-            {empList
+            {employeeList
               .slice(items * (page - 1), items * (page - 1) + items)
               .map((emp, idx) => {
                 return (
@@ -76,7 +104,14 @@ const Employee = ({ empList, loading, page, items }) => {
                       >
                         수정
                       </Button>
-                      <Button variant="danger">삭제</Button>
+                      <Button
+                        variant="danger"
+                        onClick={() => {
+                          deleteEmp(emp.no);
+                        }}
+                      >
+                        삭제
+                      </Button>
                     </td>
                   </tr>
                 );
