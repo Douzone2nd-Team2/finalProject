@@ -174,7 +174,7 @@ public class ResourceService {
     }
 
     @Transactional
-    public ResponseEntity<Message> fileupload(List<MultipartFile> multipartFile) {
+    public ResponseEntity<Message> fileupload(List<MultipartFile> multipartFile,String able, Long resourceNo) {
         try {
             List<Resourcefile> resourcefileList = new ArrayList<>();
 
@@ -184,8 +184,8 @@ public class ResourceService {
 
                 Resourcefile file = resourcefileRepository.save(
                         Resourcefile.builder()
-//                                .able(able)
-//                                .resourceNo(Long.valueOf(resourceNo))
+                                .able(able)
+                                .resourceNo(Long.valueOf(resourceNo))
                                 .type(multipartFile.get(i).getContentType())
                                 .imageSize(String.valueOf(multipartFile.get(i).getSize()))
                                 .path(awsUrl)
@@ -213,7 +213,7 @@ public class ResourceService {
 
     @Transactional
     public ResponseEntity<Message> resourceUpdate(HttpServletRequest req, Long resourceNo, Resource resource) {
-        System.out.println("resourceNo: " + resourceNo);
+
         Resource updateResource = resourceRepository.findByResourceNo(resourceNo);
 
         if (updateResource != null) {

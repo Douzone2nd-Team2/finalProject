@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Card, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import {
   ResourceCard,
   ResourceCardTitle,
@@ -28,7 +28,7 @@ const ResourceItem = ({ resource }) => {
   return (
     <ResourceCard>
       <Link
-        to="/admin/resourcedetail"
+        to="/admin/resourceupdate"
         state={{
           resourceNo: resourceNo,
           resourceName: resourceName,

@@ -36,8 +36,8 @@ public class ResourceController {
     }
 
     @PostMapping("/fileupload") // 사진 등록
-    public ResponseEntity<Message> fileRegister(@RequestPart(value = "image") List<MultipartFile> multipartFile){
-        return resourceService.fileupload(multipartFile);
+    public ResponseEntity<Message> fileRegister(@RequestPart(value = "image") List<MultipartFile> multipartFile, String able, Long resourceNo){
+        return resourceService.fileupload(multipartFile,able,resourceNo);
     }
 
     @PostMapping("/register") // 자원 등록

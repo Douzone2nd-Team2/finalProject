@@ -3,7 +3,6 @@ import React from 'react';
 import {
   Container,
   HeadContainer,
-  TitleContainer,
   TableContainer,
 } from '../../styles/AdminMain';
 
@@ -15,7 +14,7 @@ const Employee = ({ empList, loading }) => {
       {loading && <div> loading ...</div>}
       <Container>
         <HeadContainer>
-          <TitleContainer>사원목록</TitleContainer>
+          사원목록
           <Button variant="primary">등록</Button>
         </HeadContainer>
         <TableContainer>

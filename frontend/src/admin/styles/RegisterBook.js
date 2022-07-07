@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-  /* width: 80%;
-  margin: auto; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -11,23 +9,15 @@ const Container = styled.div`
 `;
 
 const HeadContainer = styled.div`
-  /* display: flex;
-  justify-content: space-between;
-  border-bottom: 4px solid black;
-  padding-top: 10px;
-  Button {
-    margin-top: 55px;
-    height: 50px;
-  } */
   font-size: 30px;
   font-weight: 600;
   padding-top: 70px;
   border-bottom: 4px solid black;
-  margin-left: 100px;
+  margin-left: 140px;
 `;
 
 const TitleContainer = styled.div`
-  margin-top: 67px;
+  /* margin-top: 67px; */
   font-size: 30px;
   font-weight: 600;
   margin-left: 100px;
@@ -35,8 +25,7 @@ const TitleContainer = styled.div`
 
 const BookContainer = styled.div`
   width: 50%;
-  //margin: auto;
-  margin-left: 18%;
+  margin-left: 140px;
   margin-top: 30px;
   background-color: #f6f6f6;
   border-radius: 15px;

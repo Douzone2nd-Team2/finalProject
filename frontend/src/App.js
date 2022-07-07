@@ -20,7 +20,7 @@ import AdminMain from './admin/pages/AdminMain';
 import AdminLoginPage from './admin/pages/AdminLoginPage';
 import EmployeePage from './admin/pages/EmployeePage';
 import ResourcePage from './admin/pages/ResourcePage';
-import ResourceDetail from './admin/components/Resource/ResourceDetail';
+import ResourceUpdate from './admin/components/Resource/ResourceUpdate';
 import RegisterBook from './admin/pages/RegisterBook';
 import EmployeeBook from './admin/pages/EmployeeBook';
 import ResourceList from './admin/pages/ResourceList';
@@ -76,7 +76,7 @@ const App = () => {
           <Route path="admin" element={<AdminMain />} />
           <Route path="/admin/resource" element={<ResourcePage />} />
           <Route path="/admin/employee" element={<EmployeePage />} />
-          <Route path="/admin/resourcedetail" element={<ResourceDetail />} />
+          <Route path="/admin/resourceupdate" element={<ResourceUpdate />} />
           <Route path="/admin/registerbook" element={<RegisterBook />} />
           <Route path="/admin/employeebook" element={<EmployeeBook />} />
           <Route path="/admin/resourcelist" element={<ResourceList />} />
