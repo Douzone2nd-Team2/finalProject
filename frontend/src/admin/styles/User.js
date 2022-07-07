@@ -1,29 +1,20 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-  /* width: 80%;
-  margin: auto; */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 80%;
+  width: 85%;
   margin: auto;
 `;
 
 const HeadContainer = styled.div`
-  /* display: flex;
+  display: flex;
   justify-content: space-between;
   border-bottom: 4px solid black;
   padding-top: 10px;
+  margin-left: 3%;
   Button {
     margin-top: 55px;
     height: 50px;
-  } */
-  font-size: 30px;
-  font-weight: 600;
-  padding-top: 70px;
-  border-bottom: 4px solid black;
-  margin-left: 100px;
+  }
 `;
 
 const TitleContainer = styled.div`
@@ -33,10 +24,9 @@ const TitleContainer = styled.div`
   margin-left: 100px;
 `;
 
-const BookContainer = styled.div`
-  width: 50%;
-  //margin: auto;
-  margin-left: 18%;
+const UserContainer = styled.div`
+  width: 75%;
+  margin-left: 15%;
   margin-top: 30px;
   background-color: #f6f6f6;
   border-radius: 15px;
@@ -59,13 +49,48 @@ const ContentContainer = styled.div`
   font-weight: 800;
 `;
 
+const ImageContainer = styled.div`
+  padding: 30px 10px 10px 10px;
+  display: flex;
+  label {
+    position: relative;
+    margin-left: 10%;
+    min-width: 150px;
+    vertical-align: top;
+    /* margin-top: 2%; */
+  }
+  img {
+    margin-top: 20px;
+    width: 20%;
+    height: auto;
+  }
+  .fileInput {
+    display: flex;
+    align-items: flex-end;
+  }
+  input {
+    vertical-align: bottom;
+    padding-left: 20px;
+  }
+`;
+
 const ContentSort = styled.div`
-  margin-top: 10px;
-  margin-left: 40px;
+  margin-top: 20px;
   display: flex;
   justify-content: flex-start;
   label {
+    margin-left: 10%;
     min-width: 150px;
+  }
+  input {
+    margin-left: 1%;
+  }
+  select {
+    margin-left: 1%;
+    min-width: 230px;
+  }
+  button {
+    margin-left: 1%;
   }
 `;
 
@@ -74,11 +99,8 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
   margin-top: 20px;
   margin-right: 20px;
-`;
-
-const MagnifyingGlass = styled.div`
   button {
-    border: none;
+    margin-left: 10px;
   }
 `;
 
@@ -86,10 +108,10 @@ export {
   Container,
   HeadContainer,
   TitleContainer,
-  BookContainer,
+  ImageContainer,
+  UserContainer,
   NameContainer,
   ContentContainer,
   ContentSort,
   ButtonContainer,
-  MagnifyingGlass,
 };

@@ -2,6 +2,7 @@ package com.team2.backend.domain.user;
 
 import com.querydsl.core.QueryFactory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.jpa.impl.JPAUpdateClause;
 import com.team2.backend.web.dto.admin.EmployeeManagementDto;
 import com.team2.backend.web.dto.admin.QEmployeeManagementDto;
 import lombok.RequiredArgsConstructor;
@@ -64,8 +65,8 @@ public class EmployeeQuerydslRepositoryImpl implements  EmployeeQuerydslReposito
                         employee.imageUrl,
                         employee.createAt,
                         employee.modifyAt,
-                        department.deptName,
-                        grade.gradeName
+                        grade.gradeName,
+                        department.deptName
                 ))
                 .from(employee)
                 .join(employee.dept, department)
@@ -94,5 +95,15 @@ public class EmployeeQuerydslRepositoryImpl implements  EmployeeQuerydslReposito
                 .where(employee.able.eq("Y").or(employee.able.eq("A")),
                         employee.userId.eq(userId))
                 .fetch();
+    }
+
+    @Override
+    public void changePw(Long userNo, String password){
+        JPAUpdateClause updateClause = new JPAUpdateClause(entityManager, employee);
+
+        updateClause
+                .where(employee.no.eq(userNo))
+                .set(employee.password, password)
+                .execute();
     }
 }

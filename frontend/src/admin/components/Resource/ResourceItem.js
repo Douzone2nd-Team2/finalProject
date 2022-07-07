@@ -1,10 +1,17 @@
+import { Link } from 'react-router-dom';
 import { Card, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
+import {
+  ResourceCard,
+  ResourceCardTitle,
+  ResourceContent,
+  ResourceOpion,
+} from '../../styles/ResourceCard';
 
 const ResourceItem = ({ resource }) => {
   const {
     resourceNo,
-    category,
     able,
+    content,
     resourceName,
     location,
     people,
@@ -14,28 +21,42 @@ const ResourceItem = ({ resource }) => {
     fuel,
     createAt,
     modifyAt,
+    path,
+    cateNo,
   } = resource;
 
   return (
-    <Card
-      style={{
-        width: '200px',
-        marginRight: '30px',
-      }}
-    >
-      <Card.Img variant="top" src="" />
-      <Card.Body>
-        {resourceNo}
-        <Card.Title> {resourceName}</Card.Title>
-        <Card.Subtitle>
-          {category},{location},{people},{option},{able},{availavleTime},{fuel}
-        </Card.Subtitle>
-      </Card.Body>
-      <ListGroup className="list-group-flush">
-        <ListGroupItem>생성일 : {createAt}</ListGroupItem>
-        <ListGroupItem>수정일 : {modifyAt}</ListGroupItem>
-      </ListGroup>
-    </Card>
+    <ResourceCard>
+      <Link
+        to="/admin/resourcedetail"
+        state={{
+          resourceNo: resourceNo,
+          resourceName: resourceName,
+          able: able,
+          content: content,
+          location: location,
+          people: people,
+          availavleTime: availavleTime,
+          fuel: fuel,
+          adminNo: adminNo,
+          option: option,
+          createAt: createAt,
+          modifyAt: modifyAt,
+          cateNo: cateNo,
+        }}
+      >
+        <Card>
+          <Card.Img style={{ width: 'auto', height: '150px' }} src={path} />
+          <Card.Body>
+            <ResourceCardTitle>
+              {resourceNo}. {resourceName}
+            </ResourceCardTitle>
+            <ResourceOpion>{option}</ResourceOpion>
+            <ResourceContent>{content}</ResourceContent>
+          </Card.Body>
+        </Card>
+      </Link>
+    </ResourceCard>
   );
 };
 
