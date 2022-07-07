@@ -83,7 +83,7 @@ const PChart = () => {
                 strokeWidth: 0,
               },
               labels: {
-                fontSize: 20,
+                fontSize: 15,
                 fill: 'black',
                 fontWeight: 'bold',
               },
