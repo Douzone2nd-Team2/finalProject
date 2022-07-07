@@ -114,7 +114,7 @@ const EmployeePage = () => {
   }, []);
 
   const handleChangeFile = (event) => {
-    console.log(event.target.files);
+    // console.log(event.target.files);
 
     const reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
@@ -174,7 +174,7 @@ const EmployeePage = () => {
     );
 
     axios
-      .post(`${process.env.REACT_APP_SERVER_PORT}/admin/userfile`, fd, {
+      .post(`${process.env.REACT_APP_SERVER_PORT}/admin/usermodify`, fd, {
         headers: {
           Authorization: getCookie('accessToken'),
           'Content-Type': `multipart/form-data;`,

@@ -65,8 +65,8 @@ const Employee = ({ empList, callback, loading, page, items }) => {
         <TableContainer>
           <table border="2">
             <colgroup>
-              <col width="5%" />
-              <col width="20%" />
+              <col width="7%" />
+              <col width="18%" />
               <col width="15%" />
               <col width="10%" />
               <col width="10%" />
