@@ -1,6 +1,6 @@
 import { Container, HeadContainer } from '../styles/RegisterBook';
 
-import ReservationDropdown from '../components/Reservation/ReservationDropdown';
+import ReservationDropdown from '../components/reservation/ReservationDropdown';
 
 const ResourceList = () => {
   return (
