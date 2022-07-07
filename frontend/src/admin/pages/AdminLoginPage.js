@@ -97,7 +97,7 @@ const Login = () => {
         phone: userData.data.data[0].phone,
       });
 
-      navigate('/admin');
+      navigate('/admin/main');
     } catch (e) {
       console.log(e);
     }
