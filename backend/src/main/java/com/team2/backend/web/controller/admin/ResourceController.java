@@ -49,6 +49,11 @@ public class ResourceController {
     public ResponseEntity<Message> updateresourceList(HttpServletRequest req, @RequestParam("resourceNo") Long resourceNo , @RequestBody Resource resource){
         return resourceService.resourceUpdate(req, resourceNo, resource);
     }
+    @PostMapping("/fileupdate") // 사진 등록
+    public ResponseEntity<Message> fileUpdate(@RequestPart(value = "image") List<MultipartFile> multipartFile, @RequestPart(value="resource") ResourceAdminDto resourceAdminDto ){
+        return resourceService.fileUpdate(multipartFile);
+    }
+
 
     @PostMapping("/delete")
     public ResponseEntity<Message> delResource(@RequestParam("resourceNo") Long resourceNo){

@@ -30,6 +30,7 @@ public class EmployeeManagementDto{
     private Long gradeNo;
 
     private String imageUrl;
+    private String imageName;
     private LocalDateTime createAt;
     private LocalDateTime modifyAt;
 
@@ -96,6 +97,7 @@ public class EmployeeManagementDto{
                 .deptNo(deptNo)
                 .gradeNo(gradeNo)
                 .imageUrl(imageUrl)
+                .imageName(imageName)
                 .build();
     }
 
