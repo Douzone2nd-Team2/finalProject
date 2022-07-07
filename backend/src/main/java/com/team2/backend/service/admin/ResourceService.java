@@ -179,8 +179,9 @@ public class ResourceService {
             List<Resourcefile> resourcefileList = new ArrayList<>();
 
             for (int i = 0; i < multipartFile.size(); i++) {
-                String awsUrl = s3Uploader.uploadFiles(multipartFile.get(i), "static");
-                System.out.println(i + 1 + " : " + awsUrl);
+                String[] awsUrl = s3Uploader.uploadFiles(multipartFile.get(i), "static");
+                System.out.println(i + 1 + " : " + awsUrl[0]);
+                System.out.println(i + 1 + " : " + awsUrl[1]);
 
                 Resourcefile file = resourcefileRepository.save(
                         Resourcefile.builder()
@@ -188,7 +189,8 @@ public class ResourceService {
                                 .resourceNo(Long.valueOf(resourceNo))
                                 .type(multipartFile.get(i).getContentType())
                                 .imageSize(String.valueOf(multipartFile.get(i).getSize()))
-                                .path(awsUrl)
+                                .path(awsUrl[0])
+                                .imageName(awsUrl[1])
                                 .build()
                 );
                 resourcefileList.add(file);
@@ -234,6 +236,71 @@ public class ResourceService {
         return new JsonResponse().send(200, message);
     }
 
+    @Transactional
+    public ResponseEntity<Message> fileUpdate(List<MultipartFile> multipartFile, ResourceAdminDto body) {
+        try {
+            List<Resourcefile> resourcefileList = new ArrayList<>();
+
+    //resourcefile에서 resourceno 가진거 delete 동시에 s3에서 delete
+    //        -> insert 같은 resourceno로 넣고 s3 insert
+
+            //delelte
+            List<Resourcefile> delresourcefile = resourcefileRepository.findByResource_ResourceNo(body.getResourceNo());
+
+            if (body.getResourceNo() != null && delresourcefile != null) {
+                List<Long> delIdList = resourcefileRepository.findByResource_ResourceNo(body.getResourceNo()).stream()
+                        .map(resourcefile -> {
+                            return resourcefile.getImageNo();
+                        }).collect(Collectors.toList());
+
+                delIdList.stream().map(
+                        id -> {
+                            String imageName = resourcefileRepository.findByImageNo(id).getImageName();
+                            s3Uploader.remove(imageName);
+                            resourcefileRepository.deleteById(id);
+                            System.out.println(id);
+                            return id;
+                        }
+                ).collect(Collectors.toList());
+            }
+
+            //insert
+            for (int i = 0; i < multipartFile.size(); i++) {
+                String[] awsUrl = s3Uploader.uploadFiles(multipartFile.get(i), "static");
+                System.out.println(i + 1 + " : " + awsUrl[0]);
+                System.out.println(i + 1 + " : " + awsUrl[1]);
+
+                Resourcefile file = resourcefileRepository.save(
+                        Resourcefile.builder()
+//                                .able(able)
+                                .resourceNo(Long.valueOf(body.getResourceNo()))
+                                .type(multipartFile.get(i).getContentType())
+                                .imageSize(String.valueOf(multipartFile.get(i).getSize()))
+                                .path(awsUrl[0])
+                                .imageName(awsUrl[1])
+                                .build()
+                );
+                resourcefileList.add(file);
+            }
+            Message message = Message.builder()
+                    .resCode(3000)
+                    .message("성공: 자원 파일 등록 성공")
+                    .data(resourcefileList)
+                    .build();
+            return new JsonResponse().send(200, message);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Message message = Message.builder()
+                .resCode(3001)
+                .message("실패: 자원 파일 등록 실패")
+
+                .build();
+        return new JsonResponse().send(200, message);
+    }
+
+
 
     @Transactional
     public ResponseEntity<Message> delresourceList(Long resourceNo) {
@@ -248,6 +315,8 @@ public class ResourceService {
 
             delIdList.stream().map(
                     id -> {
+                        String imageName = resourcefileRepository.findByImageNo(id).getImageName();
+                        s3Uploader.remove(imageName);
                         resourcefileRepository.deleteById(id);
                         System.out.println(id);
                         return id;

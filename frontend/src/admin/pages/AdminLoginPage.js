@@ -70,7 +70,7 @@ const Login = () => {
 
       if (res.data.resCode === 0) {
         setCookie('accessToken', res.headers.authorization);
-        console.log(res);
+        //console.log(res);
       } else {
         alert(`잘못된 정보를 입력하셨습니다.`);
         return;
@@ -97,7 +97,7 @@ const Login = () => {
         phone: userData.data.data[0].phone,
       });
 
-      navigate('/admin');
+      navigate('/admin/main');
     } catch (e) {
       console.log(e);
     }

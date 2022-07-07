@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,21 +27,21 @@ public class S3Uploader {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    public String uploadFiles(MultipartFile multipartFile, String dirName) throws IOException{
+    public String[] uploadFiles(MultipartFile multipartFile, String dirName) throws IOException{
 
         return upload(multipartFile, dirName);
     }
 
 
-    public String upload( MultipartFile multipartFile, String dirName){
+    public String[] upload( MultipartFile multipartFile, String dirName){
 
         String fileUrl = dirName +"/"+ LocalDateTime.now()+"_"+multipartFile.getOriginalFilename(); // S3에 저장된 파일 이름
-        String uploadImageUrl = putS3(multipartFile, fileUrl); //s3 upload
+        String[] uploadImageUrl = putS3(multipartFile, fileUrl); //s3 upload
         return uploadImageUrl;
     }
 
     //s3 upload
-    public String putS3(MultipartFile multipartFile, String fileName){
+    public String[] putS3(MultipartFile multipartFile, String fileName){
         System.out.println("putS3 enter@@@@@");
         System.out.println(multipartFile+"//"+fileName+"//"+bucket);
         try {
@@ -61,8 +62,10 @@ public class S3Uploader {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-        return amazonS3Client.getUrl(bucket, fileName).toString();
+        String[] str = new String[2];
+        str[0] = amazonS3Client.getUrl(bucket, fileName).toString();
+        str[1] = fileName;
+        return str;
     }
 
 

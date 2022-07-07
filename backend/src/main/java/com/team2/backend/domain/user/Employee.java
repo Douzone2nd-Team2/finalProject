@@ -67,14 +67,26 @@ public class Employee extends BaseTime {
     @Column(name="imageUrl")
     private String imageUrl;
 
+    @Column(name="imageName")
+    private String imageName;
+
+
     public void encodePassword(String password) {
         this.password = password;
     }
 
-    public void changeEmployee(Long no, String able, LocalDateTime createAt){
+    public void changeEmployee(Long no, String able,String password, LocalDateTime createAt, String imageUrl, String imageName){
         this.no = no;
+        this.password = password;
         this.able = able;
         changeTime(createAt);
+        this.imageUrl = imageUrl;
+        this.imageName = imageName;
+    }
+
+    public void chaneImgUrl(String imageUrl, String imageName){
+        this.imageUrl = imageUrl;
+        this.imageName = imageName;
     }
 
 }

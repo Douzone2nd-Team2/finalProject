@@ -1,18 +1,23 @@
 package com.team2.backend.service.admin;
 
+import com.team2.backend.config.aws.S3Uploader;
 import com.team2.backend.domain.reservation.ReservationQuerydslRepository;
+import com.team2.backend.domain.resource.Resourcefile;
 import com.team2.backend.domain.user.*;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.admin.EmployeeManagementDto;
 import com.team2.backend.web.dto.admin.ReservationManagementDto;
+import com.team2.backend.web.dto.user.MypageDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.*;
 
@@ -24,6 +29,7 @@ public class UserService {
 
     private final EmployeeRepository employeeRepository;
     private final ReservationQuerydslRepository reservationQuerydslRepository;
+    private final S3Uploader s3Uploader;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
@@ -51,31 +57,49 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseEntity<Message> saveUser(HttpServletRequest req, EmployeeManagementDto body){
-
-        Employee employee = body.toEntity();
-        employee.encodePassword(bCryptPasswordEncoder.encode(body.getPassword()));
-
+    public ResponseEntity<Message> saveUser(MultipartFile multipartFile, EmployeeManagementDto body){
         Message message;
 
-        Employee emp = employeeRepository.findByEmpNo(body.getEmpNo());
+        try{
+            Employee employee = body.toEntity();
+            employee.encodePassword(bCryptPasswordEncoder.encode(body.getPassword()));
 
-        if(emp != null ){ //&& body.getEmpNo().equals(emp.getEmpNo())
-            employee.changeEmployee(emp.getNo(),emp.getAble(), emp.getCreateAt());
-            employeeRepository.save(employee);
-            message = Message.builder()
-                    .resCode(1000)
-                    .message("[Success] Update Employee")
-                    .build();
-            return new JsonResponse().send(200, message);
+           // Employee emp = employeeRepository.findByEmpNo(body.getEmpNo());
+
+
+                String imgUrl = "";
+                String imgName = "";
+                if(multipartFile != null) {
+                    String[] str = s3Uploader.uploadFiles(multipartFile, "static");
+                    imgUrl = str[0];//aws s3 url
+                    imgName = str[1]; //file key
+
+                    System.out.println(" : " + imgUrl);
+                }
+                System.out.println("imgUrl:  "+imgUrl);
+            System.out.println("imgName:  "+imgName);
+
+                employee.chaneImgUrl(imgUrl,imgName);
+                employeeRepository.save(employee);
+                message = Message.builder()
+                        .resCode(1000)
+                        .message("[Success] Update Employee")
+                        .build();
+                return new JsonResponse().send(200, message);
+
+//            employeeRepository.save(employee);
+//            message = Message.builder()
+//                    .resCode(1000)
+//                    .message("[SUCCESS] insert Employee")
+//                    .build();
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
-        employeeRepository.save(employee);
         message = Message.builder()
                 .resCode(1000)
-                .message("[SUCCESS] insert Employee")
+                .message("[Fail] insert Employee")
                 .build();
-
 
         return new JsonResponse().send(200, message);
     }
@@ -100,4 +124,94 @@ public class UserService {
         return new JsonResponse().send(200, message);
     }
 
+    @Transactional
+    public ResponseEntity<Message> fileUpload(MultipartFile multipartFile, EmployeeManagementDto body) {
+        try {
+            Employee employee = body.toEntity();
+
+            Employee emp = employeeRepository.findByNo(body.getNo() !=null ? body.getNo(): -1L);
+
+            if(emp!=null){ //수정시
+                String imgUrl="";
+                String imgName="";
+                if(emp.getImageUrl()!=null){ //기존에 s3에 upload된 파일 유무
+                    if(multipartFile != null) { //upload할 파일 유무
+                        System.out.println(emp.getImageName());
+                        s3Uploader.remove(emp.getImageName()); //file key 값
+                    }
+                }
+                if(multipartFile != null) {
+                    String[] str = s3Uploader.uploadFiles(multipartFile, "static");
+                    imgUrl = str[0];//aws s3 url
+                    imgName = str[1]; //file key
+
+//                    imgUrl = s3Uploader.uploadFiles(multipartFile, "static");
+                    System.out.println("imgUrl : " + imgUrl);
+                    System.out.println("imgName : " + imgName);
+                }else{
+                    if(emp.getImageUrl()!=null){
+                        imgUrl = emp.getImageUrl();
+                        imgName = emp.getImageName();
+                    }
+                }
+                employee.changeEmployee(emp.getNo(), body.getAble(), emp.getPassword(), emp.getCreateAt(), imgUrl, imgName);
+                employeeRepository.save(employee);
+
+                Message message = Message.builder()
+                        .resCode(1000)
+                        .message("[SUCCESS]: Employee 수정 성공")
+                        .build();
+                return new JsonResponse().send(200, message);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Message message = Message.builder()
+                .resCode(1001)
+                .message("[Fail]: Employee 수정 실패")
+                .build();
+        return new JsonResponse().send(200, message);
+    }
+
+    @Transactional
+    public ResponseEntity<Message> changePw(MypageDto body){
+        try{
+            employeeQuerydslRepository.changePw(body.getUserNo(), bCryptPasswordEncoder.encode(body.getPassword()));
+            
+            Message message = Message.builder()
+                    .resCode(1001)
+                    .message("[Sucess]: 비밀번호 수정 성공")
+                    .build();
+            return new JsonResponse().send(200, message);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        Message message = Message.builder()
+                .resCode(1001)
+                .message("[Fail]: 비밀번호 수정 실패")
+                .build();
+        return new JsonResponse().send(200, message);
+    }
+
+    @Transactional
+    public ResponseEntity<Message> deleteUser(Long userNo){
+        Message message;
+        try {
+            String imageName = employeeRepository.findByNo(userNo).getImageName();
+            s3Uploader.remove(imageName);
+            employeeRepository.deleteByNo(userNo);
+
+            message = Message.builder()
+                    .resCode(1001)
+                    .message("[SUCCESS]: Employee 삭제 ")
+                    .build();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        message = Message.builder()
+                .resCode(1001)
+                .message("[FAIL]: Employee 삭제 ")
+                .build();
+        return new JsonResponse().send(200, message);
+    }
 }
