@@ -39,10 +39,7 @@ function Sidebar() {
   return (
     <SbContainer>
       <SbUl>
-        <Link
-          to="/admin/employee"
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
+        <Link to="/admin" style={{ textDecoration: 'none', color: 'black' }}>
           <SbLi>
             <BsFillPersonFill /> 사용자관리
           </SbLi>

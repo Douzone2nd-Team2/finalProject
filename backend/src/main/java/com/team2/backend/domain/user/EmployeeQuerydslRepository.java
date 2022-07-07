@@ -11,4 +11,5 @@ public interface EmployeeQuerydslRepository {
     List<EmployeeManagementDto> getEmployeeView(String userNo);
     List<EmployeeManagementDto> getMainEmployee(String userId);
 
+    void changePw(Long userNo, String password);
 }
