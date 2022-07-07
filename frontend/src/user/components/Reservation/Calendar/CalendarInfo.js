@@ -27,7 +27,9 @@ import TimeList from './TimeList.js';
 
 const CalendarInfo = (props) => {
   const onNextStep = () => {
-    props.callback((step) => step + 1);
+    if (selectedStartDate && selectedEndDate && startTime < endTime) {
+      props.setStep(1);
+    }
   };
 
   const [timeList, setTimeList] = useState(TimeList);

@@ -1,3 +1,4 @@
+import { React, useEffect, useState } from 'react';
 import {
   FlexContainer,
   UserInfoContainer,
@@ -7,6 +8,16 @@ import {
 } from './style.js';
 
 const UserInfo = () => {
+  const [reservName, setReservName] = useState('');
+
+  const onInputReservName = (e) => {
+    setReservName(e.target.value);
+  };
+
+  useEffect(() => {
+    console.log(reservName);
+  }, [reservName]);
+
   return (
     <FlexContainer>
       <UserInfoContainer>
@@ -15,7 +26,7 @@ const UserInfo = () => {
       </UserInfoContainer>
       <UserInfoContainer>
         <UserInfoTitle>예약명</UserInfoTitle>
-        <UserInfoInput></UserInfoInput>
+        <UserInfoInput type="text" onChange={onInputReservName}></UserInfoInput>
       </UserInfoContainer>
     </FlexContainer>
   );

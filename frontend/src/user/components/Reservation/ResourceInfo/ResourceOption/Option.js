@@ -1,3 +1,8 @@
+import { React, useState, useEffect } from 'react';
+
+import VoiceChatIcon from '@material-ui/icons/VoiceChat';
+import NavigationIcon from '@material-ui/icons/Navigation';
+
 import {
   OptionComponent,
   IconInfo,
@@ -7,7 +12,9 @@ import {
   OptionDetail,
 } from './style.js';
 
-const Option = () => {
+const Option = (props) => {
+  const [options, setOptions] = useState([]);
+
   return (
     <OptionComponent>
       <IconInfo>

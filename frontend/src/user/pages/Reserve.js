@@ -9,7 +9,7 @@ import CalendarInfo from '../components/Reservation/Calendar/CalendarInfo.js';
 
 const Reserve = () => {
   const [step, setStep] = useState(0);
-  const [cateNo, setCateNo] = useState(3);
+  const [cateNo, setCateNo] = useState(1);
 
   return (
     <MainContainer>
@@ -17,9 +17,9 @@ const Reserve = () => {
       <Container>
         <ResourceInfo></ResourceInfo>
         {step === 0 ? (
-          <CalendarInfo callback={setStep} cateNo={cateNo}></CalendarInfo>
+          <CalendarInfo setStep={setStep} cateNo={cateNo}></CalendarInfo>
         ) : step === 1 ? (
-          <AdditionalInfo callback={setStep} cateNo={cateNo}></AdditionalInfo>
+          <AdditionalInfo setStep={setStep} cateNo={cateNo}></AdditionalInfo>
         ) : null}
       </Container>
     </MainContainer>

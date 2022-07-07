@@ -14,17 +14,28 @@ import {
   PeopleNameTag,
   CountInfoTitle,
 } from './style';
+import { useState } from 'react';
 
 const Count = () => {
+  const [count, setCount] = useState(0);
+
+  const onIncrease = () => {
+    setCount(count + 1);
+  };
+
+  const onDecrease = () => {
+    setCount(count === 0 ? 0 : count - 1);
+  };
+
   return (
     <FlexContainer>
       <CountInfoTitle>추가 사용자</CountInfoTitle>
       <CountButtonContainer>
-        <CountButton>
+        <CountButton onClick={onDecrease}>
           <ArrowDownwardIcon></ArrowDownwardIcon>
         </CountButton>
-        <CountInfo>0</CountInfo>
-        <CountButton>
+        <CountInfo>{count}</CountInfo>
+        <CountButton onClick={onIncrease}>
           <ArrowUpwardIcon></ArrowUpwardIcon>
         </CountButton>
       </CountButtonContainer>

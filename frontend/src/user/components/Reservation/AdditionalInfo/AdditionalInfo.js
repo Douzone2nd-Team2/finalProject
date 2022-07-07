@@ -9,11 +9,11 @@ import Count from './Count/Count.js';
 
 const AdditionalInfo = (props) => {
   const onNextStep = () => {
-    props.callback((step) => step + 1);
+    props.setStep(2);
   };
 
   const onPreviousStep = () => {
-    props.callback((step) => (step > 0 ? step - 1 : 0));
+    props.setStep(0);
   };
 
   return (
