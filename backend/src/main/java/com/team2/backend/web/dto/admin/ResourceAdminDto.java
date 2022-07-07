@@ -37,6 +37,8 @@ public class ResourceAdminDto implements IResourceAdminDto{
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String fuel;
 
+    private String path;
+
     private String content;
 
     private List<Resourcefile> resourcefile;

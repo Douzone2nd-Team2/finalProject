@@ -16,11 +16,13 @@ export const ResourceContainer = styled.div`
   margin-left: 100px;
 `;
 
-export const ResourceContainer2 = styled.div``;
-
 export const ResourceCardUI = styled.div`
   width: 80px;
   height: 150px;
   font-size: 10px;
-  margin-left: 100px;
+  margin-left: 60px;
+`;
+
+export const ResourceForm = styled.div`
+  padding-left: 100px;
 `;

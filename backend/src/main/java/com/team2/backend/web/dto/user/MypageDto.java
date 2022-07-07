@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MypageDto {
 
+    private Long userNo;
     private String userId;
     private String password;
     private String chPassword;

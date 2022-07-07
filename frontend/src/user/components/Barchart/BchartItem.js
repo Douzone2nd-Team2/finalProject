@@ -7,25 +7,86 @@ import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 
 import { BarContainer, TitleContainer } from '../../styles/Bchart';
 
-const DATA = [
-  { quarter: 1, earnings: 5 },
-  { quarter: 2, earnings: 7 },
-  { quarter: 3, earnings: 8 },
-  { quarter: 4, earnings: 11 },
-  { quarter: 5, earnings: 13 },
-  { quarter: 6, earnings: 15 },
-  { quarter: 7, earnings: 13 },
-  { quarter: 8, earnings: 14 },
-  { quarter: 9, earnings: 19 },
-  { quarter: 10, earnings: 20 },
-  { quarter: 11, earnings: 13 },
-  { quarter: 12, earnings: 10 },
-];
-
 const BchartItem = ({ catenum }) => {
-  console.log(catenum);
-
   const [title, setTitle] = useState('');
+  const [totalcnt, setTotalcnt] = useState('');
+  const [useDays, setUseDays] = useState('');
+  const [hour, setHour] = useState([]);
+
+  const DATA = [
+    {
+      quarter: 1,
+      earnings:
+        (hour[0]?.cnt + hour[1]?.cnt + hour[2]?.cnt + hour[3]?.cnt) /
+        (useDays * totalcnt * 4),
+    },
+    {
+      quarter: 2,
+      earnings:
+        (hour[4]?.cnt + hour[5]?.cnt + hour[6]?.cnt + hour[7]?.cnt) /
+        (useDays * totalcnt * 4),
+    },
+    {
+      quarter: 3,
+      earnings:
+        (hour[8]?.cnt + hour[9]?.cnt + hour[10]?.cnt + hour[11]?.cnt) /
+        (useDays * totalcnt * 4),
+    },
+    {
+      quarter: 4,
+      earnings:
+        (hour[12]?.cnt + hour[13]?.cnt + hour[14]?.cnt + hour[15]?.cnt) /
+        (useDays * totalcnt * 4),
+    },
+    {
+      quarter: 5,
+      earnings:
+        (hour[16]?.cnt + hour[17]?.cnt + hour[18]?.cnt + hour[19]?.cnt) /
+        (useDays * totalcnt * 4),
+    },
+    {
+      quarter: 6,
+      earnings:
+        (hour[20]?.cnt + hour[21]?.cnt + hour[22]?.cnt + hour[23]?.cnt) /
+        (useDays * totalcnt * 4),
+    },
+    {
+      quarter: 7,
+      earnings:
+        (hour[24]?.cnt + hour[25]?.cnt + hour[26]?.cnt + hour[27]?.cnt) /
+        (useDays * totalcnt * 4),
+    },
+    {
+      quarter: 8,
+      earnings:
+        (hour[28]?.cnt + hour[29]?.cnt + hour[30]?.cnt + hour[31]?.cnt) /
+        (useDays * totalcnt * 4),
+    },
+    {
+      quarter: 9,
+      earnings:
+        (hour[32]?.cnt + hour[33]?.cnt + hour[34]?.cnt + hour[35]?.cnt) /
+        (useDays * totalcnt * 4),
+    },
+    {
+      quarter: 10,
+      earnings:
+        (hour[36]?.cnt + hour[37]?.cnt + hour[38]?.cnt + hour[39]?.cnt) /
+        (useDays * totalcnt * 4),
+    },
+    {
+      quarter: 11,
+      earnings:
+        (hour[40]?.cnt + hour[41]?.cnt + hour[42]?.cnt + hour[43]?.cnt) /
+        (useDays * totalcnt * 4),
+    },
+    {
+      quarter: 12,
+      earnings:
+        (hour[44]?.cnt + hour[45]?.cnt + hour[46]?.cnt + hour[47]?.cnt) /
+        (useDays * totalcnt * 4),
+    },
+  ];
 
   const changeTitle = () => {
     if (catenum == 1 || catenum == '') {
@@ -33,7 +94,7 @@ const BchartItem = ({ catenum }) => {
     } else if (catenum == 2) {
       setTitle('차량');
     } else if (catenum == 3) {
-      setTitle('비품');
+      setTitle('노트북');
     }
   };
 
@@ -49,9 +110,12 @@ const BchartItem = ({ catenum }) => {
           },
         },
       )
-      .then((response) => {
+      .then((res) => {
         changeTitle();
-        console.log(response);
+        setTotalcnt(res.data.data.totalCnt);
+        setUseDays(res.data.data.days);
+        setHour(res.data.data.hourConference);
+        console.log(res);
       })
       .catch((error) => {
         console.log(error);
@@ -61,19 +125,27 @@ const BchartItem = ({ catenum }) => {
   useEffect(() => {
     getTest();
     changeTitle();
+    console.log('총 자원 수 : ', totalcnt);
+    console.log('총 사용 일 : ', useDays);
+    console.log(hour);
+  }, [totalcnt, catenum, useDays]);
 
-    // console.log('change catenum');
-    // console.log(title);
-  }, [catenum]);
+  // DATA.map((item) => console.log(item.earnings));
 
   return (
     <BarContainer>
       <TitleContainer>{title} 사용시간</TitleContainer>
       <VictoryChart
-        domainPadding={30}
+        width={1200}
+        height={800}
+        padding={{ left: 100 }}
+        domainPadding={{ x: 50, y: 30 }}
+        margin={200}
         theme={VictoryTheme.material}
         style={{
-          background: { fill: 'lightGray' },
+          axis: { stroke: 'white' },
+          grid: { stroke: '#94A2AD' },
+          tickLabels: { fontSize: 20, padding: 10 },
         }}
       >
         <VictoryAxis
@@ -92,20 +164,25 @@ const BchartItem = ({ catenum }) => {
             '06',
           ]}
           tickFormat={(t) => `${t}`}
+          style={{
+            tickLabels: { fontSize: 25 },
+          }}
         />
         <VictoryAxis
           dependentAxis
-          tickValues={[4, 8, 12, 16, 20]}
-          tickFormat={(x) => `${x}`}
+          tickValues={[0.2, 0.4, 0.6, 0.8, 1]}
+          tickFormat={(x) => `${100 * x}%`}
+          style={{
+            tickLabels: { fontSize: 25 },
+          }}
         />
-        {/* <VictoryAxis /> */}
         <VictoryBar
           data={DATA}
           x="quarter"
           y="earnings"
-          barWidth={12}
+          barWidth={30}
           style={{
-            data: { fill: '#328895' },
+            data: { fill: 'darkblue' },
           }}
         />
       </VictoryChart>

@@ -14,22 +14,36 @@ import java.util.List;
 
 @Repository
 public interface ResourceRepository extends JpaRepository<Resource, Long> {
-    @Query(value = "select r.resourceNo as resourceNo , r.cateNo as cateNo, c.cateName as cateName, r.able as able,\n" +
-            "            r.resourceName as resourceName, r.location as location, r.fuel as fuel, \n" +
+    @Query(value = "select r.resourceNo as resourceNo , r.cateNo as cateNo, c.cateName as cateName, r.able as able, " +
+            "            r.resourceName as resourceName, r.location as location, r.fuel as fuel,  " +
             "            r.people as people, r.availableTime as availableTime, r.adminNo as adminNo, " +
-            "            r.option as option, r.createAt as createAt, r.modifyAt as modifyAt\n" +
-            "            from Resource r\n" +
-            "            join Employee e on r.adminNo = e.no\n" +
-            "            join Category c on c.cateNo = r.cateNo"+
-            "            order by r.resourceNo")
+            "            r.option as option,r.content as content, r.createAt as createAt, r.modifyAt as modifyAt, " +
+            "            rf.path as path " +
+            "            from Resource r " +
+            "            join Employee e on r.adminNo = e.no " +
+            "            join Category c on c.cateNo = r.cateNo "+
+            "left join (select a.path as path, a.resourceno as resourceno from " +
+            " (select resourceno, path, row_number() over(partition by resourceno order by createat desc) as row " +
+            "   from resource_file where able='Y') a " +
+            "   where a.row = 1 ) rf " +
+            "on r.resourceno = rf.resourceno " +
+
+            "            order by r.resourceNo",nativeQuery = true)
     List<IResourceAdminDto> findAllResource();
 
-    @Query(value="select r.resourceNo as resourceNo , r.cateNo as cateNo, c.cateName as cateName, r.able as able, r.people as people," +
-            "r.resourceName as resourceName, r.location as location, " +
-            " r.availableTime as availableTime, r.adminNo as adminNo, r.option as option, r.createAt as createAt, r.modifyAt as modifyAt" +
-            " from Resource r " +
-            " join Employee e on r.adminNo = e.no " +
-            " join Category c on c.cateNo = r.cateNo"+
+    @Query(value = "select r.resourceNo as resourceNo , r.cateNo as cateNo, c.cateName as cateName, r.able as able, " +
+            "            r.resourceName as resourceName, r.location as location, r.fuel as fuel,  " +
+            "            r.people as people, r.availableTime as availableTime, r.adminNo as adminNo, " +
+            "            r.option as option,r.content as content, r.createAt as createAt, r.modifyAt as modifyAt, " +
+            "            rf.path as path " +
+            "            from Resource r " +
+            "            join Employee e on r.adminNo = e.no " +
+            "            join Category c on c.cateNo = r.cateNo "+
+            "left join (select a.path as path, a.resourceno as resourceno from " +
+            " (select resourceno, path, row_number() over(partition by resourceno order by createat desc) as row " +
+            "   from resource_file where able='Y') a " +
+            "   where a.row = 1 ) rf " +
+            "on r.resourceno = rf.resourceno " +
             " where r.cateNo = :cateNo"+
             " order by r.resourceNo",nativeQuery = true)
     List<IResourceAdminDto> findByCateNo(@Param("cateNo") long cateNo);

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Container, ResourceContainer } from '../../styles/Resource.js';
-import ResourceDropdown from './ResourceDropdown';
-import ResourceInput from './ResourceInput';
+import { Container, ResourceContainer } from '../styles/Resource.js';
+import ResourceDropdown from '../components/Resource/ResourceDropdown.js';
+import ResourceInput from '../components/Resource/ResourceInput.js';
 const ResourcePage = () => {
   return (
     <>
