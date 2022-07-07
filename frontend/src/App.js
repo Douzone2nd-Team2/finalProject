@@ -25,6 +25,8 @@ import ResourceDetail from './admin/components/Resource/ResourceDetail';
 import RegisterBook from './admin/pages/RegisterBook';
 import EmployeeBook from './admin/pages/EmployeeBook';
 import ResourceList from './admin/pages/ResourceList';
+import UserBook from './admin/pages/UserBook';
+import UserBookhandle from './admin/pages/UserBookhandle';
 import Employee from './admin/components/Employee/Employee';
 
 const App = () => {
@@ -85,6 +87,8 @@ const App = () => {
           <Route path="/admin/registerbook" element={<RegisterBook />} />
           <Route path="/admin/employeebook" element={<EmployeeBook />} />
           <Route path="/admin/resourcelist" element={<ResourceList />} />
+          <Route path="/admin/userbook" element={<UserBook />} />
+          <Route path="/admin/userbookhandle" element={<UserBookhandle />} />
         </Route>
       </Routes>
     </>

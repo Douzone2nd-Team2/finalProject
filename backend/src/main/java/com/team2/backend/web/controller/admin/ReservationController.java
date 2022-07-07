@@ -53,7 +53,7 @@ public class ReservationController {
         return reservationService.updateReservation(request, body);
     }
 
-    @GetMapping("/admin/reservatioin/view")
+    @GetMapping("/admin/reservation/view")
     public ResponseEntity<Message> reservationView(HttpServletRequest request, @RequestParam Long reservNo){
         return reservationService.reservationView(request, reservNo);
     }
