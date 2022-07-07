@@ -13,6 +13,7 @@ import ResourceItem from '../components/Resource/ResourceItem';
 
 const ResourcePage = () => {
   const [resources, setResources] = useState([]);
+  console.log(resources);
 
   const [selected, setSelected] = useState('');
 
@@ -36,6 +37,7 @@ const ResourcePage = () => {
     axios
       .get(`${process.env.REACT_APP_SERVER_PORT}/resource/${selected}`)
       .then((response) => {
+        console.log(response.data);
         setResources(response.data.data);
       })
       .catch((error) => {
