@@ -13,16 +13,27 @@ import {
 } from './style.js';
 
 const Option = (props) => {
-  const [options, setOptions] = useState([]);
+  const [value, setValue] = useState('');
+
+  useEffect(() => {
+    setValue(props.value);
+  }, []);
 
   return (
     <OptionComponent>
       <IconInfo>
-        <Icon></Icon>
+        {value &&
+          (value === '빔프로젝터' ? (
+            <VoiceChatIcon></VoiceChatIcon>
+          ) : value === '네비게이션' ? (
+            <NavigationIcon></NavigationIcon>
+          ) : (
+            <Icon></Icon>
+          ))}
       </IconInfo>
       <OptionInfo>
-        <OptionTitle>이-름</OptionTitle>
-        <OptionDetail>내-용</OptionDetail>
+        <OptionTitle>{value}</OptionTitle>
+        <OptionDetail></OptionDetail>
       </OptionInfo>
     </OptionComponent>
   );

@@ -55,7 +55,7 @@ const PeopleContainer = styled.div`
   display: flex;
   margin-top: 24px;
   width: fit-content;
-  height: 100%;
+  height: fit-content;
   border: 1px solid rgb(221, 221, 221);
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;

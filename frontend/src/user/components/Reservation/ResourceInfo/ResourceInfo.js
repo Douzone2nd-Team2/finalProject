@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import Slider from 'react-slick';
 
 import SamplePrevArrow from '../../Book/SamplePrevArrow.js';
@@ -11,11 +11,9 @@ import {
   ResourceInfoContainer,
   ResourceImageTest,
   ResourceDetatilTest,
-  ThumbnailDiv,
 } from './style.js';
 
 import Option from './ResourceOption/Option.js';
-import { useEffect } from 'react';
 import { BookmarkDiv } from '../Bookmark/style.js';
 
 const settings = {
@@ -30,9 +28,11 @@ const settings = {
 
 const ResourceInfo = () => {
   const [books, setBooks] = useState([]);
+  const [values, setValues] = useState([]);
 
   useEffect(() => {
     setBooks([AA, BB]);
+    setValues(['빔프로젝터', '네비게이션', '마이크']);
   }, []);
 
   return (
@@ -40,11 +40,15 @@ const ResourceInfo = () => {
       <ResourceImageTest>
         {/* 버그투성이 사진크기 조정, 정렬 다시해야됨 */}
         <Slider {...settings}>
-          {books && books.map((book) => <img src={book} height="300px" />)}
+          {books &&
+            books.map((book) => (
+              <img key={book.toString()} src={book} height="300px" />
+            ))}
         </Slider>
       </ResourceImageTest>
       <ResourceDetatilTest>
-        <Option></Option>
+        {values &&
+          values.map((value) => <Option key={value.id} value={value}></Option>)}
       </ResourceDetatilTest>
     </ResourceInfoContainer>
   );

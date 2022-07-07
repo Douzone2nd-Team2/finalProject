@@ -79,7 +79,7 @@ const CalendarInfo = (props) => {
             <DateSpan>{selectedStartDate}</DateSpan>
             <TimeSelect onChange={handleStartTime}>
               {timeList.map((item) => (
-                <TimeOption key={item.id} value={item.value}>
+                <TimeOption key={item.timeNo} value={item.value}>
                   {item.value}
                 </TimeOption>
               ))}
@@ -90,7 +90,7 @@ const CalendarInfo = (props) => {
             <DateSpan>{selectedEndDate}</DateSpan>
             <TimeSelect onChange={handleEndTime}>
               {timeList.map((item) => (
-                <TimeOption key={item.id} value={item.value}>
+                <TimeOption key={item.timeNo} value={item.value}>
                   {item.value}
                 </TimeOption>
               ))}

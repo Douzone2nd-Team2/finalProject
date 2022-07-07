@@ -14,7 +14,7 @@ const BookmarkContainer = styled.button`
   outline: none;
   background: transparent;
   border: none;
-  color: #222222;
+  color: #434343;
   text-align: inherit;
 `;
 
@@ -29,7 +29,7 @@ const BookmarkIcon = styled.div`
 `;
 
 const BookmarkButton = styled.div`
-  color: #222222;
+  color: #434343;
 `;
 
 export { BookmarkContainer, BookmarkDiv, BookmarkIcon, BookmarkButton };

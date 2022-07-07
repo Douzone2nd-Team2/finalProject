@@ -6,8 +6,6 @@ import Pagination from 'react-js-pagination';
 import { PaginationBox } from '../styles/Pagination';
 
 import Employee from '../components/Employee/Employee';
-import ResourcePage from '../components/Resource/ResourcePage';
-import Reservation from '../components/reservation/Reservation';
 
 import {
   Container,
