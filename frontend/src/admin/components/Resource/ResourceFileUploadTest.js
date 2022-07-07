@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
 const ResourceFileUploadTest = () => {
-  const [imgFile, setImgFile] = useState([]); //파일
+  const [imgFile, setImgFile] = useState([]);
   const [formData, setFormData] = useState(new FormData());
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const ResourceFileUploadTest = () => {
   };
 
   const handleChangeFile = useCallback((e) => {
-    setImgFile(e.target.files);
+    setImgFile(e.target.file);
     console.log('핸들체인지');
   });
 
@@ -54,14 +55,15 @@ const ResourceFileUploadTest = () => {
         name="image"
         onChange={handleChangeFile}
       />
-      <button
+      <Button
+        variant="primary"
         onClick={(e) => {
           handleSubmit();
           e.preventDefault();
         }}
       >
         upload
-      </button>
+      </Button>
     </div>
   );
 };

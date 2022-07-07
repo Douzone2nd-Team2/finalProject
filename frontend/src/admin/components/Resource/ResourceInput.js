@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+
 import axios from 'axios';
 
 import { Button, Form, Modal, Row, Col } from 'react-bootstrap';
 
 import ResourceFileUploadTest from './ResourceFileUploadTest';
 
-const ResourceInput = () => {
+const ResourceInput = ({ getAll }) => {
   const [show, setShow] = useState(false);
+
   const [resourceName, setResourceName] = useState('');
   const [location, setLocation] = useState('');
   const [people, setPeople] = useState('');
@@ -22,6 +24,8 @@ const ResourceInput = () => {
   const handleShow = () => setShow(true);
 
   const [valued, setValued] = useState('');
+
+  const toggleModal = useRef(null);
 
   const handleChange = (e) => {
     setValued(e.target.value);
@@ -40,15 +44,12 @@ const ResourceInput = () => {
   };
   const handleStartTime = (e) => {
     setStartTime(e.target.value);
-    console.log(startTime);
   };
   const handleEndTime = (e) => {
     setEndTime(e.target.value);
-    console.log(endTime);
   };
   const handleTime = (e) => {
     setTime(e.target.value);
-    console.log(time);
   };
   const handleOption = (e) => {
     setOption(e.target.value);
@@ -71,6 +72,7 @@ const ResourceInput = () => {
       fuel: fuel,
       content: content,
       able: able,
+      adminNo: 1,
     };
     axios
       .post(
@@ -78,7 +80,6 @@ const ResourceInput = () => {
         resourceInsert,
       )
       .then((response) => {
-        console.log('연결성공');
         alert('등록성공!');
       })
       .catch((error) => {
@@ -88,6 +89,16 @@ const ResourceInput = () => {
 
   const handleSubmit = (e) => {
     postTest();
+  };
+
+  const exitModal = () => {
+    toggleModal.current.click();
+  };
+
+  const clickBtn = () => {
+    handleSubmit();
+    exitModal();
+    getAll();
   };
 
   useEffect(() => {
@@ -111,7 +122,7 @@ const ResourceInput = () => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3">
+            <Form.Group className="m-b-3">
               <Row>
                 <Col>
                   <Form.Label>카테고리</Form.Label>
@@ -179,7 +190,11 @@ const ResourceInput = () => {
                 </Col>
                 <Col>
                   Full-Time:
-                  <Form.Check value="Full-time" onChange={handleTime} />
+                  <Form.Check
+                    type="radio"
+                    value="Full-time"
+                    onChange={handleTime}
+                  />
                 </Col>
               </Row>
             </Form.Group>
@@ -281,10 +296,10 @@ const ResourceInput = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose} ref={toggleModal}>
             Close
           </Button>
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button variant="primary" type="submit" onClick={clickBtn}>
             Save
           </Button>
         </Modal.Footer>
