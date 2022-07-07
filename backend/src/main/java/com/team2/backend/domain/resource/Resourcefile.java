@@ -30,6 +30,9 @@ public class Resourcefile extends BaseTime {
     @Column(name="able", columnDefinition = "varchar(1) default 'Y'")
     private String able;
 
+    @Column(name="imageName")
+    private String imageName;
+
     @ManyToOne(targetEntity= Resource.class)
     @JoinColumn(name="resourceNo", insertable = false, updatable = false)
     private Resource resource;
@@ -46,11 +49,12 @@ public class Resourcefile extends BaseTime {
     private String imageSize;
 
     @Builder
-    public Resourcefile(Long resourceNo, String path, String type, String imageSize) {
+    public Resourcefile(Long resourceNo, String path, String type, String imageSize, String imageName) {
         this.resourceNo = resourceNo;
         this.path = path;
         this.type = type;
         this.imageSize = imageSize;
+        this.imageName = imageName;
 
     }
 

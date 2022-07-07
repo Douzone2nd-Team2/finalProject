@@ -67,14 +67,19 @@ public class UserService {
            // Employee emp = employeeRepository.findByEmpNo(body.getEmpNo());
 
 
-                String imgUrl="";
+                String imgUrl = "";
+                String imgName = "";
                 if(multipartFile != null) {
-                    imgUrl = s3Uploader.uploadFiles(multipartFile, "static");
+                    String[] str = s3Uploader.uploadFiles(multipartFile, "static");
+                    imgUrl = str[0];//aws s3 url
+                    imgName = str[1]; //file key
+
                     System.out.println(" : " + imgUrl);
                 }
                 System.out.println("imgUrl:  "+imgUrl);
+            System.out.println("imgName:  "+imgName);
 
-                employee.chaneImgUrl(imgUrl);
+                employee.chaneImgUrl(imgUrl,imgName);
                 employeeRepository.save(employee);
                 message = Message.builder()
                         .resCode(1000)
@@ -128,11 +133,28 @@ public class UserService {
 
             if(emp!=null){ //수정시
                 String imgUrl="";
-                if(multipartFile != null) {
-                    imgUrl = s3Uploader.uploadFiles(multipartFile, "static");
-                    System.out.println(" : " + imgUrl);
+                String imgName="";
+                if(emp.getImageUrl()!=null){ //기존에 s3에 upload된 파일 유무
+                    if(multipartFile != null) { //upload할 파일 유무
+                        System.out.println(emp.getImageName());
+                        s3Uploader.remove(emp.getImageName()); //file key 값
+                    }
                 }
-                employee.changeEmployee(emp.getNo(),body.getAble(), emp.getPassword(), emp.getCreateAt(), imgUrl);
+                if(multipartFile != null) {
+                    String[] str = s3Uploader.uploadFiles(multipartFile, "static");
+                    imgUrl = str[0];//aws s3 url
+                    imgName = str[1]; //file key
+
+//                    imgUrl = s3Uploader.uploadFiles(multipartFile, "static");
+                    System.out.println("imgUrl : " + imgUrl);
+                    System.out.println("imgName : " + imgName);
+                }else{
+                    if(emp.getImageUrl()!=null){
+                        imgUrl = emp.getImageUrl();
+                        imgName = emp.getImageName();
+                    }
+                }
+                employee.changeEmployee(emp.getNo(), body.getAble(), emp.getPassword(), emp.getCreateAt(), imgUrl, imgName);
                 employeeRepository.save(employee);
 
                 Message message = Message.builder()
@@ -175,7 +197,8 @@ public class UserService {
     public ResponseEntity<Message> deleteUser(Long userNo){
         Message message;
         try {
-
+            String imageName = employeeRepository.findByNo(userNo).getImageName();
+            s3Uploader.remove(imageName);
             employeeRepository.deleteByNo(userNo);
 
             message = Message.builder()

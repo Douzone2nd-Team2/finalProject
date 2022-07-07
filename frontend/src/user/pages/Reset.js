@@ -70,7 +70,7 @@ const Reset = () => {
         <TitleContainer>비밀번호 변경</TitleContainer>
         <hr />
         <ContentContainer>
-          비밀번호를 변경하여 네트워크를 안전하게 만드세요
+          비밀번호를 변경하여 개인정보를 보호하세요
         </ContentContainer>
         <form>
           <CenterSort>
