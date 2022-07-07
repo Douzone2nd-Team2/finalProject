@@ -171,4 +171,24 @@ public class UserService {
         return new JsonResponse().send(200, message);
     }
 
+    @Transactional
+    public ResponseEntity<Message> deleteUser(Long userNo){
+        Message message;
+        try {
+
+            employeeRepository.deleteByNo(userNo);
+
+            message = Message.builder()
+                    .resCode(1001)
+                    .message("[SUCCESS]: Employee 삭제 ")
+                    .build();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        message = Message.builder()
+                .resCode(1001)
+                .message("[FAIL]: Employee 삭제 ")
+                .build();
+        return new JsonResponse().send(200, message);
+    }
 }

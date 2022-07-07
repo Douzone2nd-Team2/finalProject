@@ -50,7 +50,6 @@ public class UserController {
     */
     @PostMapping("/admin/usersave")
     public ResponseEntity<Message> userInsert( @RequestPart(value = "file", required = false) MultipartFile[] multipartFile, @RequestPart(value="employee") EmployeeManagementDto employee){
-        System.out.println(multipartFile[0]);
         return userService.saveUser(multipartFile == null? null :multipartFile[0], employee);
     }
 
@@ -66,15 +65,22 @@ public class UserController {
 //            @RequestParam Map<String, Object> allParameters) throws JsonProcessingException {
         //System.out.println(multipartFile[0]);
 //        if(multipartFile.length == 0)
-        System.out.println("userfile enter!!");
-        if(multipartFile == null){
-            System.out.println("empty multipart");
-        }
+//        System.out.println("userfile enter!!");
+//        if(multipartFile == null){
+//            System.out.println("empty multipart");
+//        }
 //        System.out.println(employee);
 
-        System.out.println(employee.getUserId());
-        System.out.println(employee.getNo());
+//        System.out.println(employee.getUserId());
+//        System.out.println(employee.getNo());
 
         return userService.fileUpload(multipartFile == null? null :multipartFile[0], employee);
+    }
+
+    @PostMapping("/admin/userdelete")
+    public ResponseEntity<Message> userDelete(@RequestBody EmployeeManagementDto body){
+        System.out.println("delete " +body.getNo());
+
+        return userService.deleteUser(body.getNo());
     }
 }
