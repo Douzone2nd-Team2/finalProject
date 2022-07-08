@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -97,7 +98,6 @@ public class ResourceService {
             return new JsonResponse().send(400, message);
 
         }
-        System.out.println("ㅎㅇ");
         Message message = Message.builder()
                 .resCode(3000)
                 .message("성공: resourceNo에 따른 자원 성공")
@@ -108,17 +108,34 @@ public class ResourceService {
 
     @Transactional
     public ResponseEntity<Message> getBookmark() {
-        List<BookmarkResAdminDto> bookmarkList = bookmarkRepository.findAll().stream().map(bookmark -> {
-            return BookmarkResAdminDto.builder().bookmarkNo(bookmark.getBookmarkNo()).resourceNo(bookmark.getResourceNo()).userNo(bookmark.getUserNo()).build();
-        }).collect(Collectors.toList());
-        String msg = "";
+//        List<BookmarkResAdminDto> bookmarkList = bookmarkRepository.findAll().stream().map(bookmark -> {
+//            return BookmarkResAdminDto.builder().bookmarkNo(bookmark.getBookmarkNo()).resourceNo(bookmark.getResourceNo()).userNo(bookmark.getUserNo()).build();
+//        }).collect(Collectors.toList());
+//        String msg = "";
+//
+//        if (bookmarkList == null) {
+//            msg = "실패 : 북마크 조회 실패";
+//            return new JsonResponse().send(400, Message.of(bookmarkList, msg));
+//        }
+//        msg = "성공 : 북마크 조회 성공";
+//        return new JsonResponse().send(200, Message.of(bookmarkList, msg));
+        List<IResourceAdminDto> bookmarkList = bookmarkRepository.findBookmark();
+        System.out.println(bookmarkList);
+        if (bookmarkList.isEmpty()) {
+            Message message = Message.builder()
+                    .resCode(3001)
+                    .message("실패: 북마크조회 실패")
+                    .build();
+            return new JsonResponse().send(400, message);
 
-        if (bookmarkList == null) {
-            msg = "실패 : 북마크 조회 실패";
-            return new JsonResponse().send(400, Message.of(bookmarkList, msg));
         }
-        msg = "성공 : 북마크 조회 성공";
-        return new JsonResponse().send(200, Message.of(bookmarkList, msg));
+
+        Message message = Message.builder()
+                .resCode(3000)
+                .message("성공: 북마크 잘됨")
+                .data(bookmarkList)
+                .build();
+        return new JsonResponse().send(200, message);
     }
 
     @Transactional
@@ -201,10 +218,146 @@ public class ResourceService {
     }
 
     @Transactional
-    public ResponseEntity<Message> fileupload(List<MultipartFile> multipartFile,String able, Long resourceNo) {
+    public ResponseEntity<Message> fileupload(List<MultipartFile> multipartFile, ResourceAdminDto resource) {
+        try {
+            System.out.println(multipartFile);
+
+            List<Resourcefile> resourcefileList = new ArrayList<>();
+            //System.out.println(multipartFile.size());
+            if(multipartFile != null) {
+                for (int i = 0; i < multipartFile.size(); i++) {
+                    String[] awsUrl = s3Uploader.uploadFiles(multipartFile.get(i), "static");
+                    System.out.println(i + 1 + " : " + awsUrl[0]);
+                    System.out.println(i + 1 + " : " + awsUrl[1]);
+
+                    Resourcefile file = resourcefileRepository.save(
+                            Resourcefile.builder()
+                                    .able(resource.getAble())
+                                    .resourceNo(resource.getResourceNo())
+                                    .type(multipartFile.get(i).getContentType())
+                                    .imageSize(String.valueOf(multipartFile.get(i).getSize()))
+                                    .path(awsUrl[0])
+                                    .imageName(awsUrl[1])
+                                    .build()
+                    );
+                    resourcefileList.add(file);
+                }
+            }
+            Message message = Message.builder()
+                    .resCode(3000)
+                    .message("성공: 자원 파일 등록 성공")
+                    .data(resourcefileList)
+                    .build();
+            return new JsonResponse().send(200, message);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Message message = Message.builder()
+                .resCode(3001)
+                .message("실패: 자원 파일 등록 실패")
+
+                .build();
+        return new JsonResponse().send(200, message);
+    }
+/*
+    @Transactional
+    public ResponseEntity<Message> fileupload(List<MultipartFile> multipartFile, ResourceAdminDto resource) throws IOException {
+        try {
+            System.out.println(multipartFile +" "+ resource.getResourceNo() + " " + resource.getAble());
+
+            List<Resourcefile> resourcefileList = new ArrayList<>();
+            //System.out.println(multipartFile.size());
+            if(multipartFile != null) {
+                for (int i = 0; i < multipartFile.size(); i++) {
+                    String[] awsUrl = s3Uploader.uploadFiles(multipartFile.get(i), "static");
+                    System.out.println(i + 1 + " : " + awsUrl[0]);
+                    System.out.println(i + 1 + " : " + awsUrl[1]);
+//                    System.out.println(resourceNo);
+                    Resourcefile file = resourcefileRepository.save(
+                            Resourcefile.builder()
+//                                    .able(resource.getAble())
+//                                    .resourceNo(resource.getResourceNo())
+                                    .type(multipartFile.get(i).getContentType())
+                                    .imageSize(String.valueOf(multipartFile.get(i).getSize()))
+                                    .path(awsUrl[0])
+                                    .imageName(awsUrl[1])
+                                    .build()
+                    );
+                    resourcefileList.add(file);
+                }
+            }
+            Message message = Message.builder()
+                    .resCode(3000)
+                    .message("성공: 자원 파일 등록 성공")
+                    .data(resourcefileList)
+                    .build();
+            return new JsonResponse().send(200, message);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Message message = Message.builder()
+                .resCode(3001)
+                .message("실패: 자원 파일 등록 실패")
+
+                .build();
+        return new JsonResponse().send(200, message);
+    }
+*/
+    @Transactional
+    public ResponseEntity<Message> resourceUpdate(HttpServletRequest req, Long resourceNo, Resource resource) {
+        Resource updateResource = resourceRepository.findByResourceNo(resourceNo);
+
+        if (updateResource != null) {
+            updateResource.update(resource.getCateNo(), resource.getAble(), resource.getResourceName(), resource.getLocation(), resource.getPeople(),
+                    resource.getAvailableTime(), resource.getAdminNo(), resource.getOption(), resource.getFuel(), resource.getContent());
+
+
+            Message message = Message.builder()
+                    .resCode(3000)
+                    .message("성공: 자원 수정 성공")
+                    .data(updateResource)
+                    .build();
+            return new JsonResponse().send(200, message);
+        }
+        Message message = Message.builder()
+                .resCode(3001)
+                .message("실패: 자원수정 실패")
+                .build();
+
+        return new JsonResponse().send(200, message);
+    }
+
+    @Transactional
+    public ResponseEntity<Message> fileUpdate(List<MultipartFile> multipartFile,String able, Long resourceNo) {
         try {
             List<Resourcefile> resourcefileList = new ArrayList<>();
 
+            //resourcefile에서 resourceno 가진거 delete 동시에 s3에서 delete
+            //        -> insert 같은 resourceno로 넣고 s3 insert
+
+            //delelte
+            List<Resourcefile> delresourcefile = resourcefileRepository.findByResource_ResourceNo(resourceNo);
+
+            if (resourceNo != null && delresourcefile != null) {
+                List<Long> delIdList = resourcefileRepository.findByResource_ResourceNo(resourceNo).stream()
+                        .map(resourcefile -> {
+                            return resourcefile.getImageNo();
+                        }).collect(Collectors.toList());
+
+                delIdList.stream().map(
+                        id -> {
+                            String imageName = resourcefileRepository.findByImageNo(id).getImageName();
+                            s3Uploader.remove(imageName);
+                            resourcefileRepository.deleteById(id);
+                            System.out.println(id);
+                            return id;
+                        }
+                ).collect(Collectors.toList());
+            }
+
+            //insert
             for (int i = 0; i < multipartFile.size(); i++) {
                 String[] awsUrl = s3Uploader.uploadFiles(multipartFile.get(i), "static");
                 System.out.println(i + 1 + " : " + awsUrl[0]);
@@ -240,110 +393,30 @@ public class ResourceService {
         return new JsonResponse().send(200, message);
     }
 
-    @Transactional
-    public ResponseEntity<Message> resourceUpdate(HttpServletRequest req, Long resourceNo, Resource resource) {
-        Resource updateResource = resourceRepository.findByResourceNo(resourceNo);
-
-        if (updateResource != null) {
-            updateResource.update(resource.getCateNo(), resource.getAble(), resource.getResourceName(), resource.getLocation(), resource.getPeople(),
-                    resource.getAvailableTime(), resource.getAdminNo(), resource.getOption(), resource.getFuel(), resource.getContent());
-
-
-            Message message = Message.builder()
-                    .resCode(3000)
-                    .message("성공: 자원 수정 성공")
-                    .data(updateResource)
-                    .build();
-            return new JsonResponse().send(200, message);
-        }
-        Message message = Message.builder()
-                .resCode(3001)
-                .message("실패: 자원수정 실패")
-                .build();
-
-        return new JsonResponse().send(200, message);
-    }
-
-    @Transactional
-    public ResponseEntity<Message> fileUpdate(List<MultipartFile> multipartFile, Long resourceNo) {
-        try {
-            List<Resourcefile> resourcefileList = new ArrayList<>();
-
-            //resourcefile에서 resourceno 가진거 delete 동시에 s3에서 delete
-            //        -> insert 같은 resourceno로 넣고 s3 insert
-
-            //delelte
-            List<Resourcefile> delresourcefile = resourcefileRepository.findByResource_ResourceNo(resourceNo);
-
-            if (resourceNo != null && delresourcefile != null) {
-                List<Long> delIdList = resourcefileRepository.findByResource_ResourceNo(resourceNo).stream()
-                        .map(resourcefile -> {
-                            return resourcefile.getImageNo();
-                        }).collect(Collectors.toList());
-
-                delIdList.stream().map(
-                        id -> {
-                            String imageName = resourcefileRepository.findByImageNo(id).getImageName();
-                            s3Uploader.remove(imageName);
-                            resourcefileRepository.deleteById(id);
-                            System.out.println(id);
-                            return id;
-                        }
-                ).collect(Collectors.toList());
-            }
-
-            //insert
-            for (int i = 0; i < multipartFile.size(); i++) {
-                String[] awsUrl = s3Uploader.uploadFiles(multipartFile.get(i), "static");
-                System.out.println(i + 1 + " : " + awsUrl[0]);
-                System.out.println(i + 1 + " : " + awsUrl[1]);
-
-                Resourcefile file = resourcefileRepository.save(
-                        Resourcefile.builder()
-//                                .able(able)
-                                .resourceNo(Long.valueOf(resourceNo))
-                                .type(multipartFile.get(i).getContentType())
-                                .imageSize(String.valueOf(multipartFile.get(i).getSize()))
-                                .path(awsUrl[0])
-                                .imageName(awsUrl[1])
-                                .build()
-                );
-                resourcefileList.add(file);
-            }
-            Message message = Message.builder()
-                    .resCode(3000)
-                    .message("성공: 자원 파일 등록 성공")
-                    .data(resourcefileList)
-                    .build();
-            return new JsonResponse().send(200, message);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Message message = Message.builder()
-                .resCode(3001)
-                .message("실패: 자원 파일 등록 실패")
-
-                .build();
-        return new JsonResponse().send(200, message);
-    }
-
 
 
     @Transactional
     public ResponseEntity<Message> delresourceList(Long resourceNo) {
+        System.out.println("resourceNo: "+resourceNo);
         Resource delresourse = resourceRepository.findByResourceNo(resourceNo);
+        System.out.println("del"+ delresourse);
         List<Resourcefile> delresourcefile = resourcefileRepository.findByResource_ResourceNo(resourceNo);
+        System.out.println("delresourcefile" + delresourcefile);
 
         if (delresourse != null && delresourcefile != null) {
             List<Long> delIdList = resourcefileRepository.findByResource_ResourceNo(resourceNo).stream()
                     .map(resourcefile -> {
                         return resourcefile.getImageNo();
                     }).collect(Collectors.toList());
+            for (int i=0;i<delIdList.size();i++){
+                System.out.println(delIdList.get(i));
+            }
+
 
             delIdList.stream().map(
                     id -> {
                         String imageName = resourcefileRepository.findByImageNo(id).getImageName();
+//                        System.out.println(imgaeName);
                         s3Uploader.remove(imageName);
                         resourcefileRepository.deleteById(id);
                         System.out.println(id);
