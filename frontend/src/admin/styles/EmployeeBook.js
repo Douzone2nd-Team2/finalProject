@@ -1,44 +1,32 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-  /* width: 80%;
-  margin: auto; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   width: 80%;
   margin: auto;
+  font-family: 'NanumGothic';
 
   table {
     width: 80%;
     margin-top: 30px;
-    //margin-left: 100px;
     margin-left: 10%;
     margin-right: 15%;
     th {
       background-color: lightgray;
       width: 200px;
+      text-align: center;
     }
-    /* th:nth-child(2) {
-    }
-    th:nth-child(3) {
-      width: 200px;
-    } */
+
     td {
       border-bottom: 1px solid black;
+      text-align: center;
     }
   }
 `;
 
 const HeadContainer = styled.div`
-  /* display: flex;
-  justify-content: space-between;
-  border-bottom: 4px solid black;
-  padding-top: 10px;
-  Button {
-    margin-top: 55px;
-    height: 50px;
-  } */
   font-size: 30px;
   font-weight: 600;
   padding-top: 70px;

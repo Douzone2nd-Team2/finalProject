@@ -33,7 +33,7 @@ const PrevBook = ({ userNo }) => {
 
   return (
     <Container>
-      <TitleContainer>현재 예약 내역</TitleContainer>
+      <TitleContainer>지난 예약 내역</TitleContainer>
       <TableContainer>
         <table className="tableHead">
           <tr>
@@ -60,9 +60,7 @@ const PrevBook = ({ userNo }) => {
             ))
           ) : (
             <tr>
-              <td colSpan={4} className="noData">
-                예약 내역이 없습니다...
-              </td>
+              <td colSpan={4}>예약 내역이 없습니다...</td>
             </tr>
           )}
         </table>
