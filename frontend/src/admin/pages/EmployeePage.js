@@ -6,6 +6,7 @@ import { getCookie } from '../utils/cookie';
 
 import Modal from '../components/Employee/PasswordModal';
 import {
+  FlexContainer,
   Container,
   HeadContainer,
   TitleContainer,
@@ -14,6 +15,7 @@ import {
   ContentContainer,
   ContentSort,
   ButtonContainer,
+  SelectDiv,
 } from '../styles/User';
 import Button from 'react-bootstrap/Button';
 
@@ -114,8 +116,6 @@ const EmployeePage = () => {
   }, []);
 
   const handleChangeFile = (event) => {
-    console.log(event.target.files);
-
     const reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
     new Promise((reslove) => {
@@ -125,7 +125,6 @@ const EmployeePage = () => {
     });
 
     setImageUrl(event.target.files[0].name);
-
     setImgFile(event.target.files);
     setImgBase64([]);
 
@@ -174,7 +173,7 @@ const EmployeePage = () => {
     );
 
     axios
-      .post(`${process.env.REACT_APP_SERVER_PORT}/admin/userfile`, fd, {
+      .post(`${process.env.REACT_APP_SERVER_PORT}/admin/usermodify`, fd, {
         headers: {
           Authorization: getCookie('accessToken'),
           'Content-Type': `multipart/form-data;`,
@@ -203,12 +202,10 @@ const EmployeePage = () => {
   };
 
   return (
-    <>
-      <Container>
-        <HeadContainer>
-          <TitleContainer>사용자관리</TitleContainer>
-        </HeadContainer>
-      </Container>
+    <FlexContainer>
+      <HeadContainer>
+        <TitleContainer>사용자관리</TitleContainer>
+      </HeadContainer>
       <UserContainer>
         <ContentContainer>
           <form>
@@ -276,36 +273,40 @@ const EmployeePage = () => {
             </ContentSort>
             <ContentSort>
               <label htmlFor="dept">부서</label>
-              <select name="dept" id="dept" onChange={handleDept}>
-                <option value="1" selected={deptNo === 1}>
-                  {' '}
-                  영업
-                </option>
-                <option value="3" selected={deptNo === 3}>
-                  {' '}
-                  인사
-                </option>
-                <option value="4" selected={deptNo === 4}>
-                  {' '}
-                  개발
-                </option>
-              </select>
+              <SelectDiv>
+                <select name="dept" id="dept" onChange={handleDept}>
+                  <option value="1" selected={deptNo === 1}>
+                    {' '}
+                    영업
+                  </option>
+                  <option value="3" selected={deptNo === 3}>
+                    {' '}
+                    인사
+                  </option>
+                  <option value="4" selected={deptNo === 4}>
+                    {' '}
+                    개발
+                  </option>
+                </select>
+              </SelectDiv>
 
               <label htmlFor="grade">직급</label>
-              <select name="grade" id="grade" onChange={handleGrade}>
-                <option value="1" selected={gradeNo === 1}>
-                  {' '}
-                  사원
-                </option>
-                <option value="2" selected={gradeNo === 2}>
-                  {' '}
-                  대리
-                </option>
-                <option value="3" selected={gradeNo === 3}>
-                  {' '}
-                  팀장
-                </option>
-              </select>
+              <SelectDiv>
+                <select name="grade" id="grade" onChange={handleGrade}>
+                  <option value="1" selected={gradeNo === 1}>
+                    {' '}
+                    사원
+                  </option>
+                  <option value="2" selected={gradeNo === 2}>
+                    {' '}
+                    대리
+                  </option>
+                  <option value="3" selected={gradeNo === 3}>
+                    {' '}
+                    팀장
+                  </option>
+                </select>
+              </SelectDiv>
             </ContentSort>
             <ContentSort>
               <label htmlFor="birth">생일</label>
@@ -351,7 +352,7 @@ const EmployeePage = () => {
         userNo={state}
         header="비밀번호 변경"
       ></Modal>
-    </>
+    </FlexContainer>
   );
 };
 

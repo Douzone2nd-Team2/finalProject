@@ -69,8 +69,11 @@ const ResourceItem = (props) => {
           resourceNo: resourceNo,
         }}
       > */}
-      <Card>
-        <Card.Img style={{ width: 'auto', height: '150px' }} src={path} />
+      <Card style={{ height: '240px' }}>
+        <Card.Img
+          style={{ width: '100%', height: '150px', borderBottom: '1px solid' }}
+          src={path}
+        />
         <Card.Body>
           <ResourceCardTitle>
             {resourceNo}. {resourceName}

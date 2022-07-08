@@ -1,37 +1,38 @@
 import styled from 'styled-components';
 
-const Container = styled.div`
-  width: 85%;
-  margin: auto;
+const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 0px 72px;
 `;
 
+const Container = styled.div``;
+
 const HeadContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  width: 100%;
   border-bottom: 4px solid black;
-  padding-top: 10px;
-  margin-left: 3%;
+  padding-top: 30px;
   Button {
-    margin-top: 55px;
     height: 50px;
   }
 `;
 
 const TitleContainer = styled.div`
-  margin-top: 67px;
   font-size: 30px;
   font-weight: 600;
-  margin-left: 100px;
 `;
 
 const UserContainer = styled.div`
-  width: 75%;
-  margin-left: 15%;
-  margin-top: 30px;
+  display: flex;
+  margin: 36px 24px;
+  width: 860px;
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;
   font-family: NanumGothicBold;
+  padding: 24px 36px;
 `;
 
 const NameContainer = styled.h1`
@@ -47,14 +48,16 @@ const ContentContainer = styled.div`
   padding-bottom: 20px;
   font-size: 20px;
   font-weight: 800;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ImageContainer = styled.div`
   padding: 30px 10px 10px 10px;
   display: flex;
   label {
-    position: relative;
-    margin-left: 10%;
+    /* position: relative;
+    margin-left: 10%; */
     min-width: 150px;
     vertical-align: top;
     /* margin-top: 2%; */
@@ -66,10 +69,13 @@ const ImageContainer = styled.div`
   }
   .fileInput {
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
   }
   input {
-    vertical-align: bottom;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     padding-left: 20px;
   }
 `;
@@ -79,19 +85,30 @@ const ContentSort = styled.div`
   display: flex;
   justify-content: flex-start;
   label {
-    margin-left: 10%;
     min-width: 150px;
+    padding-left: 10px;
   }
   input {
-    margin-left: 1%;
+    margin-left: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid #717171;
   }
   select {
-    margin-left: 1%;
     min-width: 230px;
+    border: none;
   }
   button {
-    margin-left: 1%;
+    margin-left: 10px;
   }
+`;
+
+const SelectDiv = styled.div`
+  margin-left: 10px;
+  padding: 3px 0px 3px 8px;
+  border-radius: 4px;
+  border: 1px solid #717171;
+  background-color: white;
 `;
 
 const ButtonContainer = styled.div`
@@ -105,6 +122,7 @@ const ButtonContainer = styled.div`
 `;
 
 export {
+  FlexContainer,
   Container,
   HeadContainer,
   TitleContainer,
@@ -114,4 +132,5 @@ export {
   ContentContainer,
   ContentSort,
   ButtonContainer,
+  SelectDiv,
 };
