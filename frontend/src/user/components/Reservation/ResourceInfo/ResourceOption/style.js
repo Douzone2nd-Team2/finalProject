@@ -9,7 +9,6 @@ const OptionComponent = styled.div`
 
 const IconInfo = styled.div`
   box-sizing: border-box;
-  background-color: green;
 `;
 
 const Icon = styled.div`
@@ -22,7 +21,7 @@ const Icon = styled.div`
 const OptionInfo = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   margin: 0px 0px 0px 16px;
 `;
 
@@ -31,7 +30,7 @@ const OptionTitle = styled.div`
   font-size: 16px;
   line-height: 30px;
   margin: 0px 0px 4px;
-  color: #222222;
+  color: #434343;
 `;
 
 const OptionDetail = styled.div`

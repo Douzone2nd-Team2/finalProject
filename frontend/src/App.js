@@ -13,7 +13,7 @@ import Main from './user/pages/main';
 import Reset from './user/pages/Reset';
 import MyInfo from './user/pages/MyInfo';
 import Search from './user/pages/search';
-import Reservation from './user/pages/Reservation';
+import Reserve from './user/pages/Reserve';
 
 import AdminPrivateRoute from './admin/components/AdminLayout';
 import AdminMain from './admin/pages/AdminMain';
@@ -29,6 +29,7 @@ import ResourceList from './admin/pages/ResourceList';
 import UserBook from './admin/pages/UserBook';
 import UserBookhandle from './admin/pages/UserBookhandle';
 import Employee from './admin/components/Employee/Employee';
+import MyReservation from './user/pages/MyReservation';
 
 const App = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -72,8 +73,9 @@ const App = () => {
           <Route path="main" element={<Main />} />
           <Route path="mypage/changepw" element={<Reset />} />
           <Route path="mypage/user" element={<MyInfo />} />
+          <Route path="mypage/reservation" element={<MyReservation />} />
           <Route path="search" element={<Search />} />
-          <Route path="reserve" element={<Reservation />} />
+          <Route path="reserve" element={<Reserve />} />
         </Route>
         <Route path="/admin/login" element={<AdminLoginPage />} />
         <Route element={<AdminPrivateRoute />}>

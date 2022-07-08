@@ -6,8 +6,11 @@ import com.team2.backend.domain.resource.PeopleCnt;
 import com.team2.backend.domain.resource.PeopleCntRepository;
 import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.resource.ResourceRepository;
+import com.team2.backend.domain.user.EmployeeQuerydslRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
+import com.team2.backend.web.dto.admin.EmployeeManagementDto;
+import com.team2.backend.web.dto.user.SearchPeopleDto;
 import com.team2.backend.web.dto.user.UserReservationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +36,7 @@ public class ReserveService {
     private final ReservationRepository reservationRepository;
     private final PeopleCntRepository peopleCntRepository;
     private final ResourceRepository resourceRepository;
+    private final EmployeeQuerydslRepository employeeQuerydslRepository;
     private final ReservationCheckRepository reservationCheckRepository;
     private final TimelistRepository timelistRepository;
 
@@ -159,6 +163,37 @@ public class ReserveService {
             return true;
         }
 
+    }
+
+    @Transactional
+    public ResponseEntity<Message> searchPeople(SearchPeopleDto body) {
+        String keyword = body.getKeyword();
+        List<EmployeeManagementDto> peopleList = null;
+        try {
+            peopleList = employeeQuerydslRepository.searchPeople(keyword);
+        } catch(Exception e) {
+            e.printStackTrace();
+            Message message = Message.builder()
+                    .resCode(4001)
+                    .message("[Fail] 검색 실패")
+                    .build();
+            return new JsonResponse().send(400, message);
+        }
+
+        if (peopleList.isEmpty()) {
+            Message message = Message.builder()
+                    .resCode(4000)
+                    .message("[SUCCESS] 빈 결과")
+                    .build();
+            return new JsonResponse().send(200, message);
+        }
+
+        Message message = Message.builder()
+                .resCode(4000)
+                .message("[SUCCESS] 검색 성공")
+                .data(peopleList)
+                .build();
+        return new JsonResponse().send(200, message);
     }
 
 }
