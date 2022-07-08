@@ -10,6 +10,6 @@ public interface EmployeeQuerydslRepository {
     //관리자 - 사용자 상세 조회
     List<EmployeeManagementDto> getEmployeeView(String userNo);
     List<EmployeeManagementDto> getMainEmployee(String userId);
-
     void changePw(Long userNo, String password);
+    List<EmployeeManagementDto> searchPeople(String keyword);
 }
