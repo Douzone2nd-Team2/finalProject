@@ -6,16 +6,28 @@ import {
   ResourceContainer,
   ResourceContainer2,
   ResourceCardUI,
+  ResourcePagenation,
+  SelectBoxDiv,
 } from '../styles/Resource.js';
 
+import Pagination from 'react-js-pagination';
+
+import { PaginationBox } from '../styles/Pagination';
 import ResourceInput from '../components/Resource/ResourceInput.js';
 import ResourceItem from '../components/Resource/ResourceItem';
+import { height } from '@mui/system';
 
 const ResourcePage = () => {
   const [resources, setResources] = useState([]);
-  console.log(resources);
+  // console.log(resources);
+  const [page, setPage] = useState(1);
+  const [items, setItems] = useState(12);
 
   const [selected, setSelected] = useState('');
+
+  const pageHandler = (pageNumber) => {
+    setPage(pageNumber);
+  };
 
   const handleChange = (e) => {
     setSelected(e.target.value);
@@ -71,13 +83,13 @@ const ResourcePage = () => {
   useEffect(() => {}, [ResourceInput, getAll]);
 
   return (
-    <>
-      <Container>
-        <ResourceContainer>
-          <ResourceInput getAll={getAll} />
-          자원목록
-        </ResourceContainer>
-        <ResourceContainer2>
+    <Container>
+      <ResourceContainer>
+        <ResourceInput getAll={getAll} />
+        자원목록
+      </ResourceContainer>
+      <ResourceContainer2>
+        <SelectBoxDiv>
           <select
             onChange={handleChange}
             value={selected}
@@ -89,18 +101,29 @@ const ResourcePage = () => {
             <option value="3">노트북</option>
             <option value="4">북마크</option>
           </select>
-          <ResourceCardUI>
-            <Row style={{ width: '1000px' }}>
-              {resources.map((resource, idx) => (
+        </SelectBoxDiv>
+        <ResourceCardUI>
+          <Row style={{ width: '100%' }}>
+            {resources
+              .slice(items * (page - 1), items * (page - 1) + items)
+              .map((resource, idx) => (
                 <Col sm={3} key={idx} style={{ marginTop: '30px' }}>
                   <ResourceItem resource={resource} />
                 </Col>
               ))}
-            </Row>
-          </ResourceCardUI>
-        </ResourceContainer2>
-      </Container>
-    </>
+          </Row>
+        </ResourceCardUI>
+        <PaginationBox>
+          <Pagination
+            activePage={page}
+            itemsCountPerPage={items}
+            totalItemsCount={resources.length}
+            pageRangeDisplayed={5}
+            onChange={pageHandler}
+          ></Pagination>
+        </PaginationBox>
+      </ResourceContainer2>
+    </Container>
   );
 };
 

@@ -8,6 +8,7 @@ import { PaginationBox } from '../styles/Pagination';
 import Employee from '../components/Employee/Employee';
 
 import {
+  FlexContainer,
   Container,
   HeadContainer,
   TitleContainer,
@@ -50,24 +51,18 @@ const AdminMain = () => {
   }, []);
 
   return (
-    <>
-      <Employee
-        empList={empList}
-        callback={setEmpList}
-        loading={loading}
-        page={page}
-        items={items}
-      ></Employee>
-      <PaginationBox>
-        <Pagination
-          activePage={page}
-          itemsCountPerPage={items}
-          totalItemsCount={empList.length}
-          pageRangeDisplayed={5}
-          onChange={pageHandler}
-        ></Pagination>
-      </PaginationBox>
-    </>
+    <Employee
+      empList={empList}
+      callback={setEmpList}
+      loading={loading}
+      page={page}
+      items={items}
+      activePage={page}
+      itemsCountPerPage={items}
+      totalItemsCount={empList.length}
+      pageRangeDisplayed={5}
+      onPageChange={pageHandler}
+    ></Employee>
   );
 };
 

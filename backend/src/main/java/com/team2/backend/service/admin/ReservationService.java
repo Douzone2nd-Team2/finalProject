@@ -390,4 +390,40 @@ public class ReservationService {
                 .build();
         return new JsonResponse().send(200, message);
     }
+
+    @Transactional
+    public ResponseEntity<Message> deleteReservation(Long reservNo){
+        try {
+            //checkno 찾기
+            List<ReservationCheck> reservationCheck = reservationCheckRepository.findAllByReservNo(reservNo);
+            List<Long> checkNoList = new ArrayList<>();
+
+            for (int i=0;i<reservationCheck.size();i++){
+                checkNoList.add(reservationCheck.get(i).getCheckNo());
+            }
+
+            for (int i=0;i<checkNoList.size();i++){
+                timelistRepository.deleteAllByCheckNo(checkNoList.get(i));
+            }
+
+            reservationCheckRepository.deleteAllByReservNo(reservNo);
+
+            peopleCntRepository.deleteByReservNo(reservNo);
+
+            reservationRepository.deleteByReservNo(reservNo);
+
+            Message message = Message.builder()
+                    .resCode(1000)
+                    .message("[Success] Delete Reservation")
+                    .build();
+            return new JsonResponse().send(200, message);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Message message = Message.builder()
+                .resCode(1001)
+                .message("[Fail] Delete Reservation")
+                .build();
+        return new JsonResponse().send(200, message);
+    }
 }

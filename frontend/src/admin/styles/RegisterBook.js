@@ -7,22 +7,26 @@ const AllContainer = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  width: 80%;
-  margin: auto;
+  width: 100%;
+  height: 100%;
+  padding: 0px 72px;
 `;
 
 const HeadContainer = styled.div`
   font-size: 30px;
   font-weight: 600;
-  padding-top: 70px;
+  padding-top: 30px;
   border-bottom: 4px solid black;
-  margin-left: 140px;
+`;
+
+const TitleContainer = styled.div`
+  /* margin-top: 67px; */
+  font-size: 30px;
+  font-weight: 600;
 `;
 
 const BookContainer = styled.div`
-  width: 800px;
-  margin-left: 140px;
+  width: 50%;
   margin-top: 30px;
   background-color: #f6f6f6;
   border-radius: 15px;
