@@ -97,7 +97,6 @@ public class ResourceService {
             return new JsonResponse().send(400, message);
 
         }
-        System.out.println("ㅎㅇ");
         Message message = Message.builder()
                 .resCode(3000)
                 .message("성공: resourceNo에 따른 자원 성공")
