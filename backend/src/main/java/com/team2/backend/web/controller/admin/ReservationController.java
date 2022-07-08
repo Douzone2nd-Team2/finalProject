@@ -57,4 +57,9 @@ public class ReservationController {
     public ResponseEntity<Message> reservationView(HttpServletRequest request, @RequestParam Long reservNo){
         return reservationService.reservationView(request, reservNo);
     }
+
+    @PostMapping("/admin/reservation/delete")
+    public ResponseEntity<Message> deleteReservation(@RequestBody ReservationManagementDto body){
+        return reservationService.deleteReservation(body.getReservNo());
+    }
 }

@@ -1,33 +1,30 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 80%;
+  width: 100%;
   margin: auto;
 `;
 
 const HeadContainer = styled.div`
+  padding-top: 30px;
+  padding-bottom: 12px;
   display: flex;
   justify-content: space-between;
   border-bottom: 4px solid black;
-  padding-top: 10px;
-  Button {
-    margin-top: 55px;
-    height: 50px;
-  }
 `;
 
 const TitleContainer = styled.div`
-  margin-top: 67px;
   font-size: 30px;
   font-weight: 600;
-  margin-left: 80px;
 `;
 
 const TableContainer = styled.div`
-  margin-left: 120px;
-  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 24px;
+
   table {
-    width: 90%;
+    width: 100%;
     border: none;
   }
   th {
@@ -42,4 +39,18 @@ const TableContainer = styled.div`
   }
 `;
 
-export { Container, HeadContainer, TitleContainer, TableContainer };
+const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 0px 72px;
+`;
+
+export {
+  FlexContainer,
+  Container,
+  HeadContainer,
+  TitleContainer,
+  TableContainer,
+};

@@ -67,8 +67,17 @@ const ResourceItem = (props) => {
         handleResourceView(resourceNo);
       }}
     >
-      <Card>
-        <Card.Img style={{ width: 'auto', height: '150px' }} src={path} />
+      {/* <Link
+        to="/admin/resourceupdate"
+        state={{
+          resourceNo: resourceNo,
+        }}
+      > */}
+      <Card style={{ height: '240px' }}>
+        <Card.Img
+          style={{ width: '100%', height: '150px', borderBottom: '1px solid' }}
+          src={path}
+        />
         <Card.Body>
           <ResourceCardTitle>
             {resourceNo}. {resourceName}

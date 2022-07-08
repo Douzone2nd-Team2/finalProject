@@ -105,13 +105,6 @@ const ResourceDetail = () => {
     }
   };
 
-  // const onChangeResource = (e) => {
-  //   // setUpdateresource({
-  //   //   ...updateresource,
-  //   //   [e.target.id]: e.target.value,
-  //   // });
-  // };
-
   useEffect(() => {
     getResourceNo(state);
   }, []);

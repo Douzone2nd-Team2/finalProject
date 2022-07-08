@@ -106,4 +106,30 @@ public class EmployeeQuerydslRepositoryImpl implements  EmployeeQuerydslReposito
                 .set(employee.password, password)
                 .execute();
     }
+//    select e.no, e.name, e.deptno, e.gradeno, d.deptname, g.gradename from employee e
+//    right outer join department d on e.deptno = d.deptno
+//    right outer join grade g on e.gradeno = g.gradeno
+//    where e.name like '%:keyword%' or d.deptname like '%:keyword%' or g.gradename like '%:keyword%';
+//
+
+
+    @Override
+    public List<EmployeeManagementDto> searchPeople(String keyword){
+        return (List<EmployeeManagementDto>) jpaQueryFactory
+                .select(new QEmployeeManagementDto(
+                        employee.no,
+                        employee.name,
+                        employee.empNo,
+                        department.deptName,
+                        grade.gradeName
+                ))
+                .from(employee)
+                .join(employee.dept, department)
+                .join(employee.grade, grade)
+                .where(employee.name.contains(keyword)
+                        .or(employee.empNo.contains(keyword))
+                        .or(department.deptName.contains(keyword))
+                        .or(grade.gradeName.contains(keyword)))
+                .fetch();
+    }
 }

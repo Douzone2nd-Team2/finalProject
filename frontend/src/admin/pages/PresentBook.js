@@ -33,7 +33,7 @@ const PresentBook = ({ userNo }) => {
 
   return (
     <Container>
-      <TitleContainer>지난 예약 내역</TitleContainer>
+      <TitleContainer>현재 예약 내역</TitleContainer>
       <TableContainer>
         <table>
           <tr>

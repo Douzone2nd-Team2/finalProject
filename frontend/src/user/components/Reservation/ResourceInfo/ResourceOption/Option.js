@@ -1,3 +1,8 @@
+import { React, useState, useEffect } from 'react';
+
+import VoiceChatIcon from '@material-ui/icons/VoiceChat';
+import NavigationIcon from '@material-ui/icons/Navigation';
+
 import {
   OptionComponent,
   IconInfo,
@@ -7,15 +12,28 @@ import {
   OptionDetail,
 } from './style.js';
 
-const Option = () => {
+const Option = (props) => {
+  const [value, setValue] = useState('');
+
+  useEffect(() => {
+    setValue(props.value);
+  }, []);
+
   return (
     <OptionComponent>
       <IconInfo>
-        <Icon></Icon>
+        {value &&
+          (value === '빔프로젝터' ? (
+            <VoiceChatIcon></VoiceChatIcon>
+          ) : value === '네비게이션' ? (
+            <NavigationIcon></NavigationIcon>
+          ) : (
+            <Icon></Icon>
+          ))}
       </IconInfo>
       <OptionInfo>
-        <OptionTitle>이-름</OptionTitle>
-        <OptionDetail>내-용</OptionDetail>
+        <OptionTitle>{value}</OptionTitle>
+        <OptionDetail></OptionDetail>
       </OptionInfo>
     </OptionComponent>
   );

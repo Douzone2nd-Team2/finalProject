@@ -7,12 +7,13 @@ const TitleContainer = styled.h2`
   margin-left: 200px;
   margin-top: 50px;
   font-weight: 500;
+  font-size: 25px;
 `;
 
 const TableContainer = styled.div`
   margin-left: 170px;
   margin-top: 30px;
-  width: 480px;
+  width: 450px;
   font-size: 13px;
 
   th {
@@ -33,6 +34,10 @@ const TableContainer = styled.div`
   .noData {
     width: 400px;
     font-size: 15px;
+  }
+
+  td {
+    text-align: center;
   }
 `;
 

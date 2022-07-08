@@ -1,36 +1,36 @@
 import styled from 'styled-components';
 
+const AllContainer = styled.div`
+  font-family: NanumGothicBold;
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  width: 80%;
-  margin: auto;
+  width: 100%;
+  height: 100%;
+  padding: 0px 72px;
 `;
 
 const HeadContainer = styled.div`
   font-size: 30px;
   font-weight: 600;
-  padding-top: 70px;
+  padding-top: 30px;
   border-bottom: 4px solid black;
-  margin-left: 140px;
 `;
 
 const TitleContainer = styled.div`
   /* margin-top: 67px; */
   font-size: 30px;
   font-weight: 600;
-  margin-left: 100px;
 `;
 
 const BookContainer = styled.div`
   width: 50%;
-  margin-left: 140px;
   margin-top: 30px;
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;
-  font-family: NanumGothicBold;
 `;
 
 const NameContainer = styled.h1`
@@ -72,9 +72,9 @@ const MagnifyingGlass = styled.div`
 `;
 
 export {
+  AllContainer,
   Container,
   HeadContainer,
-  TitleContainer,
   BookContainer,
   NameContainer,
   ContentContainer,

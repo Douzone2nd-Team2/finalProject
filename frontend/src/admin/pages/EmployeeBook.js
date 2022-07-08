@@ -4,7 +4,11 @@ import axios from 'axios';
 
 import { getCookie } from '../utils/cookie';
 
-import { Container, HeadContainer } from '../styles/EmployeeBook';
+import {
+  Container,
+  HeadContainer,
+  TableContainer,
+} from '../styles/EmployeeBook';
 
 const EmployeeBook = () => {
   const [userInfo, setUserInfo] = useState([]);
@@ -33,12 +37,12 @@ const EmployeeBook = () => {
   console.log(userInfo);
 
   return (
-    <>
-      <Container>
-        <HeadContainer>
-          예약관리 <span className="fa-solid fa-arrow-right-long" /> 사용자별
-          예약관리
-        </HeadContainer>
+    <Container>
+      <HeadContainer>
+        예약관리 <span className="fa-solid fa-arrow-right-long" /> 사용자별
+        예약관리
+      </HeadContainer>
+      <TableContainer>
         <table>
           <tr>
             <th>NO.</th>
@@ -72,8 +76,8 @@ const EmployeeBook = () => {
               </tr>
             ))}
         </table>
-      </Container>
-    </>
+      </TableContainer>
+    </Container>
   );
 };
 

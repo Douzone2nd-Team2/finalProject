@@ -3,6 +3,7 @@ package com.team2.backend.web.controller.user;
 import com.team2.backend.config.security.auth.EmployeeDetails;
 import com.team2.backend.service.user.ReserveService;
 import com.team2.backend.web.dto.Message;
+import com.team2.backend.web.dto.user.SearchPeopleDto;
 import com.team2.backend.web.dto.user.UserReservationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,11 @@ public class ReserveController {
     @PostMapping("/updateit")
     public ResponseEntity<Message> updateReservation(@RequestBody UserReservationDto body) throws ParseException {
         return reserveService.updateReservation(body);
+    }
+
+    @PostMapping("/searchPeople")
+    public ResponseEntity<Message> searchPeople(@RequestBody SearchPeopleDto body) {
+        return reserveService.searchPeople(body);
     }
 
 }
