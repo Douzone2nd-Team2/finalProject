@@ -1,24 +1,34 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { getCookie } from '../../utils/cookie';
 
 import axios from 'axios';
 
 import { Button, Form, Modal, Row, Col } from 'react-bootstrap';
 
-import ResourceFileUploadTest from './ResourceFileUploadTest';
+const ResourceInput = ({ getAll, num }) => {
+  const [imgFile, setImgFile] = useState([]);
+  const [formData, setFormData] = useState(new FormData());
 
-const ResourceInput = ({ getAll }) => {
   const [show, setShow] = useState(false);
 
   const [resourceName, setResourceName] = useState('');
   const [location, setLocation] = useState('');
   const [people, setPeople] = useState('');
+
   const [time, setTime] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+  const [hour, setHour] = useState('');
+  const [minute, setMinute] = useState('');
+
+  const [Etime, setEtime] = useState('');
+  const [Ehour, setEhour] = useState('');
+  const [Eminute, setEminute] = useState('');
+
   const [option, setOption] = useState('');
   const [fuel, setFuel] = useState('');
   const [content, setContent] = useState('');
   const [able, setAble] = useState('');
+
+  const [resourceNo, setResourceNo] = useState();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -42,15 +52,32 @@ const ResourceInput = ({ getAll }) => {
   const handleAble = (e) => {
     setAble(e.target.value);
   };
-  const handleStartTime = (e) => {
-    setStartTime(e.target.value);
-  };
-  const handleEndTime = (e) => {
-    setEndTime(e.target.value);
-  };
-  const handleTime = (e) => {
+
+  //시작시간
+  const ShandleTime = (e) => {
     setTime(e.target.value);
+    console.log(time);
   };
+  const ShandleHourTime = (e) => {
+    setHour(e.target.value);
+    console.log(hour);
+  };
+  const ShandleMinuteTime = (e) => {
+    setMinute(e.target.value);
+    console.log(minute);
+  };
+
+  //종료시간
+  const EhandleTime = (e) => {
+    setEtime(e.target.value);
+  };
+  const EhandleHourTime = (e) => {
+    setEhour(e.target.value);
+  };
+  const EhandleMinuteTime = (e) => {
+    setEminute(e.target.value);
+  };
+
   const handleOption = (e) => {
     setOption(e.target.value);
   };
@@ -61,25 +88,28 @@ const ResourceInput = ({ getAll }) => {
     setContent(e.target.value);
   };
 
-  const postTest = async () => {
+  const postTest1 = async () => {
     const resourceInsert = {
       cateNo: valued,
       resourceName: resourceName,
       people: people,
       location: location,
-      availableTime: time == null ? time : startTime + ' ~ ' + endTime,
+      availableTime:
+        time + hour + ':' + minute + ' ~ ' + Etime + Ehour + ':' + Eminute,
       option: option,
       fuel: fuel,
       content: content,
       able: able,
-      adminNo: 1,
     };
+
     axios
       .post(
         `${process.env.REACT_APP_SERVER_PORT}/resource/register`,
         resourceInsert,
       )
       .then((response) => {
+        console.log(response);
+        setResourceNo(response.data.data.resourceNo);
         alert('등록성공!');
       })
       .catch((error) => {
@@ -87,8 +117,64 @@ const ResourceInput = ({ getAll }) => {
       });
   };
 
-  const handleSubmit = (e) => {
-    postTest();
+  const postTest2 = async () => {
+    // console.log('postTest2');
+    // console.log(formData, num);
+    const result = await axios
+      .post(
+        `${process.env.REACT_APP_SERVER_PORT}/resource/fileupload`,
+        formData,
+        {
+          headers: {
+            Authorization: getCookie('accessToken'),
+            'Content-Type': 'multipart/form-data',
+            Accepd: '*/*',
+          },
+        },
+      )
+      .then((res) => console.log(res))
+      .catch((err) => {
+        return err;
+      });
+    console.log('result: ' + result);
+
+    return result;
+
+    // const fd = new FormData();
+
+    // if (imgFile != null) {
+    //   Object.values(imgFile).forEach((file) => fd.append('file', file));
+    //   console.log(imgFile.length);
+    // }
+
+    // const resource = {
+    //   resourceNo: num,
+    //   able: 'Y',
+    // };
+
+    // fd.append(
+    //   'resource',
+    //   new Blob([JSON.stringify(resource)], { type: 'application/json' }),
+    // );
+
+    // axios
+    //   .post(
+    //     `${process.env.REACT_APP_SERVER_PORT}/resource/fileupload`,
+    //     resource,
+    //     {
+    //       headers: {
+    //         Authorization: getCookie('accessToken'),
+    //         'Content-Type': `multipart/form-data;`,
+    //       },
+    //     },
+    //   )
+    //   .then((response) => {
+    //     console.log();
+    //     alert('파일업로드 성공');
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
 
   const exitModal = () => {
@@ -96,10 +182,16 @@ const ResourceInput = ({ getAll }) => {
   };
 
   const clickBtn = () => {
-    handleSubmit();
+    postTest1();
     exitModal();
     getAll();
   };
+
+  const handleChangeFile = useCallback((e) => {
+    setImgFile(e.target.files);
+    console.log(imgFile);
+    console.log('핸들체인지');
+  });
 
   useEffect(() => {
     if (valued === '') {
@@ -110,6 +202,22 @@ const ResourceInput = ({ getAll }) => {
       console.log('valued is not empty');
     }
   }, []);
+
+  useEffect(() => {
+    console.log('들어오니>');
+    if (imgFile > 0) {
+      const d = new FormData();
+      for (let i = 0; i < imgFile.length; i++) {
+        d.append('image', imgFile[i]);
+      }
+
+      for (let values of d.values()) {
+        console.log(values); // 이미지 객체의 정보
+      }
+      setFormData(d);
+      console.log('이거간가능?');
+    }
+  }, [imgFile]);
 
   return (
     <>
@@ -122,7 +230,7 @@ const ResourceInput = ({ getAll }) => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="m-b-3">
+            <Form.Group className="mb-3">
               <Row>
                 <Col>
                   <Form.Label>카테고리</Form.Label>
@@ -138,6 +246,7 @@ const ResourceInput = ({ getAll }) => {
                     type="text"
                     value={resourceName}
                     onChange={handleResourceName}
+                    placeholder="resourceName"
                   />
                 </Col>
               </Row>
@@ -170,32 +279,98 @@ const ResourceInput = ({ getAll }) => {
             <Form.Group className="mb-3">
               <Form.Label>이용가능시간</Form.Label>
               <Row>
-                <Col>
-                  시작시간:
-                  <Form.Control
-                    type="time"
-                    id="startTime"
-                    value={startTime}
-                    onChange={handleStartTime}
-                  />
-                </Col>
-                <Col>
-                  종료시간:
-                  <Form.Control
-                    type="time"
-                    id="endTime"
-                    value={endTime}
-                    onChange={handleEndTime}
-                  />
-                </Col>
-                <Col>
-                  Full-Time:
-                  <Form.Check
-                    type="radio"
-                    value="Full-time"
-                    onChange={handleTime}
-                  />
-                </Col>
+                <Row>
+                  <Col>시작시간:</Col>
+                  <Col>
+                    <Form.Select size="sm" onChange={ShandleTime} value={time}>
+                      <option value="AM">AM</option>
+                      <option value="PM">PM</option>
+                    </Form.Select>
+                  </Col>
+                  <Col>
+                    <Form.Select
+                      size="sm"
+                      onChange={ShandleHourTime}
+                      value={hour}
+                    >
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </Form.Select>
+                  </Col>
+                  :
+                  <Col>
+                    <Form.Select
+                      size="sm"
+                      onChange={ShandleMinuteTime}
+                      value={minute}
+                    >
+                      <option value="00">00</option>
+                      <option value="30">30</option>
+                    </Form.Select>
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col>종료시간:</Col>
+                  <Col>
+                    <Form.Select size="sm" onChange={EhandleTime} value={Etime}>
+                      <option value="AM">AM</option>
+                      <option value="PM">PM</option>
+                    </Form.Select>
+                  </Col>
+                  <Col>
+                    <Form.Select
+                      size="sm"
+                      onChange={EhandleHourTime}
+                      value={Ehour}
+                    >
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </Form.Select>
+                  </Col>
+                  :
+                  <Col>
+                    <Form.Select
+                      size="sm"
+                      onChange={EhandleMinuteTime}
+                      value={Eminute}
+                    >
+                      <option value="00">00</option>
+                      <option value="30">30</option>
+                    </Form.Select>
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col>Full-Time:</Col>
+                  <Col>
+                    <Form.Check
+                      type="radio"
+                      value="Full-time"
+                      // onChange={handleTime}
+                    />
+                  </Col>
+                </Row>
               </Row>
             </Form.Group>
             <Form.Group className="mb-3">
@@ -292,14 +467,29 @@ const ResourceInput = ({ getAll }) => {
             ) : (
               <></>
             )}
-            <ResourceFileUploadTest />
+            <input
+              type="file"
+              id="file"
+              multiple
+              name="image"
+              onChange={handleChangeFile}
+            />
+            <Button
+              variant="secondary"
+              onClick={(e) => {
+                postTest2();
+                e.preventDefault();
+              }}
+            >
+              파일확인
+            </Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose} ref={toggleModal}>
             Close
           </Button>
-          <Button variant="primary" type="submit" onClick={clickBtn}>
+          <Button variant="primary" type="submit" onClick={() => clickBtn()}>
             Save
           </Button>
         </Modal.Footer>

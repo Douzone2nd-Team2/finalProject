@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import axios from 'axios';
+import { getCookie } from '../../utils/cookie';
 import {
   ResourceCard,
   ResourceCardTitle,
@@ -32,11 +33,14 @@ const ResourceItem = (props) => {
   } = props.resource;
 
   const getResourceNo = async (resourceNo) => {
-    // console.log(resourceNo);
-    // const param = { resourceNo: resourceNo };
     axios
       .get(
         `${process.env.REACT_APP_SERVER_PORT}/resource/detail?resourceNo=${resourceNo}`,
+        {
+          headers: {
+            Authorization: getCookie('accessToken'),
+          },
+        },
       )
       .then((response) => {
         setResourceItem(response.data.data);
@@ -63,12 +67,6 @@ const ResourceItem = (props) => {
         handleResourceView(resourceNo);
       }}
     >
-      {/* <Link
-        to="/admin/resourceupdate"
-        state={{
-          resourceNo: resourceNo,
-        }}
-      > */}
       <Card>
         <Card.Img style={{ width: 'auto', height: '150px' }} src={path} />
         <Card.Body>
@@ -79,7 +77,6 @@ const ResourceItem = (props) => {
           <ResourceContent>{content}</ResourceContent>
         </Card.Body>
       </Card>
-      {/* </Link> */}
     </ResourceCard>
   );
 };
