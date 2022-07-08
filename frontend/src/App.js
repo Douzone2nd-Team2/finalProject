@@ -25,6 +25,7 @@ import RegisterBook from './admin/pages/RegisterBook';
 import EmployeeBook from './admin/pages/EmployeeBook';
 import ResourceList from './admin/pages/ResourceList';
 import Employee from './admin/components/Employee/Employee';
+import MyReservation from './user/pages/MyReservation';
 
 const App = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -68,6 +69,7 @@ const App = () => {
           <Route path="main" element={<Main />} />
           <Route path="mypage/changepw" element={<Reset />} />
           <Route path="mypage/user" element={<MyInfo />} />
+          <Route path="mypage/reservation" element={<MyReservation />} />
           <Route path="search" element={<Search />} />
           <Route path="reserve" element={<Reserve />} />
         </Route>

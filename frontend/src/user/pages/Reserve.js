@@ -9,11 +9,11 @@ import CalendarInfo from '../components/Reservation/Calendar/CalendarInfo.js';
 
 const Reserve = () => {
   const [step, setStep] = useState(0);
-  const [cateNo, setCateNo] = useState(1);
+  const [cateNo, setCateNo] = useState(1); // 바뀔 일 없으니까 구조분해할당으로 하자
 
   return (
     <MainContainer>
-      <ReservationHeader></ReservationHeader>
+      <ReservationHeader title="자원 이름"></ReservationHeader>
       <Container>
         <ResourceInfo></ResourceInfo>
         {step === 0 ? (

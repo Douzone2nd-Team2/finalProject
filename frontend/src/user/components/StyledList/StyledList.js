@@ -27,10 +27,10 @@ const StyledList = (props) => {
         {peopleList &&
           peopleList.map((item) => {
             return (
-              <ListRow>
+              <ListRow key={item.no}>
                 <ListContent>{item.empNo}</ListContent>
-                <ListContent>{item.dept}</ListContent>
-                <ListContent>{item.grade}</ListContent>
+                <ListContent>{item.deptName}</ListContent>
+                <ListContent>{item.gradeName}</ListContent>
                 <ListContent>{item.name}</ListContent>
               </ListRow>
             );

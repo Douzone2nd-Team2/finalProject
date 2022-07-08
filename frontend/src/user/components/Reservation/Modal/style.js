@@ -84,7 +84,7 @@ const ModalButtonContainer = styled.div`
   padding-top: 24px;
 `;
 
-const PeopleAddButton = styled.button`
+const ModaldButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,5 +111,5 @@ export {
   SearchButton,
   ModalBody,
   ModalButtonContainer,
-  PeopleAddButton,
+  ModaldButton,
 };

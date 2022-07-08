@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
@@ -51,7 +52,13 @@ const Count = () => {
 
   return (
     <>
-      {openModal ? <Modal setOpenModal={setOpenModal}></Modal> : null}
+      {openModal ? (
+        <Modal
+          setOpenModal={setOpenModal}
+          count={count}
+          setPeople={setPeople}
+        ></Modal>
+      ) : null}
       <FlexContainer>
         <CountInfoTitle>추가 사용자</CountInfoTitle>
         <CountButtonContainer>

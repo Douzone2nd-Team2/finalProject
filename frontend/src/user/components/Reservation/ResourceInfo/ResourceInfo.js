@@ -48,7 +48,7 @@ const ResourceInfo = () => {
       </ResourceImageTest>
       <ResourceDetatilTest>
         {values &&
-          values.map((value) => <Option key={value.id} value={value}></Option>)}
+          values.map((value) => <Option key={value} value={value}></Option>)}
       </ResourceDetatilTest>
     </ResourceInfoContainer>
   );
