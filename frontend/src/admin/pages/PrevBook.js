@@ -7,7 +7,7 @@ import { getCookie } from '../utils/cookie';
 
 import { Container, TitleContainer, TableContainer } from '../styles/BookInfo';
 
-const PrevBook = ({ userNo }) => {
+const PrevBook = ({ userNo, userName }) => {
   const [prevList, setPrevList] = useState([]);
 
   const fetchData = async () => {
@@ -41,6 +41,7 @@ const PrevBook = ({ userNo }) => {
             <th>예약시작일</th>
             <th>예약종료일</th>
             <th></th>
+            <th></th>
           </tr>
           {!arrayIsEmpty(prevList) ? (
             prevList.map((user, idx) => (
@@ -48,14 +49,22 @@ const PrevBook = ({ userNo }) => {
                 <td>{user.resourceName}</td>
                 <td>{user.startTime}</td>
                 <td>{user.endTime}</td>
-                <Link
-                  to="/admin/userbookhandle"
-                  state={{
-                    reservNo: user.reservNo,
-                  }}
-                >
-                  <div>수정</div>
-                </Link>
+                <td>
+                  <Link
+                    to="/admin/userbookhandle"
+                    state={{
+                      reservNo: user.reservNo,
+                      startTime: user.startTime,
+                      endTime: user.endTime,
+                      userName: userName,
+                    }}
+                  >
+                    <div className="updateBtn">수정</div>
+                  </Link>
+                </td>
+                <td>
+                  <div>삭제</div>
+                </td>
               </tr>
             ))
           ) : (

@@ -27,6 +27,13 @@ const BookContainer = styled.div`
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px gray;
+`;
+
+const InputContainer = styled.div`
+  input:nth-child(2) {
+    margin-left: 20px;
+  }
 `;
 
 const NameContainer = styled.h1`
@@ -82,6 +89,7 @@ export {
   AllContainer,
   Container,
   HeadContainer,
+  InputContainer,
   CategoryContainer,
   ContentContainer,
   BookContainer,

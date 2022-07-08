@@ -18,7 +18,7 @@ const TableContainer = styled.div`
 
   th {
     background-color: lightgray;
-    width: 170px;
+    width: 150px;
     text-align: center;
   }
 
@@ -40,5 +40,12 @@ const TableContainer = styled.div`
     text-align: center;
   }
 `;
+
+// const UpdateContainer = styled.div`
+//   .updateBtn {
+//     background-color: blue;
+//     width: 30px;
+//   }
+// `;
 
 export { Container, TitleContainer, TableContainer };
