@@ -50,7 +50,6 @@ public class AuthCheckFilter extends BasicAuthenticationFilter {
                 System.out.println("[WARN] Invalid claim 'userId'");
                 return;
             }
-
             UserDetails employeeDetails = employeeDetailsService.loadUserByUsername(userId);
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(employeeDetails, null, employeeDetails.getAuthorities());

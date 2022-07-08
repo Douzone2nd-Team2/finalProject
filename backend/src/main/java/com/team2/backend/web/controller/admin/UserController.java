@@ -68,7 +68,6 @@ public class UserController {
     @PostMapping("/admin/userdelete")
     public ResponseEntity<Message> userDelete(@RequestBody EmployeeManagementDto body){
         System.out.println("delete " +body.getNo());
-
         return userService.deleteUser(body.getNo());
     }
 }

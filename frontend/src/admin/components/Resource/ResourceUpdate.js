@@ -23,7 +23,10 @@ const ResourceDetail = () => {
 
   const [imgFile, setImgFile] = useState([]);
   const [formData, setFormData] = useState(new FormData());
-  const [img, setImage] = useState('');
+
+  //image preview
+  const [image, setImage] = useState('');
+
   const [resourceName, setResourceName] = useState('');
   const [location, setLocation] = useState('');
   const [people, setPeople] = useState('');
@@ -34,6 +37,8 @@ const ResourceDetail = () => {
   const [fuel, setFuel] = useState('');
   const [content, setContent] = useState('');
   const [able, setAble] = useState('');
+  const [detailsImgs, setDetailImgs] = useState('');
+
   const handleResourceName = (e) => {
     setResourceName(e.target.value);
   };
@@ -110,41 +115,52 @@ const ResourceDetail = () => {
 
   // 파일 수정
   const imageUpdate = async (e) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    new Promise((reslove) => {
+    const fileArr = e.target.files;
+
+    let fileURLs = [];
+
+    let file;
+    let filesLength = fileArr.length > 10 ? 10 : fileArr.length;
+
+    for (let i = 0; i < filesLength; i++) {
+      file = fileArr[i];
+
+      let reader = new FileReader();
       reader.onload = () => {
-        setImage(reader.result);
+        console.log(reader.result);
+        fileURLs[i] = reader.result;
+        setDetailImgs([...fileURLs]);
       };
-    });
-
-    if (imgFile.length > 0) {
-      const d = new FormData();
-      for (let i = 0; i < imgFile.length; i++) {
-        d.append('image', imgFile[i]);
-      }
-
-      setFormData(d);
+      reader.readAsDataURL(file);
     }
 
-    await axios
-      .post(
-        `${process.env.REACT_APP_SERVER_PORT}/resource/fileupdate?resourceNo=}`,
-        formData,
-        {
-          headers: {
-            Authorization: getCookie('accessToken'),
-            'Content-Type': `multipart/form-data;`,
-          },
-        },
-      )
-      .then((res) => {
-        console.log(res);
-        console.log('파일 수정성공');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // if (imgFile.length > 0) {
+    //   const d = new FormData();
+    //   for (let i = 0; i < imgFile.length; i++) {
+    //     d.append('image', imgFile[i]);
+    //   }
+
+    //   setFormData(d);
+    // }
+
+    // await axios
+    //   .post(
+    //     `${process.env.REACT_APP_SERVER_PORT}/resource/fileupdate?resourceNo=}`,
+    //     formData,
+    //     {
+    //       headers: {
+    //         Authorization: getCookie('accessToken'),
+    //         'Content-Type': `multipart/form-data;`,
+    //       },
+    //     },
+    //   )
+    //   .then((res) => {
+    //     console.log(res);
+    //     console.log('파일 수정성공');
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
 
   //그냥 삭제
@@ -225,17 +241,28 @@ const ResourceDetail = () => {
                 <tr>
                   <Formtd>파일수정</Formtd>
                   <Forminput>
-                    {fileList.map((item) => {
-                      return (
-                        <>
-                          <img
-                            style={{ width: '100px' }}
-                            alt="no img"
-                            src={item.path ? item.path : ''}
-                          ></img>
-                        </>
-                      );
-                    })}
+                    {detailsImgs
+                      ? detailsImgs.map((item) => {
+                          return (
+                            <img
+                              style={{ width: '100px' }}
+                              alt="no img"
+                              src={item}
+                            ></img>
+                          );
+                        })
+                      : fileList.map((item) => {
+                          return (
+                            <>
+                              <img
+                                style={{ width: '100px' }}
+                                alt="no img"
+                                src={item.path}
+                              ></img>
+                            </>
+                          );
+                        })}
+
                     <input
                       type="file"
                       id="file"
