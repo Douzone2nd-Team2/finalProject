@@ -12,6 +12,7 @@ const DateTimeLeftContainer = styled.div`
   flex: 1 1 0%;
   padding: 0px 0px 4px;
   overflow: hidden;
+  border-right: 1px solid rgb(176, 176, 176);
 `;
 
 const DateTimeRightContainer = styled.div`
@@ -19,7 +20,6 @@ const DateTimeRightContainer = styled.div`
   flex: 1 1 0%;
   padding: 0px;
   overflow: hidden;
-  border-left: 1px solid rgb(176, 176, 176);
   margin-left: 30px;
 `;
 

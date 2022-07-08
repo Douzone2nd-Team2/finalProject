@@ -41,7 +41,7 @@ public class ResourceService {
     @Transactional
     public ResponseEntity<Message> getResourceList() {
         List<IResourceAdminDto> AllresourceList = resourceRepository.findAllResource();
-
+        System.out.println(AllresourceList);
         if (AllresourceList.isEmpty()) {
             Message message = Message.builder()
                     .resCode(3001)
@@ -62,6 +62,7 @@ public class ResourceService {
     @Transactional
     public ResponseEntity<Message> getEachList(Long cateNo) {
         List<IResourceAdminDto> officeList = resourceRepository.findByCateNo(cateNo);
+
         if (officeList.isEmpty()) {
             Message message = Message.builder()
                     .resCode(3001)
@@ -74,6 +75,33 @@ public class ResourceService {
                 .resCode(3000)
                 .message("성공: 각 자원 조회 성공")
                 .data(officeList)
+                .build();
+        return new JsonResponse().send(200, message);
+    }
+
+    @Transactional
+    public ResponseEntity<Message> getResourceNoList(Long resourceNo) {
+        System.out.println(resourceNo);
+        Resource resource = resourceRepository.findByResourceNo(resourceNo);
+        List<Resourcefile> fileList = resourcefileRepository.findByResource_ResourceNo(resourceNo);
+
+        HashMap<String,Object> data = new HashMap<>();
+        data.put("fileList", fileList);
+        data.put("resource", resource);
+
+        if(resource == null) {
+            Message message = Message.builder()
+                    .resCode(3001)
+                    .message("실패: resourceNo에 따른 자원 실패")
+                    .build();
+            return new JsonResponse().send(400, message);
+
+        }
+        System.out.println("ㅎㅇ");
+        Message message = Message.builder()
+                .resCode(3000)
+                .message("성공: resourceNo에 따른 자원 성공")
+                .data(data)
                 .build();
         return new JsonResponse().send(200, message);
     }
@@ -133,7 +161,6 @@ public class ResourceService {
 
             );
 
-
             Message message = Message.builder()
                     .resCode(3000)
                     .message("성공: 차량 등록")
@@ -174,7 +201,7 @@ public class ResourceService {
     }
 
     @Transactional
-    public ResponseEntity<Message> fileupload(List<MultipartFile> multipartFile) {
+    public ResponseEntity<Message> fileupload(List<MultipartFile> multipartFile,String able, Long resourceNo) {
         try {
             List<Resourcefile> resourcefileList = new ArrayList<>();
 
@@ -185,8 +212,8 @@ public class ResourceService {
 
                 Resourcefile file = resourcefileRepository.save(
                         Resourcefile.builder()
-//                                .able(able)
-//                                .resourceNo(Long.valueOf(resourceNo))
+                                .able(able)
+                                .resourceNo(Long.valueOf(resourceNo))
                                 .type(multipartFile.get(i).getContentType())
                                 .imageSize(String.valueOf(multipartFile.get(i).getSize()))
                                 .path(awsUrl[0])
@@ -215,12 +242,13 @@ public class ResourceService {
 
     @Transactional
     public ResponseEntity<Message> resourceUpdate(HttpServletRequest req, Long resourceNo, Resource resource) {
-        System.out.println("resourceNo: " + resourceNo);
         Resource updateResource = resourceRepository.findByResourceNo(resourceNo);
 
         if (updateResource != null) {
             updateResource.update(resource.getCateNo(), resource.getAble(), resource.getResourceName(), resource.getLocation(), resource.getPeople(),
                     resource.getAvailableTime(), resource.getAdminNo(), resource.getOption(), resource.getFuel(), resource.getContent());
+
+
             Message message = Message.builder()
                     .resCode(3000)
                     .message("성공: 자원 수정 성공")
@@ -237,18 +265,18 @@ public class ResourceService {
     }
 
     @Transactional
-    public ResponseEntity<Message> fileUpdate(List<MultipartFile> multipartFile, ResourceAdminDto body) {
+    public ResponseEntity<Message> fileUpdate(List<MultipartFile> multipartFile, Long resourceNo) {
         try {
             List<Resourcefile> resourcefileList = new ArrayList<>();
 
-    //resourcefile에서 resourceno 가진거 delete 동시에 s3에서 delete
-    //        -> insert 같은 resourceno로 넣고 s3 insert
+            //resourcefile에서 resourceno 가진거 delete 동시에 s3에서 delete
+            //        -> insert 같은 resourceno로 넣고 s3 insert
 
             //delelte
-            List<Resourcefile> delresourcefile = resourcefileRepository.findByResource_ResourceNo(body.getResourceNo());
+            List<Resourcefile> delresourcefile = resourcefileRepository.findByResource_ResourceNo(resourceNo);
 
-            if (body.getResourceNo() != null && delresourcefile != null) {
-                List<Long> delIdList = resourcefileRepository.findByResource_ResourceNo(body.getResourceNo()).stream()
+            if (resourceNo != null && delresourcefile != null) {
+                List<Long> delIdList = resourcefileRepository.findByResource_ResourceNo(resourceNo).stream()
                         .map(resourcefile -> {
                             return resourcefile.getImageNo();
                         }).collect(Collectors.toList());
@@ -273,7 +301,7 @@ public class ResourceService {
                 Resourcefile file = resourcefileRepository.save(
                         Resourcefile.builder()
 //                                .able(able)
-                                .resourceNo(Long.valueOf(body.getResourceNo()))
+                                .resourceNo(Long.valueOf(resourceNo))
                                 .type(multipartFile.get(i).getContentType())
                                 .imageSize(String.valueOf(multipartFile.get(i).getSize()))
                                 .path(awsUrl[0])

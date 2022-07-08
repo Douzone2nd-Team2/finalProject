@@ -52,4 +52,25 @@ const UserInfoDetail = styled.div`
   color: rgb(113, 113, 113);
 `;
 
-export { FlexContainer, UserInfoContainer, UserInfoTitle, UserInfoDetail };
+const UserInfoInput = styled.input`
+  margin: 24px 3px 3px 3px;
+  padding: 2px 12px;
+  width: 300px;
+  min-height: 32px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 36px;
+  border: none;
+  outline: none;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+`;
+
+export {
+  FlexContainer,
+  UserInfoContainer,
+  UserInfoTitle,
+  UserInfoDetail,
+  UserInfoInput,
+};

@@ -28,7 +28,6 @@ function Sidebar() {
       setReservation(true);
       toggleInfo.current.style.display = 'block';
     }
-    // console.log(reservation);
   };
 
   const floatRight = {

@@ -17,12 +17,20 @@ const HeadContainer = styled.div`
   font-weight: 600;
   padding-top: 70px;
   border-bottom: 4px solid black;
+  margin-left: 140px;
+`;
+
+const TitleContainer = styled.div`
+  /* margin-top: 67px; */
+  font-size: 30px;
+  font-weight: 600;
   margin-left: 100px;
 `;
 
 const BookContainer = styled.div`
-  width: 800px;
-  margin-left: 18%;
+  width: 50%;
+  margin-left: 140px;
+  margin-top: 30px;
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;

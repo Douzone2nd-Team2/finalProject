@@ -1,15 +1,19 @@
 import { Header, HeaderTop, HeaderBottom, Title } from './style.js';
-import Bookmark from '../Bookmark/Bookmark.js';
+import { useEffect, useState } from 'react';
 
-const ReservationHeader = () => {
+const ReservationHeader = (props) => {
+  const [title, setTitle] = useState('');
+
+  useEffect(() => {
+    setTitle(props.title);
+  });
+
   return (
     <Header>
       <HeaderTop>
-        <Title>자원 이름</Title>
+        <Title>{title}</Title>
       </HeaderTop>
-      <HeaderBottom>
-        <Bookmark></Bookmark>
-      </HeaderBottom>
+      <HeaderBottom></HeaderBottom>
     </Header>
   );
 };
