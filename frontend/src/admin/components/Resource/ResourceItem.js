@@ -1,15 +1,20 @@
 import { Link } from 'react-router-dom';
-import { Card, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
+import axios from 'axios';
 import {
   ResourceCard,
   ResourceCardTitle,
   ResourceContent,
   ResourceOpion,
 } from '../../styles/ResourceCard';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const ResourceItem = ({ resource }) => {
+const ResourceItem = (props) => {
+  const [resourceItem, setResourceItem] = useState('');
+  const navigate = useNavigate();
+  // const resourceNo = resource.resourceNo;
   const {
-    resourceNo,
     able,
     content,
     resourceName,
@@ -23,39 +28,58 @@ const ResourceItem = ({ resource }) => {
     modifyAt,
     path,
     cateNo,
-  } = resource;
+    resourceNo,
+  } = props.resource;
+
+  const getResourceNo = async (resourceNo) => {
+    // console.log(resourceNo);
+    // const param = { resourceNo: resourceNo };
+    axios
+      .get(
+        `${process.env.REACT_APP_SERVER_PORT}/resource/detail?resourceNo=${resourceNo}`,
+      )
+      .then((response) => {
+        setResourceItem(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getResourceNo(resourceNo);
+  }, []);
+
+  const handleResourceView = (resourceNo) => {
+    console.log(resourceNo);
+    navigate('/admin/resourceupdate', {
+      state: resourceNo,
+    });
+  };
 
   return (
-    <ResourceCard>
-      <Link
-        to="/admin/resourcedetail"
+    <ResourceCard
+      onClick={() => {
+        handleResourceView(resourceNo);
+      }}
+    >
+      {/* <Link
+        to="/admin/resourceupdate"
         state={{
           resourceNo: resourceNo,
-          resourceName: resourceName,
-          able: able,
-          content: content,
-          location: location,
-          people: people,
-          availavleTime: availavleTime,
-          fuel: fuel,
-          adminNo: adminNo,
-          option: option,
-          createAt: createAt,
-          modifyAt: modifyAt,
-          cateNo: cateNo,
         }}
-      >
-        <Card>
-          <Card.Img style={{ width: 'auto', height: '150px' }} src={path} />
-          <Card.Body>
-            <ResourceCardTitle>
-              {resourceNo}. {resourceName}
-            </ResourceCardTitle>
-            <ResourceOpion>{option}</ResourceOpion>
-            <ResourceContent>{content}</ResourceContent>
-          </Card.Body>
-        </Card>
-      </Link>
+      > */}
+      <Card>
+        <Card.Img style={{ width: 'auto', height: '150px' }} src={path} />
+        <Card.Body>
+          <ResourceCardTitle>
+            {resourceNo}. {resourceName}
+          </ResourceCardTitle>
+          <ResourceOpion>{option}</ResourceOpion>
+          <ResourceContent>{content}</ResourceContent>
+        </Card.Body>
+      </Card>
+      {/* </Link> */}
     </ResourceCard>
   );
 };

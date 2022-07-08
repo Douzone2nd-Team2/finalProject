@@ -28,7 +28,6 @@ function Sidebar() {
       setReservation(true);
       toggleInfo.current.style.display = 'none';
     }
-    // console.log(reservation);
   };
 
   const floatRight = {
@@ -39,7 +38,10 @@ function Sidebar() {
   return (
     <SbContainer>
       <SbUl>
-        <Link to="/admin" style={{ textDecoration: 'none', color: 'black' }}>
+        <Link
+          to="/admin/main"
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
           <SbLi>
             <BsFillPersonFill /> 사용자관리
           </SbLi>

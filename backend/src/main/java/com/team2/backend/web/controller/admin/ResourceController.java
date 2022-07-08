@@ -30,14 +30,20 @@ public class ResourceController {
         return resourceService.getEachList(cateNo);
     }
 
+    @GetMapping("/detail") // 각 자원별 전체 조회
+    public ResponseEntity<Message> getResourceNoList(@RequestParam("resourceNo") Long resourceNo){
+        System.out.println("resoureDetail시작");
+        return resourceService.getResourceNoList(resourceNo);
+    }
+
     @GetMapping("/bookmark") // 북마크 전체 조회
    public ResponseEntity<Message> getBookmark(){
         return resourceService.getBookmark();
     }
 
     @PostMapping("/fileupload") // 사진 등록
-    public ResponseEntity<Message> fileRegister(@RequestPart(value = "image") List<MultipartFile> multipartFile){
-        return resourceService.fileupload(multipartFile);
+    public ResponseEntity<Message> fileRegister(@RequestPart(value = "image") List<MultipartFile> multipartFile, String able, Long resourceNo){
+        return resourceService.fileupload(multipartFile,able,resourceNo);
     }
 
     @PostMapping("/register") // 자원 등록
@@ -49,6 +55,11 @@ public class ResourceController {
     public ResponseEntity<Message> updateresourceList(HttpServletRequest req, @RequestParam("resourceNo") Long resourceNo , @RequestBody Resource resource){
         return resourceService.resourceUpdate(req, resourceNo, resource);
     }
+    @PostMapping("/fileupdate") // 사진 수정
+    public ResponseEntity<Message> fileUpdate(@RequestPart(value = "image") List<MultipartFile> multipartFile, @RequestParam("resourceNo") Long resourceNo ){
+        return resourceService.fileUpdate(multipartFile, resourceNo);
+    }
+
 
     @PostMapping("/delete")
     public ResponseEntity<Message> delResource(@RequestParam("resourceNo") Long resourceNo){

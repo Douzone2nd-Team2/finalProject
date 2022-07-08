@@ -25,8 +25,9 @@ public class S3Controller {
     public ResponseEntity<Message> insertUserImage(@RequestPart(value = "image") MultipartFile multipartFile) {
         System.out.println("imageInsert enter!");
         try {
-            String awsUrl = s3Uploader.uploadFiles(multipartFile, "static");
-            System.out.println("aswUrl : " + awsUrl);
+            String[] awsUrl = s3Uploader.uploadFiles(multipartFile, "static");
+            System.out.println("aswUrl : " + awsUrl[0]);
+            System.out.println("file key : "+awsUrl[1]);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }

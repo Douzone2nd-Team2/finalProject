@@ -9,84 +9,8 @@ import { BarContainer, TitleContainer } from '../../styles/Bchart';
 
 const BchartItem = ({ catenum }) => {
   const [title, setTitle] = useState('');
-  const [totalcnt, setTotalcnt] = useState('');
-  const [useDays, setUseDays] = useState('');
-  const [hour, setHour] = useState([]);
-
-  const DATA = [
-    {
-      quarter: 1,
-      earnings:
-        (hour[0]?.cnt + hour[1]?.cnt + hour[2]?.cnt + hour[3]?.cnt) /
-        (useDays * totalcnt * 4),
-    },
-    {
-      quarter: 2,
-      earnings:
-        (hour[4]?.cnt + hour[5]?.cnt + hour[6]?.cnt + hour[7]?.cnt) /
-        (useDays * totalcnt * 4),
-    },
-    {
-      quarter: 3,
-      earnings:
-        (hour[8]?.cnt + hour[9]?.cnt + hour[10]?.cnt + hour[11]?.cnt) /
-        (useDays * totalcnt * 4),
-    },
-    {
-      quarter: 4,
-      earnings:
-        (hour[12]?.cnt + hour[13]?.cnt + hour[14]?.cnt + hour[15]?.cnt) /
-        (useDays * totalcnt * 4),
-    },
-    {
-      quarter: 5,
-      earnings:
-        (hour[16]?.cnt + hour[17]?.cnt + hour[18]?.cnt + hour[19]?.cnt) /
-        (useDays * totalcnt * 4),
-    },
-    {
-      quarter: 6,
-      earnings:
-        (hour[20]?.cnt + hour[21]?.cnt + hour[22]?.cnt + hour[23]?.cnt) /
-        (useDays * totalcnt * 4),
-    },
-    {
-      quarter: 7,
-      earnings:
-        (hour[24]?.cnt + hour[25]?.cnt + hour[26]?.cnt + hour[27]?.cnt) /
-        (useDays * totalcnt * 4),
-    },
-    {
-      quarter: 8,
-      earnings:
-        (hour[28]?.cnt + hour[29]?.cnt + hour[30]?.cnt + hour[31]?.cnt) /
-        (useDays * totalcnt * 4),
-    },
-    {
-      quarter: 9,
-      earnings:
-        (hour[32]?.cnt + hour[33]?.cnt + hour[34]?.cnt + hour[35]?.cnt) /
-        (useDays * totalcnt * 4),
-    },
-    {
-      quarter: 10,
-      earnings:
-        (hour[36]?.cnt + hour[37]?.cnt + hour[38]?.cnt + hour[39]?.cnt) /
-        (useDays * totalcnt * 4),
-    },
-    {
-      quarter: 11,
-      earnings:
-        (hour[40]?.cnt + hour[41]?.cnt + hour[42]?.cnt + hour[43]?.cnt) /
-        (useDays * totalcnt * 4),
-    },
-    {
-      quarter: 12,
-      earnings:
-        (hour[44]?.cnt + hour[45]?.cnt + hour[46]?.cnt + hour[47]?.cnt) /
-        (useDays * totalcnt * 4),
-    },
-  ];
+  const [data, setData] = useState([]);
+  const [info, setInfo] = useState([]);
 
   const changeTitle = () => {
     if (catenum == 1 || catenum == '') {
@@ -101,9 +25,7 @@ const BchartItem = ({ catenum }) => {
   const getTest = () => {
     axios
       .get(
-        `${process.env.REACT_APP_SERVER_PORT}/main/stickchart?cateNo=${
-          catenum === '' ? 1 : catenum
-        }`,
+        `${process.env.REACT_APP_SERVER_PORT}/main/stickchart?cateNo=${catenum}`,
         {
           headers: {
             Authorization: getCookie('accessToken'),
@@ -112,10 +34,8 @@ const BchartItem = ({ catenum }) => {
       )
       .then((res) => {
         changeTitle();
-        setTotalcnt(res.data.data.totalCnt);
-        setUseDays(res.data.data.days);
-        setHour(res.data.data.hourConference);
-        console.log(res);
+        console.log(res.data.data);
+        setData([res.data.data]);
       })
       .catch((error) => {
         console.log(error);
@@ -123,14 +43,34 @@ const BchartItem = ({ catenum }) => {
   };
 
   useEffect(() => {
-    getTest();
-    changeTitle();
-    console.log('총 자원 수 : ', totalcnt);
-    console.log('총 사용 일 : ', useDays);
-    console.log(hour);
-  }, [totalcnt, catenum, useDays]);
+    if (data.length > 0) {
+      let result = [];
+      const totalCount = data[0].totalCnt;
+      const days = data[0].days;
+      const counts = data[0].hourConference.map((v) => v.cnt);
+      let temp2 = totalCount * days * 4; //분모
+      let spliceCounts = [];
+      for (let i = 0; i < counts.length; i += 4) {
+        spliceCounts.push(
+          counts[i] + counts[i + 1] + counts[i + 2] + counts[i + 3],
+        );
+      }
 
-  // DATA.map((item) => console.log(item.earnings));
+      for (let i = 1; i < 13; i++) {
+        const tempResult = {
+          quarter: i,
+          earnings: spliceCounts[i - 1] / temp2,
+        };
+        result.push(tempResult);
+      }
+
+      setInfo(result);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    getTest();
+  }, [catenum]);
 
   return (
     <BarContainer>
@@ -177,7 +117,7 @@ const BchartItem = ({ catenum }) => {
           }}
         />
         <VictoryBar
-          data={DATA}
+          data={info}
           x="quarter"
           y="earnings"
           barWidth={30}

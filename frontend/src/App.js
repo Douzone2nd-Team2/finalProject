@@ -19,11 +19,15 @@ import AdminPrivateRoute from './admin/components/AdminLayout';
 import AdminMain from './admin/pages/AdminMain';
 import AdminLoginPage from './admin/pages/AdminLoginPage';
 import EmployeePage from './admin/pages/EmployeePage';
+import EmployeeRegistPage from './admin/pages/EmployeeRegistPage';
 import ResourcePage from './admin/pages/ResourcePage';
-import ResourceDetail from './admin/components/Resource/ResourceDetail';
+import ResourceUpdate from './admin/components/Resource/ResourceUpdate';
+// import ResourceDetail from './admin/components/Resource/Resource';
 import RegisterBook from './admin/pages/RegisterBook';
 import EmployeeBook from './admin/pages/EmployeeBook';
 import ResourceList from './admin/pages/ResourceList';
+import UserBook from './admin/pages/UserBook';
+import UserBookhandle from './admin/pages/UserBookhandle';
 import Employee from './admin/components/Employee/Employee';
 import MyReservation from './user/pages/MyReservation';
 
@@ -59,7 +63,7 @@ const App = () => {
           }),
         );
     }
-    // console.log('user = ', user);
+    console.log('user = ', user);
   }, [user, setUser, accessToken]);
   return (
     <>
@@ -75,13 +79,21 @@ const App = () => {
         </Route>
         <Route path="/admin/login" element={<AdminLoginPage />} />
         <Route element={<AdminPrivateRoute />}>
-          <Route path="admin" element={<AdminMain />} />
+          <Route path="admin/main" element={<AdminMain />} />
           <Route path="/admin/resource" element={<ResourcePage />} />
           <Route path="/admin/employee" element={<EmployeePage />} />
-          <Route path="/admin/resourcedetail" element={<ResourceDetail />} />
+          <Route path="/admin/resourceupdate" element={<ResourceUpdate />} />
+          <Route
+            path="/admin/employee/regist"
+            element={<EmployeeRegistPage />}
+            SS
+          />
+          {/* <Route path="/admin/resourcedetail" element={<ResourceDetail />} /> */}
           <Route path="/admin/registerbook" element={<RegisterBook />} />
           <Route path="/admin/employeebook" element={<EmployeeBook />} />
           <Route path="/admin/resourcelist" element={<ResourceList />} />
+          <Route path="/admin/userbook" element={<UserBook />} />
+          <Route path="/admin/userbookhandle" element={<UserBookhandle />} />
         </Route>
       </Routes>
     </>
