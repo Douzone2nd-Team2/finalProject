@@ -47,37 +47,6 @@ const UserBookhandle = () => {
   const [hour, setHour] = useState('');
   const [minute, setMinute] = useState('');
 
-  const [Etime, setEtime] = useState('');
-  const [Ehour, setEhour] = useState('');
-  const [Eminute, setEminute] = useState('');
-
-  // console.log(location.state.reservNo);
-
-  //시작시간
-  const ShandleTime = (e) => {
-    setTime(e.target.value);
-    console.log(time);
-  };
-  const ShandleHourTime = (e) => {
-    setHour(e.target.value);
-    console.log(hour);
-  };
-  const ShandleMinuteTime = (e) => {
-    setMinute(e.target.value);
-    console.log(minute);
-  };
-
-  //종료시간
-  const EhandleTime = (e) => {
-    setEtime(e.target.value);
-  };
-  const EhandleHourTime = (e) => {
-    setEhour(e.target.value);
-  };
-  const EhandleMinuteTime = (e) => {
-    setEminute(e.target.value);
-  };
-
   const fetchData = async () => {
     try {
       const res = await axios.get(
@@ -125,7 +94,7 @@ const UserBookhandle = () => {
                     <input type="date" value={startDay} />
                   </Col>
                   <Col>
-                    <Form.Select size="sm" onChange={ShandleTime} value={sIsAM}>
+                    <Form.Select size="sm" value={sIsAM}>
                       <option value="AM">AM</option>
                       <option value="PM">PM</option>
                     </Form.Select>
@@ -133,7 +102,6 @@ const UserBookhandle = () => {
                   <Col>
                     <Form.Select
                       size="sm"
-                      onChange={ShandleHourTime}
                       value={startHour > 12 ? startHour - 12 : startHour}
                     >
                       <option value="01">1</option>
@@ -152,11 +120,7 @@ const UserBookhandle = () => {
                   </Col>
                   :
                   <Col>
-                    <Form.Select
-                      size="sm"
-                      onChange={ShandleMinuteTime}
-                      value={startMinute}
-                    >
+                    <Form.Select size="sm" value={startMinute}>
                       <option value="00">00</option>
                       <option value="30">30</option>
                     </Form.Select>
@@ -168,7 +132,7 @@ const UserBookhandle = () => {
                     <input type="date" value={endDay} />
                   </Col>
                   <Col>
-                    <Form.Select size="sm" onChange={EhandleTime} value={eIsAM}>
+                    <Form.Select size="sm" value={eIsAM}>
                       <option value="AM">AM</option>
                       <option value="PM">PM</option>
                     </Form.Select>
@@ -176,7 +140,6 @@ const UserBookhandle = () => {
                   <Col>
                     <Form.Select
                       size="sm"
-                      onChange={EhandleHourTime}
                       value={endHour > 12 ? endHour - 12 : endHour}
                     >
                       <option value="01">1</option>
@@ -195,11 +158,7 @@ const UserBookhandle = () => {
                   </Col>
                   :
                   <Col>
-                    <Form.Select
-                      size="sm"
-                      onChange={EhandleMinuteTime}
-                      value={endMinute}
-                    >
+                    <Form.Select size="sm" value={endMinute}>
                       <option value="00">00</option>
                       <option value="30">30</option>
                     </Form.Select>

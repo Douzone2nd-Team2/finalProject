@@ -29,22 +29,27 @@ const PrevBook = ({ userNo, userName }) => {
     }
   };
 
-  const deleteData = async (e) => {
-    console.log(e.reservNo);
-    try {
-      const res = await axios.post(
+  const deleteData = async (user) => {
+    const { reservNo } = user;
+
+    const data = {
+      reservNo: reservNo,
+    };
+
+    const res = await axios
+      .post(
         `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/delete`,
+        data,
         {
-          param: { reservNo: e.reservNo },
           headers: {
             Authorization: getCookie('accessToken'),
           },
         },
-      );
-      console.log(res);
-    } catch (e) {
-      console.log(e);
-    }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(console.log);
   };
 
   useEffect(() => {
@@ -85,7 +90,14 @@ const PrevBook = ({ userNo, userName }) => {
                   </Link>
                 </td>
                 <td>
-                  <Button variant="danger" onClick={() => deleteData(user)}>
+                  {/*(e) => delete(e) */}
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      deleteData(user);
+                      fetchData();
+                    }}
+                  >
                     삭제
                   </Button>
                 </td>

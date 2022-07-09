@@ -10,7 +10,7 @@ import { getCookie } from '../utils/cookie';
 import { Container, TitleContainer, TableContainer } from '../styles/BookInfo';
 
 const PresentBook = ({ userNo, userName }) => {
-  const [presList, setPresList] = useState([]);
+  const [presentList, setPresentList] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -22,11 +22,34 @@ const PresentBook = ({ userNo, userName }) => {
           },
         },
       );
-      setPresList(res.data.data.presentReservList);
+      setPresentList(res.data.data.presentReservList);
       console.log(res);
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const deleteData = async (user) => {
+    const { reservNo } = user;
+
+    const data = {
+      reservNo: reservNo,
+    };
+
+    const res = await axios
+      .post(
+        `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/delete`,
+        data,
+        {
+          headers: {
+            Authorization: getCookie('accessToken'),
+          },
+        },
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(console.log);
   };
 
   useEffect(() => {
@@ -46,8 +69,8 @@ const PresentBook = ({ userNo, userName }) => {
             <th></th>
             <th></th>
           </tr>
-          {!arrayIsEmpty(presList) ? (
-            presList.map((user, idx) => (
+          {!arrayIsEmpty(presentList) ? (
+            presentList.map((user, idx) => (
               <tr key={idx}>
                 <td>{idx}</td>
                 <td>{user.resourceName}</td>
@@ -63,11 +86,20 @@ const PresentBook = ({ userNo, userName }) => {
                       userName: userName,
                     }}
                   >
-                    <div>수정</div>
+                    수정
                   </Link>
                 </td>
                 <td>
-                  <button>삭제</button>
+                  {/*(e) => delete(e) */}
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      deleteData(user);
+                      fetchData();
+                    }}
+                  >
+                    삭제
+                  </Button>
                 </td>
               </tr>
             ))

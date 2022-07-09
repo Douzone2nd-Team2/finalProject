@@ -76,23 +76,23 @@ const App = () => {
         <Route path="search" element={<Search />} />
         <Route path="reserve" element={<Reserve />} />
       </Route>
-      <Route path="/admin/login" element={<AdminLoginPage />} />
+      <Route path="admin/login" element={<AdminLoginPage />} />
       <Route element={<AdminPrivateRoute />}>
         <Route path="admin/main" element={<AdminMain />} />
-        <Route path="/admin/resource" element={<ResourcePage />} />
-        <Route path="/admin/employee" element={<EmployeePage />} />
-        <Route path="/admin/resourceupdate" element={<ResourceUpdate />} />
+        <Route path="admin/resource" element={<ResourcePage />} />
+        <Route path="admin/employee" element={<EmployeePage />} />
+        <Route path="admin/resourceupdate" element={<ResourceUpdate />} />
         <Route
-          path="/admin/employee/regist"
+          path="admin/employee/regist"
           element={<EmployeeRegistPage />}
           SS
         />
         {/* <Route path="/admin/resourcedetail" element={<ResourceDetail />} /> */}
-        <Route path="/admin/registerbook" element={<RegisterBook />} />
-        <Route path="/admin/employeebook" element={<EmployeeBook />} />
-        <Route path="/admin/resourcelist" element={<ResourceList />} />
-        <Route path="/admin/userbook" element={<UserBook />} />
-        <Route path="/admin/userbookhandle" element={<UserBookhandle />} />
+        <Route path="admin/registerbook" element={<RegisterBook />} />
+        <Route path="admin/employeebook" element={<EmployeeBook />} />
+        <Route path="admin/resourcelist" element={<ResourceList />} />
+        <Route path="admin/userbook" element={<UserBook />} />
+        <Route path="admin/userbookhandle" element={<UserBookhandle />} />
       </Route>
     </Routes>
   );
