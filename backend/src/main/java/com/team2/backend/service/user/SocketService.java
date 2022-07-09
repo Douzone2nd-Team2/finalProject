@@ -33,8 +33,11 @@ public class SocketService {
     public SocketMessage getTimelist(SocketMessage message) throws ParseException {
         HashMap<String, String> data = (HashMap<String, String>) message.getData();
         Long resourceNo = Long.parseLong(data.get("resourceNo"));
-        Date startDate = formatter.parse(data.get("startTime"));
-        Date endDate = formatter.parse(data.get("endTime"));
+        Date startDate = fullFormatter.parse(data.get("startTime").replace('T', ' '));
+        Date endDate = fullFormatter.parse(data.get("endTime").replace('T', ' '));
+
+        startDate = new Date(startDate.getTime() + (1000 * 60 * 60 * 9));
+        endDate = new Date(endDate.getTime() + (1000 * 60 * 60 * 9));
 
         List<Date> dateList = new ArrayList<>();
         for (Date i = startDate; i.before(endDate) || i.equals(endDate); i = new Date(i.getTime() + (1000 * 60 * 60 * 24))) {
