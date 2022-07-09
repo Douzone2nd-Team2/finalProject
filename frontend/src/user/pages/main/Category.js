@@ -4,6 +4,7 @@ import axios from 'axios';
 import { getCookie } from '../../utils/cookie';
 
 import {
+  AllContainer,
   Container,
   ImageContainer,
   TitleContainer,
@@ -34,7 +35,7 @@ const Category = () => {
   }, []);
 
   return (
-    <>
+    <AllContainer>
       <TitleContainer>오늘의 인기 자원</TitleContainer>
       <Container>
         {popular && (
@@ -58,7 +59,7 @@ const Category = () => {
           className="usb"
         /> */}
       </Container>
-    </>
+    </AllContainer>
   );
 };
 export default Category;

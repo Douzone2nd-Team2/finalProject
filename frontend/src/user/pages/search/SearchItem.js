@@ -1,3 +1,7 @@
+import { useNavigate } from 'react-router-dom';
+
+import { Button } from 'react-bootstrap';
+
 import {
   ItemContainer,
   LeftContainer,
@@ -8,7 +12,16 @@ import {
 
 const SearchItem = ({ book }) => {
   const { resourceName, cateName, people, thumbnail } = book;
-  console.log('book : ', book.cateName);
+  // console.log('book : ', book.cateName);
+
+  const navigate = useNavigate();
+
+  const onClickbtn = (e) => {
+    e.preventDefault();
+    navigate('/reserve', {
+      state: book,
+    });
+  };
 
   return (
     <ItemContainer>
@@ -23,7 +36,9 @@ const SearchItem = ({ book }) => {
         </ImageContainer>
       </LeftContainer>
       <RightContainer>
-        <span>설명</span>
+        <Button variant="primary" onClick={onClickbtn}>
+          예약
+        </Button>
       </RightContainer>
     </ItemContainer>
   );

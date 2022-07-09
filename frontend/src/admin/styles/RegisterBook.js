@@ -7,7 +7,7 @@ const AllContainer = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 1200px;
   height: 100%;
   padding: 0px 72px;
 `;
@@ -19,18 +19,12 @@ const HeadContainer = styled.div`
   border-bottom: 4px solid black;
 `;
 
-const TitleContainer = styled.div`
-  /* margin-top: 67px; */
-  font-size: 30px;
-  font-weight: 600;
-`;
-
 const BookContainer = styled.div`
-  width: 50%;
   margin-top: 30px;
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px gray;
 `;
 
 const NameContainer = styled.h1`
@@ -66,6 +60,7 @@ const ButtonContainer = styled.div`
 `;
 
 const MagnifyingGlass = styled.div`
+  background-color: #f6f6f6;
   button {
     border: none;
   }
