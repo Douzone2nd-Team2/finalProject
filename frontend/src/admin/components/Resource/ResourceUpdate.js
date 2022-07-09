@@ -106,6 +106,17 @@ const ResourceDetail = () => {
   };
 
   useEffect(() => {
+    if (imgFile.length != 0) {
+      const d = new FormData();
+      for (let i = 0; i < imgFile.length; i++) {
+        d.append('images', imgFile[i]);
+      }
+
+      setFormData(d);
+    }
+  }, [imgFile]);
+
+  useEffect(() => {
     getResourceNo(state);
   }, []);
 
@@ -126,7 +137,7 @@ const ResourceDetail = () => {
       });
   };
 
-  // 파일 수정
+  // 미리보기
   const imagePreview = async (e) => {
     const fileArr = e.target.files;
 
@@ -148,6 +159,7 @@ const ResourceDetail = () => {
     }
   };
 
+  // 파일수정
   const postImgae = (e) => {
     if (imgFile.length > 0) {
       const d = new FormData();

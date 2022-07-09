@@ -19,12 +19,6 @@ const HeadContainer = styled.div`
   border-bottom: 4px solid black;
 `;
 
-const TitleContainer = styled.div`
-  /* margin-top: 67px; */
-  font-size: 30px;
-  font-weight: 600;
-`;
-
 const BookContainer = styled.div`
   width: 50%;
   margin-top: 30px;
@@ -39,6 +33,18 @@ const NameContainer = styled.h1`
   padding-top: 15px;
   font-size: 30px;
   font-weight: 800;
+`;
+
+const SelectBoxDiv = styled.div`
+  position: relative;
+  bottom: 0%;
+`;
+
+const ResourceContainer2 = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ContentContainer = styled.div`
@@ -81,4 +87,6 @@ export {
   ContentSort,
   ButtonContainer,
   MagnifyingGlass,
+  SelectBoxDiv,
+  ResourceContainer2,
 };

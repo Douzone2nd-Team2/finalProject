@@ -16,18 +16,10 @@ import Pagination from 'react-js-pagination';
 import { PaginationBox } from '../styles/Pagination';
 import ResourceInput from '../components/Resource/ResourceInput.js';
 import ResourceItem from '../components/Resource/ResourceItem';
-import { height } from '@mui/system';
 
 const ResourcePage = () => {
   const [resources, setResources] = useState([]);
-  const [resourceNum, setResourceNum] = useState();
 
-  const num = resources[resources.length - 1]?.resourceNo;
-  console.log(num);
-
-  // console.log(resources[resources.length - 1].resourceNo);
-
-  // console.log(resources);
   const [page, setPage] = useState(1);
   const [items, setItems] = useState(12);
 
@@ -39,22 +31,6 @@ const ResourcePage = () => {
 
   const handleChange = (e) => {
     setSelected(e.target.value);
-  };
-
-  const getResourceNo = async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_SERVER_PORT}/resource`,
-        {
-          headers: {
-            Authorization: getCookie('accessToken'),
-          },
-        },
-      );
-      setResourceNum(res.data.data);
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   const getAll = useCallback(() => {
@@ -104,10 +80,6 @@ const ResourcePage = () => {
   };
 
   useEffect(() => {
-    getResourceNo();
-  }, []);
-
-  useEffect(() => {
     if (selected == '0') {
       getAll();
     } else if (selected == '4') {
@@ -119,13 +91,13 @@ const ResourcePage = () => {
     console.log(resources);
   }, [selected]);
 
-  useEffect(() => {}, [ResourceInput, getAll]);
+  useEffect(() => {}, [ResourceInput]);
 
   return (
     <>
       <Container>
         <ResourceContainer>
-          <ResourceInput getAll={getAll} num={num} />
+          <ResourceInput getAll={getAll} />
           자원목록
         </ResourceContainer>
         <ResourceContainer2>
@@ -139,7 +111,6 @@ const ResourcePage = () => {
               <option value="1">회의실</option>
               <option value="2">차량</option>
               <option value="3">노트북</option>
-              <option value="4">북마크</option>
             </select>
           </SelectBoxDiv>
           <ResourceCardUI>

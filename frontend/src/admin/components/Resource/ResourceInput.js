@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { getCookie } from '../../utils/cookie';
+import ResourceFileUploadTest from './ResourceFileUploadTest';
 
 import axios from 'axios';
 
 import { Button, Form, Modal, Row, Col } from 'react-bootstrap';
 
-const ResourceInput = ({ getAll, num }) => {
-  const [imgFile, setImgFile] = useState([]);
-  const [formData, setFormData] = useState(new FormData());
-
+const ResourceInput = ({ getAll }) => {
   const [show, setShow] = useState(false);
 
   const [resourceName, setResourceName] = useState('');
@@ -100,6 +98,7 @@ const ResourceInput = ({ getAll, num }) => {
       fuel: fuel,
       content: content,
       able: able,
+      adminNo: 1,
     };
 
     axios
@@ -117,82 +116,14 @@ const ResourceInput = ({ getAll, num }) => {
       });
   };
 
-  const postTest2 = async () => {
-    // console.log('postTest2');
-    // console.log(formData, num);
-    const result = await axios
-      .post(
-        `${process.env.REACT_APP_SERVER_PORT}/resource/fileupload`,
-        formData,
-        {
-          headers: {
-            Authorization: getCookie('accessToken'),
-            'Content-Type': 'multipart/form-data',
-            Accepd: '*/*',
-          },
-        },
-      )
-      .then((res) => console.log(res))
-      .catch((err) => {
-        return err;
-      });
-    console.log('result: ' + result);
-
-    return result;
-
-    // const fd = new FormData();
-
-    // if (imgFile != null) {
-    //   Object.values(imgFile).forEach((file) => fd.append('file', file));
-    //   console.log(imgFile.length);
-    // }
-
-    // const resource = {
-    //   resourceNo: num,
-    //   able: 'Y',
-    // };
-
-    // fd.append(
-    //   'resource',
-    //   new Blob([JSON.stringify(resource)], { type: 'application/json' }),
-    // );
-
-    // axios
-    //   .post(
-    //     `${process.env.REACT_APP_SERVER_PORT}/resource/fileupload`,
-    //     resource,
-    //     {
-    //       headers: {
-    //         Authorization: getCookie('accessToken'),
-    //         'Content-Type': `multipart/form-data;`,
-    //       },
-    //     },
-    //   )
-    //   .then((response) => {
-    //     console.log();
-    //     alert('파일업로드 성공');
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-  };
-
   const exitModal = () => {
     toggleModal.current.click();
   };
-
   const clickBtn = () => {
     postTest1();
     exitModal();
     getAll();
   };
-
-  const handleChangeFile = useCallback((e) => {
-    setImgFile(e.target.files);
-    console.log(imgFile);
-    console.log('핸들체인지');
-  });
-
   useEffect(() => {
     if (valued === '') {
       console.log('valued empty');
@@ -202,22 +133,6 @@ const ResourceInput = ({ getAll, num }) => {
       console.log('valued is not empty');
     }
   }, []);
-
-  useEffect(() => {
-    console.log('들어오니>');
-    if (imgFile > 0) {
-      const d = new FormData();
-      for (let i = 0; i < imgFile.length; i++) {
-        d.append('image', imgFile[i]);
-      }
-
-      for (let values of d.values()) {
-        console.log(values); // 이미지 객체의 정보
-      }
-      setFormData(d);
-      console.log('이거간가능?');
-    }
-  }, [imgFile]);
 
   return (
     <>
@@ -467,24 +382,10 @@ const ResourceInput = ({ getAll, num }) => {
             ) : (
               <></>
             )}
-            <input
-              type="file"
-              id="file"
-              multiple
-              name="image"
-              onChange={handleChangeFile}
-            />
-            <Button
-              variant="secondary"
-              onClick={(e) => {
-                postTest2();
-                e.preventDefault();
-              }}
-            >
-              파일확인
-            </Button>
+            <ResourceFileUploadTest />
           </Form>
         </Modal.Body>
+
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose} ref={toggleModal}>
             Close

@@ -22,7 +22,7 @@ import EmployeePage from './admin/pages/EmployeePage';
 import EmployeeRegistPage from './admin/pages/EmployeeRegistPage';
 import ResourcePage from './admin/pages/ResourcePage';
 import ResourceUpdate from './admin/components/Resource/ResourceUpdate';
-// import ResourceDetail from './admin/components/Resource/Resource';
+import ResourceBook from './admin/pages/ResourceBook';
 import RegisterBook from './admin/pages/RegisterBook';
 import EmployeeBook from './admin/pages/EmployeeBook';
 import ResourceList from './admin/pages/ResourceList';
@@ -88,10 +88,10 @@ const App = () => {
             element={<EmployeeRegistPage />}
             SS
           />
-          {/* <Route path="/admin/resourcedetail" element={<ResourceDetail />} /> */}
           <Route path="/admin/registerbook" element={<RegisterBook />} />
           <Route path="/admin/employeebook" element={<EmployeeBook />} />
           <Route path="/admin/resourcelist" element={<ResourceList />} />
+          <Route path="/admin/resourcebook" element={<ResourceBook />} />
           <Route path="/admin/userbook" element={<UserBook />} />
           <Route path="/admin/userbookhandle" element={<UserBookhandle />} />
         </Route>

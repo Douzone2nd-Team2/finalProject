@@ -5,8 +5,7 @@ import { getCookie } from '../../utils/cookie';
 import {
   ResourceCard,
   ResourceCardTitle,
-  ResourceContent,
-  ResourceOpion,
+  ResourceCategory,
 } from '../../styles/ResourceCard';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -67,23 +66,30 @@ const ResourceItem = (props) => {
         handleResourceView(resourceNo);
       }}
     >
-      {/* <Link
-        to="/admin/resourceupdate"
-        state={{
-          resourceNo: resourceNo,
-        }}
-      > */}
-      <Card style={{ height: '240px' }}>
+      <Card style={{ border: 'none' }}>
         <Card.Img
-          style={{ width: '100%', height: '150px', borderBottom: '1px solid' }}
+          style={{ width: '100%', height: '150px', border: 'none' }}
           src={path}
         />
         <Card.Body>
           <ResourceCardTitle>
             {resourceNo}. {resourceName}
           </ResourceCardTitle>
-          <ResourceOpion>{option}</ResourceOpion>
-          <ResourceContent>{content}</ResourceContent>
+          <ResourceCategory>
+            {cateNo == 1 ? (
+              <>
+                <p className="price_origin">인원 : {people}</p>
+              </>
+            ) : cateNo == 2 || cateNo == 3 ? (
+              <>
+                <p className="price_origin">개수 : {people}</p>
+              </>
+            ) : (
+              <></>
+            )}
+            <p className="price_origin">옵션 : {option}</p>
+            <p>{content}</p>
+          </ResourceCategory>
         </Card.Body>
       </Card>
     </ResourceCard>

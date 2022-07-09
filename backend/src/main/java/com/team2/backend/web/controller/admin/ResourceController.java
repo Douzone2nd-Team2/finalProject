@@ -41,22 +41,11 @@ public class ResourceController {
    public ResponseEntity<Message> getBookmark(){
         return resourceService.getBookmark();
     }
-//
-//    @PostMapping("/fileupload") // 사진 등록
-//    public ResponseEntity<Message> fileRegister(@RequestPart(value = "images", required = false) List<MultipartFile> images, String able, Long resourceNo){
-//        return resourceService.fileupload((images != null?images:null),able,resourceNo);
-//    }
+
     @PostMapping("/fileupload") // 사진 등록
-    public ResponseEntity<Message> fileRegister(@RequestPart(value = "images", required = false) List<MultipartFile> images, @RequestPart(value="resource") ResourceAdminDto resource){
-        return resourceService.fileupload((images != null?images:null), resource);
+    public ResponseEntity<Message> fileRegister(@RequestPart(value = "images", required = false) List<MultipartFile> images){
+        return resourceService.fileupload((images != null?images:null));
     }
-
-//    @PostMapping("/fileupload")
-//    public ResponseEntity<Message> createVehicle(@Valid VehicleUpdateDTO
-//                                                                 vehicleUpdateDTO, @NotNull List<MultipartFile> files) {
-//        return resourceService.fileupload((files != null?files:null),able,resourceNo);
-//    }
-
 
     @PostMapping("/register") // 자원 등록
     public ResponseEntity<Message> resourseRegister(@RequestBody ResourceAdminDto resourceAdminDto){
@@ -69,8 +58,8 @@ public class ResourceController {
     }
 
     @PostMapping("/fileupdate") // 사진 수정
-    public ResponseEntity<Message> fileUpdate(@RequestPart(value = "image") List<MultipartFile> multipartFile,String able, @RequestParam("resourceNo") Long resourceNo ){
-        return resourceService.fileUpdate(multipartFile, able,resourceNo);
+    public ResponseEntity<Message> fileUpdate(@RequestPart(value = "image") List<MultipartFile> multipartFile ){
+        return resourceService.fileUpdate(multipartFile);
     }
 
     @PostMapping("/delete")
