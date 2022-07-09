@@ -13,11 +13,11 @@ const BchartItem = ({ catenum }) => {
   const [info, setInfo] = useState([]);
 
   const changeTitle = () => {
-    if (catenum == 1 || catenum == '') {
+    if (Number(catenum) === 1 || !catenum) {
       setTitle('회의실');
-    } else if (catenum == 2) {
+    } else if (Number(catenum) === 2) {
       setTitle('차량');
-    } else if (catenum == 3) {
+    } else if (Number(catenum) === 3) {
       setTitle('노트북');
     }
   };
@@ -44,12 +44,12 @@ const BchartItem = ({ catenum }) => {
 
   useEffect(() => {
     if (data.length > 0) {
-      let result = [];
+      const result = [];
       const totalCount = data[0].totalCnt;
       const days = data[0].days;
       const counts = data[0].hourConference.map((v) => v.cnt);
       let temp2 = totalCount * days * 4; //분모
-      let spliceCounts = [];
+      const spliceCounts = [];
       for (let i = 0; i < counts.length; i += 4) {
         spliceCounts.push(
           counts[i] + counts[i + 1] + counts[i + 2] + counts[i + 3],
@@ -59,7 +59,7 @@ const BchartItem = ({ catenum }) => {
       for (let i = 1; i < 13; i++) {
         const tempResult = {
           quarter: i,
-          earnings: spliceCounts[i - 1] / temp2,
+          earnings: (spliceCounts[i - 1] * 10) / temp2,
         };
         result.push(tempResult);
       }
@@ -87,6 +87,7 @@ const BchartItem = ({ catenum }) => {
           grid: { stroke: '#94A2AD' },
           tickLabels: { fontSize: 20, padding: 10 },
         }}
+        animate={{ duration: 1000, easing: 'bounce' }}
       >
         <VictoryAxis
           tickValues={[

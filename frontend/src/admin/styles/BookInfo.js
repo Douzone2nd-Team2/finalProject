@@ -4,20 +4,21 @@ const Container = styled.div`
   font-family: 'NanumGothic';
 `;
 const TitleContainer = styled.h2`
-  margin-left: 200px;
+  margin-left: 20px;
   margin-top: 50px;
   font-weight: 500;
+  font-size: 25px;
 `;
 
 const TableContainer = styled.div`
-  margin-left: 170px;
+  margin-left: 15px;
   margin-top: 30px;
-  width: 480px;
+  width: 450px;
   font-size: 13px;
 
   th {
     background-color: lightgray;
-    width: 170px;
+    width: 150px;
     text-align: center;
   }
 
@@ -34,6 +35,17 @@ const TableContainer = styled.div`
     width: 400px;
     font-size: 15px;
   }
+
+  td {
+    text-align: center;
+  }
 `;
+
+// const UpdateContainer = styled.div`
+//   .updateBtn {
+//     background-color: blue;
+//     width: 30px;
+//   }
+// `;
 
 export { Container, TitleContainer, TableContainer };

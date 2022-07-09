@@ -3,11 +3,6 @@ import styled from 'styled-components';
 export const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  z-index: 999;
   border-bottom: 10px solid #3d73ff;
   font-family: NanumGothicBold;
   background-color: white;

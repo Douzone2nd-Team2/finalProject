@@ -23,10 +23,10 @@ function Sidebar() {
   const changeTab = () => {
     if (reservation) {
       setReservation(false);
-      toggleInfo.current.style.display = 'block';
+      toggleInfo.current.style.display = 'none';
     } else {
       setReservation(true);
-      toggleInfo.current.style.display = 'none';
+      toggleInfo.current.style.display = 'block';
     }
   };
 
@@ -54,7 +54,7 @@ function Sidebar() {
             <BsReverseLayoutTextSidebarReverse /> 자원관리
           </SbLi>
         </Link>
-        <SbLi onClick={changeTab}>
+        <SbLi onClick={() => changeTab()}>
           <BsCalendar4Week /> 예약관리 <BiDownArrow style={floatRight} />
         </SbLi>
         <SbChildUl ref={toggleInfo}>

@@ -86,10 +86,11 @@ public class ReservationManagementDto {
 
     @QueryProjection
     @Builder
-    public ReservationManagementDto(Long reservNo, String able, String cateName, Long cateNo, String resourceName, Long resourceNo,
+    public ReservationManagementDto(Long reservNo, String reservName, String able, String cateName, Long cateNo, String resourceName, Long resourceNo,
                                     Long userNo, String userName, Date startTime, Date endTime, Long adminNo,
                                     String availableTime, String adminName){
         this.reservNo = reservNo;
+        this.reservName = reservName;
         this.able = able;
         this.category = cateName;
         this.cateNo = cateNo;

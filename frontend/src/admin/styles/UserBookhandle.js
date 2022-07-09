@@ -7,32 +7,52 @@ const AllContainer = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 1200px;
-  height: 100%;
-  padding: 0px 72px;
+  justify-content: space-around;
+  width: 80%;
+  margin: auto;
 `;
 
 const HeadContainer = styled.div`
   font-size: 30px;
   font-weight: 600;
-  padding-top: 30px;
+  padding-top: 70px;
   border-bottom: 4px solid black;
+  margin-left: 5px;
 `;
 
 const BookContainer = styled.div`
+  width: 80%;
   margin-top: 30px;
+  margin-left: 10%;
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;
   box-shadow: 1.5px 1.5px 1.5px 1.5px gray;
 `;
 
+const InputContainer = styled.div`
+  input:nth-child(2) {
+    margin-left: 20px;
+  }
+`;
+
 const NameContainer = styled.h1`
   margin-top: 5px;
   margin-left: 30px;
   padding-top: 15px;
-  font-size: 30px;
+  font-size: 22px;
   font-weight: 800;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const CategoryContainer = styled.span`
+  background-color: blue;
+  color: white;
+  font-size: 14px;
+  padding: 7px;
+  border-radius: 20px;
+  margin-right: 15px;
 `;
 
 const ContentContainer = styled.div`
@@ -60,7 +80,6 @@ const ButtonContainer = styled.div`
 `;
 
 const MagnifyingGlass = styled.div`
-  background-color: #f6f6f6;
   button {
     border: none;
   }
@@ -70,9 +89,11 @@ export {
   AllContainer,
   Container,
   HeadContainer,
+  InputContainer,
+  CategoryContainer,
+  ContentContainer,
   BookContainer,
   NameContainer,
-  ContentContainer,
   ContentSort,
   ButtonContainer,
   MagnifyingGlass,

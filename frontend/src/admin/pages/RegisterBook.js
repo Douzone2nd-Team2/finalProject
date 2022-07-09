@@ -1,4 +1,5 @@
 import {
+  AllContainer,
   Container,
   HeadContainer,
   BookContainer,
@@ -10,9 +11,10 @@ import {
 } from '../styles/RegisterBook';
 
 import Button from 'react-bootstrap/Button';
+
 const RegisterBook = () => {
   return (
-    <>
+    <AllContainer>
       <Container>
         <HeadContainer>
           예약관리 <span className="fa-solid fa-arrow-right-long" /> 예약등록
@@ -60,7 +62,7 @@ const RegisterBook = () => {
           </ContentContainer>
         </BookContainer>
       </Container>
-    </>
+    </AllContainer>
   );
 };
 

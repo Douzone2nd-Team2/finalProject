@@ -4,19 +4,24 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 80%;
-  margin: auto;
+  width: 100%;
+  height: 1000px;
+  padding: 0px 72px;
 `;
 
 export const ResourceContainer = styled.div`
   font-size: 30px;
   font-weight: 600;
-  padding-top: 70px;
+  padding-top: 30px;
   border-bottom: 4px solid black;
-  margin-left: 140px;
+  width: 100%;
+  height: auto;
 `;
 export const ResourceContainer2 = styled.div`
-  margin-left: 140px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ResourceForm = styled.form`
@@ -48,8 +53,20 @@ export const Forminput = styled.div`
   border: 1px solid black;
 `;
 export const ResourceCardUI = styled.div`
-  width: 80px;
-  height: 150px;
+  width: 100%;
+  height: 100%;
   font-size: 10px;
-  margin-left: 60px;
+  overflow: hidden;
+  padding: 0px 24px;
+`;
+export const ResourcePagenation = styled.div`
+  position: relative;
+  bottom: 0%;
+`;
+
+export const SelectBoxDiv = styled.div`
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: flex-end;
 `;

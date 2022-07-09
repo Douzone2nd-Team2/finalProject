@@ -5,12 +5,14 @@ import com.team2.backend.service.admin.ResourceService;
 import com.team2.backend.service.admin.UserService;
 import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.admin.ReservationManagementDto;
+import com.team2.backend.web.dto.admin.ReserveDeleteDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.util.HashMap;
 
 @RequiredArgsConstructor
 @RestController
@@ -56,5 +58,13 @@ public class ReservationController {
     @GetMapping("/admin/reservation/view")
     public ResponseEntity<Message> reservationView(HttpServletRequest request, @RequestParam Long reservNo){
         return reservationService.reservationView(request, reservNo);
+    }
+
+    @PostMapping("/admin/reservation/delete")
+    public ResponseEntity<Message> deleteReservation(@RequestBody ReserveDeleteDto body) throws ParseException {
+        System.out.println("실행해");
+        return reservationService.deleteReservation(body);
+//        System.out.println(body.getReservNo());
+//        return reservationService.deleteReservation(body.getReservNo());
     }
 }

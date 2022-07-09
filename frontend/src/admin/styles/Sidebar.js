@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 
 export const SbContainer = styled.div`
-  position: fixed;
-  top: 50px;
   background-color: #d2d2d2;
-  width: 15%;
-  height: 100vh;
+  width: 300px;
+  height: 1000px;
   font-size: 20px;
   font-weight: 600;
   min-width: 151px;
