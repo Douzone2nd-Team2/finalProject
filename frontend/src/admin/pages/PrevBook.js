@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
 
 import { arrayIsEmpty } from '../utils/jsFunction';
 import { getCookie } from '../utils/cookie';
@@ -27,6 +29,24 @@ const PrevBook = ({ userNo, userName }) => {
     }
   };
 
+  const deleteData = async (e) => {
+    console.log(e.reservNo);
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/delete`,
+        {
+          param: { reservNo: e.reservNo },
+          headers: {
+            Authorization: getCookie('accessToken'),
+          },
+        },
+      );
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -37,6 +57,7 @@ const PrevBook = ({ userNo, userName }) => {
       <TableContainer>
         <table className="tableHead">
           <tr>
+            <th>no</th>
             <th>자원</th>
             <th>예약시작일</th>
             <th>예약종료일</th>
@@ -46,6 +67,7 @@ const PrevBook = ({ userNo, userName }) => {
           {!arrayIsEmpty(prevList) ? (
             prevList.map((user, idx) => (
               <tr key={idx}>
+                <td>{idx + 1}</td>
                 <td>{user.resourceName}</td>
                 <td>{user.startTime}</td>
                 <td>{user.endTime}</td>
@@ -59,11 +81,13 @@ const PrevBook = ({ userNo, userName }) => {
                       userName: userName,
                     }}
                   >
-                    <div className="updateBtn">수정</div>
+                    <Button variant="primary">수정</Button>
                   </Link>
                 </td>
                 <td>
-                  <div>삭제</div>
+                  <Button variant="danger" onClick={() => deleteData(user)}>
+                    삭제
+                  </Button>
                 </td>
               </tr>
             ))

@@ -17,13 +17,13 @@ const HeadContainer = styled.div`
   font-weight: 600;
   padding-top: 70px;
   border-bottom: 4px solid black;
-  margin-left: 100px;
+  margin-left: 5px;
 `;
 
 const BookContainer = styled.div`
-  width: 800px;
+  width: 80%;
   margin-top: 30px;
-  margin-left: 18%;
+  margin-left: 10%;
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;

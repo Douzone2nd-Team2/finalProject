@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
 
 import { arrayIsEmpty } from '../utils/jsFunction';
 import { getCookie } from '../utils/cookie';
@@ -37,6 +39,7 @@ const PresentBook = ({ userNo, userName }) => {
       <TableContainer>
         <table>
           <tr>
+            <th>no</th>
             <th>자원</th>
             <th>예약시작일</th>
             <th>예약종료일</th>
@@ -46,6 +49,7 @@ const PresentBook = ({ userNo, userName }) => {
           {!arrayIsEmpty(presList) ? (
             presList.map((user, idx) => (
               <tr key={idx}>
+                <td>{idx}</td>
                 <td>{user.resourceName}</td>
                 <td>{user.startTime}</td>
                 <td>{user.endTime}</td>
@@ -63,7 +67,7 @@ const PresentBook = ({ userNo, userName }) => {
                   </Link>
                 </td>
                 <td>
-                  <div>삭제</div>
+                  <button>삭제</button>
                 </td>
               </tr>
             ))

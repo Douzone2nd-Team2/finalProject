@@ -4,14 +4,14 @@ const Container = styled.div`
   font-family: 'NanumGothic';
 `;
 const TitleContainer = styled.h2`
-  margin-left: 200px;
+  margin-left: 20px;
   margin-top: 50px;
   font-weight: 500;
   font-size: 25px;
 `;
 
 const TableContainer = styled.div`
-  margin-left: 170px;
+  margin-left: 15px;
   margin-top: 30px;
   width: 450px;
   font-size: 13px;
