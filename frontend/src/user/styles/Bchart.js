@@ -18,7 +18,18 @@ const TitleContainer = styled.div`
   font-size: 20px;
   font-weight: bolder;
   background-color: #e2e2e2;
-  border-radius: 12px 12px 0px 0px;
+  border-radius: 15px 15px 0px 0px;
+  .useHour {
+    min-width: 300px;
+  }
+
+  .days {
+    margin-left: 10px;
+    background-color: #1296ec;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+  }
 `;
 
 export { BarContainer, TitleContainer };
