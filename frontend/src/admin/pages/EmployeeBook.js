@@ -53,28 +53,31 @@ const EmployeeBook = () => {
             <th></th>
           </tr>
           {userInfo &&
-            userInfo.map((user, idx) => (
-              <tr>
-                <td>{user.no}</td>
-                <td>{user.empNo}</td>
-                <td>{user.name}</td>
-                <td>{user.deptName}</td>
-                <td>{user.gradeName}</td>
-                <td>
-                  <Link
-                    to="/admin/userbook"
-                    state={{
-                      userNo: user.no,
-                      userName: user.name,
-                    }}
-                    style={{ textDecoration: 'none' }}
-                    key={idx}
-                  >
-                    <div>예약 확인</div>
-                  </Link>
-                </td>
-              </tr>
-            ))}
+            userInfo.map((user, idx) => {
+              // React List Key 인덱스를 넣는거는 최후의 방식
+              const key = `user-info-${idx}`;
+              return (
+                <tr key={key}>
+                  <td>{user.no}</td>
+                  <td>{user.empNo}</td>
+                  <td>{user.name}</td>
+                  <td>{user.deptName}</td>
+                  <td>{user.gradeName}</td>
+                  <td>
+                    <Link
+                      to="/admin/userbook"
+                      state={{
+                        userNo: user.no,
+                        userName: user.name,
+                      }}
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <div>예약 확인</div>
+                    </Link>
+                  </td>
+                </tr>
+              );
+            })}
         </table>
       </TableContainer>
     </Container>

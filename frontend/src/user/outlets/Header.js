@@ -22,11 +22,10 @@ import {
 const Header = () => {
   const setSearchState = useSetRecoilState(searchState);
 
-  const [isOpenBook, setIsOpenBook] = useState(false);
   const [isOpenMypage, setIsOpenMypage] = useState(false);
   const [searchTitle, setSearchTitle] = useState('');
+  const emptyTitle = '';
 
-  // const bookRef = useRef(null);
   const myPageRef = useRef(null);
 
   const [_, removeCookie] = useCookies(['accessToken']);
@@ -42,20 +41,18 @@ const Header = () => {
     navigate('/');
   };
 
-  // const openBookmenu = () => {
-  //   setIsOpenBook((prev) => !prev);
-  //   setIsOpenMypage(false);
-  // };
-
   const openMypagemenu = () => {
     setIsOpenMypage((prev) => !prev);
-    // setIsOpenBook(false);
   };
 
   const searchEvent = (e) => {
     e.preventDefault();
-    InitSearchTitle();
+    if (searchTitle.length === 0) {
+      alert('값이 입력되지 않았습니다. 다시 입력하세요!');
+      return;
+    }
     setSearchState(searchTitle);
+    InitSearchTitle();
     navigate('/search');
   };
 
@@ -64,13 +61,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-    // const handleClickBookOutside = (e) => {
-    //   if (
-    //     isOpenBook &&
-    //     (!bookRef.current || !bookRef.current.contains(e.target))
-    //   )
-    //     setIsOpenBook(false);
-    // };
     const handleClickMypageOutside = (e) => {
       if (
         isOpenMypage &&
@@ -78,11 +68,9 @@ const Header = () => {
       )
         setIsOpenMypage(false);
     };
-    // window.addEventListener('click', handleClickBookOutside);
     window.addEventListener('click', handleClickMypageOutside);
 
     return () => {
-      // window.removeEventListener('click', handleClickBookOutside);
       window.removeEventListener('click', handleClickMypageOutside);
     };
   }, [isOpenMypage]);
@@ -102,29 +90,25 @@ const Header = () => {
           onChange={changeTitle}
           value={searchTitle}
         />
-
         <button type="submit" className="fa-solid fa-magnifying-glass" />
       </SearchContainer>
-
       <HeaderRightContainer>
         <MenuContainer>
           <DropDownContainer>
-            <div style={{ display: 'flex' }}>
-              예약
-              <VerticalLine />
-            </div>
-
-            {/* {isOpenBook && (
-              <BookListContainer theme={{ borderColor: 'black' }} ref={bookRef}>
-                <BookList>
-                  <li>회의실</li>
-                  <hr />
-                  <li>차량</li>
-                  <hr />
-                  <li>비품</li>
-                </BookList>
-              </BookListContainer>
-            )} */}
+            <Link
+              to="/search"
+              style={{ textDecoration: 'none', color: 'white' }}
+            >
+              <div
+                style={{ display: 'flex' }}
+                onClick={() => {
+                  setSearchState('');
+                }}
+              >
+                예약
+                <VerticalLine />
+              </div>
+            </Link>
           </DropDownContainer>
           <DropDownContainer onClick={openMypagemenu}>
             <div style={{ display: 'flex' }}>
