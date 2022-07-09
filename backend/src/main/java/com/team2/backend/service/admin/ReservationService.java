@@ -7,6 +7,7 @@ import com.team2.backend.domain.resource.ResourceRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.admin.ReservationManagementDto;
+import com.team2.backend.web.dto.admin.ReserveDeleteDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -387,6 +388,39 @@ public class ReservationService {
                 .resCode(1000)
                 .message("[Success] Select ReservationView")
                 .data(reservationView)
+                .build();
+        return new JsonResponse().send(200, message);
+    }
+
+    @Transactional
+    public ResponseEntity<Message> deleteReservation(ReserveDeleteDto body){
+        Long reservNo = body.getReservNo();
+        try {
+            //checkno 찾기
+            List<ReservationCheck> reservationCheck = reservationCheckRepository.findAllByReservNo(reservNo);
+
+            List<Long> checkNoList = new ArrayList<>();
+
+            for (int i=0;i<reservationCheck.size();i++){
+                checkNoList.add(reservationCheck.get(i).getCheckNo());
+            }
+            for (int i=0;i<checkNoList.size();i++){
+                timelistRepository.deleteAllByCheckNo(checkNoList.get(i));
+            }
+            reservationCheckRepository.deleteAllByReservNo(reservNo);
+            peopleCntRepository.deleteByReservNo(reservNo);
+            reservationRepository.deleteByReservNo(reservNo);
+            Message message = Message.builder()
+                    .resCode(1000)
+                    .message("[Success] Delete Reservation")
+                    .build();
+            return new JsonResponse().send(200, message);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Message message = Message.builder()
+                .resCode(1001)
+                .message("[Fail] Delete Reservation")
                 .build();
         return new JsonResponse().send(200, message);
     }

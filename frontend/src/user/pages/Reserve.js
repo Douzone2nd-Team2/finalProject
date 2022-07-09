@@ -3,6 +3,12 @@ import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
 import { getCookie } from '../utils/cookie';
 
+import { useLocation } from 'react-router-dom';
+
+import { useRecoilValue } from 'recoil';
+
+import { userState } from '../recoil/user';
+
 import { MainContainer, Container } from '../styles/ReservationLayout';
 
 import ReservationHeader from '../components/Reservation/ReservationHeader/ReservationHeader';
@@ -13,6 +19,12 @@ import CalendarInfo from '../components/Reservation/Calendar/CalendarInfo.js';
 let stompClient = null;
 
 const Reserve = () => {
+  const user = useRecoilValue(userState);
+  const resourceData = useLocation();
+
+  console.log(user);
+  console.log(resourceData.state);
+
   const [step, setStep] = useState(0);
   const [cateNo, setCateNo] = useState(3); // 바뀔 일 없으니까 구조분해할당으로 하자
 

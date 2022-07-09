@@ -1,6 +1,13 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { Cookies } from 'react-cookie';
 
+import {
+  GlobalContainer,
+  GlobalHeader,
+  GlobalBody,
+  MainContainer,
+} from '../../styles/GlobalLayout.js';
+
 import Header from '../../outlets/Header.js';
 import Sidebar from '../../outlets/Sidebar.js';
 
@@ -12,11 +19,17 @@ const AdminPrivateRoute = () => {
     return <Navigate to="/admin/login" />;
 
   return (
-    <>
-      <Header />
-      <Sidebar />
-      <Outlet />
-    </>
+    <GlobalContainer>
+      <GlobalHeader>
+        <Header />
+      </GlobalHeader>
+      <GlobalBody>
+        <Sidebar />
+        <MainContainer>
+          <Outlet />
+        </MainContainer>
+      </GlobalBody>
+    </GlobalContainer>
   );
 };
 

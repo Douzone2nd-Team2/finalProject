@@ -55,6 +55,7 @@ public class ResourceController {
     public ResponseEntity<Message> updateresourceList(HttpServletRequest req, @RequestParam("resourceNo") Long resourceNo , @RequestBody Resource resource){
         return resourceService.resourceUpdate(req, resourceNo, resource);
     }
+
     @PostMapping("/fileupdate") // 사진 수정
     public ResponseEntity<Message> fileUpdate(@RequestPart(value = "image") List<MultipartFile> multipartFile, @RequestParam("resourceNo") Long resourceNo ){
         return resourceService.fileUpdate(multipartFile, resourceNo);

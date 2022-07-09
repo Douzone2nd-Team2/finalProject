@@ -4,7 +4,11 @@ import axios from 'axios';
 
 import { getCookie } from '../utils/cookie';
 
-import { Container, HeadContainer } from '../styles/EmployeeBook';
+import {
+  Container,
+  HeadContainer,
+  TableContainer,
+} from '../styles/EmployeeBook';
 
 const EmployeeBook = () => {
   const [userInfo, setUserInfo] = useState([]);
@@ -33,12 +37,12 @@ const EmployeeBook = () => {
   console.log(userInfo);
 
   return (
-    <>
-      <Container>
-        <HeadContainer>
-          예약관리 <span className="fa-solid fa-arrow-right-long" /> 사용자별
-          예약관리
-        </HeadContainer>
+    <Container>
+      <HeadContainer>
+        예약관리 <span className="fa-solid fa-arrow-right-long" /> 사용자별
+        예약관리
+      </HeadContainer>
+      <TableContainer>
         <table>
           <tr>
             <th>NO.</th>
@@ -49,31 +53,34 @@ const EmployeeBook = () => {
             <th></th>
           </tr>
           {userInfo &&
-            userInfo.map((user, idx) => (
-              <tr>
-                <td>{user.no}</td>
-                <td>{user.empNo}</td>
-                <td>{user.name}</td>
-                <td>{user.deptName}</td>
-                <td>{user.gradeName}</td>
-                <td>
-                  <Link
-                    to="/admin/userbook"
-                    state={{
-                      userNo: user.no,
-                      userName: user.name,
-                    }}
-                    style={{ textDecoration: 'none' }}
-                    key={idx}
-                  >
-                    <div>예약 확인</div>
-                  </Link>
-                </td>
-              </tr>
-            ))}
+            userInfo.map((user, idx) => {
+              // React List Key 인덱스를 넣는거는 최후의 방식
+              const key = `user-info-${idx}`;
+              return (
+                <tr key={key}>
+                  <td>{user.no}</td>
+                  <td>{user.empNo}</td>
+                  <td>{user.name}</td>
+                  <td>{user.deptName}</td>
+                  <td>{user.gradeName}</td>
+                  <td>
+                    <Link
+                      to="/admin/userbook"
+                      state={{
+                        userNo: user.no,
+                        userName: user.name,
+                      }}
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <div>예약 확인</div>
+                    </Link>
+                  </td>
+                </tr>
+              );
+            })}
         </table>
-      </Container>
-    </>
+      </TableContainer>
+    </Container>
   );
 };
 

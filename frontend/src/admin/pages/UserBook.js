@@ -17,8 +17,8 @@ const UserBook = () => {
     <Container>
       <HeadContainer>{userName}님</HeadContainer>
       <BookContainer>
-        <PrevBook userNo={userNo} />
-        <PresentBook userNo={userNo} />
+        <PresentBook userNo={userNo} userName={userName} />
+        <PrevBook userNo={userNo} userName={userName} />
       </BookContainer>
     </Container>
   );
