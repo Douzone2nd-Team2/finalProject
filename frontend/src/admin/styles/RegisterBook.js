@@ -35,6 +35,18 @@ const NameContainer = styled.h1`
   font-weight: 800;
 `;
 
+const SelectBoxDiv = styled.div`
+  position: relative;
+  bottom: 0%;
+`;
+
+const ResourceContainer2 = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
 const ContentContainer = styled.div`
   margin-top: 30px;
   padding-bottom: 20px;
@@ -76,4 +88,6 @@ export {
   ContentSort,
   ButtonContainer,
   MagnifyingGlass,
+  SelectBoxDiv,
+  ResourceContainer2,
 };

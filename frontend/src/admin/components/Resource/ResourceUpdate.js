@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import { Button, Col, Row, Form } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
 import axios from 'axios';
@@ -30,9 +30,15 @@ const ResourceDetail = () => {
   const [resourceName, setResourceName] = useState('');
   const [location, setLocation] = useState('');
   const [people, setPeople] = useState('');
+
   const [time, setTime] = useState('');
-  // const [startTime, setStartTime] = useState('');
-  // const [endTime, setEndTime] = useState('');
+  const [hour, setHour] = useState('');
+  const [minute, setMinute] = useState('');
+
+  const [Etime, setEtime] = useState('');
+  const [Ehour, setEhour] = useState('');
+  const [Eminute, setEminute] = useState('');
+
   const [option, setOption] = useState('');
   const [fuel, setFuel] = useState('');
   const [content, setContent] = useState('');
@@ -51,15 +57,36 @@ const ResourceDetail = () => {
   const handleAble = (e) => {
     setAble(e.target.value);
   };
-  // const handleStartTime = (e) => {
-  //   setStartTime(e.target.value);
-  // };
-  // const handleEndTime = (e) => {
-  //   setEndTime(e.target.value);
-  // };
-  // const handleTime = (e) => {
-  //   setTime(e.target.value);
-  // };
+
+  //시작시간
+  const ShandleTime = (e) => {
+    setTime(e.target.value);
+    console.log(time);
+  };
+  const ShandleHourTime = (e) => {
+    setHour(e.target.value);
+    console.log(hour);
+  };
+  const ShandleMinuteTime = (e) => {
+    setMinute(e.target.value);
+    console.log(minute);
+  };
+
+  //종료시간
+  const EhandleTime = (e) => {
+    setEtime(e.target.value);
+  };
+  const EhandleHourTime = (e) => {
+    setEhour(e.target.value);
+  };
+  const EhandleMinuteTime = (e) => {
+    setEminute(e.target.value);
+  };
+
+  // Full-Time
+  const handleFullTime = (e) => {
+    // setFull
+  };
   const handleOption = (e) => {
     setOption(e.target.value);
   };
@@ -70,11 +97,6 @@ const ResourceDetail = () => {
     setContent(e.target.value);
   };
 
-  // const handleChangeFile = (e) => {
-  //   setImgFile(e.target.file);
-  //   console.log('img' + imgFile);
-  // };
-
   const onChangeAble = (e) => {
     if (e.target.value == 'Y') {
       setInputStatus(true);
@@ -83,24 +105,26 @@ const ResourceDetail = () => {
     }
   };
 
-  const onChangeResource = (e) => {
-    // setUpdateresource({
-    //   ...updateresource,
-    //   [e.target.id]: e.target.value,
-    // });
-  };
+  useEffect(() => {
+    if (imgFile.length != 0) {
+      const d = new FormData();
+      for (let i = 0; i < imgFile.length; i++) {
+        d.append('images', imgFile[i]);
+      }
+
+      setFormData(d);
+    }
+  }, [imgFile]);
 
   useEffect(() => {
     getResourceNo(state);
   }, []);
 
   const getResourceNo = async (state) => {
-    // console.log(resourceNo);
-    // const param = { resourceNo: resourceNo };
-    console.log(state);
     axios
       .get(
         `${process.env.REACT_APP_SERVER_PORT}/resource/detail?resourceNo=${state}`,
+        { Authorization: getCookie('accessToken') },
       )
       .then((response) => {
         console.log(response.data.data);
@@ -113,8 +137,8 @@ const ResourceDetail = () => {
       });
   };
 
-  // 파일 수정
-  const imageUpdate = async (e) => {
+  // 미리보기
+  const imagePreview = async (e) => {
     const fileArr = e.target.files;
 
     let fileURLs = [];
@@ -133,41 +157,22 @@ const ResourceDetail = () => {
       };
       reader.readAsDataURL(file);
     }
-
-    // if (imgFile.length > 0) {
-    //   const d = new FormData();
-    //   for (let i = 0; i < imgFile.length; i++) {
-    //     d.append('image', imgFile[i]);
-    //   }
-
-    //   setFormData(d);
-    // }
-
-    // await axios
-    //   .post(
-    //     `${process.env.REACT_APP_SERVER_PORT}/resource/fileupdate?resourceNo=}`,
-    //     formData,
-    //     {
-    //       headers: {
-    //         Authorization: getCookie('accessToken'),
-    //         'Content-Type': `multipart/form-data;`,
-    //       },
-    //     },
-    //   )
-    //   .then((res) => {
-    //     console.log(res);
-    //     console.log('파일 수정성공');
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   };
 
-  //그냥 삭제
-  const deleteResource = async (state) => {
-    await axios
+  // 파일수정
+  const postImgae = (e) => {
+    if (imgFile.length > 0) {
+      const d = new FormData();
+      for (let i = 0; i < imgFile.length; i++) {
+        d.append('image', imgFile[i]);
+      }
+
+      setFormData(d);
+    }
+
+    axios
       .post(
-        `${process.env.REACT_APP_SERVER_PORT}/resource/delete?resourceNo=${state}`,
+        `${process.env.REACT_APP_SERVER_PORT}/resource/fileupdate?resourceNo=${state}`,
         formData,
         {
           headers: {
@@ -176,6 +181,25 @@ const ResourceDetail = () => {
           },
         },
       )
+      .then((res) => {
+        console.log(res);
+        console.log('파일 수정성공');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  //삭제
+  const deleteResource = async (state) => {
+    console.log(state);
+    const body = { resourceNo: state };
+    await axios
+      .post(`${process.env.REACT_APP_SERVER_PORT}/resource/delete`, body, {
+        headers: {
+          Authorization: getCookie('accessToken'),
+        },
+      })
       .then((res) => {
         console.log(res);
         alert(' 삭제되었습니다.');
@@ -268,8 +292,11 @@ const ResourceDetail = () => {
                       id="file"
                       multiple
                       name="image"
-                      onChange={imageUpdate}
+                      onChange={imagePreview}
                     />
+                    <Button variant="primary" onClick={() => postImgae(state)}>
+                      확인
+                    </Button>
                   </Forminput>
                 </tr>
                 <tr>
@@ -342,7 +369,7 @@ const ResourceDetail = () => {
                           type="number"
                           id="people"
                           defaultValue={resource.people}
-                          onChange={onChangeResource}
+                          onChange={handlePeople}
                         />
                       </Forminput>
                     </tr>
@@ -356,7 +383,7 @@ const ResourceDetail = () => {
                           type="number"
                           id="people"
                           defaultValue={resource.people}
-                          onChange={onChangeResource}
+                          onChange={handlePeople}
                         />
                       </Forminput>
                     </tr>
@@ -366,21 +393,108 @@ const ResourceDetail = () => {
                 )}
                 <tr>
                   <Formtd>이용가능시간</Formtd>
-                  {/* <Forminput>
-                    <input
-                      type="time"
-                      id="startTime"
-                      defaultValue={startTime}
-                      onChange={startTimeChange}
-                    />
-                    ~
-                    <input
-                      type="time"
-                      id="endTime"
-                      defaultValue={endTime}
-                      onChange={endTimeChange}
-                    />
-                  </Forminput> */}
+                  <Forminput>
+                    <Row>
+                      <Col>시작시간:</Col>
+                      <Col>
+                        <Form.Select
+                          size="sm"
+                          onChange={ShandleTime}
+                          value={time}
+                        >
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </Form.Select>
+                      </Col>
+                      <Col>
+                        <Form.Select
+                          size="sm"
+                          onChange={ShandleHourTime}
+                          value={hour}
+                        >
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                        </Form.Select>
+                      </Col>
+                      :
+                      <Col>
+                        <Form.Select
+                          size="sm"
+                          onChange={ShandleMinuteTime}
+                          value={minute}
+                        >
+                          <option value="00">00</option>
+                          <option value="30">30</option>
+                        </Form.Select>
+                      </Col>
+                    </Row>
+
+                    <Row>
+                      <Col>종료시간:</Col>
+                      <Col>
+                        <Form.Select
+                          size="sm"
+                          onChange={EhandleTime}
+                          value={Etime}
+                        >
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </Form.Select>
+                      </Col>
+                      <Col>
+                        <Form.Select
+                          size="sm"
+                          onChange={EhandleHourTime}
+                          value={Ehour}
+                        >
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                        </Form.Select>
+                      </Col>
+                      :
+                      <Col>
+                        <Form.Select
+                          size="sm"
+                          onChange={EhandleMinuteTime}
+                          value={Eminute}
+                        >
+                          <option value="00">00</option>
+                          <option value="30">30</option>
+                        </Form.Select>
+                      </Col>
+                    </Row>
+
+                    <Row>
+                      <Col>Full-Time:</Col>
+                      <Col>
+                        <Form.Check
+                          type="radio"
+                          value="Full-time"
+                          onChange={handleFullTime}
+                        />
+                      </Col>
+                    </Row>
+                  </Forminput>
                 </tr>
                 <tr>
                   <Formtd>옵션</Formtd>
@@ -407,6 +521,12 @@ const ResourceDetail = () => {
                 </tr>
               </table>
               <ButtonContainer>
+                <Button
+                  variant="secondary "
+                  onClick={() => navigate('/admin/resource')}
+                >
+                  뒤로
+                </Button>
                 <Button variant="primary" onClick={() => updateResource(state)}>
                   확인
                 </Button>
