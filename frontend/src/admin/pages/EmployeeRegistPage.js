@@ -16,6 +16,7 @@ import {
   ContentContainer,
   ContentSort,
   ButtonContainer,
+  SelectDiv,
 } from '../styles/User';
 import Button from 'react-bootstrap/Button';
 
@@ -83,14 +84,11 @@ const EmployeeRegistPage = () => {
   };
 
   const handleChangeFile = (event) => {
-    // console.log(event.target.files);
-
     const reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
     new Promise((reslove) => {
       reader.onload = () => {
         setImage(reader.result);
-        // resolve();
       };
     });
 
@@ -106,7 +104,6 @@ const EmployeeRegistPage = () => {
 
         reader.onloadend = () => {
           const base64 = reader.result;
-          // console.log(base64);
           if (base64) {
             var base64Sub = base64.toString();
             setImgBase64((imgBase64) => [...imgBase64, base64Sub]);
@@ -164,138 +161,142 @@ const EmployeeRegistPage = () => {
 
   return (
     <>
-      <AllContainer>
-        <FlexContainer>
-          <Container>
-            <HeadContainer>
-              <TitleContainer>사용자관리</TitleContainer>
-            </HeadContainer>
-          </Container>
-          <UserContainer>
-            <ContentContainer>
-              <form>
-                <ImageContainer>
-                  <label htmlFor="profileImage">프로필 사진</label>
-                  {imageUrl ? (
-                    <img alt="imagePreview" src={image} id="profileImage" />
-                  ) : (
-                    <div>
-                      <span class="fa-solid fa-circle-user fa-9x"></span>
-                    </div>
-                  )}
-                  <div className="fileInput">
-                    <input
-                      type="file"
-                      id="file"
-                      name="image"
-                      onChange={handleChangeFile}
-                    />
+      <FlexContainer>
+        <HeadContainer>
+          <TitleContainer>사용자관리</TitleContainer>
+        </HeadContainer>
+        <UserContainer>
+          <ContentContainer>
+            <form>
+              <ImageContainer>
+                <label htmlFor="profileImage">프로필 사진</label>
+                {imageUrl ? (
+                  <img alt="imagePreview" src={image} id="profileImage" />
+                ) : (
+                  <div>
+                    <span class="fa-solid fa-circle-user fa-9x"></span>
                   </div>
-                </ImageContainer>
+                )}
+                <div className="fileInput">
+                  <input
+                    type="file"
+                    id="file"
+                    name="image"
+                    onChange={handleChangeFile}
+                  />
+                </div>
+              </ImageContainer>
 
-                <ContentSort>
-                  <label htmlFor="name">이름</label>
-                  <input
-                    type="text"
-                    defaultValue={name}
-                    id="name"
-                    onChange={handleName}
-                  />
-                  <label htmlFor="albe">사용자 사용여부</label>
-                  <input
-                    type="checkbox"
-                    id="able"
-                    checked={able == 'Y'}
-                    onChange={handleAble}
-                  />
-                </ContentSort>
-                <ContentSort>
-                  <label htmlFor="password">비밀번호</label>
-                  <input
-                    type="password"
-                    value={password}
-                    id="password"
-                    onChange={handlePassword}
-                  />
-                  <label htmlFor="passwordCh">비밀번호 확인</label>
-                  <input
-                    type="password"
-                    value={passwordCh}
-                    id="passwordCh"
-                    onChange={handlePasswordCh}
-                  />
-                </ContentSort>
-                <ContentSort>
-                  <label htmlFor="userId">아이디</label>
-                  <input
-                    type="text"
-                    defaultValue={userId}
-                    id="useId"
-                    onChange={handleUserId}
-                  />
-                  <label htmlFor="empNo">사원번호</label>
-                  <input
-                    type="text"
-                    defaultValue={empNo}
-                    id="empNo"
-                    onChange={handleEmpNo}
-                  />
-                </ContentSort>
-                <ContentSort>
-                  <label htmlFor="dept">부서</label>
-                  <select name="dept" id="dept" onChange={handleDept}>
-                    <option value="1"> 영업</option>
-                    <option value="3"> 인사</option>
-                    <option value="4"> 개발</option>
-                  </select>
+              <ContentSort>
+                <label htmlFor="name">이름</label>
+                <input
+                  type="text"
+                  defaultValue={name}
+                  id="name"
+                  onChange={handleName}
+                />
+                <label htmlFor="albe">사용자 사용여부</label>
+                <input
+                  type="checkbox"
+                  id="able"
+                  checked={able == 'Y'}
+                  onChange={handleAble}
+                />
+              </ContentSort>
+              <ContentSort>
+                <label htmlFor="password">비밀번호</label>
+                <input
+                  type="password"
+                  value={password}
+                  id="password"
+                  onChange={handlePassword}
+                />
+                <label htmlFor="passwordCh">비밀번호 확인</label>
+                <input
+                  type="password"
+                  value={passwordCh}
+                  id="passwordCh"
+                  onChange={handlePasswordCh}
+                />
+              </ContentSort>
+              <ContentSort>
+                <label htmlFor="userId">아이디</label>
+                <input
+                  type="text"
+                  defaultValue={userId}
+                  id="useId"
+                  onChange={handleUserId}
+                />
+                <label htmlFor="empNo">사원번호</label>
+                <input
+                  type="text"
+                  defaultValue={empNo}
+                  id="empNo"
+                  onChange={handleEmpNo}
+                />
+              </ContentSort>
+              <ContentSort>
+                <label htmlFor="dept">부서</label>
 
-                  <label htmlFor="grade">직급</label>
-                  <select name="grade" id="grade" onChange={handleGrade}>
-                    <option value="1">사원</option>
-                    <option value="2">대리</option>
-                    <option value="3">팀장</option>
-                  </select>
-                </ContentSort>
-                <ContentSort>
-                  <label htmlFor="birth">생일</label>
-                  <input
-                    type="text"
-                    defaultValue={birth}
-                    id="birth"
-                    onChange={handleBirth}
-                  />
-                </ContentSort>
-                <ContentSort>
-                  <label htmlFor="phone">전화번호</label>
-                  <input
-                    type="text"
-                    defaultValue={phone}
-                    id="phone"
-                    onChange={handlePhone}
-                  />
-                </ContentSort>
-                <ContentSort>
-                  <label htmlFor="email">이메일</label>
-                  <input
-                    type="text"
-                    value={email}
-                    id="email"
-                    onChange={handleEmail}
-                  />
-                </ContentSort>
-                <ButtonContainer>
-                  <Button variant="secondary" onClick={handleCancel}>
-                    취소
-                  </Button>
-                  <Button variant="primary" onClick={handleSubmit}>
-                    등록
-                  </Button>
-                </ButtonContainer>
-              </form>
-            </ContentContainer>
-          </UserContainer>
-        </FlexContainer>
-      </AllContainer>
+                <select name="dept" id="dept" onChange={handleDept}>
+                  <option value="1"> 인사부</option>
+                  <option value="2"> 총무부</option>
+                  <option value="3"> 회계부</option>
+                  <option value="4"> 기획부</option>
+                  <option value="5"> 영업부</option>
+                  <option value="6"> 개발부</option>
+                </select>
+
+                <label htmlFor="grade">직급</label>
+
+                <select name="grade" id="grade" onChange={handleGrade}>
+                  <option value="1">사원</option>
+                  <option value="2">주임</option>
+                  <option value="3">팀장</option>
+                  <option value="4">과장</option>
+                  <option value="5">차장</option>
+                  <option value="6">부장</option>
+                </select>
+              </ContentSort>
+              <ContentSort>
+                <label htmlFor="birth">생일</label>
+                <input
+                  type="text"
+                  defaultValue={birth}
+                  id="birth"
+                  onChange={handleBirth}
+                />
+              </ContentSort>
+              <ContentSort>
+                <label htmlFor="phone">전화번호</label>
+                <input
+                  type="text"
+                  defaultValue={phone}
+                  id="phone"
+                  onChange={handlePhone}
+                />
+              </ContentSort>
+              <ContentSort>
+                <label htmlFor="email">이메일</label>
+                <input
+                  type="text"
+                  value={email}
+                  id="email"
+                  onChange={handleEmail}
+                />
+              </ContentSort>
+              <ButtonContainer>
+                <Button variant="secondary" onClick={handleCancel}>
+                  취소
+                </Button>
+                <Button variant="primary" onClick={handleSubmit}>
+                  등록
+                </Button>
+              </ButtonContainer>
+            </form>
+          </ContentContainer>
+        </UserContainer>
+      </FlexContainer>
     </>
   );
 };

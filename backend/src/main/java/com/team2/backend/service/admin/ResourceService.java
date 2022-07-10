@@ -9,10 +9,7 @@ import com.team2.backend.domain.resource.Resourcefile;
 import com.team2.backend.domain.resource.ResourcefileRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
-import com.team2.backend.web.dto.admin.BookmarkResAdminDto;
-import com.team2.backend.web.dto.admin.IResourceAdminDto;
-import com.team2.backend.web.dto.admin.ReservationManagementDto;
-import com.team2.backend.web.dto.admin.ResourceAdminDto;
+import com.team2.backend.web.dto.admin.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -205,6 +202,8 @@ public class ResourceService {
         try {
             List<Resourcefile> resourcefileList = new ArrayList<>();
 
+            Long lastResourceNo = resourceRepository.findLastReserouce();
+
             for (int i = 0; i < multipartFile.size(); i++) {
                 String[] awsUrl = s3Uploader.uploadFiles(multipartFile.get(i), "static");
                 System.out.println(i + 1 + " : " + awsUrl[0]);
@@ -382,5 +381,29 @@ public class ResourceService {
                 .data(list)
                 .build();
         return new JsonResponse().send(400, message);
+    }
+
+    @Transactional
+    public ResponseEntity<Message> searchResource(String keyword){
+        Message message;
+        try {
+            List<ResourceDto> resourceList = reservationQuerydslRepository.getSearchResourceList(keyword);
+
+            message = Message.builder()
+                    .resCode(1000)
+                    .message("[Success] : Select resourceSearchList")
+                    .data(resourceList)
+                    .build();
+            return new JsonResponse().send(200, message);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            message = Message.builder()
+                    .resCode(1001)
+                    .message("[Fail] : Select resourceSearchList")
+                    .build();
+            return new JsonResponse().send(400, message);
+        }
+
     }
 }

@@ -63,6 +63,9 @@ public class Reservation extends BaseTime {
     @Column(name="endTime")
     private Date endTime;
 
+    @Column(name="content")
+    private String content;
+
 //    @Transient
 //    private Expression imageUrl;
 

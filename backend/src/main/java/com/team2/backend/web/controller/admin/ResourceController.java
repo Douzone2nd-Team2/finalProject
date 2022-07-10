@@ -61,10 +61,21 @@ public class ResourceController {
         return resourceService.fileUpdate(multipartFile, resourceNo);
     }
 
-
     @PostMapping("/delete")
     public ResponseEntity<Message> delResource(@RequestParam("resourceNo") Long resourceNo){
         return resourceService.delresourceList(resourceNo);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Message> searchResource(@RequestParam("keyword") String keyword){
+        System.out.println("enter!!!!");
+        return resourceService.searchResource(keyword);
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<Message> test(){
+        System.out.println("testest");
+        return null;
     }
 
 }

@@ -94,7 +94,7 @@ const ContentSort = styled.div`
   display: flex;
   justify-content: flex-start;
   label {
-    min-width: 150px;
+    min-width: 180px;
     padding-left: 35px;
   }
   input {
@@ -104,8 +104,11 @@ const ContentSort = styled.div`
     border: 1px solid #717171;
   }
   select {
-    min-width: 235px;
-    border: none;
+    margin-left: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid #717171;
+    min-width: 245px;
   }
   button {
     margin-left: 10px;
