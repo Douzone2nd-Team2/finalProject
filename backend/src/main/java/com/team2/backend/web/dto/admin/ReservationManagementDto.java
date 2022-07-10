@@ -30,6 +30,7 @@ public class ReservationManagementDto {
     private Long resourceNo;
     private Long userNo;
     private String userName;
+    private String content;
     private LocalDateTime reservCreateAt;
     private LocalDateTime reservModifyAt;
 
@@ -71,8 +72,10 @@ public class ReservationManagementDto {
 
     @QueryProjection
     @Builder
-    public ReservationManagementDto(Long reservNo, String able, Date startTime, Date endTime, String reservName, Long resourceNo, String resourceName, LocalDateTime reservCreateAt, LocalDateTime reservModifyAt, String category) {
+    public ReservationManagementDto(Long reservNo, Long userNo, String name,  String able, Date startTime, Date endTime, String reservName, Long resourceNo, String resourceName, LocalDateTime reservCreateAt, LocalDateTime reservModifyAt, String category) {
         this.reservNo = reservNo;
+        this.userNo = userNo;
+        this.name = name;
         this.able = able;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -88,7 +91,7 @@ public class ReservationManagementDto {
     @Builder
     public ReservationManagementDto(Long reservNo, String reservName, String able, String cateName, Long cateNo, String resourceName, Long resourceNo,
                                     Long userNo, String userName, Date startTime, Date endTime, Long adminNo,
-                                    String availableTime, String adminName){
+                                    String availableTime, String adminName, String content){
         this.reservNo = reservNo;
         this.reservName = reservName;
         this.able = able;
@@ -103,6 +106,7 @@ public class ReservationManagementDto {
         this.adminNo = adminNo;
         this.adminName = adminName;
         this.availableTime = availableTime;
+        this.content = content;
     }
 
     @QueryProjection

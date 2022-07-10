@@ -9,7 +9,7 @@ import { getCookie } from '../utils/cookie';
 
 import { Container, TitleContainer, TableContainer } from '../styles/BookInfo';
 
-const PresentBook = ({ userNo, userName }) => {
+const PresentBook = ({ userNo }) => {
   const [presentList, setPresentList] = useState([]);
 
   const fetchData = async () => {
@@ -81,12 +81,14 @@ const PresentBook = ({ userNo, userName }) => {
                     to="/admin/userbookhandle"
                     state={{
                       reservNo: user.reservNo,
+                      reservName: user.reservName,
                       startTime: user.startTime,
                       endTime: user.endTime,
-                      userName: userName,
+                      resourceNo: user.resourceNo,
+                      userNo: userNo,
                     }}
                   >
-                    수정
+                    <Button variant="primary">수정</Button>
                   </Link>
                 </td>
                 <td>
@@ -105,9 +107,7 @@ const PresentBook = ({ userNo, userName }) => {
             ))
           ) : (
             <tr>
-              <td colSpan={4} className="noData">
-                예약 내역이 없습니다...
-              </td>
+              <td colSpan={4}>예약 내역이 없습니다...</td>
             </tr>
           )}
         </table>

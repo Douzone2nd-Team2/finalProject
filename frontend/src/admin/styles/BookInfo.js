@@ -31,10 +31,6 @@ const TableContainer = styled.div`
   th:nth-child(3) {
     width: 200px;
   }
-  .noData {
-    width: 400px;
-    font-size: 15px;
-  }
 
   td {
     text-align: center;

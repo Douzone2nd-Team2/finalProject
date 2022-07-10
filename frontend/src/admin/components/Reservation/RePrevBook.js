@@ -1,21 +1,26 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
 import axios from 'axios';
+
 import Button from 'react-bootstrap/Button';
 
-import { arrayIsEmpty } from '../utils/jsFunction';
-import { getCookie } from '../utils/cookie';
+import { arrayIsEmpty } from '../../utils/jsFunction';
+import { getCookie } from '../../utils/cookie';
 
-import { Container, TitleContainer, TableContainer } from '../styles/BookInfo';
+import {
+  Container,
+  TitleContainer,
+  TableContainer,
+} from '../../styles/BookInfo';
 
-const PrevBook = ({ userNo }) => {
+const RePrevBook = ({ resourceNo }) => {
   const [prevList, setPrevList] = useState([]);
 
   const fetchData = async () => {
+    // 지난 예약내역
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/user/bookinglist?userNo=${userNo}`,
+        `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/resource/bookinglist?resourceNo=${resourceNo}`,
         {
           headers: {
             Authorization: getCookie('accessToken'),
@@ -29,8 +34,8 @@ const PrevBook = ({ userNo }) => {
     }
   };
 
-  const deleteData = async (user) => {
-    const { reservNo } = user;
+  const deleteData = async (resource) => {
+    const { reservNo } = resource;
 
     const data = {
       reservNo: reservNo,
@@ -62,46 +67,39 @@ const PrevBook = ({ userNo }) => {
       <TableContainer>
         <table className="tableHead">
           <tr>
-            <th>no</th>
-            <th>자원</th>
+            <th>no.</th>
+            <th>사용자</th>
             <th>예약시작일</th>
             <th>예약종료일</th>
             <th></th>
-            <th></th>
           </tr>
           {!arrayIsEmpty(prevList) ? (
-            prevList.map((user, idx) => (
+            prevList.map((resource, idx) => (
               <tr key={idx}>
                 <td>{idx + 1}</td>
-                <td>{user.resourceName}</td>
-                <td>{user.startTime}</td>
-                <td>{user.endTime}</td>
+                <td>{resource.name}</td>
+                <td>{resource.startTime}</td>
+                <td>{resource.endTime}</td>
                 <td>
                   <Link
-                    to="/admin/userbookhandle"
+                    to="/admin/resourcebookhandle"
                     state={{
-                      reservNo: user.reservNo,
-                      reservName: user.reservName,
-                      startTime: user.startTime,
-                      endTime: user.endTime,
-                      resourceNo: user.resourceNo,
-                      userNo: userNo,
+                      resource: resource.resourceName,
+                      startTime: resource.startTime,
+                      endTime: resource.endTime,
                     }}
                   >
                     <Button variant="primary">수정</Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => {
+                        deleteData(resource);
+                        fetchData();
+                      }}
+                    >
+                      삭제
+                    </Button>
                   </Link>
-                </td>
-                <td>
-                  {/*(e) => delete(e) */}
-                  <Button
-                    variant="danger"
-                    onClick={() => {
-                      deleteData(user);
-                      fetchData();
-                    }}
-                  >
-                    삭제
-                  </Button>
                 </td>
               </tr>
             ))
@@ -116,4 +114,4 @@ const PrevBook = ({ userNo }) => {
   );
 };
 
-export default PrevBook;
+export default RePrevBook;

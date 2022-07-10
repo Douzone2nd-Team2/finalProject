@@ -21,8 +21,8 @@ import AdminLoginPage from './admin/pages/AdminLoginPage';
 import EmployeePage from './admin/pages/EmployeePage';
 import EmployeeRegistPage from './admin/pages/EmployeeRegistPage';
 import ResourcePage from './admin/pages/ResourcePage';
-import ResourceUpdate from './admin/components/Resource/ResourceUpdate';
-// import ResourceDetail from './admin/components/Resource/Resource';
+import ResourceUpdate from './admin/pages/ResourceUpdate';
+import ResourceBook from './admin/pages/ResourceBook';
 import RegisterBook from './admin/pages/RegisterBook';
 import EmployeeBook from './admin/pages/EmployeeBook';
 import ResourceList from './admin/pages/ResourceList';
@@ -30,6 +30,7 @@ import UserBook from './admin/pages/UserBook';
 import UserBookhandle from './admin/pages/UserBookhandle';
 import Employee from './admin/components/Employee/Employee';
 import MyReservation from './user/pages/MyReservation';
+import ResourceBookhandle from './admin/pages/ResourceBookhandle';
 
 const App = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -66,35 +67,40 @@ const App = () => {
     console.log('user = ', user);
   }, [user, setUser, accessToken]);
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route element={<PrivateRoute />}>
-        <Route path="main" element={<Main />} />
-        <Route path="mypage/changepw" element={<Reset />} />
-        <Route path="mypage/user" element={<MyInfo />} />
-        <Route path="mypage/reservation" element={<MyReservation />} />
-        <Route path="search" element={<Search />} />
-        <Route path="reserve" element={<Reserve />} />
-      </Route>
-      <Route path="admin/login" element={<AdminLoginPage />} />
-      <Route element={<AdminPrivateRoute />}>
-        <Route path="admin/main" element={<AdminMain />} />
-        <Route path="admin/resource" element={<ResourcePage />} />
-        <Route path="admin/employee" element={<EmployeePage />} />
-        <Route path="admin/resourceupdate" element={<ResourceUpdate />} />
-        <Route
-          path="admin/employee/regist"
-          element={<EmployeeRegistPage />}
-          SS
-        />
-        {/* <Route path="/admin/resourcedetail" element={<ResourceDetail />} /> */}
-        <Route path="admin/registerbook" element={<RegisterBook />} />
-        <Route path="admin/employeebook" element={<EmployeeBook />} />
-        <Route path="admin/resourcelist" element={<ResourceList />} />
-        <Route path="admin/userbook" element={<UserBook />} />
-        <Route path="admin/userbookhandle" element={<UserBookhandle />} />
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="main" element={<Main />} />
+          <Route path="mypage/changepw" element={<Reset />} />
+          <Route path="mypage/user" element={<MyInfo />} />
+          <Route path="mypage/reservation" element={<MyReservation />} />
+          <Route path="search" element={<Search />} />
+          <Route path="reserve" element={<Reserve />} />
+        </Route>
+        <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route element={<AdminPrivateRoute />}>
+          <Route path="admin/main" element={<AdminMain />} />
+          <Route path="/admin/resource" element={<ResourcePage />} />
+          <Route path="/admin/employee" element={<EmployeePage />} />
+          <Route path="/admin/resourceupdate" element={<ResourceUpdate />} />
+          <Route
+            path="/admin/employee/regist"
+            element={<EmployeeRegistPage />}
+          />
+          <Route path="/admin/registerbook" element={<RegisterBook />} />
+          <Route path="/admin/employeebook" element={<EmployeeBook />} />
+          <Route path="/admin/resourcelist" element={<ResourceList />} />
+          <Route path="/admin/resourcebook" element={<ResourceBook />} />
+          <Route
+            path="/admin/resourcebookhandle"
+            element={<ResourceBookhandle />}
+          />
+          <Route path="/admin/userbook" element={<UserBook />} />
+          <Route path="/admin/userbookhandle" element={<UserBookhandle />} />
+        </Route>
+      </Routes>
+    </>
   );
 };
 
