@@ -21,6 +21,8 @@ const ResourceInput = ({ getAll }) => {
   const [Ehour, setEhour] = useState('');
   const [Eminute, setEminute] = useState('');
 
+  const [fullTime, setFulltime] = useState('');
+
   const [option, setOption] = useState('');
   const [fuel, setFuel] = useState('');
   const [content, setContent] = useState('');
@@ -76,6 +78,9 @@ const ResourceInput = ({ getAll }) => {
     setEminute(e.target.value);
   };
 
+  const handleFullTime = (e) => {
+    setFulltime(e.target.value);
+  };
   const handleOption = (e) => {
     setOption(e.target.value);
   };
@@ -92,8 +97,9 @@ const ResourceInput = ({ getAll }) => {
       resourceName: resourceName,
       people: people,
       location: location,
-      availableTime:
-        time + hour + ':' + minute + ' ~ ' + Etime + Ehour + ':' + Eminute,
+      availableTime: fullTime
+        ? fullTime
+        : time + hour + ':' + minute + ' ~ ' + Etime + Ehour + ':' + Eminute,
       option: option,
       fuel: fuel,
       content: content,
@@ -280,9 +286,9 @@ const ResourceInput = ({ getAll }) => {
                   <Col>Full-Time:</Col>
                   <Col>
                     <Form.Check
-                      type="radio"
+                      type="checkbox"
                       value="Full-time"
-                      // onChange={handleTime}
+                      onChange={handleFullTime}
                     />
                   </Col>
                 </Row>
@@ -382,7 +388,6 @@ const ResourceInput = ({ getAll }) => {
             ) : (
               <></>
             )}
-            <ResourceFileUploadTest />
           </Form>
         </Modal.Body>
 
@@ -393,6 +398,10 @@ const ResourceInput = ({ getAll }) => {
           <Button variant="primary" type="submit" onClick={() => clickBtn()}>
             Save
           </Button>
+        </Modal.Footer>
+
+        <Modal.Footer>
+          <ResourceFileUploadTest />
         </Modal.Footer>
       </Modal>
     </>

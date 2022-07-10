@@ -402,6 +402,6 @@ public class ResourceService {
                 .message("[Success] : Select resourceBookingList")
                 .data(list)
                 .build();
-        return new JsonResponse().send(400, message);
+        return new JsonResponse().send(200, message);
     }
 }

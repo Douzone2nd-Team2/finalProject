@@ -15,6 +15,11 @@ const HeadContainer = styled.div`
   border-bottom: 4px solid black;
 `;
 
+const BookContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const TableContainer = styled.div`
   width: fit-content;
   height: 100%;
@@ -24,8 +29,6 @@ const TableContainer = styled.div`
 const SelectContainer = styled.div`
   select {
     float: right;
-    /* margin-top: 13px;
-    margin-right: 170px; */
   }
   select:focus {
     border-color: #aaa;
@@ -91,10 +94,12 @@ const RightContainer = styled.div`
   right: 600px;
   margin-top: 50px;
 `;
+
 export {
   Container,
   HeadContainer,
   TableContainer,
+  BookContainer,
   SelectContainer,
   SelectBoxDiv,
   ItemContainer,
