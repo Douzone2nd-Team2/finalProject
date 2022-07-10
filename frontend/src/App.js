@@ -21,7 +21,7 @@ import AdminLoginPage from './admin/pages/AdminLoginPage';
 import EmployeePage from './admin/pages/EmployeePage';
 import EmployeeRegistPage from './admin/pages/EmployeeRegistPage';
 import ResourcePage from './admin/pages/ResourcePage';
-import ResourceUpdate from './admin/components/Resource/ResourceUpdate';
+import ResourceUpdate from './admin/pages/ResourceUpdate';
 import ResourceBook from './admin/pages/ResourceBook';
 import RegisterBook from './admin/pages/RegisterBook';
 import EmployeeBook from './admin/pages/EmployeeBook';
@@ -30,6 +30,7 @@ import UserBook from './admin/pages/UserBook';
 import UserBookhandle from './admin/pages/UserBookhandle';
 import Employee from './admin/components/Employee/Employee';
 import MyReservation from './user/pages/MyReservation';
+import ResourceBookhandle from './admin/pages/ResourceBookhandle';
 
 const App = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -91,6 +92,10 @@ const App = () => {
           <Route path="/admin/employeebook" element={<EmployeeBook />} />
           <Route path="/admin/resourcelist" element={<ResourceList />} />
           <Route path="/admin/resourcebook" element={<ResourceBook />} />
+          <Route
+            path="/admin/resourcebookhandle"
+            element={<ResourceBookhandle />}
+          />
           <Route path="/admin/userbook" element={<UserBook />} />
           <Route path="/admin/userbookhandle" element={<UserBookhandle />} />
         </Route>
