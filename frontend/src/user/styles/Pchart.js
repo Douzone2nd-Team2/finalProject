@@ -1,17 +1,12 @@
 import styled from 'styled-components';
 
-const Container = styled.div`
-  margin: auto;
-  justify-content: center;
-  align-items: center;
-`;
-
 const PieContainer = styled.div`
   background-color: #f6f6f6;
   width: 450px;
   height: 400px;
-  box-shadow: 1px 1px #e2e2e2;
   position: relative;
+  border-radius: 12px;
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
 `;
 
 const InnerContainer = styled.div`
@@ -19,8 +14,6 @@ const InnerContainer = styled.div`
   margin-left: 20px;
   width: 400px;
   height: 300px;
-  /* display: flex;
-  justify-content: center; */
 `;
 
 const TitleContainer = styled.div`
@@ -31,6 +24,7 @@ const TitleContainer = styled.div`
   font-size: 20px;
   font-weight: bolder;
   background-color: #e2e2e2;
+  border-radius: 12px 12px 0px 0px;
   width: 450px;
 `;
 
@@ -42,10 +36,4 @@ const LegendContainer = styled.div`
   right: -15px;
 `;
 
-export {
-  Container,
-  TitleContainer,
-  PieContainer,
-  InnerContainer,
-  LegendContainer,
-};
+export { TitleContainer, PieContainer, InnerContainer, LegendContainer };

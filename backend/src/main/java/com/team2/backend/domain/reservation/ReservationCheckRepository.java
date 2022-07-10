@@ -31,6 +31,8 @@ public interface ReservationCheckRepository extends JpaRepository<ReservationChe
     @Query("DELETE FROM ReservationCheck WHERE checkNo = :checkNo")
     void deleteAllByCheckNo(@Param("checkNo")Long checkNo);
 
-    @Query(value = "DELETE FROM reservation_check WHERE reservno = :reservNo", nativeQuery = true)
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM ReservationCheck WHERE reservNo = :reservNo")
     void deleteAllByReservNo(@Param("reservNo") Long reservNo);
 }

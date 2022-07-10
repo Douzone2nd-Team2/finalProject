@@ -8,7 +8,7 @@ const ResourceFileUploadTest = () => {
   const [formData, setFormData] = useState(new FormData());
 
   useEffect(() => {
-    if (imgFile.length != 0) {
+    if (imgFile) {
       const d = new FormData();
       for (let i = 0; i < imgFile.length; i++) {
         d.append('images', imgFile[i]);

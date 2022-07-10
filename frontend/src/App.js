@@ -86,7 +86,6 @@ const App = () => {
           <Route
             path="/admin/employee/regist"
             element={<EmployeeRegistPage />}
-            SS
           />
           <Route path="/admin/registerbook" element={<RegisterBook />} />
           <Route path="/admin/employeebook" element={<EmployeeBook />} />

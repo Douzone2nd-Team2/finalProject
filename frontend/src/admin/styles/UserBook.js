@@ -11,7 +11,7 @@ const HeadContainer = styled.div`
   justify-content: space-between;
   border-bottom: 4px solid black;
   padding-top: 40px;
-  margin-left: 120px;
+  /* margin-left: 30px; */
   margin-top: 10px;
   font-size: 50px;
 `;

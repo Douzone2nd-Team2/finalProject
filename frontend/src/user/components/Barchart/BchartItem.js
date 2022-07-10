@@ -3,7 +3,13 @@ import axios from 'axios';
 
 import { getCookie } from '../../utils/cookie';
 
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+import {
+  VictoryBar,
+  VictoryChart,
+  VictoryAxis,
+  VictoryTheme,
+  Bar,
+} from 'victory';
 
 import { BarContainer, TitleContainer } from '../../styles/Bchart';
 
@@ -11,13 +17,14 @@ const BchartItem = ({ catenum }) => {
   const [title, setTitle] = useState('');
   const [data, setData] = useState([]);
   const [info, setInfo] = useState([]);
+  const [days, setDays] = useState();
 
   const changeTitle = () => {
-    if (catenum == 1 || catenum == '') {
+    if (Number(catenum) === 1 || !catenum) {
       setTitle('회의실');
-    } else if (catenum == 2) {
+    } else if (Number(catenum) === 2) {
       setTitle('차량');
-    } else if (catenum == 3) {
+    } else if (Number(catenum) === 3) {
       setTitle('노트북');
     }
   };
@@ -36,6 +43,7 @@ const BchartItem = ({ catenum }) => {
         changeTitle();
         console.log(res.data.data);
         setData([res.data.data]);
+        setDays(res.data.data.days);
       })
       .catch((error) => {
         console.log(error);
@@ -44,12 +52,12 @@ const BchartItem = ({ catenum }) => {
 
   useEffect(() => {
     if (data.length > 0) {
-      let result = [];
+      const result = [];
       const totalCount = data[0].totalCnt;
       const days = data[0].days;
       const counts = data[0].hourConference.map((v) => v.cnt);
-      let temp2 = totalCount * days * 4; //분모
-      let spliceCounts = [];
+      const temp2 = totalCount * days * 4; //분모
+      const spliceCounts = [];
       for (let i = 0; i < counts.length; i += 4) {
         spliceCounts.push(
           counts[i] + counts[i + 1] + counts[i + 2] + counts[i + 3],
@@ -59,14 +67,14 @@ const BchartItem = ({ catenum }) => {
       for (let i = 1; i < 13; i++) {
         const tempResult = {
           quarter: i,
-          earnings: spliceCounts[i - 1] / temp2,
+          earnings: (spliceCounts[i - 1] * 50) / temp2,
         };
         result.push(tempResult);
       }
 
       setInfo(result);
     }
-  }, [data]);
+  }, [data, days]);
 
   useEffect(() => {
     getTest();
@@ -74,7 +82,10 @@ const BchartItem = ({ catenum }) => {
 
   return (
     <BarContainer>
-      <TitleContainer>{title} 사용시간</TitleContainer>
+      <TitleContainer>
+        <span className="useHour">{title} 사용시간</span>
+        <span className="days">{days}일</span>
+      </TitleContainer>
       <VictoryChart
         width={1200}
         height={800}
@@ -87,21 +98,22 @@ const BchartItem = ({ catenum }) => {
           grid: { stroke: '#94A2AD' },
           tickLabels: { fontSize: 20, padding: 10 },
         }}
+        animate={{ duration: 1000, easing: 'bounce' }}
       >
         <VictoryAxis
           tickValues={[
-            '08',
-            '10',
-            '12',
-            '14',
-            '16',
-            '18',
-            '20',
-            '22',
-            '00',
-            '02',
-            '04',
-            '06',
+            '08시',
+            '10시',
+            '12시',
+            '14시',
+            '16시',
+            '18시',
+            '20시',
+            '22시',
+            '00시',
+            '02시',
+            '04시',
+            '06시',
           ]}
           tickFormat={(t) => `${t}`}
           style={{
@@ -122,7 +134,7 @@ const BchartItem = ({ catenum }) => {
           y="earnings"
           barWidth={30}
           style={{
-            data: { fill: 'darkblue' },
+            data: { fill: '#FF6A00' },
           }}
         />
       </VictoryChart>

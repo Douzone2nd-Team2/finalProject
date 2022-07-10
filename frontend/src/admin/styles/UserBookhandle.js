@@ -17,16 +17,23 @@ const HeadContainer = styled.div`
   font-weight: 600;
   padding-top: 70px;
   border-bottom: 4px solid black;
-  margin-left: 100px;
+  margin-left: 5px;
 `;
 
 const BookContainer = styled.div`
-  width: 800px;
+  width: 80%;
   margin-top: 30px;
-  margin-left: 18%;
+  margin-left: 10%;
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px gray;
+`;
+
+const InputContainer = styled.div`
+  input:nth-child(2) {
+    margin-left: 20px;
+  }
 `;
 
 const NameContainer = styled.h1`
@@ -82,6 +89,7 @@ export {
   AllContainer,
   Container,
   HeadContainer,
+  InputContainer,
   CategoryContainer,
   ContentContainer,
   BookContainer,
