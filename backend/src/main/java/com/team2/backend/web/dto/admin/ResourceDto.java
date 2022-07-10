@@ -1,5 +1,6 @@
 package com.team2.backend.web.dto.admin;
 
+import com.querydsl.core.annotations.QueryProjection;
 import com.sun.istack.NotNull;
 import com.team2.backend.domain.resource.Category;
 import com.team2.backend.domain.user.Employee;
@@ -25,6 +26,7 @@ public class ResourceDto {
     private Long adminNo;
     private String option;
     private String fuel;
+    private String cateName;
 
 
     @Builder // 회의실 등록
@@ -56,5 +58,13 @@ public class ResourceDto {
         this.option = option;
         this.fuel = fuel;
 
+    }
+
+    @QueryProjection
+    public ResourceDto(Long resourceNo, String resourceName, String cateName, Long cateNo){
+        this.resourceNo = resourceNo;
+        this.resourceName = resourceName;
+        this.cateName = cateName;
+        this.cateNo = cateNo;
     }
 }

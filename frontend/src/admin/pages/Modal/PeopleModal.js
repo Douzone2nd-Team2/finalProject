@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
-import { getCookie } from '../../../utils/cookie.js';
+import { getCookie } from '../../utils/cookie';
 
 import SearchIcon from '@material-ui/icons/Search';
 // import { getCookie } from '../../utils/cookie';
 import CancelIcon from '@material-ui/icons/Cancel';
 
-import StyledList from '../../StyledList/StyledList.js';
+import PeopleStyledList from './PeopleStyledList';
 
 import {
   BackgroundContainer,
@@ -18,15 +18,16 @@ import {
   ModalBody,
   ModalButtonContainer,
   ModaldButton,
-} from '../Modal/style.js';
+} from './style.js';
 
-const Modal = (props) => {
+const PeopleModal = (props) => {
   const count = props.count;
+  const [userNo, setUserNo] = useState('');
+  const [userName, setUserName] = useState('');
   const [keyword, setKeyword] = useState('');
   const [people, setPeople] = useState(null);
   const [peopleList, setPeopleList] = useState([]);
-  const [checkList, setCheckList] = useState('');
-  const [checkNameList, setCheckNameList] = useState([]);
+  const [close, setClose] = useState(false);
 
   const searchPeople = async () => {
     const data = {
@@ -70,23 +71,14 @@ const Modal = (props) => {
   // };
 
   const onClose = () => {
-    props.setOpenModal(false);
+    props.setOpenModal2(false);
+    props.setUserNo(userNo);
+    props.setUserName(userName);
   };
 
-  const onAdd = () => {
-    if (count < checkList.length) {
-      alert(
-        '설정한 추가 인원보다 많은 사용자를 선택하였습니다.\n다시 선택해주세요.',
-      );
-    } else {
-      console.log(people);
-      // setPeople([checkNameList]);
-      props.setPeople(people);
-      onClose();
-    }
-    console.log(checkList);
-    console.log(people);
-  };
+  if (close) {
+    onClose();
+  }
 
   return (
     <BackgroundContainer>
@@ -100,19 +92,20 @@ const Modal = (props) => {
           </SearchContainer>
         </ModalHeader>
         <ModalBody>
-          <StyledList
+          <PeopleStyledList
             peopleList={peopleList}
-            setCheckList={setCheckList}
-            setCheckNameList={setPeople}
-          ></StyledList>
+            setUserNo={setUserNo}
+            setUserName={setUserName}
+            setClose={setClose}
+          ></PeopleStyledList>
         </ModalBody>
         <ModalButtonContainer>
           <ModaldButton onClick={onClose}>닫기</ModaldButton>
-          <ModaldButton onClick={onAdd}>추가</ModaldButton>
+          {/* <ModaldButton>추가</ModaldButton> */}
         </ModalButtonContainer>
       </ModalContainer>
     </BackgroundContainer>
   );
 };
 
-export default Modal;
+export default PeopleModal;
