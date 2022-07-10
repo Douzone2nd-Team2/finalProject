@@ -15,6 +15,7 @@ import {
 
 const RePrevBook = ({ resourceNo }) => {
   const [prevList, setPrevList] = useState([]);
+  const [name, setName] = useState();
 
   const fetchData = async () => {
     // 지난 예약내역
@@ -73,6 +74,7 @@ const RePrevBook = ({ resourceNo }) => {
             <th>예약종료일</th>
             <th></th>
           </tr>
+
           {!arrayIsEmpty(prevList) ? (
             prevList.map((resource, idx) => (
               <tr key={idx}>
@@ -84,7 +86,9 @@ const RePrevBook = ({ resourceNo }) => {
                   <Link
                     to="/admin/resourcebookhandle"
                     state={{
-                      resource: resource.resourceName,
+                      reservNo: resource.reservNo,
+                      reservName: resource.reservName,
+                      name: resource.name,
                       startTime: resource.startTime,
                       endTime: resource.endTime,
                     }}

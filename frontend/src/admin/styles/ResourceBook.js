@@ -91,8 +91,7 @@ const ImageContainer = styled.div`
 `;
 
 const RightContainer = styled.div`
-  right: 600px;
-  margin-top: 50px;
+  padding: 30px;
 `;
 
 export {
