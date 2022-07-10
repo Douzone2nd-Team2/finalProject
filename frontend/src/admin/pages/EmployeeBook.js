@@ -57,8 +57,8 @@ const EmployeeBook = () => {
               // React List Key 인덱스를 넣는거는 최후의 방식
               const key = `user-info-${idx}`;
               return (
-                <tr key={key}>
-                  <td>{user.no}</td>
+                <tr key={(key, idx)}>
+                  <td>{userInfo.length - idx}</td>
                   <td>{user.empNo}</td>
                   <td>{user.name}</td>
                   <td>{user.deptName}</td>

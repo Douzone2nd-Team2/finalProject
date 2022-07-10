@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+const AllContainer = styled.div`
+  font-family: NanumGothicBold;
+`;
+
 const FlexContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -8,15 +12,19 @@ const FlexContainer = styled.div`
   padding: 0px 72px;
 `;
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 1200px;
+  height: 100%;
+  padding: 0px 72px;
+`;
 
 const HeadContainer = styled.div`
-  width: 100%;
-  border-bottom: 4px solid black;
+  font-size: 30px;
+  font-weight: 600;
   padding-top: 30px;
-  Button {
-    height: 50px;
-  }
+  border-bottom: 4px solid black;
 `;
 
 const TitleContainer = styled.div`
@@ -27,12 +35,13 @@ const TitleContainer = styled.div`
 const UserContainer = styled.div`
   display: flex;
   margin: 36px 24px;
-  width: 860px;
+  width: 90%;
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;
   font-family: NanumGothicBold;
   padding: 24px 36px;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px gray;
 `;
 
 const NameContainer = styled.h1`
@@ -85,8 +94,8 @@ const ContentSort = styled.div`
   display: flex;
   justify-content: flex-start;
   label {
-    min-width: 150px;
-    padding-left: 10px;
+    min-width: 180px;
+    padding-left: 35px;
   }
   input {
     margin-left: 10px;
@@ -95,8 +104,11 @@ const ContentSort = styled.div`
     border: 1px solid #717171;
   }
   select {
-    min-width: 230px;
-    border: none;
+    margin-left: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid #717171;
+    min-width: 245px;
   }
   button {
     margin-left: 10px;
@@ -122,6 +134,7 @@ const ButtonContainer = styled.div`
 `;
 
 export {
+  AllContainer,
   FlexContainer,
   Container,
   HeadContainer,

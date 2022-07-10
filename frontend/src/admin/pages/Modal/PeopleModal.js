@@ -6,7 +6,7 @@ import SearchIcon from '@material-ui/icons/Search';
 // import { getCookie } from '../../utils/cookie';
 import CancelIcon from '@material-ui/icons/Cancel';
 
-import StyledList from '../Modal/StyledList';
+import PeopleStyledList from './PeopleStyledList';
 
 import {
   BackgroundContainer,
@@ -18,13 +18,16 @@ import {
   ModalBody,
   ModalButtonContainer,
   ModaldButton,
-} from '../Modal/style.js';
+} from './style.js';
 
-const Modal = (props) => {
+const PeopleModal = (props) => {
   const count = props.count;
+  const [userNo, setUserNo] = useState('');
+  const [userName, setUserName] = useState('');
   const [keyword, setKeyword] = useState('');
   const [people, setPeople] = useState(null);
   const [peopleList, setPeopleList] = useState([]);
+  const [close, setClose] = useState(false);
 
   const searchPeople = async () => {
     const data = {
@@ -59,8 +62,14 @@ const Modal = (props) => {
   };
 
   const onClose = () => {
-    props.setOpenModal(false);
+    props.setOpenModal2(false);
+    props.setUserNo(userNo);
+    props.setUserName(userName);
   };
+
+  if (close) {
+    onClose();
+  }
 
   return (
     <BackgroundContainer>
@@ -74,15 +83,20 @@ const Modal = (props) => {
           </SearchContainer>
         </ModalHeader>
         <ModalBody>
-          <StyledList peopleList={peopleList}></StyledList>
+          <PeopleStyledList
+            peopleList={peopleList}
+            setUserNo={setUserNo}
+            setUserName={setUserName}
+            setClose={setClose}
+          ></PeopleStyledList>
         </ModalBody>
         <ModalButtonContainer>
           <ModaldButton onClick={onClose}>닫기</ModaldButton>
-          <ModaldButton>추가</ModaldButton>
+          {/* <ModaldButton>추가</ModaldButton> */}
         </ModalButtonContainer>
       </ModalContainer>
     </BackgroundContainer>
   );
 };
 
-export default Modal;
+export default PeopleModal;

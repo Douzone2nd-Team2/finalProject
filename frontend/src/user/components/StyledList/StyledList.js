@@ -10,14 +10,32 @@ import {
 
 const StyledList = (props) => {
   const [peopleList, setPeopleList] = useState([]);
+  const [checkList, setCheckList] = useState([]);
+  const [checkNameList, setCheckNameList] = useState([]);
+
+  const changeHandler = (checked, id, name) => {
+    console.log(checked + '//' + id);
+    if (checked) {
+      setCheckNameList([...checkNameList, name]);
+      setCheckList([...checkList, id]);
+    } else {
+      setCheckList(checkList.filter((el) => id !== el));
+      setCheckNameList(checkNameList.filter((el) => name !== el));
+    }
+  };
+  console.log(checkList);
+  props.setCheckList(checkList);
+  props.setCheckNameList(checkNameList);
 
   useEffect(() => {
     setPeopleList(props.peopleList);
+    //setCheckList(new Array(peopleList.length).fill(false));
   });
 
   return (
     <ListContainer>
       <ListHeader>
+        <ListContent></ListContent>
         <ListContent>사번</ListContent>
         <ListContent>부서</ListContent>
         <ListContent>직급</ListContent>
@@ -28,6 +46,19 @@ const StyledList = (props) => {
           peopleList.map((item) => {
             return (
               <ListRow key={item.no}>
+                <ListContent>
+                  <input
+                    type="checkbox"
+                    id="checkEmp"
+                    onClick={(e) => {
+                      changeHandler(
+                        e.currentTarget.checked,
+                        item.no,
+                        item.name,
+                      );
+                    }}
+                  ></input>
+                </ListContent>
                 <ListContent>{item.empNo}</ListContent>
                 <ListContent>{item.deptName}</ListContent>
                 <ListContent>{item.gradeName}</ListContent>

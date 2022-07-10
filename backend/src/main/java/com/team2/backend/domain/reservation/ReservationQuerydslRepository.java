@@ -2,6 +2,7 @@ package com.team2.backend.domain.reservation;
 
 import com.team2.backend.web.dto.admin.QReservationManagementDto;
 import com.team2.backend.web.dto.admin.ReservationManagementDto;
+import com.team2.backend.web.dto.admin.ResourceDto;
 import org.springframework.data.jpa.repository.Query;
 
 import java.text.ParseException;
@@ -16,4 +17,5 @@ public interface ReservationQuerydslRepository {
     List<Long> findByCheckNo(Long reservNo);
     void deleteTimelistByCheckNo(Long checkNo);
 
+    List<ResourceDto> getSearchResourceList(String keyword);
 }
