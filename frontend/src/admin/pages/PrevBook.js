@@ -9,7 +9,7 @@ import { getCookie } from '../utils/cookie';
 
 import { Container, TitleContainer, TableContainer } from '../styles/BookInfo';
 
-const PrevBook = ({ userNo, userName }) => {
+const PrevBook = ({ userNo }) => {
   const [prevList, setPrevList] = useState([]);
 
   const fetchData = async () => {
@@ -81,9 +81,11 @@ const PrevBook = ({ userNo, userName }) => {
                     to="/admin/userbookhandle"
                     state={{
                       reservNo: user.reservNo,
+                      reservName: user.reservName,
                       startTime: user.startTime,
                       endTime: user.endTime,
-                      userName: userName,
+                      resourceNo: user.resourceNo,
+                      userNo: userNo,
                     }}
                   >
                     <Button variant="primary">수정</Button>
