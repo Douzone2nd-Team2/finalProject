@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from 'react';
+
 import {
   FlexContainer,
   UserInfoContainer,
@@ -7,22 +8,18 @@ import {
   UserInfoInput,
 } from './style.js';
 
-const UserInfo = () => {
-  const [reservName, setReservName] = useState('');
+const UserInfo = (props) => {
+  const reservation = useRecoilValue(reservationState);
 
   const onInputReservName = (e) => {
-    setReservName(e.target.value);
+    props.setReservName(e.target.value);
   };
-
-  useEffect(() => {
-    console.log(reservName);
-  }, [reservName]);
 
   return (
     <FlexContainer>
       <UserInfoContainer>
         <UserInfoTitle>예약자</UserInfoTitle>
-        <UserInfoDetail>이정민</UserInfoDetail>
+        <UserInfoDetail>{reservation.userName}</UserInfoDetail>
       </UserInfoContainer>
       <UserInfoContainer>
         <UserInfoTitle>예약명</UserInfoTitle>

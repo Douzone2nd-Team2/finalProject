@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-
 import { Button } from 'react-bootstrap';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../recoil/user';
 
 import {
   ItemContainer,
@@ -12,7 +13,8 @@ import {
 
 const SearchItem = ({ book }) => {
   const { resourceName, cateName, people, thumbnail } = book;
-  // console.log('book : ', book.cateName);
+
+  const user = useRecoilValue(userState);
 
   const navigate = useNavigate();
 
