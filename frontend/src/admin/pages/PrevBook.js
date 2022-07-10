@@ -72,7 +72,7 @@ const PrevBook = ({ userNo }) => {
           {!arrayIsEmpty(prevList) ? (
             prevList.map((user, idx) => (
               <tr key={idx}>
-                <td>{idx + 1}</td>
+                <td>{prevList.length - idx}</td>
                 <td>{user.resourceName}</td>
                 <td>{user.startTime}</td>
                 <td>{user.endTime}</td>

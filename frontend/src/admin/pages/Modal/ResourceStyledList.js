@@ -13,7 +13,6 @@ const ResourceStyledList = (props) => {
   const [resourceList, setResourceList] = useState([]);
 
   const resourceSelect = (resourceNo, resourceName, cateNo) => {
-    console.log(cateNo);
     props.setResourceNo(resourceNo);
     props.setResourceName(resourceName);
     props.setCateNo(cateNo);

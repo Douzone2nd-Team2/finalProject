@@ -16,9 +16,6 @@ const PeopleStyledList = (props) => {
     console.log(no);
     props.setUserNo(no);
     props.setUserName(name);
-    // props.setResourceNo(resourceNo);
-    // props.setResourceName(resourceName);
-    // props.setCateNo(cateNo);
     alert(name + '님을 선택하셨습니다.');
     props.setClose(true);
   };

@@ -57,16 +57,21 @@ const RegisterBook = () => {
   const [openModal3, setOpenModal3] = useState(false);
 
   const [people, setPeople] = useState([]);
+  const [peopleNo, setPeopleNo] = useState([]);
   const [name, setName] = useState('');
 
+  // 시작, 종료 날짜
   const [startDay, setStartDay] = useState('');
   const [endDay, setEndDay] = useState('');
-  const [sIsAM, SetSIsAm] = useState('');
-  const [eIsAM, setEIsAm] = useState('');
-  const [startHour, setStartHour] = useState('');
-  const [endHour, setEndHour] = useState('');
-  const [startMinute, setStartMinute] = useState('');
-  const [endMinute, setEndMinute] = useState('');
+
+  // 시작, 종료 시간
+  const [startHour, setStartHour] = useState('00');
+
+  const [endHour, setEndHour] = useState('00');
+
+  // 시작, 종료 분
+  const [startMinute, setStartMinute] = useState('00');
+  const [endMinute, setEndMinute] = useState('00');
 
   const [count, setCount] = useState(0);
 
@@ -76,10 +81,6 @@ const RegisterBook = () => {
 
   const handleReservName = (e) => {
     setReservName(e.target.value);
-  };
-
-  const handleOption = (e) => {
-    setOption(e.target.value);
   };
 
   const handleContent = (e) => {
@@ -118,8 +119,115 @@ const RegisterBook = () => {
     setOpenModal(true);
   };
 
-  console.log(userNo);
-  console.log(people);
+  const changeEndMinute = (e) => {
+    setEndMinute(e.target.value);
+  };
+
+  const changeStartHour = (e) => {
+    setStartHour(e.target.value);
+  };
+
+  const changeStartMinute = (e) => {
+    setStartMinute(e.target.value);
+  };
+
+  const changeEndHour = (e) => {
+    setEndHour(e.target.value);
+  };
+
+  const changeStartDay = (e) => {
+    setStartDay(e.target.value);
+  };
+
+  const changeEndDay = (e) => {
+    setEndDay(e.target.value);
+  };
+
+  const postData = async () => {
+    const start = new Date(startDay);
+    const end = new Date(endDay);
+
+    if (start === end) {
+      if (parseInt(startHour) > parseInt(endHour)) {
+        alert('올바른 날짜와 시간을 선택해주세요.');
+        return;
+      } else {
+        if (parseInt(startHour) === parseInt(endHour)) {
+          if (parseInt(startMinute) > parseInt(endMinute)) {
+            alert('올바른 날짜와 시간을 선택해주세요');
+            return;
+          }
+        }
+      }
+    } else if (start > end) {
+      alert('올바른 날짜와 시간을 선택해주세요.');
+      return;
+    }
+    if (
+      startDay === endDay &&
+      parseInt(startHour) === parseInt(endHour) &&
+      parseInt(startMinute) === parseInt(endMinute)
+    ) {
+      alert('시작시간과 종료시간이 동일합니다. 다시 선택해주세요.');
+      return;
+    }
+
+    if (isSumbit()) {
+      const body = {
+        resourceNo: resourceNo,
+        reservName: reservName,
+        userNo: userNo,
+        startTime: startDay + ' ' + startHour + ':' + startMinute + ':00',
+        endTime: endDay + ' ' + endHour + ':' + endMinute + ':00',
+        content: content,
+        empNoList: peopleNo,
+      };
+
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/save`,
+          body,
+          {
+            headers: {
+              Authorization: getCookie('accessToken'),
+            },
+          },
+        );
+        console.log(res);
+        if (res.data.resCode === 1001) {
+          alert('이미 예약된 자원입니다. 다시 선택하여 주세요.');
+        } else if (res.data.resCode === 1000) {
+          alert('예약이 정상적으로 등록되었습니다.');
+        } else {
+          console.log('비정상적인 종료입니다.');
+        }
+        //navigate('/admin/employeebook');
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    postData();
+  };
+
+  const isSumbit = () => {
+    if (resourceNo === '') {
+      alert('자원을 선택해주세요.');
+      return false;
+    }
+    if (reservName === '') {
+      alert('예약명을 입력해주세요.');
+      return false;
+    }
+    if (userNo === '') {
+      alert('예약자를 선택해주세요.');
+      return false;
+    }
+    return true;
+  };
 
   return (
     <>
@@ -144,6 +252,7 @@ const RegisterBook = () => {
           setOpenModal={setOpenModal}
           count={count}
           setPeople={setPeople}
+          setPeopleNo={setPeopleNo}
         ></Modal>
       ) : null}
       <AllContainer>
@@ -210,45 +319,55 @@ const RegisterBook = () => {
                     <Row style={{ marginTop: '1px' }}>
                       <Col style={{ maxWidth: '150px' }}>시작시간 :</Col>
                       <Col>
-                        <input type="date" value={startDay} />
+                        <input
+                          type="date"
+                          value={startDay}
+                          onChange={changeStartDay}
+                        />
                       </Col>
                       <Col>
                         <Form.Select
                           size="m"
-                          value={sIsAM}
+                          value={startHour}
+                          onChange={changeStartHour}
                           style={{
                             width: '80px',
                             float: 'right',
                             margin: '0 auto',
                           }}
                         >
-                          <option value="AM">AM</option>
-                          <option value="PM">PM</option>
-                        </Form.Select>
-                      </Col>
-                      <Col style={{ display: 'flex' }}>
-                        <Form.Select
-                          size="m"
-                          value={startHour > 12 ? startHour - 12 : startHour}
-                          style={{ width: '80px', marginRight: '10px' }}
-                        >
-                          <option value="01">1</option>
-                          <option value="02">2</option>
-                          <option value="03">3</option>
-                          <option value="04">4</option>
-                          <option value="05">5</option>
-                          <option value="06">6</option>
-                          <option value="07">7</option>
-                          <option value="08">8</option>
-                          <option value="09">9</option>
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
                           <option value="10">10</option>
                           <option value="11">11</option>
                           <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                          <option value="15">15</option>
+                          <option value="16">16</option>
+                          <option value="17">17</option>
+                          <option value="18">18</option>
+                          <option value="19">19</option>
+                          <option value="20">20</option>
+                          <option value="21">21</option>
+                          <option value="22">22</option>
+                          <option value="23">23</option>
                         </Form.Select>
+                      </Col>
+                      <Col style={{ display: 'flex' }}>
                         :
                         <Form.Select
                           size="m"
                           value={startMinute}
+                          onChange={changeStartMinute}
                           style={{ width: '80px', marginLeft: '10px' }}
                         >
                           <option value="00">00</option>
@@ -260,45 +379,55 @@ const RegisterBook = () => {
                     <Row style={{ marginTop: '7px' }}>
                       <Col style={{ maxWidth: '150px' }}>종료시간 :</Col>
                       <Col>
-                        <input type="date" value={endDay} />
+                        <input
+                          type="date"
+                          value={endDay}
+                          onChange={changeEndDay}
+                        />
                       </Col>
                       <Col>
                         <Form.Select
                           size="m"
-                          value={eIsAM}
+                          value={endHour}
+                          onChange={changeEndHour}
                           style={{
                             width: '80px',
                             float: 'right',
                             margin: '0 auto',
                           }}
                         >
-                          <option value="AM">AM</option>
-                          <option value="PM">PM</option>
-                        </Form.Select>
-                      </Col>
-                      <Col style={{ display: 'flex' }}>
-                        <Form.Select
-                          size="m"
-                          value={endHour > 12 ? endHour - 12 : endHour}
-                          style={{ width: '80px', marginRight: '10px' }}
-                        >
-                          <option value="01">1</option>
-                          <option value="02">2</option>
-                          <option value="03">3</option>
-                          <option value="04">4</option>
-                          <option value="05">5</option>
-                          <option value="06">6</option>
-                          <option value="07">7</option>
-                          <option value="08">8</option>
-                          <option value="09">9</option>
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
                           <option value="10">10</option>
                           <option value="11">11</option>
                           <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                          <option value="15">15</option>
+                          <option value="16">16</option>
+                          <option value="17">17</option>
+                          <option value="18">18</option>
+                          <option value="19">19</option>
+                          <option value="20">20</option>
+                          <option value="21">21</option>
+                          <option value="22">22</option>
+                          <option value="23">23</option>
                         </Form.Select>
+                      </Col>
+                      <Col style={{ display: 'flex' }}>
                         :
                         <Form.Select
                           size="m"
                           value={endMinute}
+                          onChange={changeEndMinute}
                           style={{ width: '80px', marginLeft: '10px' }}
                         >
                           <option value="00">00</option>
@@ -381,7 +510,7 @@ const RegisterBook = () => {
                   />
                 </ContentSort>
                 <ButtonContainer>
-                  <SubmitButton>등록</SubmitButton>
+                  <SubmitButton onClick={handleSubmit}>등록</SubmitButton>
                 </ButtonContainer>
               </form>
             </ContentContainer>
