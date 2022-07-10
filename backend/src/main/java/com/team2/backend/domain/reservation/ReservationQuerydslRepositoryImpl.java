@@ -102,7 +102,7 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                 .set(reservation.endTime, reservationManagementDto.getEndTime())
                 .set(reservation.resourceNo, reservationManagementDto.getResourceNo())
                 .set(reservation.userNo, reservationManagementDto.getUserNo())
-                .set(reservation.modifyAt, LocalDateTime.now())
+                .set(reservation.modifyAt, LocalDateTime.now().plusHours(9L))
                 .execute();
     }
 
@@ -123,8 +123,10 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                         reservation.startTime,
                         reservation.endTime,
                         resource.adminNo,
+                        resource.availableTime,
                         employee.name.as("adminName"),
-                        resource.availableTime
+                        reservation.content
+
                 ))
                 .from(reservation)
                 .join(reservation.resource, resource)

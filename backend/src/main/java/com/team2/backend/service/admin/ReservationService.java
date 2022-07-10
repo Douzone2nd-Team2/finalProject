@@ -164,7 +164,7 @@ public class ReservationService {
     }
 
     public Boolean reservationCheck(Reservation reservation, List<String> dateList, int startTime, int endTime, String type, Long reservNo) {
-        System.out.println("reservation check enter!!! " + dateList.size() + "///" + dateList.get(0) + "///" + startTime + " ~~~" + endTime);
+        System.out.println("reservation check enter!!! " + dateList.size() + "///"  + "///" + startTime + " ~~~" + endTime);
 
         Long resourceNo = reservation.getResourceNo();
 
@@ -256,7 +256,7 @@ public class ReservationService {
         Reservation reservation = body.toEntity();
 
         Message message;
-
+        System.out.println(body.getStartTime()+"!!!!!!!!!!!!!!!!!!!");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -309,13 +309,15 @@ public class ReservationService {
 
             Long reservNo = reservationRepository.save(reservation).getReservNo();
             if(body.getCateNo().equals("1")) {//자원이 회의실일 경우
-                for (int i = 0; i < body.getEmpNoList().size(); i++) {
-                    if (cateNo == 1) {
-                        PeopleCnt peopleCnt = PeopleCnt.builder()
-                                .reservNo(reservNo)
-                                .userNo(Long.parseLong(body.getEmpNoList().get(i)))
-                                .build();
-                        peopleCntRepository.save(peopleCnt);
+                if(body.getEmpNoList() != null) {  //추가 인원이 있을 경우
+                    for (int i = 0; i < body.getEmpNoList().size(); i++) {
+                        if (cateNo == 1) {
+                            PeopleCnt peopleCnt = PeopleCnt.builder()
+                                    .reservNo(reservNo)
+                                    .userNo(Long.parseLong(body.getEmpNoList().get(i)))
+                                    .build();
+                            peopleCntRepository.save(peopleCnt);
+                        }
                     }
                 }
             }
@@ -383,7 +385,7 @@ public class ReservationService {
     public ResponseEntity<Message> reservationView(HttpServletRequest req, Long reservNo) {
 
         List<ReservationManagementDto> reservationView = reservationQuerydslRepository.getReservationView(reservNo);
-
+        System.out.println(reservationView.get(0).getStartTime()+"//"+reservationView.get(0).getEndTime());
         Message message = Message.builder()
                 .resCode(1000)
                 .message("[Success] Select ReservationView")
