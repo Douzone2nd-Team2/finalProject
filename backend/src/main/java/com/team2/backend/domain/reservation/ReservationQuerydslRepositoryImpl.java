@@ -65,6 +65,8 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
         return (List<ReservationManagementDto>) jpaQueryFactory
                 .select(new QReservationManagementDto(
                         reservation.reservNo,
+                        reservation.userNo,
+                        employee.name,
                         reservation.able,
                         reservation.startTime,
                         reservation.endTime,
