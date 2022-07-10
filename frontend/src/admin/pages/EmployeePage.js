@@ -273,40 +273,64 @@ const EmployeePage = () => {
             </ContentSort>
             <ContentSort>
               <label htmlFor="dept">부서</label>
-              <SelectDiv>
-                <select name="dept" id="dept" onChange={handleDept}>
-                  <option value="1" selected={deptNo === 1}>
-                    {' '}
-                    영업
-                  </option>
-                  <option value="3" selected={deptNo === 3}>
-                    {' '}
-                    인사
-                  </option>
-                  <option value="4" selected={deptNo === 4}>
-                    {' '}
-                    개발
-                  </option>
-                </select>
-              </SelectDiv>
+              {/* <SelectDiv> */}
+              <select name="dept" id="dept" onChange={handleDept}>
+                <option value="1" selected={deptNo === 1}>
+                  {' '}
+                  인사부
+                </option>
+                <option value="2" selected={deptNo === 2}>
+                  {' '}
+                  총무부
+                </option>
+                <option value="3" selected={deptNo === 3}>
+                  {' '}
+                  회계부
+                </option>
+                <option value="4" selected={deptNo === 4}>
+                  {' '}
+                  기획부
+                </option>
+                <option value="5" selected={deptNo === 5}>
+                  {' '}
+                  영업부
+                </option>
+                <option value="6" selected={deptNo === 6}>
+                  {' '}
+                  개발부
+                </option>
+              </select>
+              {/* </SelectDiv> */}
 
               <label htmlFor="grade">직급</label>
-              <SelectDiv>
-                <select name="grade" id="grade" onChange={handleGrade}>
-                  <option value="1" selected={gradeNo === 1}>
-                    {' '}
-                    사원
-                  </option>
-                  <option value="2" selected={gradeNo === 2}>
-                    {' '}
-                    대리
-                  </option>
-                  <option value="3" selected={gradeNo === 3}>
-                    {' '}
-                    팀장
-                  </option>
-                </select>
-              </SelectDiv>
+              {/* <SelectDiv> */}
+              <select name="grade" id="grade" onChange={handleGrade}>
+                <option value="1" selected={gradeNo === 1}>
+                  {' '}
+                  사원
+                </option>
+                <option value="2" selected={gradeNo === 2}>
+                  {' '}
+                  주임
+                </option>
+                <option value="3" selected={gradeNo === 3}>
+                  {' '}
+                  팀장
+                </option>
+                <option value="4" selected={gradeNo === 4}>
+                  {' '}
+                  과장
+                </option>
+                <option value="5" selected={gradeNo === 5}>
+                  {' '}
+                  차장
+                </option>
+                <option value="6" selected={gradeNo === 6}>
+                  {' '}
+                  부장
+                </option>
+              </select>
+              {/* </SelectDiv> */}
             </ContentSort>
             <ContentSort>
               <label htmlFor="birth">생일</label>

@@ -36,6 +36,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin().disable()
                 .csrf().disable()
+                .logout()
+                .logoutUrl("/logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .and()
                 .addFilterBefore(corsFilter, LoginFilter.class)
                 .addFilter(authCheckFilter())
                 .addFilter(loginFilter())
@@ -45,7 +50,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/main/**").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers("/reserve/**").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-//                .antMatchers("/admin/**").hasRole("ROLE_ADMIN")
                 .anyRequest().permitAll();
     }
 

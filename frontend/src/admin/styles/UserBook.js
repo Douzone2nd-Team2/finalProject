@@ -1,24 +1,23 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 85%;
-  margin: auto;
-  font-family: 'NanumGothic';
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 0px 72px;
 `;
 
 const HeadContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  font-size: 30px;
+  font-weight: 600;
+  padding-top: 30px;
   border-bottom: 4px solid black;
-  padding-top: 40px;
-  /* margin-left: 30px; */
-  margin-top: 10px;
-  font-size: 50px;
 `;
 
 const BookContainer = styled.div`
   display: flex;
-  justify-content: first baseline;
+  justify-content: space-between;
 `;
 
 export { Container, HeadContainer, BookContainer };

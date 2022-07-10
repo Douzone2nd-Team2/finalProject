@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { getCookie } from '../utils/cookie';
@@ -15,37 +15,94 @@ import {
   NameContainer,
   ContentContainer,
   ContentSort,
-  MagnifyingGlass,
   ButtonContainer,
 } from '../styles/UserBookhandle';
 
 const UserBookhandle = () => {
+  const navigate = useNavigate();
   const location = useLocation();
+
   const reservNo = location.state.reservNo;
   const startTime = location.state.startTime;
   const endTime = location.state.endTime;
-  const userName = location.state.userName;
+  const reservName = location.state.reservName;
+  const resourceNo = location.state.resourceNo;
+  const userNo = location.state.userNo;
 
-  console.log(startTime);
-  console.log(endTime);
-
-  const startDay = startTime.substr(0, 10);
-  const endDay = endTime.substr(0, 10);
-
-  const startHour = startTime.substr(11, 2);
-  const endHour = endTime.substr(11, 2);
-
-  const startMinute = startTime.substr(14, 2);
-  const endMinute = endTime.substr(14, 2);
-
-  const sIsAM = startHour > 12 ? 'PM' : 'AM';
-  const eIsAM = endHour > 12 ? 'PM' : 'AM';
+  // console.log(reservName);
+  // console.log(startTime);
+  // console.log(endTime);
+  // console.log(reservNo);
+  // console.log(resourceNo);
 
   const [book, setBook] = useState([]);
 
-  const [time, setTime] = useState('');
-  const [hour, setHour] = useState('');
-  const [minute, setMinute] = useState('');
+  // 시작, 종료 날짜
+  const [startDay, setStartDay] = useState(startTime.substr(0, 10));
+  const [endDay, setEndDay] = useState(endTime.substr(0, 10));
+
+  // 시작, 종료 시간
+  const [startHour, setStartHour] = useState(parseInt(startTime.substr(11, 2)));
+
+  const [endHour, setEndHour] = useState(parseInt(endTime.substr(11, 2)));
+
+  console.log(endHour);
+
+  // 시작, 종료 분
+  const [startMinute, setStartMinute] = useState(startTime.substr(14, 2));
+  const [endMinute, setEndMinute] = useState(endTime.substr(14, 2));
+
+  const [reserveName, setReserveName] = useState(reservName);
+  const [content, setContent] = useState('');
+  const [cateNo, setCateNo] = useState();
+
+  const changeReserveName = (e) => {
+    setReserveName(e.target.value);
+  };
+
+  const changeStartDay = (e) => {
+    setStartDay(e.target.value);
+  };
+
+  const changeEndDay = (e) => {
+    setEndDay(e.target.value);
+  };
+
+  const changeStartHour = (e) => {
+    setStartHour(e.target.value);
+  };
+
+  const changeEndHour = (e) => {
+    setEndHour(e.target.value);
+  };
+
+  const changeStartMinute = (e) => {
+    setStartMinute(e.target.value);
+  };
+
+  const changeEndMinute = (e) => {
+    setEndMinute(e.target.value);
+  };
+
+  const changeContent = (e) => {
+    setContent(e.target.value);
+  };
+
+  // console.log(reservName);
+  // console.log(startDay);
+  // console.log(sIsAM);
+  // console.log(startHour);
+  // console.log(startMinute);
+
+  console.log(reserveName);
+
+  console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
+
+  console.log(startDay);
+
+  console.log(content);
+
+  console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
 
   const fetchData = async () => {
     try {
@@ -59,14 +116,53 @@ const UserBookhandle = () => {
       );
       console.log(res);
       setBook(res.data.data[0]);
+      setContent(res.data.data[0].content);
+      setCateNo(res.data.data[0].cateNo);
     } catch (e) {
       console.log(e);
     }
   };
 
+  console.log(cateNo);
+
+  const postData = async () => {
+    try {
+      console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
+      console.log(endDay + ' ' + endHour + ':' + endMinute + ':00');
+      const res = await axios.post(
+        `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/modify`,
+        {
+          reservNo: reservNo,
+          resourceNo: resourceNo,
+          userNo: userNo,
+          cateNo: cateNo,
+          reservName: reserveName,
+          startTime: startDay + ' ' + startHour + ':' + startMinute + ':00',
+          endTime: endDay + ' ' + endHour + ':' + endMinute + ':00',
+          content: content,
+        },
+        {
+          headers: {
+            Authorization: getCookie('accessToken'),
+          },
+        },
+      );
+      console.log(res);
+      navigate('/admin/employeebook');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const clickBtn = (e) => {
+    e.preventDefault();
+
+    postData();
+    // navigate(-1);
+  };
+
   useEffect(() => {
     fetchData();
-    console.log(book);
   }, []);
 
   return (
@@ -84,81 +180,120 @@ const UserBookhandle = () => {
         </NameContainer>
         <hr />
         <ContentContainer>
-          <form>
+          <form onSubmit={clickBtn}>
             <ContentSort>
-              {/* <Form.Label>이용가능시간</Form.Label> */}
               <Row>
                 <Row>
-                  <Col>시작시간 :</Col>
+                  <Col style={{ maxWidth: '150px' }}>예약명 : </Col>
                   <Col>
-                    <input type="date" value={startDay} />
+                    <input
+                      type="text"
+                      value={reserveName}
+                      onChange={changeReserveName}
+                    />
                   </Col>
+                </Row>
+                <br />
+                <br />
+                <Row>
+                  <Col style={{ maxWidth: '150px' }}>시작시간 :</Col>
                   <Col>
-                    <Form.Select size="sm" value={sIsAM}>
-                      <option value="AM">AM</option>
-                      <option value="PM">PM</option>
-                    </Form.Select>
+                    <input
+                      type="date"
+                      value={startDay}
+                      onChange={changeStartDay}
+                    />
                   </Col>
                   <Col>
                     <Form.Select
                       size="sm"
-                      value={startHour > 12 ? startHour - 12 : startHour}
+                      value={startHour}
+                      onChange={changeStartHour}
                     >
-                      <option value="01">1</option>
-                      <option value="02">2</option>
-                      <option value="03">3</option>
-                      <option value="04">4</option>
-                      <option value="05">5</option>
-                      <option value="06">6</option>
-                      <option value="07">7</option>
-                      <option value="08">8</option>
-                      <option value="09">9</option>
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
                       <option value="10">10</option>
                       <option value="11">11</option>
                       <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                      <option value="22">22</option>
+                      <option value="23">23</option>
                     </Form.Select>
                   </Col>
                   :
                   <Col>
-                    <Form.Select size="sm" value={startMinute}>
+                    <Form.Select
+                      size="sm"
+                      value={startMinute}
+                      onChange={changeStartMinute}
+                    >
                       <option value="00">00</option>
                       <option value="30">30</option>
                     </Form.Select>
                   </Col>
                 </Row>
+                <br />
+                <br />
                 <Row>
-                  <Col>종료시간 :</Col>
+                  <Col style={{ maxWidth: '150px' }}>종료시간 :</Col>
                   <Col>
-                    <input type="date" value={endDay} />
-                  </Col>
-                  <Col>
-                    <Form.Select size="sm" value={eIsAM}>
-                      <option value="AM">AM</option>
-                      <option value="PM">PM</option>
-                    </Form.Select>
+                    <input type="date" value={endDay} onChange={changeEndDay} />
                   </Col>
                   <Col>
                     <Form.Select
                       size="sm"
-                      value={endHour > 12 ? endHour - 12 : endHour}
+                      value={endHour}
+                      onChange={changeEndHour}
                     >
-                      <option value="01">1</option>
-                      <option value="02">2</option>
-                      <option value="03">3</option>
-                      <option value="04">4</option>
-                      <option value="05">5</option>
-                      <option value="06">6</option>
-                      <option value="07">7</option>
-                      <option value="08">8</option>
-                      <option value="09">9</option>
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
                       <option value="10">10</option>
                       <option value="11">11</option>
                       <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                      <option value="22">22</option>
+                      <option value="23">23</option>
                     </Form.Select>
                   </Col>
                   :
                   <Col>
-                    <Form.Select size="sm" value={endMinute}>
+                    <Form.Select
+                      size="sm"
+                      value={endMinute}
+                      onChange={changeEndMinute}
+                    >
                       <option value="00">00</option>
                       <option value="30">30</option>
                     </Form.Select>
@@ -166,31 +301,23 @@ const UserBookhandle = () => {
                 </Row>
               </Row>
             </ContentSort>
+            <br />
             <ContentSort>
-              <label htmlFor="user">사용자</label>
-              <input type="text" id="user" placeholder={userName} />
-              <MagnifyingGlass>
-                <button className="fa-solid fa-magnifying-glass" />
-              </MagnifyingGlass>
-            </ContentSort>
-            <ContentSort>
-              <label htmlFor="withUser">동참자</label>
-              <input type="text" id="withUser" />
-              <MagnifyingGlass>
-                <button className="fa-solid fa-magnifying-glass" />
-              </MagnifyingGlass>
-            </ContentSort>
-            <ContentSort>
-              <label htmlFor="resourceInfo">정보</label>
+              <label htmlFor="resourceInfo" style={{ maxWidth: '150px' }}>
+                정보
+              </label>
               <textarea
                 cols="50"
                 rows="5"
                 id="resourceInfo"
-                placeholder={book.reservName}
+                onChange={changeContent}
+                placeholder={book.content}
               />
             </ContentSort>
             <ButtonContainer>
-              <Button variant="primary">수정</Button>
+              <Button variant="primary" type="submit">
+                수정
+              </Button>
             </ButtonContainer>
           </form>
         </ContentContainer>
