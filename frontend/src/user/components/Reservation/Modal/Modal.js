@@ -61,14 +61,6 @@ const Modal = (props) => {
     searchPeople();
   };
 
-  // const onPeopleAdd = () => {
-  //   if (people) {
-  //     let newPeopleList = [...peopleList, people];
-  //     setPeopleList(newPeopleList);
-  //   }
-  //   // props.setOpenModal(false);
-  // };
-
   const onClose = () => {
     props.setOpenModal(false);
   };
@@ -79,13 +71,10 @@ const Modal = (props) => {
         '설정한 추가 인원보다 많은 사용자를 선택하였습니다.\n다시 선택해주세요.',
       );
     } else {
-      console.log(people);
-      // setPeople([checkNameList]);
       props.setPeople(people);
+      props.setPeopleNo(checkList);
       onClose();
     }
-    console.log(checkList);
-    console.log(people);
   };
 
   return (

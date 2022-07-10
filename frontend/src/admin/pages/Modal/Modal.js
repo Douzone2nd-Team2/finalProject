@@ -47,7 +47,6 @@ const Modal = (props) => {
       })
       .catch(console.error);
 
-    console.log(searchResult);
     setPeopleList(searchResult);
   };
 
@@ -58,14 +57,6 @@ const Modal = (props) => {
   const onSearch = () => {
     searchPeople();
   };
-
-  // const onPeopleAdd = () => {
-  //   if (people) {
-  //     let newPeopleList = [...peopleList, people];
-  //     setPeopleList(newPeopleList);
-  //   }
-  //   // props.setOpenModal(false);
-  // };
 
   const onClose = () => {
     props.setOpenModal(false);

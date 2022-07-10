@@ -50,7 +50,6 @@ const PeopleModal = (props) => {
       })
       .catch(console.error);
 
-    console.log(searchResult);
     setPeopleList(searchResult);
   };
 
@@ -61,14 +60,6 @@ const PeopleModal = (props) => {
   const onSearch = () => {
     searchPeople();
   };
-
-  // const onPeopleAdd = () => {
-  //   if (people) {
-  //     let newPeopleList = [...peopleList, people];
-  //     setPeopleList(newPeopleList);
-  //   }
-  //   // props.setOpenModal(false);
-  // };
 
   const onClose = () => {
     props.setOpenModal2(false);

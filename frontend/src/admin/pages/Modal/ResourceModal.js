@@ -34,11 +34,6 @@ const ResourceModal = (props) => {
       keyword: keyword,
     };
     const searchResult = await axios
-      //   .get(`${process.env.REACT_APP_SERVER_PORT}/resource/search`, {
-      //     params: data,
-      //     headers: {
-      //       Authorization: getCookie('accessToken'),
-      //     },
       .get(`${process.env.REACT_APP_SERVER_PORT}/resource/search`, {
         params: data,
         headers: {
@@ -52,7 +47,6 @@ const ResourceModal = (props) => {
         } else {
           return res.data.data;
         }
-        console.log(res);
       })
       .catch(console.error);
     console.log(searchResult);
@@ -66,14 +60,6 @@ const ResourceModal = (props) => {
   const onSearch = () => {
     searchPeople();
   };
-
-  // const onPeopleAdd = () => {
-  //   if (people) {
-  //     let newPeopleList = [...peopleList, people];
-  //     setPeopleList(newPeopleList);
-  //   }
-  //   // props.setOpenModal(false);
-  // };
 
   const onClose = () => {
     props.setOpenModal3(false);

@@ -72,7 +72,7 @@ const PresentBook = ({ userNo }) => {
           {!arrayIsEmpty(presentList) ? (
             presentList.map((user, idx) => (
               <tr key={idx}>
-                <td>{idx}</td>
+                <td>{presentList.length - idx}</td>
                 <td>{user.resourceName}</td>
                 <td>{user.startTime}</td>
                 <td>{user.endTime}</td>
