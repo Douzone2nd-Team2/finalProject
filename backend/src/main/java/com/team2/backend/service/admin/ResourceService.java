@@ -403,4 +403,28 @@ public class ResourceService {
                 .build();
         return new JsonResponse().send(200, message);
     }
+
+    @Transactional
+    public ResponseEntity<Message> searchResource(String keyword){
+        Message message;
+        try {
+            List<ResourceDto> resourceList = reservationQuerydslRepository.getSearchResourceList(keyword);
+
+            message = Message.builder()
+                    .resCode(1000)
+                    .message("[Success] : Select resourceSearchList")
+                    .data(resourceList)
+                    .build();
+            return new JsonResponse().send(200, message);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            message = Message.builder()
+                    .resCode(1001)
+                    .message("[Fail] : Select resourceSearchList")
+                    .build();
+            return new JsonResponse().send(400, message);
+        }
+
+    }
 }
