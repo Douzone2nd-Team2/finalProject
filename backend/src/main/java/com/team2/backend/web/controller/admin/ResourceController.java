@@ -1,9 +1,11 @@
 package com.team2.backend.web.controller.admin;
 
+import com.sun.istack.NotNull;
 import com.team2.backend.config.security.auth.EmployeeDetails;
 import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.service.admin.ResourceService;
 import com.team2.backend.web.dto.Message;
+import com.team2.backend.web.dto.admin.EmployeeManagementDto;
 import com.team2.backend.web.dto.admin.ResourceAdminDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +34,6 @@ public class ResourceController {
 
     @GetMapping("/detail") // 각 자원별 전체 조회
     public ResponseEntity<Message> getResourceNoList(@RequestParam("resourceNo") Long resourceNo){
-        System.out.println("resoureDetail시작");
         return resourceService.getResourceNoList(resourceNo);
     }
 
@@ -42,8 +43,8 @@ public class ResourceController {
     }
 
     @PostMapping("/fileupload") // 사진 등록
-    public ResponseEntity<Message> fileRegister(@RequestPart(value = "image") List<MultipartFile> multipartFile, String able, Long resourceNo){
-        return resourceService.fileupload(multipartFile,able,resourceNo);
+    public ResponseEntity<Message> fileRegister(@RequestPart(value = "images", required = false) List<MultipartFile> images){
+        return resourceService.fileupload((images != null?images:null));
     }
 
     @PostMapping("/register") // 자원 등록
@@ -57,14 +58,13 @@ public class ResourceController {
     }
 
     @PostMapping("/fileupdate") // 사진 수정
-    public ResponseEntity<Message> fileUpdate(@RequestPart(value = "image") List<MultipartFile> multipartFile, @RequestParam("resourceNo") Long resourceNo ){
-        return resourceService.fileUpdate(multipartFile, resourceNo);
+    public ResponseEntity<Message> fileUpdate(@RequestPart(value = "image") List<MultipartFile> multipartFile ){
+        return resourceService.fileUpdate(multipartFile);
     }
 
-
     @PostMapping("/delete")
-    public ResponseEntity<Message> delResource(@RequestParam("resourceNo") Long resourceNo){
-        return resourceService.delresourceList(resourceNo);
+    public ResponseEntity<Message> delResource(@RequestBody ResourceAdminDto body){
+        return resourceService.delresourceList(body.getResourceNo());
     }
 
 }

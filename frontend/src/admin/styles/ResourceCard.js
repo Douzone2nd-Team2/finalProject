@@ -7,17 +7,24 @@ const ResourceCard = styled.div`
   }
 
   width: 220px;
-  height: 30%;
+  height: 100%;
+  text-overflow: ellipsis;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
 `;
 const ResourceCardTitle = styled.div`
   font-size: large;
   font-weight: 600;
 `;
 
-const ResourceOpion = styled.div``;
-
 const ResourceContent = styled.div`
-  font-size: 11px;
+  font-size: 12px;
 `;
 
-export { ResourceCard, ResourceCardTitle, ResourceContent, ResourceOpion };
+const ResourceCategory = styled.div`
+  color: gray;
+  font-size: 10px;
+`;
+
+export { ResourceCard, ResourceCardTitle, ResourceContent, ResourceCategory };
