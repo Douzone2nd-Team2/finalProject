@@ -1,6 +1,7 @@
 import { Row, Col, Button } from 'react-bootstrap';
 import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
+import { getCookie } from '../utils/cookie';
 import {
   Container,
   ResourceContainer,
@@ -15,11 +16,10 @@ import Pagination from 'react-js-pagination';
 import { PaginationBox } from '../styles/Pagination';
 import ResourceInput from '../components/Resource/ResourceInput.js';
 import ResourceItem from '../components/Resource/ResourceItem';
-import { height } from '@mui/system';
 
 const ResourcePage = () => {
   const [resources, setResources] = useState([]);
-  // console.log(resources);
+
   const [page, setPage] = useState(1);
   const [items, setItems] = useState(12);
 
@@ -35,10 +35,13 @@ const ResourcePage = () => {
 
   const getAll = useCallback(() => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_PORT}/resource`)
+      .get(`${process.env.REACT_APP_SERVER_PORT}/resource`, {
+        headers: {
+          Authorization: getCookie('accessToken'),
+        },
+      })
       .then((response) => {
         setResources(response.data.data);
-        console.log(resources);
       })
       .catch((error) => {
         console.log(error);
@@ -47,7 +50,11 @@ const ResourcePage = () => {
 
   const getSelect = async () => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_PORT}/resource/${selected}`)
+      .get(`${process.env.REACT_APP_SERVER_PORT}/resource/${selected}`, {
+        headers: {
+          Authorization: getCookie('accessToken'),
+        },
+      })
       .then((response) => {
         console.log(response.data);
         setResources(response.data.data);
@@ -59,7 +66,11 @@ const ResourcePage = () => {
 
   const getBookmark = async () => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_PORT}/resource/bookmark`)
+      .get(`${process.env.REACT_APP_SERVER_PORT}/resource/bookmark`, {
+        headers: {
+          Authorization: getCookie('accessToken'),
+        },
+      })
       .then((response) => {
         setResources(response.data.data);
       })
@@ -80,50 +91,51 @@ const ResourcePage = () => {
     console.log(resources);
   }, [selected]);
 
-  useEffect(() => {}, [ResourceInput, getAll]);
+  useEffect(() => {}, [ResourceInput]);
 
   return (
-    <Container>
-      <ResourceContainer>
-        <ResourceInput getAll={getAll} />
-        자원목록
-      </ResourceContainer>
-      <ResourceContainer2>
-        <SelectBoxDiv>
-          <select
-            onChange={handleChange}
-            value={selected}
-            style={{ float: 'right', marginTop: '10px' }}
-          >
-            <option value="0">전체</option>
-            <option value="1">회의실</option>
-            <option value="2">차량</option>
-            <option value="3">노트북</option>
-            <option value="4">북마크</option>
-          </select>
-        </SelectBoxDiv>
-        <ResourceCardUI>
-          <Row style={{ width: '100%' }}>
-            {resources
-              .slice(items * (page - 1), items * (page - 1) + items)
-              .map((resource, idx) => (
-                <Col sm={3} key={idx} style={{ marginTop: '30px' }}>
-                  <ResourceItem resource={resource} />
-                </Col>
-              ))}
-          </Row>
-        </ResourceCardUI>
-        <PaginationBox>
-          <Pagination
-            activePage={page}
-            itemsCountPerPage={items}
-            totalItemsCount={resources.length}
-            pageRangeDisplayed={5}
-            onChange={pageHandler}
-          ></Pagination>
-        </PaginationBox>
-      </ResourceContainer2>
-    </Container>
+    <>
+      <Container>
+        <ResourceContainer>
+          <ResourceInput getAll={getAll} />
+          자원목록
+        </ResourceContainer>
+        <ResourceContainer2>
+          <SelectBoxDiv>
+            <select
+              onChange={handleChange}
+              value={selected}
+              style={{ float: 'right', marginTop: '10px' }}
+            >
+              <option value="0">전체</option>
+              <option value="1">회의실</option>
+              <option value="2">차량</option>
+              <option value="3">노트북</option>
+            </select>
+          </SelectBoxDiv>
+          <ResourceCardUI>
+            <Row style={{ width: '100%' }}>
+              {resources
+                .slice(items * (page - 1), items * (page - 1) + items)
+                .map((resource, idx) => (
+                  <Col sm={3} key={idx} style={{ marginTop: '30px' }}>
+                    <ResourceItem resource={resource} />
+                  </Col>
+                ))}
+            </Row>
+          </ResourceCardUI>
+          <PaginationBox>
+            <Pagination
+              activePage={page}
+              itemsCountPerPage={items}
+              totalItemsCount={resources.length}
+              pageRangeDisplayed={5}
+              onChange={pageHandler}
+            ></Pagination>
+          </PaginationBox>
+        </ResourceContainer2>
+      </Container>
+    </>
   );
 };
 

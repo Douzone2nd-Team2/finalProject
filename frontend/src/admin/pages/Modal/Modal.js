@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
-import { getCookie } from '../../../utils/cookie.js';
+import { getCookie } from '../../utils/cookie';
 
 import SearchIcon from '@material-ui/icons/Search';
 // import { getCookie } from '../../utils/cookie';
 import CancelIcon from '@material-ui/icons/Cancel';
 
-import StyledList from '../../StyledList/StyledList.js';
+import StyledList from '../Modal/StyledList';
 
 import {
   BackgroundContainer,
@@ -25,8 +25,6 @@ const Modal = (props) => {
   const [keyword, setKeyword] = useState('');
   const [people, setPeople] = useState(null);
   const [peopleList, setPeopleList] = useState([]);
-  const [checkList, setCheckList] = useState('');
-  const [checkNameList, setCheckNameList] = useState([]);
 
   const searchPeople = async () => {
     const data = {
@@ -49,7 +47,6 @@ const Modal = (props) => {
       })
       .catch(console.error);
 
-    console.log(searchResult);
     setPeopleList(searchResult);
   };
 
@@ -65,18 +62,6 @@ const Modal = (props) => {
     props.setOpenModal(false);
   };
 
-  const onAdd = () => {
-    if (count < checkList.length) {
-      alert(
-        '설정한 추가 인원보다 많은 사용자를 선택하였습니다.\n다시 선택해주세요.',
-      );
-    } else {
-      props.setPeople(people);
-      props.setPeopleNo(checkList);
-      onClose();
-    }
-  };
-
   return (
     <BackgroundContainer>
       <ModalContainer>
@@ -89,15 +74,11 @@ const Modal = (props) => {
           </SearchContainer>
         </ModalHeader>
         <ModalBody>
-          <StyledList
-            peopleList={peopleList}
-            setCheckList={setCheckList}
-            setCheckNameList={setPeople}
-          ></StyledList>
+          <StyledList peopleList={peopleList}></StyledList>
         </ModalBody>
         <ModalButtonContainer>
           <ModaldButton onClick={onClose}>닫기</ModaldButton>
-          <ModaldButton onClick={onAdd}>추가</ModaldButton>
+          <ModaldButton>추가</ModaldButton>
         </ModalButtonContainer>
       </ModalContainer>
     </BackgroundContainer>

@@ -17,7 +17,7 @@ public class BackendApplication {
     }
     @PostConstruct
     void started() {
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
     public static void main(String[] args) {
         SpringApplication.run(BackendApplication.class, args);

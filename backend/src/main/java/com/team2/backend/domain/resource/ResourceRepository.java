@@ -67,4 +67,7 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
     @Query("SELECT cateNo FROM Resource WHERE resourceNo = :resourceNo")
     Long findCateNoByResourceNo(@Param("resourceNo")Long resourceNo);
 
+    @Query(value = "Select resourceNo from Resource order by resourceNo desc limit 1", nativeQuery = true)
+    Long findLastReserouce();
+
 }

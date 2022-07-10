@@ -1,6 +1,7 @@
 package com.team2.backend.web.dto.admin;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.querydsl.core.annotations.QueryProjection;
 import com.sun.istack.NotNull;
 import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.resource.Resourcefile;
@@ -44,6 +45,7 @@ public class ResourceAdminDto implements IResourceAdminDto{
     private List<Resourcefile> resourcefile;
 
     @Builder
+    @QueryProjection
     public ResourceAdminDto(Long resourceNo, Long cateNo, String able, String resourceName,List<Resourcefile> resourcefile){
         this.resourceNo = resourceNo;
         this.cateNo = cateNo;
@@ -51,6 +53,5 @@ public class ResourceAdminDto implements IResourceAdminDto{
         this.resourceName = resourceName;
         this.resourcefile = resourcefile;
     }
-
 }
 

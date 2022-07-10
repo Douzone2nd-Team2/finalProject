@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 
 const SidebarContainer = styled.div`
-  background-color: #dcdcdc;
+  background-color: #fafafa;
   position: fixed;
   top: 150px;
   left: 0;
-  width: 180px;
+  width: 190px;
   height: 320px;
   font-family: NanumGothicBold;
   z-index: 999;
   display: flex;
+  border-radius: 0 12px 12px 0;
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
 `;
 
 const SidebarContainer2 = styled.div`
@@ -55,7 +57,7 @@ const ToggleContainer = styled.div`
   button {
     border: 0;
     outline: 0;
-    background-color: #dcdcdc;
+    background-color: #fafafa;
   }
   button: hover {
     color: darkgray;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Button from 'react-bootstrap/Button';
+import { getCookie } from '../../utils/cookie';
 import axios from 'axios';
 
 const ResourceFileUploadTest = () => {
@@ -10,7 +11,7 @@ const ResourceFileUploadTest = () => {
     if (imgFile) {
       const d = new FormData();
       for (let i = 0; i < imgFile.length; i++) {
-        d.append('image', imgFile[i]);
+        d.append('images', imgFile[i]);
       }
 
       setFormData(d);
@@ -24,8 +25,10 @@ const ResourceFileUploadTest = () => {
       .post(
         `${process.env.REACT_APP_SERVER_PORT}/resource/fileupload`,
         formData,
+
         {
           headers: {
+            Authorization: getCookie('accessToken'),
             'Content-Type': 'multipart/form-data',
           },
         },
@@ -38,11 +41,11 @@ const ResourceFileUploadTest = () => {
 
   const handleSubmit = () => {
     postTest();
-    console.log('postTest시작');
   };
 
   const handleChangeFile = useCallback((e) => {
-    setImgFile(e.target.file);
+    setImgFile(e.target.files);
+    console.log(imgFile);
     console.log('핸들체인지');
   });
 
