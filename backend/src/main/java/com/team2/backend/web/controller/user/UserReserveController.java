@@ -1,5 +1,6 @@
 package com.team2.backend.web.controller.user;
 
+import com.team2.backend.config.security.auth.EmployeeDetails;
 import com.team2.backend.service.user.UserReserveService;
 import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.SocketMessage;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,12 +26,17 @@ public class UserReserveController {
 
     @PostMapping("/timelist")
     public ResponseEntity<Message> getTimelist(@RequestBody UserReservationDto body) throws ParseException {
-        return userReserveService.getTimelist(body);
+        return userReserveService.anotherGetTimelist(body);
     }
 
-    @PostMapping("/checkReservation")
+    @PostMapping("/saveReservation")
     public ResponseEntity<Message> checkReservation(HttpServletRequest req, @RequestBody ReservationManagementDto body) throws ParseException {
         return userReserveService.saveReservation(req, body);
+    }
+
+    @PostMapping("/addReservationInfo")
+    public ResponseEntity<Message> addReservationInfo(@AuthenticationPrincipal EmployeeDetails user,  @RequestBody ReservationManagementDto body) {
+        return userReserveService.addReservationInfo(user, body);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.team2.backend.service.user;
 
+import com.team2.backend.config.security.auth.EmployeeDetails;
 import com.team2.backend.domain.reservation.*;
 import com.team2.backend.domain.resource.PeopleCnt;
 import com.team2.backend.domain.resource.PeopleCntRepository;
@@ -46,14 +47,19 @@ public class UserReserveService {
         Long resourceNo = body.getResourceNo();
         Date startDate = formatter.parse(formatter.format(body.getStartDate()));
         Date endDate = formatter.parse(formatter.format(body.getEndDate()));
-
+        System.out.println(resourceNo);
+        System.out.println(startDate);
+        System.out.println(endDate);
+        System.out.println("--------------------");
         List<Date> dateList = new ArrayList<>();
         for (Date i = startDate; i.before(endDate) || i.equals(endDate); i = new Date(i.getTime() + (1000 * 60 * 60 * 24))) {
+            System.out.println(i);
             dateList.add(i);
         }
 
         HashMap<String, Long[]> timelists = new HashMap<>();
         for (int i = 0; i < dateList.size(); i++) {
+            System.out.println();
             List<ReservationCheck> check = reservationCheckRepository.findByResourceNoAndCheckDate(resourceNo, formatter.format(dateList.get(i)));
             if (check.isEmpty()) {
                 continue;
@@ -82,6 +88,43 @@ public class UserReserveService {
     }
 
     @Transactional
+    public ResponseEntity<Message> anotherGetTimelist(UserReservationDto body) throws ParseException {
+        System.out.println("anotherGetTimelist");
+        System.out.println(body.getStartTime());
+        Long resourceNo = body.getResourceNo();
+        Date startDate = formatter.parse(formatter.format(new Date(body.getStartDate() + (1000 * 60 * 60 * 9))));
+        Date endDate = formatter.parse(formatter.format(new Date(body.getEndDate() + (1000 * 60 * 60 * 9))));
+//        Date startDate = formatter.parse(body.getStartTime());
+//        Date endDate = formatter.parse(body.getEndTime());
+        System.out.println(resourceNo);
+        System.out.println(startDate);
+        System.out.println(endDate);
+
+        Date[] dateList = new Date[2];
+        dateList[0] = startDate;
+        dateList[1] = endDate;
+
+        List<Long[]> timelists = new ArrayList<>();
+        for (int i = 0; i < dateList.length; i++) {
+            System.out.println();
+            List<ReservationCheck> check = reservationCheckRepository.findByResourceNoAndCheckDate(resourceNo, formatter.format(dateList[i]));
+            Long[] timelist = null;
+            if (!check.isEmpty()) {
+                for (int j = 0; j < check.size(); j++) {
+                    timelist =  timelistRepository.findAllByCheckNo(check.get(j).getCheckNo());
+                }
+            }
+            timelists.add(timelist);
+        }
+        Message message = Message.builder()
+                .resCode(4000)
+                .message("[SUCCESS] 시간")
+                .data(timelists)
+                .build();
+        return new JsonResponse().send(200, message);
+    }
+
+    @Transactional
     public ResponseEntity<Message> saveReservation(HttpServletRequest req, ReservationManagementDto body) throws ParseException {
 
         Message message;
@@ -89,10 +132,14 @@ public class UserReserveService {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
 
+//        body.setEndTime(formatter.parse(body.getETime()));
+
+        body.setStartTime(formatter.parse(body.getSs()));
+        body.setEndTime(formatter.parse(body.getEe()));
         Reservation reservation = body.toEntity();
 
-        String[] start = formatter.format(body.getStartTime()).split(" ");
-        String[] end = formatter.format(body.getEndTime()).split(" ");
+        String[] start = body.getSs().split(" ");
+        String[] end = body.getEe().split(" ");
 
         String startDate = start[0];
         String[] startTime = start[1].split(":");
@@ -170,25 +217,26 @@ public class UserReserveService {
                 }
             }
 
-            if (cateNo == 1) {  //자원이 회의실일 경우
-                for (int i = 0; i < body.getEmpNoList().size(); i++) {
-                    System.out.println(body.getEmpNoList());
-                    PeopleCnt peopleCnt = PeopleCnt.builder()
-                            .reservNo(reservNo)
-                            .userNo(Long.parseLong(body.getEmpNoList().get(i)))
-                            .build();
-                    peopleCntRepository.save(peopleCnt);
-                }
-            }
+//            if (cateNo == 1) {  //자원이 회의실일 경우
+//                for (int i = 0; i < body.getEmpNoList().size(); i++) {
+//                    System.out.println(body.getEmpNoList());
+//                    PeopleCnt peopleCnt = PeopleCnt.builder()
+//                            .reservNo(reservNo)
+//                            .userNo(Long.parseLong(body.getEmpNoList().get(i)))
+//                            .build();
+//                    peopleCntRepository.save(peopleCnt);
+//                }
+//            }
 
             message = Message.builder()
-                    .resCode(1000)
+                    .resCode(4000)
                     .message("[Success] Insert Reservation")
+                    .data(reservation.getReservNo())
                     .build();
             return new JsonResponse().send(200, message);
         }
         message = Message.builder()
-                .resCode(1001)
+                .resCode(4001)
                 .message("[Fail] Insert Reservation, Duplicated Reservation")
                 .build();
         return new JsonResponse().send(200, message);
@@ -470,6 +518,41 @@ public class UserReserveService {
         Message message = Message.builder()
                 .resCode(1001)
                 .message("[Fail] Delete Reservation")
+                .build();
+        return new JsonResponse().send(200, message);
+    }
+
+    @Transactional
+    public ResponseEntity<Message> addReservationInfo(EmployeeDetails user, ReservationManagementDto body) {
+        Long reservNo = body.getReservNo();
+        String able = body.getAble();
+        String reservName = body.getReservName();
+        List<Long> peopleCnt = body.getPeopleCnt();
+        Long resourceNo = body.getResourceNo();
+
+        System.out.println(reservNo);
+        System.out.println(able);
+        System.out.println(reservName);
+        System.out.println(peopleCnt);
+
+        reservationRepository.addReservaionInfo(reservNo, able, reservName);
+
+        Long cateNo = resourceRepository.findCateNoByResourceNo(resourceNo);
+
+        if (cateNo == 1) {
+            for (int i = 0; i < peopleCnt.size(); i++) {
+                peopleCntRepository.save(
+                        PeopleCnt.builder()
+                                .reservNo(reservNo)
+                                .userNo(peopleCnt.get(i))
+                                .build()
+                );
+            }
+        }
+
+        Message message = Message.builder()
+                .resCode(4000)
+                .message("[SUCCESS] 추가정보 입력")
                 .build();
         return new JsonResponse().send(200, message);
     }

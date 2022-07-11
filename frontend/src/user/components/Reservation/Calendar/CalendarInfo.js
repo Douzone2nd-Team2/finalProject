@@ -47,6 +47,7 @@ const CalendarInfo = (props) => {
   const [startTime, setStartTime] = useState('00:00:00');
   const [endTime, setEndTime] = useState('00:00:00');
   const [dropdownDisable, setDropdownDisable] = useState(true);
+  const [noTimelist, setNoTimelist] = useState([]);
 
   // const tempReservation = () => {
   //   let chatMessage = {
@@ -62,9 +63,10 @@ const CalendarInfo = (props) => {
 
   const onDateChange = (dates) => {
     const [start, end] = dates;
+
     setStartDate(start);
     end && setEndDate(end);
-    if (start && end) {
+    if (start && end && start <= end) {
       setSelectedStartDate(start.toLocaleDateString());
       setSelectedEndDate(end.toLocaleDateString());
       setDropdownDisable(false);
@@ -74,8 +76,8 @@ const CalendarInfo = (props) => {
   const axiosGetTimelist = async () => {
     const data = {
       resourceNo: props.resourceNo,
-      startDate: startDate,
-      endDate: endDate,
+      startDate: startDate.getTime(),
+      endDate: endDate.getTime(),
     };
 
     const result = await axios
@@ -89,11 +91,11 @@ const CalendarInfo = (props) => {
           console.log('[Axios SearchPeople] 알 수 없는 오류가 발생했습니다.');
           return;
         } else {
-          console.log(res.data);
           return res.data.data;
         }
       })
       .catch(console.error);
+    result && setNoTimelist(result);
   };
 
   const onNextStep = () => {
@@ -105,12 +107,12 @@ const CalendarInfo = (props) => {
       (startDate.getTime() === endDate.getTime() && startTime < endTime) ||
       startDate.getTime() < endDate.getTime()
     ) {
-      props.setStep(1);
+      console.log('굿');
+      axiosSaveReservation();
     } else {
       alert('올바른 날짜와 시간을 선택해주세요.');
       return;
     }
-    console.log(reservation);
   };
 
   const handleStartTime = (e) => {
@@ -127,18 +129,60 @@ const CalendarInfo = (props) => {
     setDropdownDisable(true);
   }, [startDate]);
 
-  useEffect(() => {
-    if (startDate && endDate) {
-      axiosGetTimelist();
-      setReservationState({
-        ...reservation,
-        startDate: startDate,
-        endDate: endDate,
-        startTime: selectedStartDate,
-        endTime: selectedEndDate,
-      });
-    }
-  }, [selectedEndDate]);
+  useEffect(() => {}, [selectedEndDate]);
+  const axiosSaveReservation = async () => {
+    const data = {
+      able: 'N',
+      userNo: user.no,
+      resourceNo: props.resourceNo,
+      ss:
+        selectedStartDate.replaceAll(/\./g, '').replaceAll(/ /g, '-') +
+        ' ' +
+        startTime,
+      ee:
+        selectedEndDate.replaceAll(/\./g, '').replaceAll(/ /g, '-') +
+        ' ' +
+        endTime,
+    };
+
+    console.log(data);
+
+    const result = await axios
+      .post(`${process.env.REACT_APP_SERVER_PORT}/saveReservation`, data, {
+        headers: {
+          Authorization: getCookie('accessToken'),
+        },
+      })
+      .then((res) => {
+        if (res.data.resCode === 4001) {
+          console.log(
+            '[Axios Save Reservation Error] 알 수 없는 오류가 발생했습니다.',
+          );
+          console.log(res.data);
+          return;
+        } else {
+          setReservationState({
+            ...reservation,
+            startTime:
+              selectedStartDate.replaceAll(/\./g, '').replaceAll(/ /g, '-') +
+              ' ' +
+              startTime,
+            endTime:
+              selectedEndDate.replaceAll(/\./g, '').replaceAll(/ /g, '-') +
+              ' ' +
+              endTime,
+            reservNo: res.data.data,
+          });
+          props.setStep(1);
+          return res.data;
+        }
+      })
+      .catch(console.error);
+
+    console.log(result);
+    const reservNo = result.data;
+    console.log('reservNo : ' + reservNo);
+  };
 
   // const getTimelist = () => {
   //   if (startDate && endDate) {
@@ -157,6 +201,10 @@ const CalendarInfo = (props) => {
   //   }
   // };
 
+  useEffect(() => {
+    console.log(noTimelist);
+  }, [noTimelist]);
+
   return (
     <CalendarContainer>
       <CalendarTest>
@@ -166,8 +214,12 @@ const CalendarInfo = (props) => {
           endDate={endDate}
           selectsRange
           selectsDisabledDaysInRange
+          minDate={new Date()}
           inline
         />
+        <ButtonContainer>
+          <ReserveButton onClick={axiosGetTimelist}>조회</ReserveButton>
+        </ButtonContainer>
       </CalendarTest>
       <CalendarDetatil>
         <DateTimeContainer>
@@ -176,7 +228,13 @@ const CalendarInfo = (props) => {
             <DateSpan>{selectedStartDate}</DateSpan>
             <TimeSelect onChange={handleStartTime} disabled={dropdownDisable}>
               {TimeList.map((item) => (
-                <TimeOption key={item.timeNo} value={item.value}>
+                <TimeOption
+                  key={item.timeNo}
+                  value={item.value}
+                  disabled={
+                    noTimelist[0] && noTimelist[0].includes(item.timeNo)
+                  }
+                >
                   {item.value}
                 </TimeOption>
               ))}
@@ -187,7 +245,13 @@ const CalendarInfo = (props) => {
             <DateSpan>{selectedEndDate}</DateSpan>
             <TimeSelect onChange={handleEndTime} disabled={dropdownDisable}>
               {TimeList.map((item) => (
-                <TimeOption key={item.timeNo} value={item.value}>
+                <TimeOption
+                  key={item.timeNo}
+                  value={item.value}
+                  disabled={
+                    noTimelist[1] && noTimelist[1].includes(item.timeNo)
+                  }
+                >
                   {item.value}
                 </TimeOption>
               ))}

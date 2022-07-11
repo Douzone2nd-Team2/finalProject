@@ -81,4 +81,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Query("DELETE FROM Reservation WHERE reservNo = :reservNo")
     void deleteAllByReservNo(@Param("reservNo")Long reservNo);
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE Reservation SET reservName = :reservName, able = :able WHERE reservNo = :reservNo")
+    void addReservaionInfo(@Param("reservNo")Long reservNo, @Param("able")String able, @Param("reservName")String reservName);
+
 }

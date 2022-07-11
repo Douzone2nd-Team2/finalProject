@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { reservationState } from '../../../../recoil/reservation.js';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import SearchIcon from '@material-ui/icons/Search';
@@ -21,6 +22,8 @@ import {
 import Modal from '../../Modal/Modal.js';
 
 const Count = () => {
+  const reservation = useRecoilValue(reservationState);
+  const setReservationState = useSetRecoilState(reservationState);
   const [count, setCount] = useState(0);
   const [name, setName] = useState('');
   const [people, setPeople] = useState([]);
@@ -48,6 +51,14 @@ const Count = () => {
       ? (document.body.style.overflow = 'hidden')
       : (document.body.style.overflow = 'unset');
   }, [openModal]);
+
+  useEffect(() => {
+    peopleNo &&
+      setReservationState({
+        ...reservation,
+        peopleCnt: peopleNo,
+      });
+  }, [peopleNo]);
 
   return (
     <>
@@ -79,7 +90,7 @@ const Count = () => {
         <PeopleGridContainer>
           {people &&
             people.map((nameTag, index) => {
-              <PeopleNameTag key={index}>{nameTag}</PeopleNameTag>;
+              return <PeopleNameTag key={index}>{nameTag}</PeopleNameTag>;
             })}
         </PeopleGridContainer>
       </FlexContainer>
