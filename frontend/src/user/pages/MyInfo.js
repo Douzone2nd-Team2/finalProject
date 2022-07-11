@@ -23,7 +23,7 @@ const MyInfo = () => {
         <hr />
         <InfoContainer>
           <ImgContainer>
-            <img src={profile} alt="Profile" />
+            <img src={user.imageUrl} alt="Profile" />
           </ImgContainer>
           <div>
             <ContentContainer>

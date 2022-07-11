@@ -13,10 +13,10 @@ const BookContainer = styled.div`
   }
   .contents {
     padding: 15px;
-    background-color: #dcdcdc;
+    background-color: #d6d6d6;
     opacity: 0.8;
     width: 200px;
-    height: 200px;
+    height: 220px;
     margin: auto;
 
     .resouceName {
@@ -26,15 +26,17 @@ const BookContainer = styled.div`
 
     .startTime {
       font-size: 15px;
+      font-weight: 500;
     }
 
     .endTime {
       font-size: 15px;
+      font-weight: 500;
     }
 
     .reservName {
-      margin-top: -10px;
-      color: gray;
+      color: #222222;
+      font-weight: 600;
       font-size: 13px;
     }
   }

@@ -88,7 +88,8 @@ public class EmployeeQuerydslRepositoryImpl implements  EmployeeQuerydslReposito
                         employee.email,
                         employee.empNo,
                         department.deptName,
-                        grade.gradeName
+                        grade.gradeName,
+                        employee.imageUrl
                 ))
                 .from(employee)
                 .join(employee.dept, department)
