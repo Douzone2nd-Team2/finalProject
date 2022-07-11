@@ -140,6 +140,7 @@ public class ReservationManagementDto {
                 .content(content)
                 .startTime(startTime)
                 .endTime(endTime)
+                .content(content)
                 .build();
     }
 }

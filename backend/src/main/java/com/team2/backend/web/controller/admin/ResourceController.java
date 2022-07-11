@@ -67,4 +67,16 @@ public class ResourceController {
         return resourceService.delresourceList(body.getResourceNo());
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Message> searchResource(@RequestParam("keyword") String keyword){
+        System.out.println("enter!!!!");
+        return resourceService.searchResource(keyword);
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<Message> test(){
+        System.out.println("testest");
+        return null;
+    }
+
 }

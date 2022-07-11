@@ -47,4 +47,29 @@ const ListContent = styled.span`
   border: none;
 `;
 
-export { ListContainer, ListHeader, ListBody, ListRow, ListContent };
+const ListButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  min-height: 36px;
+  margin: 3px;
+  padding: 8px;
+  cursor: pointer;
+  touch-action: manipulation;
+  background: #1296ec;
+  color: #f1f1f1;
+  font-weight: 600;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 6px 16px;
+`;
+
+export {
+  ListContainer,
+  ListHeader,
+  ListBody,
+  ListRow,
+  ListContent,
+  ListButton,
+};

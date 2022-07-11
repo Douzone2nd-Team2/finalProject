@@ -25,6 +25,8 @@ const Modal = (props) => {
   const [keyword, setKeyword] = useState('');
   const [people, setPeople] = useState(null);
   const [peopleList, setPeopleList] = useState([]);
+  const [checkList, setCheckList] = useState('');
+  const [checkNameList, setCheckNameList] = useState([]);
 
   const searchPeople = async () => {
     const data = {
@@ -59,16 +61,20 @@ const Modal = (props) => {
     searchPeople();
   };
 
-  // const onPeopleAdd = () => {
-  //   if (people) {
-  //     let newPeopleList = [...peopleList, people];
-  //     setPeopleList(newPeopleList);
-  //   }
-  //   // props.setOpenModal(false);
-  // };
-
   const onClose = () => {
     props.setOpenModal(false);
+  };
+
+  const onAdd = () => {
+    if (count < checkList.length) {
+      alert(
+        '설정한 추가 인원보다 많은 사용자를 선택하였습니다.\n다시 선택해주세요.',
+      );
+    } else {
+      props.setPeople(people);
+      props.setPeopleNo(checkList);
+      onClose();
+    }
   };
 
   return (
@@ -83,11 +89,15 @@ const Modal = (props) => {
           </SearchContainer>
         </ModalHeader>
         <ModalBody>
-          <StyledList peopleList={peopleList}></StyledList>
+          <StyledList
+            peopleList={peopleList}
+            setCheckList={setCheckList}
+            setCheckNameList={setPeople}
+          ></StyledList>
         </ModalBody>
         <ModalButtonContainer>
           <ModaldButton onClick={onClose}>닫기</ModaldButton>
-          <ModaldButton>추가</ModaldButton>
+          <ModaldButton onClick={onAdd}>추가</ModaldButton>
         </ModalButtonContainer>
       </ModalContainer>
     </BackgroundContainer>

@@ -4,8 +4,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
-import com.team2.backend.web.dto.admin.QReservationManagementDto;
-import com.team2.backend.web.dto.admin.ReservationManagementDto;
+import com.team2.backend.web.dto.admin.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -187,6 +186,23 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                 .delete(timelist)
                 .where(timelist.checkNo.eq(checkNo))
                 .execute();
+    }
+
+    @Override
+    public List<ResourceDto> getSearchResourceList(String keyword){
+
+        return (List<ResourceDto>) jpaQueryFactory
+                .select(new QResourceDto(
+                        resource.resourceNo,
+                        resource.resourceName,
+                        category.cateName,
+                        category.cateNo
+                ))
+                .from(resource)
+                .join(resource.category, category)
+                .where(resource.resourceName.contains(keyword).
+                        or(category.cateName.contains(keyword))).
+                fetch();
     }
 
 }
