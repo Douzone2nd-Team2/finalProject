@@ -42,6 +42,8 @@ public class ResourceAdminDto implements IResourceAdminDto{
 
     private String content;
 
+    private String imageUrl;
+
     private List<Resourcefile> resourcefile;
 
     @Builder

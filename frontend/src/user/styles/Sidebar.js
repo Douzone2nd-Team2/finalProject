@@ -16,6 +16,7 @@ const SidebarContainer = styled.div`
 
 const SidebarContainer2 = styled.div`
   position: fixed;
+  z-index: 999;
   top: 150px;
   left: 0;
   button {

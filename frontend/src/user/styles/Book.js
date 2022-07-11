@@ -4,7 +4,8 @@ const Container = styled.div`
   background-color: #f6f6f6;
   margin-top: 20px;
   width: 1075px;
-  box-shadow: 1px 1px #e2e2e2;
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+  border-radius: 12px;
 `;
 
 const TitleContainer = styled.div`

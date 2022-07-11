@@ -256,7 +256,7 @@ public class ReservationService {
         Reservation reservation = body.toEntity();
 
         Message message;
-        System.out.println(body.getStartTime()+"!!!!!!!!!!!!!!!!!!!");
+        System.out.println(body.getContent()+"!!!!!!!!!!!!!!!!!!!");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
 
