@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 const ItemContainer = styled.div`
+  text-decoration: none;
+  padding: 20px;
   margin: 20px;
   font-family: NanumGothic;
   display: flex;
@@ -13,6 +15,7 @@ const ItemContainer = styled.div`
 
   .title {
     font-size: 23px;
+    font-weight: 800;
   }
 
   .price_origin {
@@ -42,8 +45,16 @@ const ImageContainer = styled.div`
 
 const RightContainer = styled.div`
   position: absolute;
-  right: 600px;
-  margin-top: 25px;
+  display: flex;
+  left: 55%;
+  min-width: 50px;
+  margin-top: 50px;
+  font-weight: 500;
+`;
+
+const ButtonContainer = styled.div`
+  margin-right: 5%;
+  margin-top: 40px;
 `;
 
 export {
@@ -52,4 +63,5 @@ export {
   TitleContainer,
   ImageContainer,
   RightContainer,
+  ButtonContainer,
 };

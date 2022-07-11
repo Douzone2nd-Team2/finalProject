@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import axios from 'axios';
@@ -84,6 +84,7 @@ const PrevBook = ({ userNo }) => {
                       reservName: user.reservName,
                       startTime: user.startTime,
                       endTime: user.endTime,
+                      content: user.content,
                       resourceNo: user.resourceNo,
                       userNo: userNo,
                     }}

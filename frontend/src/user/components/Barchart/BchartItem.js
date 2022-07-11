@@ -3,13 +3,7 @@ import axios from 'axios';
 
 import { getCookie } from '../../utils/cookie';
 
-import {
-  VictoryBar,
-  VictoryChart,
-  VictoryAxis,
-  VictoryTheme,
-  Bar,
-} from 'victory';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 
 import { BarContainer, TitleContainer } from '../../styles/Bchart';
 
@@ -64,10 +58,13 @@ const BchartItem = ({ catenum }) => {
         );
       }
 
+      console.log(spliceCounts);
+      console.log(temp2);
+
       for (let i = 1; i < 13; i++) {
         const tempResult = {
           quarter: i,
-          earnings: (spliceCounts[i - 1] * 50) / temp2,
+          earnings: spliceCounts[i - 1] / temp2,
         };
         result.push(tempResult);
       }
