@@ -42,6 +42,7 @@ public class UserReserveService {
 
     @Transactional
     public ResponseEntity<Message> getTimelist(UserReservationDto body) throws ParseException {
+        System.out.println("getTimelist");
         Long resourceNo = body.getResourceNo();
         Date startDate = formatter.parse(formatter.format(body.getStartDate()));
         Date endDate = formatter.parse(formatter.format(body.getEndDate()));
