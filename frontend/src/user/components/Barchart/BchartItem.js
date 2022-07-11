@@ -3,13 +3,7 @@ import axios from 'axios';
 
 import { getCookie } from '../../utils/cookie';
 
-import {
-  VictoryBar,
-  VictoryChart,
-  VictoryAxis,
-  VictoryTheme,
-  Bar,
-} from 'victory';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 
 import { BarContainer, TitleContainer } from '../../styles/Bchart';
 
@@ -63,6 +57,9 @@ const BchartItem = ({ catenum }) => {
           counts[i] + counts[i + 1] + counts[i + 2] + counts[i + 3],
         );
       }
+
+      console.log(spliceCounts);
+      console.log(temp2);
 
       for (let i = 1; i < 13; i++) {
         const tempResult = {

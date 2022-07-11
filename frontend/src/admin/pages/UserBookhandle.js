@@ -28,6 +28,7 @@ const UserBookhandle = () => {
   const reservName = location.state.reservName;
   const resourceNo = location.state.resourceNo;
   const userNo = location.state.userNo;
+  const content = location.state.content;
 
   // console.log(reservName);
   // console.log(startTime);
@@ -52,7 +53,7 @@ const UserBookhandle = () => {
   const [endMinute, setEndMinute] = useState(endTime.substr(14, 2));
 
   const [reserveName, setReserveName] = useState(reservName);
-  const [content, setContent] = useState('');
+  const [description, setDescription] = useState(content);
   const [cateNo, setCateNo] = useState();
 
   const changeReserveName = (e) => {
@@ -83,8 +84,8 @@ const UserBookhandle = () => {
     setEndMinute(e.target.value);
   };
 
-  const changeContent = (e) => {
-    setContent(e.target.value);
+  const changeDescription = (e) => {
+    setDescription(e.target.value);
   };
 
   // console.log(reservName);
@@ -115,20 +116,16 @@ const UserBookhandle = () => {
       );
       console.log(res);
       setBook(res.data.data[0]);
-      console.log(res.data.data[0].content);
-      setContent(res.data.data[0].content);
       setCateNo(res.data.data[0].cateNo);
     } catch (e) {
       console.log(e);
     }
   };
 
-  console.log(content);
-
   const postData = async () => {
     try {
-      console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
-      console.log(endDay + ' ' + endHour + ':' + endMinute + ':00');
+      // console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
+      // console.log(endDay + ' ' + endHour + ':' + endMinute + ':00');
       const res = await axios.post(
         `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/modify`,
         {
@@ -139,7 +136,7 @@ const UserBookhandle = () => {
           reservName: reserveName,
           startTime: startDay + ' ' + startHour + ':' + startMinute + ':00',
           endTime: endDay + ' ' + endHour + ':' + endMinute + ':00',
-          content: content,
+          content: description,
         },
         {
           headers: {
@@ -156,7 +153,6 @@ const UserBookhandle = () => {
 
   const clickBtn = (e) => {
     e.preventDefault();
-
     postData();
   };
 
@@ -309,8 +305,8 @@ const UserBookhandle = () => {
                 cols="50"
                 rows="5"
                 id="resourceInfo"
-                onChange={changeContent}
-                placeholder={content}
+                onChange={changeDescription}
+                value={description}
               />
             </ContentSort>
             <ButtonContainer>

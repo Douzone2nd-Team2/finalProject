@@ -33,25 +33,21 @@ public class SocketController {
 
     private final SocketService socketService;
 
-    @MessageMapping("/public") // 관리자 공지사항용 브로드캐스트
-    @SendTo("/announce/public")
-    public SocketMessage makeAnnouncement(@Payload SocketMessage message) {
-        return null;
-    }
+//    @MessageMapping("/public") // 관리자 공지사항용 브로드캐스트
+//    @SendTo("/announce/public")
+//    public SocketMessage makeAnnouncement(@Payload SocketMessage message) {
+//        return null;
+//    }
 
-    @MessageMapping("/timelist")
-    public SocketMessage getTimelist(@Header("simpSessionId") String sessionId, @Payload SocketMessage message) throws ParseException {
-        System.out.println(sessionId);
-//        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(m);
-//        EmployeeDetails user = (EmployeeDetails) accessor.getUser();
-//        System.out.println("user : " + user.getEmployee().getName());
-        return socketService.getTimelist(message);
-    }
+//    @MessageMapping("/timelist")
+//    public SocketMessage getTimelist(@Payload SocketMessage message) throws ParseException {
+//        return socketService.getTimelist(message);
+//    }
 
-    @MessageMapping("/check")
-    public SocketMessage checkReservation(@Header("simpSessionId") String sessionId, @Payload SocketMessage message) throws ParseException {
-        System.out.println(sessionId);
-        return socketService.checkReservation(message);
-    }
+//    @MessageMapping("/check")
+//    public SocketMessage checkReservation(@Header("simpSessionId") String sessionId, @Payload SocketMessage message) throws ParseException {
+//        System.out.println(sessionId);
+//        return socketService.checkReservation(message);
+//    }
 
 }

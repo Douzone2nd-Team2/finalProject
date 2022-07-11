@@ -132,3 +132,27 @@
 // };
 
 // export default Reserve;
+//   return (
+//     <MainContainer>
+//       <ReservationHeader title={resourceData.resourceName}></ReservationHeader>
+//       <Container>
+//         <ResourceInfo option={resourceData.option}></ResourceInfo>
+//         {step === 0 ? (
+//           <CalendarInfo
+//             setStep={setStep}
+//             cateNo={resourceData.cateNo}
+//             username={user.name}
+//             resourceNo={resourceData.resourceNo}
+//           ></CalendarInfo>
+//         ) : step === 1 ? (
+//           <AdditionalInfo
+//             setStep={setStep}
+//             cateNo={resourceData.cateNo}
+//           ></AdditionalInfo>
+//         ) : null}
+//       </Container>
+//     </MainContainer>
+//   );
+// };
+//
+// export default Reserve;

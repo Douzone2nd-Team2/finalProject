@@ -94,6 +94,7 @@ const Login = () => {
         name: userData.data.data[0].name,
         no: userData.data.data[0].no,
         phone: userData.data.data[0].phone,
+        imageUrl: userData.data.data[0].imageUrl,
       });
 
       navigate('/main');

@@ -74,7 +74,8 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                         resource.resourceName,
                         reservation.createAt,
                         reservation.modifyAt,
-                        category.cateName
+                        category.cateName,
+                        reservation.content
                 ))
                 .from(reservation)
                 .join(reservation.resource, resource)
@@ -101,6 +102,7 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                 .set(reservation.endTime, reservationManagementDto.getEndTime())
                 .set(reservation.resourceNo, reservationManagementDto.getResourceNo())
                 .set(reservation.userNo, reservationManagementDto.getUserNo())
+                .set(reservation.content, reservationManagementDto.getContent())
                 .set(reservation.modifyAt, LocalDateTime.now().plusHours(9L))
                 .execute();
     }

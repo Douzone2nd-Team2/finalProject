@@ -26,13 +26,15 @@ const settings = {
   nextArrow: <SampleNextArrow className="slick-next" />,
 };
 
-const ResourceInfo = () => {
+const ResourceInfo = (props) => {
   const [books, setBooks] = useState([]);
   const [values, setValues] = useState([]);
 
   useEffect(() => {
     setBooks([AA, BB]);
-    setValues(['빔프로젝터', '네비게이션', '마이크']);
+
+    const option = props.option.split(', ');
+    setValues(option);
   }, []);
 
   return (
