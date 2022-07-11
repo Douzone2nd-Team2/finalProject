@@ -130,6 +130,13 @@ public class ReservationManagementDto {
         this.imagePath = imagePath;
     }
 
+    @QueryProjection
+    public ReservationManagementDto(Long reservNo, Long userNo, String name){
+        this.reservNo = reservNo;
+        this.userNo = userNo;
+        this.name = name;
+    }
+
     public Reservation toEntity() throws ParseException {
         return Reservation.builder()
                 .able(able)

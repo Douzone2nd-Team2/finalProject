@@ -18,4 +18,6 @@ public interface ReservationQuerydslRepository {
     void deleteTimelistByCheckNo(Long checkNo);
 
     List<ResourceDto> getSearchResourceList(String keyword);
+
+    List<ReservationManagementDto> selectByReservNo(Long reservNo);
 }
