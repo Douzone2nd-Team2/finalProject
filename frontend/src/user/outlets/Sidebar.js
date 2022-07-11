@@ -42,7 +42,7 @@ const Sidebar = () => {
       <SidebarContainer ref={toggleInfo}>
         <ContentContainer>
           <ImageContainer>
-            <img src={profile} alt="profile" />
+            <img src={user.imageUrl} alt="profile" />
           </ImageContainer>
           <InfoContainer>
             <NameContainer>{user.name}</NameContainer>

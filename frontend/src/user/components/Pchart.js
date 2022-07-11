@@ -20,7 +20,7 @@ const PChart = () => {
 
   const DATA = [
     {
-      x: '회의실',
+      x: bookdata === 0 ? null : '회의실',
       y:
         isEmpty(bookdata) === false &&
         isEmpty(cardata) === false &&
@@ -28,7 +28,7 @@ const PChart = () => {
         (bookdata / (bookdata + cardata + notebookdata)).toFixed(2) * 10,
     },
     {
-      x: '차량',
+      x: cardata === 0 ? null : '차량',
       y:
         isEmpty(bookdata) === false &&
         isEmpty(cardata) === false &&
@@ -36,7 +36,7 @@ const PChart = () => {
         (cardata / (bookdata + cardata + notebookdata)).toFixed(2) * 10,
     },
     {
-      x: '노트북',
+      x: notebookdata === 0 ? null : '노트북',
       y:
         isEmpty(bookdata) === false &&
         isEmpty(cardata) === false &&

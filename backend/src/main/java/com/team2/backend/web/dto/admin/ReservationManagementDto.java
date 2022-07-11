@@ -77,7 +77,7 @@ public class ReservationManagementDto {
 
     @QueryProjection
     @Builder
-    public ReservationManagementDto(Long reservNo, Long userNo, String name,  String able, Date startTime, Date endTime, String reservName, Long resourceNo, String resourceName, LocalDateTime reservCreateAt, LocalDateTime reservModifyAt, String category) {
+    public ReservationManagementDto(Long reservNo, Long userNo, String name,  String able, Date startTime, Date endTime, String reservName, Long resourceNo, String resourceName, LocalDateTime reservCreateAt, LocalDateTime reservModifyAt, String category, String content) {
         this.reservNo = reservNo;
         this.userNo = userNo;
         this.name = name;
@@ -90,13 +90,14 @@ public class ReservationManagementDto {
         this.reservCreateAt = reservCreateAt;
         this.reservModifyAt = reservModifyAt;
         this.category = category;
+        this.content = content;
     }
 
     @QueryProjection
     @Builder
     public ReservationManagementDto(Long reservNo, String reservName, String able, String cateName, Long cateNo, String resourceName, Long resourceNo,
                                     Long userNo, String userName, Date startTime, Date endTime, Long adminNo,
-                                    String availableTime, String adminName, String content){
+                                    String availableTime, String content){
         this.reservNo = reservNo;
         this.reservName = reservName;
         this.able = able;
@@ -109,7 +110,6 @@ public class ReservationManagementDto {
         this.startTime = startTime;
         this.endTime = endTime;
         this.adminNo = adminNo;
-        this.adminName = adminName;
         this.availableTime = availableTime;
         this.content = content;
     }
@@ -135,12 +135,20 @@ public class ReservationManagementDto {
         this.imagePath = imagePath;
     }
 
+    @QueryProjection
+    public ReservationManagementDto(Long reservNo, Long userNo, String name){
+        this.reservNo = reservNo;
+        this.userNo = userNo;
+        this.name = name;
+    }
+
     public Reservation toEntity() throws ParseException {
         return Reservation.builder()
                 .able(able)
                 .reservName(reservName)
                 .resourceNo(resourceNo)
                 .userNo(userNo)
+                .content(content)
                 .startTime(startTime)
                 .endTime(endTime)
                 .content(content)

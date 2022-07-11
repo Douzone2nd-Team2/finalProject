@@ -5,10 +5,7 @@ import { getCookie } from '../../../utils/cookie';
 import axios from 'axios';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '../../../recoil/user.js';
-import { timelistState } from '../../../recoil/timelist.js';
 import { reservationState } from '../../../recoil/reservation.js';
-
-import { sendMessage } from '../../../utils/socket.js';
 
 import {
   CalendarContainer,
@@ -37,8 +34,6 @@ const CalendarInfo = (props) => {
   const user = useRecoilValue(userState);
   const reservation = useRecoilValue(reservationState);
   const setReservationState = useSetRecoilState(reservationState); // 예약 정보 리코일
-
-  const serverTimelist = useRecoilValue(timelistState);
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());

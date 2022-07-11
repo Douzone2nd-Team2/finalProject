@@ -29,6 +29,14 @@ const ResourceModal = (props) => {
   const [cateNo, setCateNo] = useState(0);
   const [close, setClose] = useState(false);
 
+  const searchIcon = useRef(null);
+
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      searchIcon.current.click();
+    }
+  };
+
   const searchPeople = async () => {
     const data = {
       keyword: keyword,
@@ -77,8 +85,13 @@ const ResourceModal = (props) => {
       <ModalContainer>
         <ModalHeader>
           <SearchContainer>
-            <SearchInput type="text" onChange={handleChange}></SearchInput>
-            <SearchButton onClick={onSearch}>
+            <SearchInput
+              type="text"
+              onChange={handleChange}
+              onKeyPress={onKeyPress}
+              autoFocus={true}
+            ></SearchInput>
+            <SearchButton onClick={onSearch} ref={searchIcon}>
               <SearchIcon></SearchIcon>
             </SearchButton>
           </SearchContainer>

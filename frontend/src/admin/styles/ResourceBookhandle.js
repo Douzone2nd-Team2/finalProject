@@ -21,8 +21,8 @@ const HeadContainer = styled.div`
 
 const BookContainer = styled.div`
   width: 80%;
-  margin-top: 30px;
-  margin-left: 10%;
+  margin-top: 100px;
+  margin-left: 8%;
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;

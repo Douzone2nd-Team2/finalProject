@@ -29,13 +29,13 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "   where a.row = 1 ) rf " +
             "on r.resourceno = rf.resourceno " +
             "where r.userno = :userNo " +
-            "and r.endTime > now()", nativeQuery = true)
+            "and r.endTime > (select now() AT TIME ZONE 'Asia/Seoul')", nativeQuery = true)
     List<IMainReservationDto> getMainReservList(@Param("userNo") Long userNo);  //이미지 가장 최신 것 뽑아옴
 
     @Query(value="select count(t.timeno) as timeCnt , (select count(*)* 48 from resource where cateno = :cateNo)as resourceCnt " +
                  "from reservation_check rc " +
                     "join timelist t on rc.checkno = t.checkno " +
-                 "where rc.checkdate = to_char(now(), 'YYYY-MM-DD') and rc.cateno = :cateNo", nativeQuery = true)
+                 "where rc.checkdate = to_char((select now() AT TIME ZONE 'Asia/Seoul'), 'YYYY-MM-DD') and rc.cateno = :cateNo", nativeQuery = true)
     IMainReservationDto getMainFrequencyUsageList(@Param("cateNo") int cateNo);
 
     @Query(value="select a.resourceno as resourceNo, a.resourcename as resourceName, a.option as option, b.imageNo as imageNo, b.path as imageUrl " +
@@ -75,6 +75,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     @Query(value="select to_char(starttime, 'yyyy-mm-dd') as startDate from reservation order by starttime asc limit 1", nativeQuery = true)
     String getStartDate();
+
+    @Query(value="select to_char(endtime, 'yyyy-mm-dd') as endDate from reservation order by endtime desc limit 1", nativeQuery = true)
+    String getEndDate();
 
     @Transactional
     @Modifying

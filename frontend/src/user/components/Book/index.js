@@ -14,8 +14,8 @@ const settings = {
   dots: true,
   infinite: true,
   speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 3,
+  slidesToShow: 1,
+  slidesToScroll: 1,
   prevArrow: <SamplePrevArrow className="slick-prev" />,
   nextArrow: <SampleNextArrow className="slick-next" />,
 };

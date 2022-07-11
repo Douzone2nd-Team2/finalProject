@@ -1,14 +1,17 @@
-import { React, useEffect, useState } from 'react';
-import { connection, sendMessage, onSubscribe } from '../utils/socket.js';
-
+import { React, useState, useEffect } from 'react';
+import { over } from 'stompjs';
+import SockJS from 'sockjs-client';
 import { getCookie } from '../utils/cookie';
+
 import { useLocation } from 'react-router-dom';
+
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { reservationState } from '../recoil/reservation';
+
 import { userState } from '../recoil/user';
-import { timelistState } from '../recoil/timelist.js';
-import { reservationState } from '../recoil/reservation.js';
 
 import { MainContainer, Container } from '../styles/ReservationLayout';
+
 import ReservationHeader from '../components/Reservation/ReservationHeader/ReservationHeader';
 import ResourceInfo from '../components/Reservation/ResourceInfo/ResourceInfo';
 import AdditionalInfo from '../components/Reservation/AdditionalInfo/AdditionalInfo.js';
@@ -18,7 +21,6 @@ const Reserve = () => {
   const location = useLocation();
   const user = useRecoilValue(userState);
   const setReservationState = useSetRecoilState(reservationState); // 예약 정보 리코일
-  const setTimelistState = useSetRecoilState(timelistState);
   const reservation = useRecoilValue(reservationState);
   const [resourceData, setResourceData] = useState(location.state);
   const [step, setStep] = useState(0);
@@ -34,28 +36,6 @@ const Reserve = () => {
       userName: user.name,
     });
   }, []);
-
-  // const connectToStomp = useEffect(() => {
-  //   connection();
-  //   onSubscribe(user.no, onMessageReceived);
-
-  // }, []);
-
-  // const onMessageReceived = (payload) => {
-  //   const body = JSON.parse(payload.body);
-  //   const status = body.status;
-  //   const data = body.data;
-  //   console.log(data);
-
-  // switch (status) {
-  //   case 'TIMELIST':
-  //     setTimelistState(data);
-  //     break;
-  //   case 'FIRST_RESERV':
-  //     console.log(data);
-  //     break;
-  // }
-  // };
 
   return (
     <MainContainer>

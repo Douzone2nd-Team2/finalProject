@@ -22,4 +22,6 @@ public interface IResourceAdminDto { // office
     String getContent();
     LocalDateTime getCreateAt();
     LocalDateTime getModifyAt();
+
+    String getImageUrl();
 }

@@ -27,22 +27,25 @@ const ResourceBookhandle = () => {
   const endTime = location.state.endTime;
   const userName = location.state.userName;
 
-  const [openModal, setOpenModal] = useState(false);
-
   console.log(startTime);
   console.log(endTime);
+
+  const [openModal, setOpenModal] = useState(false);
+
+  console.log('바뀌기 전 ; ', startTime);
+  console.log('바뀌기 전 : ', endTime);
 
   const startDay = startTime.substr(0, 10);
   const endDay = endTime.substr(0, 10);
 
-  const startHour = startTime.substr(11, 2);
-  const endHour = endTime.substr(11, 2);
+  const startHour = parseInt(startTime.substr(11, 2));
+  const endHour = parseInt(endTime.substr(11, 2));
+
+  console.log('바뀌기 후 ; ', startHour);
+  console.log('바뀌기 후 : ', endHour);
 
   const startMinute = startTime.substr(14, 2);
   const endMinute = endTime.substr(14, 2);
-
-  const sIsAM = startHour > 12 ? 'PM' : 'AM';
-  const eIsAM = endHour > 12 ? 'PM' : 'AM';
 
   const [book, setBook] = useState([]);
 
@@ -102,28 +105,31 @@ const ResourceBookhandle = () => {
                       <input type="date" value={startDay} />
                     </Col>
                     <Col>
-                      <Form.Select size="sm" value={sIsAM}>
-                        <option value="AM">AM</option>
-                        <option value="PM">PM</option>
-                      </Form.Select>
-                    </Col>
-                    <Col>
-                      <Form.Select
-                        size="sm"
-                        value={startHour > 12 ? startHour - 12 : startHour}
-                      >
-                        <option value="01">1</option>
-                        <option value="02">2</option>
-                        <option value="03">3</option>
-                        <option value="04">4</option>
-                        <option value="05">5</option>
-                        <option value="06">6</option>
-                        <option value="07">7</option>
-                        <option value="08">8</option>
-                        <option value="09">9</option>
+                      <Form.Select size="sm" value={startHour}>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
                         <option value="10">10</option>
                         <option value="11">11</option>
                         <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
                       </Form.Select>
                     </Col>
                     :
@@ -140,28 +146,31 @@ const ResourceBookhandle = () => {
                       <input type="date" value={endDay} />
                     </Col>
                     <Col>
-                      <Form.Select size="sm" value={eIsAM}>
-                        <option value="AM">AM</option>
-                        <option value="PM">PM</option>
-                      </Form.Select>
-                    </Col>
-                    <Col>
-                      <Form.Select
-                        size="sm"
-                        value={endHour > 12 ? endHour - 12 : endHour}
-                      >
-                        <option value="01">1</option>
-                        <option value="02">2</option>
-                        <option value="03">3</option>
-                        <option value="04">4</option>
-                        <option value="05">5</option>
-                        <option value="06">6</option>
-                        <option value="07">7</option>
-                        <option value="08">8</option>
-                        <option value="09">9</option>
+                      <Form.Select size="sm" value={endHour}>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
                         <option value="10">10</option>
                         <option value="11">11</option>
                         <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
                       </Form.Select>
                     </Col>
                     :
@@ -178,8 +187,8 @@ const ResourceBookhandle = () => {
                 <label htmlFor="user" style={{ maxWidth: '150px' }}>
                   사용자
                 </label>
-                <input type="text" id="user" placeholder={userName} />
-                <MagnifyingGlass>
+                <input type="text" id="user" placeholder={book.userName} />
+                {/* <MagnifyingGlass>
                   <button
                     className="fa-solid fa-magnifying-glass"
                     onClick={(e) => {
@@ -187,13 +196,18 @@ const ResourceBookhandle = () => {
                       btnOpen();
                     }}
                   />
-                </MagnifyingGlass>
+                </MagnifyingGlass> */}
               </ContentSort>
               <ContentSort>
                 <label htmlFor="resourceInfo" style={{ maxWidth: '150px' }}>
                   정보
                 </label>
-                <textarea cols="50" rows="5" id="resourceInfo" />
+                <textarea
+                  cols="50"
+                  rows="5"
+                  id="resourceInfo"
+                  value={book.content}
+                />
               </ContentSort>
               <ButtonContainer>
                 <Button variant="primary ">수정</Button>

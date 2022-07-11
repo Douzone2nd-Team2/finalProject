@@ -174,7 +174,7 @@ const EmployeeRegistPage = () => {
                   <img alt="imagePreview" src={image} id="profileImage" />
                 ) : (
                   <div>
-                    <span class="fa-solid fa-circle-user fa-9x"></span>
+                    <span class="fa-solid fa-circle-user fa-9x" />
                   </div>
                 )}
                 <div className="fileInput">

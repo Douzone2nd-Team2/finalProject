@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 
@@ -16,7 +15,6 @@ import {
 
 const Search = () => {
   const title = useRecoilValue(searchState);
-  // console.log('title = ', title);
 
   const [meeting, setMeeting] = useState([]);
   const [car, setCar] = useState([]);
@@ -43,7 +41,6 @@ const Search = () => {
 
   useEffect(() => {
     fetchData();
-    console.log(car);
   }, [title]);
 
   return (
