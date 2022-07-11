@@ -2,6 +2,8 @@ import { React, useState, useEffect } from 'react';
 
 import VoiceChatIcon from '@material-ui/icons/VoiceChat';
 import NavigationIcon from '@material-ui/icons/Navigation';
+import LocalGasStationIcon from '@material-ui/icons/LocalGasStation';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 
 import {
   OptionComponent,
@@ -27,8 +29,10 @@ const Option = (props) => {
             <VoiceChatIcon></VoiceChatIcon>
           ) : value === '네비게이션' ? (
             <NavigationIcon></NavigationIcon>
+          ) : value === '경유' || value === '휘발유' ? (
+            <LocalGasStationIcon></LocalGasStationIcon>
           ) : (
-            <Icon></Icon>
+            <CheckBoxIcon></CheckBoxIcon>
           ))}
       </IconInfo>
       <OptionInfo>

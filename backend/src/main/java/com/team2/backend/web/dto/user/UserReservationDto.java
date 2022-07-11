@@ -26,6 +26,9 @@ public class UserReservationDto {
     private String reservName;
     private String startTime;
     private String endTime;
+
+    private Date startDate;
+    private Date endDate;
     private List<String> peopleCnt;
 
     @Builder

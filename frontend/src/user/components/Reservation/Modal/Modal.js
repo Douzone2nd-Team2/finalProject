@@ -57,7 +57,6 @@ const Modal = (props) => {
       })
       .catch(console.error);
 
-    console.log(searchResult);
     setPeopleList(searchResult);
   };
 

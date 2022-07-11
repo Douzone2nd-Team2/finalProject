@@ -126,14 +126,12 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                         reservation.endTime,
                         resource.adminNo,
                         resource.availableTime,
-                        employee.name.as("adminName"),
                         reservation.content
 
                 ))
                 .from(reservation)
                 .join(reservation.resource, resource)
                 .join(reservation.user, employee)
-                .join(resource.admin, employee)
                 .join(reservation.resource.category, category)
                 .where(reservation.reservNo.eq(reservNo))
                 .fetch();

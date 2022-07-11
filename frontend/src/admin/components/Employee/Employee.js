@@ -78,13 +78,14 @@ const Employee = ({
       <TableContainer>
         <table border="2">
           <colgroup>
-            <col width="7%" />
-            <col width="18%" />
-            <col width="15%" />
             <col width="10%" />
+            <col width="20%" />
+            <col width="20%" />
+            <col width="20%" />
             <col width="10%" />
-            <col width="15%" />
-            <col width="15%" />
+            <col width="20%" />
+            {/* <col width="15%" />
+            <col width="15%" /> */}
           </colgroup>
 
           <th>No.</th>
@@ -92,8 +93,8 @@ const Employee = ({
           <th>이름</th>
           <th>부서</th>
           <th>직급</th>
-          <th>전화번호</th>
-          <th>이메일</th>
+          {/* <th>전화번호</th>
+          <th>이메일</th> */}
           <th />
 
           {employeeList
@@ -106,8 +107,8 @@ const Employee = ({
                   <td>{emp.name}</td>
                   <td>{emp.deptName}</td>
                   <td>{emp.gradeName}</td>
-                  <td>{emp.phone}</td>
-                  <td>{emp.email}</td>
+                  {/* <td>{emp.phone}</td>
+                  <td>{emp.email}</td> */}
                   <td className="btnMargin">
                     <Button
                       variant="primary"

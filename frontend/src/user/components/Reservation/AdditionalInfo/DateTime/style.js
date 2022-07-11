@@ -24,7 +24,7 @@ const DateTimeRightContainer = styled.div`
 `;
 
 const DateTimeTitle = styled.div`
-  position: absolute;
+  position: relative;
   top: 12px px;
   left: 12px;
   right: 12px;
@@ -42,7 +42,7 @@ const DateTimeTitle = styled.div`
   white-space: nowrap;
 `;
 
-const DateTimeInfo = styled.div`
+const DateTimeInfo = styled.span`
   min-height: 56px;
   width: 100%;
   border: none;
