@@ -67,7 +67,7 @@ const BchartItem = ({ catenum }) => {
       for (let i = 1; i < 13; i++) {
         const tempResult = {
           quarter: i,
-          earnings: (spliceCounts[i - 1] * 50) / temp2,
+          earnings: spliceCounts[i - 1] / temp2,
         };
         result.push(tempResult);
       }

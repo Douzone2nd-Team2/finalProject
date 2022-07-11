@@ -73,6 +73,7 @@ const RePresentBook = ({ resourceNo }) => {
             <th>예약시작일</th>
             <th>예약종료일</th>
             <th></th>
+            <th></th>
           </tr>
           {!arrayIsEmpty(presList) ? (
             presList.map((resource, idx) => (
@@ -93,6 +94,8 @@ const RePresentBook = ({ resourceNo }) => {
                   >
                     <Button variant="primary">수정</Button>
                   </Link>
+                </td>
+                <td>
                   <Button
                     variant="danger"
                     onClick={() => {
@@ -103,7 +106,6 @@ const RePresentBook = ({ resourceNo }) => {
                     삭제
                   </Button>
                 </td>
-                <td></td>
               </tr>
             ))
           ) : (

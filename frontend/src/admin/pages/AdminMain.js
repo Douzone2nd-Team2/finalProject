@@ -22,7 +22,7 @@ const AdminMain = () => {
   const [loading, setLoading] = useState(false);
 
   const [page, setPage] = useState(1);
-  const [items, setItems] = useState(5);
+  const [items, setItems] = useState(15);
 
   const pageHandler = (pageNumber) => {
     setPage(pageNumber);
@@ -39,6 +39,7 @@ const AdminMain = () => {
           },
         },
       );
+      console.log(res.data.data);
       setEmpList(res.data.data);
       setLoading(false);
     } catch (e) {

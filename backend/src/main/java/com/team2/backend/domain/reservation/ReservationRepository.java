@@ -76,6 +76,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Query(value="select to_char(starttime, 'yyyy-mm-dd') as startDate from reservation order by starttime asc limit 1", nativeQuery = true)
     String getStartDate();
 
+    @Query(value="select to_char(endtime, 'yyyy-mm-dd') as endDate from reservation order by endtime desc limit 1", nativeQuery = true)
+    String getEndDate();
+
     @Transactional
     @Modifying
     @Query("DELETE FROM Reservation WHERE reservNo = :reservNo")

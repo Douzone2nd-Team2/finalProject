@@ -39,9 +39,34 @@ const TableContainer = styled.div`
       width: 200px;
     } */
     td {
+      padding: 5px;
       border-bottom: 1px solid black;
     }
   }
 `;
 
-export { Container, HeadContainer, TitleContainer, TableContainer };
+const ReservationButton = styled.button`
+  width: 100px;
+  font-size: 12px;
+  border: none;
+  display: inline-block;
+  padding: 10px 10px;
+  border-radius: 15px;
+  font-family: 'paybooc-Light', sans-serif;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
+
+  :hover {
+    color: #1e6b7b;
+    background: aliceblue;
+  }
+`;
+
+export {
+  Container,
+  HeadContainer,
+  TitleContainer,
+  TableContainer,
+  ReservationButton,
+};

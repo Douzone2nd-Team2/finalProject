@@ -91,7 +91,7 @@ public class ReservationManagementDto {
     @Builder
     public ReservationManagementDto(Long reservNo, String reservName, String able, String cateName, Long cateNo, String resourceName, Long resourceNo,
                                     Long userNo, String userName, Date startTime, Date endTime, Long adminNo,
-                                    String availableTime, String adminName, String content){
+                                    String availableTime, String content){
         this.reservNo = reservNo;
         this.reservName = reservName;
         this.able = able;
@@ -104,7 +104,6 @@ public class ReservationManagementDto {
         this.startTime = startTime;
         this.endTime = endTime;
         this.adminNo = adminNo;
-        this.adminName = adminName;
         this.availableTime = availableTime;
         this.content = content;
     }

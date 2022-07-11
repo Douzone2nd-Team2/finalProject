@@ -8,10 +8,16 @@ import {
   Container,
   HeadContainer,
   TableContainer,
+  ReservationButton,
 } from '../styles/EmployeeBook';
+import Pagination from 'react-js-pagination';
+import { PaginationBox } from '../styles/Pagination';
 
 const EmployeeBook = () => {
   const [userInfo, setUserInfo] = useState([]);
+
+  const [page, setPage] = useState(1);
+  const [items, setItems] = useState(15);
 
   const fetchData = async () => {
     try {
@@ -34,6 +40,10 @@ const EmployeeBook = () => {
     fetchData();
   }, []);
 
+  const pageHandler = (pageNumber) => {
+    setPage(pageNumber);
+  };
+
   console.log(userInfo);
 
   return (
@@ -53,32 +63,43 @@ const EmployeeBook = () => {
             <th></th>
           </tr>
           {userInfo &&
-            userInfo.map((user, idx) => {
-              // React List Key 인덱스를 넣는거는 최후의 방식
-              const key = `user-info-${idx}`;
-              return (
-                <tr key={(key, idx)}>
-                  <td>{userInfo.length - idx}</td>
-                  <td>{user.empNo}</td>
-                  <td>{user.name}</td>
-                  <td>{user.deptName}</td>
-                  <td>{user.gradeName}</td>
-                  <td>
-                    <Link
-                      to="/admin/userbook"
-                      state={{
-                        userNo: user.no,
-                        userName: user.name,
-                      }}
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <div>예약 확인</div>
-                    </Link>
-                  </td>
-                </tr>
-              );
-            })}
+            userInfo
+              .slice(items * (page - 1), items * (page - 1) + items)
+              .map((user, idx) => {
+                // React List Key 인덱스를 넣는거는 최후의 방식
+                const key = `user-info-${idx}`;
+                return (
+                  <tr key={(key, idx)}>
+                    <td>{userInfo.length - items * (page - 1) - idx}</td>
+                    <td>{user.empNo}</td>
+                    <td>{user.name}</td>
+                    <td>{user.deptName}</td>
+                    <td>{user.gradeName}</td>
+                    <td>
+                      <Link
+                        to="/admin/userbook"
+                        state={{
+                          userNo: user.no,
+                          userName: user.name,
+                        }}
+                        style={{ textDecoration: 'none' }}
+                      >
+                        <ReservationButton>예약 확인</ReservationButton>
+                      </Link>
+                    </td>
+                  </tr>
+                );
+              })}
         </table>
+        <PaginationBox>
+          <Pagination
+            activePage={page}
+            itemsCountPerPage={items}
+            totalItemsCount={userInfo.length}
+            pageRangeDisplayed={5}
+            onChange={pageHandler}
+          ></Pagination>
+        </PaginationBox>
       </TableContainer>
     </Container>
   );
