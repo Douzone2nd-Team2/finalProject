@@ -17,6 +17,7 @@ import java.util.List;
 import static com.team2.backend.domain.reservation.QReservation.reservation;
 import static com.team2.backend.domain.reservation.QReservationCheck.reservationCheck;
 import static com.team2.backend.domain.reservation.QTimelist.timelist;
+import static com.team2.backend.domain.resource.QPeopleCnt.peopleCnt;
 import static com.team2.backend.domain.resource.QCategory.category;
 import static com.team2.backend.domain.resource.QResource.resource;
 import static com.team2.backend.domain.user.QEmployee.employee;
@@ -203,6 +204,20 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                 .where(resource.resourceName.contains(keyword).
                         or(category.cateName.contains(keyword))).
                 fetch();
+    }
+
+    @Override
+    public List<ReservationManagementDto> selectByReservNo(Long reservNo){
+        return (List<ReservationManagementDto>) jpaQueryFactory
+                .select(new QReservationManagementDto(
+                        peopleCnt.reservNo,
+                        peopleCnt.userNo,
+                        employee.name
+                ))
+                .from(peopleCnt)
+                .join(peopleCnt.user, employee)
+                .where(peopleCnt.reservNo.eq(reservNo))
+                .fetch();
     }
 
 }

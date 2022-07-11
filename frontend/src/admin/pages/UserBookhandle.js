@@ -2,9 +2,16 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import Modal from '../../user/components/Reservation/Modal/Modal';
+
+import { arrayIsEmpty } from '../utils/jsFunction';
 import { getCookie } from '../utils/cookie';
 
 import { Button, Form, Row, Col } from 'react-bootstrap';
+
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import SearchIcon from '@material-ui/icons/Search';
 
 import {
   AllContainer,
@@ -17,6 +24,19 @@ import {
   ContentSort,
   ButtonContainer,
 } from '../styles/UserBookhandle';
+
+import {
+  CountButtonContainer,
+  CountButton,
+  CountInfo,
+  PeopleNameTag,
+  PeopleGridContainer,
+  PeopleSearchButton,
+  PeopleContainer,
+  PeopleInput,
+  EmptyContainer,
+  EmptyRContainer,
+} from '../styles/RegisterBook';
 
 const UserBookhandle = () => {
   const navigate = useNavigate();
@@ -55,6 +75,21 @@ const UserBookhandle = () => {
   const [reserveName, setReserveName] = useState(reservName);
   const [description, setDescription] = useState(content);
   const [cateNo, setCateNo] = useState();
+
+  ////////
+  const [openModal, setOpenModal] = useState(false);
+  const [count, setCount] = useState(0);
+  const [people, setPeople] = useState();
+  const [peopleNo, setPeopleNo] = useState([]);
+  const [peopleInit, setPeopleInit] = useState([]);
+  const [name, setName] = useState('');
+
+  console.log('peopleInit          ', peopleInit);
+  console.log('peopleNo            ', peopleNo);
+
+  useEffect(() => {
+    console.log(people);
+  }, []);
 
   const changeReserveName = (e) => {
     setReserveName(e.target.value);
@@ -115,8 +150,10 @@ const UserBookhandle = () => {
         },
       );
       console.log(res);
-      setBook(res.data.data[0]);
-      setCateNo(res.data.data[0].cateNo);
+      setCount(res.data.data.peopleList.length);
+      setPeopleInit(res.data.data.peopleList);
+      setBook(res.data.data.reservationView[0]);
+      setCateNo(res.data.data.reservationView[0].cateNo);
     } catch (e) {
       console.log(e);
     }
@@ -137,6 +174,7 @@ const UserBookhandle = () => {
           startTime: startDay + ' ' + startHour + ':' + startMinute + ':00',
           endTime: endDay + ' ' + endHour + ':' + endMinute + ':00',
           content: description,
+          empNoList: peopleNo,
         },
         {
           headers: {
@@ -160,9 +198,33 @@ const UserBookhandle = () => {
     fetchData();
   }, []);
 
+  const onPeopleSearch = (e) => {
+    e.preventDefault();
+    setOpenModal(true);
+  };
+  const onDecrease = (e) => {
+    e.preventDefault();
+    setCount(count === 0 ? 0 : count - 1);
+  };
+  const onIncrease = (e) => {
+    e.preventDefault();
+    setCount(count + 1);
+  };
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+
   return (
     <AllContainer>
       <Container>
+        {openModal ? (
+          <Modal
+            setOpenModal={setOpenModal}
+            count={count}
+            setPeople={setPeople}
+            setPeopleNo={setPeopleNo}
+          ></Modal>
+        ) : null}
         <HeadContainer>
           예약관리 <span className="fa-solid fa-arrow-right-long" /> 사용자별
           예약조회 및 수정
@@ -293,6 +355,59 @@ const UserBookhandle = () => {
                       <option value="30">30</option>
                     </Form.Select>
                   </Col>
+                </Row>
+                <Row>
+                  {cateNo === 1 && (
+                    <>
+                      <ContentSort>
+                        <label className="totaluser" htmlFor="totalUser">
+                          추가 인원
+                        </label>
+                        <CountButtonContainer>
+                          <CountButton onClick={onDecrease}>
+                            <ArrowDownwardIcon />
+                          </CountButton>
+                          <CountInfo>{count}</CountInfo>
+                          <CountButton onClick={onIncrease}>
+                            <ArrowUpwardIcon />
+                          </CountButton>
+                        </CountButtonContainer>
+                        <PeopleContainer>
+                          <PeopleInput onChange={handleName}></PeopleInput>
+                          <PeopleSearchButton onClick={onPeopleSearch}>
+                            <SearchIcon />
+                          </PeopleSearchButton>
+                        </PeopleContainer>
+                        <PeopleGridContainer />
+                      </ContentSort>
+                      <ContentSort>
+                        <EmptyContainer />
+                        <PeopleGridContainer>
+                          {arrayIsEmpty(people) ? (
+                            peopleInit &&
+                            peopleInit.map((nameTag, index) => {
+                              return (
+                                <PeopleNameTag key={nameTag.userNo}>
+                                  {nameTag.name}
+                                </PeopleNameTag>
+                              );
+                            })
+                          ) : (
+                            <></>
+                          )}
+                          {people &&
+                            people.map((nameTag, index) => {
+                              return (
+                                <PeopleNameTag key={index}>
+                                  {nameTag}
+                                </PeopleNameTag>
+                              );
+                            })}
+                        </PeopleGridContainer>
+                        <EmptyRContainer />
+                      </ContentSort>
+                    </>
+                  )}
                 </Row>
               </Row>
             </ContentSort>

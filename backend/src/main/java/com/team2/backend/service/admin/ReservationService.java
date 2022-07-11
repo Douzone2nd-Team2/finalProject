@@ -16,10 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -254,7 +251,7 @@ public class ReservationService {
     public ResponseEntity<Message> updateReservation(HttpServletRequest req, ReservationManagementDto body) throws ParseException {
 
         Reservation reservation = body.toEntity();
-
+        System.out.println(body.getEmpNoList().get(0)+"1111111111111111111111");
         Message message;
         System.out.println(body.getContent()+"!!!!!!!!!!!!!!!!!!!");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -308,8 +305,9 @@ public class ReservationService {
         reservationRepository.deleteByReservNo(body.getReservNo());
 
             Long reservNo = reservationRepository.save(reservation).getReservNo();
-            if(body.getCateNo().equals("1")) {//자원이 회의실일 경우
+            if(body.getCateNo().equals(1L)) {//자원이 회의실일 경우
                 if(body.getEmpNoList() != null) {  //추가 인원이 있을 경우
+                    System.out.println("$$$%%%%%"+body.getEmpNoList().get(0));
                     for (int i = 0; i < body.getEmpNoList().size(); i++) {
                         if (cateNo == 1) {
                             PeopleCnt peopleCnt = PeopleCnt.builder()
@@ -385,11 +383,17 @@ public class ReservationService {
     public ResponseEntity<Message> reservationView(HttpServletRequest req, Long reservNo) {
 
         List<ReservationManagementDto> reservationView = reservationQuerydslRepository.getReservationView(reservNo);
-        System.out.println(reservationView.get(0).getStartTime()+"//"+reservationView.get(0).getEndTime());
+        List<ReservationManagementDto> peopleList = reservationQuerydslRepository.selectByReservNo(reservNo);
+
+
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("reservationView", reservationView);
+        data.put("peopleList", peopleList);
+
         Message message = Message.builder()
                 .resCode(1000)
                 .message("[Success] Select ReservationView")
-                .data(reservationView)
+                .data(data)
                 .build();
         return new JsonResponse().send(200, message);
     }
