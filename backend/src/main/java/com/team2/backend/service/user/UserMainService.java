@@ -152,13 +152,14 @@ public class UserMainService {
         int totalCnt = reservationRepository.getResourceTotalCnt(cateNo);
 
         String startDate = reservationRepository.getStartDate();
+        String endDate = reservationRepository.getEndDate();
         System.out.println(startDate);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         Date start = format.parse(startDate);
-        Date now = Calendar.getInstance().getTime();
+        Date end = format.parse(endDate);
 
-        long Days = (now.getTime() - start.getTime())/(1000*24*60*60);
+        long Days = (end.getTime() - start.getTime())/(1000*24*60*60);
 
         HashMap<String, Object> data = new HashMap<>();
         data.put("days", Days+1L);
