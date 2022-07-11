@@ -28,6 +28,14 @@ const Modal = (props) => {
   const [checkList, setCheckList] = useState('');
   const [checkNameList, setCheckNameList] = useState([]);
 
+  const searchIcon = useRef(null);
+
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      searchIcon.current.click();
+    }
+  };
+
   const searchPeople = async () => {
     const data = {
       keyword: keyword,
@@ -81,9 +89,14 @@ const Modal = (props) => {
       <ModalContainer>
         <ModalHeader>
           <SearchContainer>
-            <SearchInput type="text" onChange={handleChange}></SearchInput>
-            <SearchButton onClick={onSearch}>
-              <SearchIcon></SearchIcon>
+            <SearchInput
+              type="text"
+              onChange={handleChange}
+              onKeyPress={onKeyPress}
+              autoFocus={true}
+            />
+            <SearchButton onClick={onSearch} ref={searchIcon}>
+              <SearchIcon />
             </SearchButton>
           </SearchContainer>
         </ModalHeader>

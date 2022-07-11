@@ -1,3 +1,7 @@
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { reservationState } from '../../../../recoil/reservation.js';
+import { useState } from 'react';
+
 import {
   FlexContainer,
   DateTimeLeftContainer,
@@ -7,15 +11,17 @@ import {
 } from './style.js';
 
 const DateTime = () => {
+  const reservation = useRecoilValue(reservationState);
+
   return (
     <FlexContainer>
       <DateTimeLeftContainer>
         <DateTimeTitle>시작일</DateTimeTitle>
-        <DateTimeInfo>2999.12.31 00:00:00</DateTimeInfo>
+        <DateTimeInfo>{reservation.startTime}</DateTimeInfo>
       </DateTimeLeftContainer>
       <DateTimeRightContainer>
         <DateTimeTitle>종료일</DateTimeTitle>
-        <DateTimeInfo>2999.12.31 00:00:00</DateTimeInfo>
+        <DateTimeInfo>{reservation.endTime}</DateTimeInfo>
       </DateTimeRightContainer>
     </FlexContainer>
   );

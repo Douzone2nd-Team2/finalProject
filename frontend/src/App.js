@@ -61,6 +61,7 @@ const App = () => {
             name: data.name,
             no: data.no,
             phone: data.phone,
+            imageUrl: data.imageUrl,
           }),
         );
     }
@@ -76,7 +77,7 @@ const App = () => {
           <Route path="mypage/user" element={<MyInfo />} />
           <Route path="mypage/reservation" element={<MyReservation />} />
           <Route path="search" element={<Search />} />
-          <Route path="reserve" element={<Reserve />} />
+          {/* <Route path="reserve" element={<Reserve />} /> */}
         </Route>
         <Route path="/admin/login" element={<AdminLoginPage />} />
         <Route element={<AdminPrivateRoute />}>

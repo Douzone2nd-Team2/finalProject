@@ -37,13 +37,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/app");
-        registry.enableSimpleBroker("/announce","/user");
-        registry.setUserDestinationPrefix("/user");
+        registry.enableSimpleBroker("/user");
     }
 
-    @Override
-    public void configureClientInboundChannel(ChannelRegistration registration){
-        registration.interceptors(stompHandler);
-    }
+//    @Override
+//    public void configureClientInboundChannel(ChannelRegistration registration){
+//        registration.interceptors(stompHandler);
+//    }
 
 }
