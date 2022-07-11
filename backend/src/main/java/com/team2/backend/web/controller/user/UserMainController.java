@@ -55,4 +55,5 @@ public class UserMainController {
     public ResponseEntity<Message> getEachList(@PathVariable Long cateNo){
         return resourceService.getEachList(cateNo);
     }
+
 }

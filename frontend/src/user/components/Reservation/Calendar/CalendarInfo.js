@@ -32,9 +32,10 @@ const CalendarInfo = (props) => {
     }
   };
 
+  const [stompClient, setStompClient] = useState(null);
   const [timeList, setTimeList] = useState(TimeList);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [selectedStartDate, setSelectedStartDate] = useState('');
   const [selectedEndDate, setSelectedEndDate] = useState('');
   const [startTime, setStartTime] = useState('');
@@ -43,9 +44,30 @@ const CalendarInfo = (props) => {
   const onDateChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
-    setEndDate(end);
-    start && setSelectedStartDate(start.toLocaleDateString());
-    end && setSelectedEndDate(end.toLocaleDateString());
+    end && setEndDate(end);
+    if (start && end) {
+      setSelectedStartDate(start.toLocaleDateString());
+      setSelectedEndDate(end.toLocaleDateString());
+    }
+  };
+
+  const getTimelist = () => {
+    if (startDate && endDate) {
+      let chatMessage = {
+        senderName: 'gd',
+        receivername: 'gd',
+        status: 'MESSAGE',
+        data: {
+          resourceNo: '27',
+          startTime: startDate,
+          endTime: endDate,
+        },
+      };
+      setStompClient(props.stompClient);
+      stompClient.send('/app/timelist', {}, JSON.stringify(chatMessage));
+    } else {
+      alert('시작일과 종료일을 선택해주세요.');
+    }
   };
 
   const handleStartTime = (e) => {
@@ -57,6 +79,7 @@ const CalendarInfo = (props) => {
   };
 
   const clearEndDate = useEffect(() => {
+    setEndDate('');
     setSelectedEndDate('');
   }, [startDate]);
 
@@ -71,6 +94,7 @@ const CalendarInfo = (props) => {
           selectsDisabledDaysInRange
           inline
         />
+        <ReserveButton onClick={getTimelist}>조회</ReserveButton>
       </CalendarTest>
       <CalendarDetatil>
         <DateTimeContainer>

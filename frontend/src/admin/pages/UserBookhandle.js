@@ -43,10 +43,9 @@ const UserBookhandle = () => {
 
   // 시작, 종료 시간
   const [startHour, setStartHour] = useState(parseInt(startTime.substr(11, 2)));
-
   const [endHour, setEndHour] = useState(parseInt(endTime.substr(11, 2)));
 
-  console.log(endHour);
+  // console.log(endHour);
 
   // 시작, 종료 분
   const [startMinute, setStartMinute] = useState(startTime.substr(14, 2));
@@ -94,15 +93,15 @@ const UserBookhandle = () => {
   // console.log(startHour);
   // console.log(startMinute);
 
-  console.log(reserveName);
+  // console.log(reserveName);
 
-  console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
+  // console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
 
-  console.log(startDay);
+  // console.log(startDay);
 
-  console.log(content);
+  // console.log(content);
 
-  console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
+  // console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
 
   const fetchData = async () => {
     try {
@@ -116,6 +115,7 @@ const UserBookhandle = () => {
       );
       console.log(res);
       setBook(res.data.data[0]);
+      console.log(res.data.data[0].content);
       setContent(res.data.data[0].content);
       setCateNo(res.data.data[0].cateNo);
     } catch (e) {
@@ -123,7 +123,7 @@ const UserBookhandle = () => {
     }
   };
 
-  console.log(cateNo);
+  console.log(content);
 
   const postData = async () => {
     try {
@@ -158,7 +158,6 @@ const UserBookhandle = () => {
     e.preventDefault();
 
     postData();
-    // navigate(-1);
   };
 
   useEffect(() => {
@@ -311,7 +310,7 @@ const UserBookhandle = () => {
                 rows="5"
                 id="resourceInfo"
                 onChange={changeContent}
-                placeholder={book.content}
+                placeholder={content}
               />
             </ContentSort>
             <ButtonContainer>
