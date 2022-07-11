@@ -39,14 +39,14 @@ const ImageContainer = styled.div`
     margin-left: 30px;
     width: 150px;
     height: 150px;
+    min-width: 180px;
   }
-  position: relative;
 `;
 
 const RightContainer = styled.div`
-  position: absolute;
   display: flex;
-  left: 55%;
+  flex-direction: column;
+  left: 50%;
   min-width: 50px;
   margin-top: 50px;
   font-weight: 500;

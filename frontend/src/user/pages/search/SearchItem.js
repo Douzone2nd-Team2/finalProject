@@ -12,8 +12,9 @@ import {
 } from '../../styles/SearchItem';
 
 const SearchItem = ({ book }) => {
-  const { resourceName, cateName, people, thumbnail, option } = book;
-  // console.log('book : ', book.cateName);
+  const { cateNo, resourceName, cateName, people, option, imageUrl, fuel } =
+    book;
+  console.log('cateNo : ', book.cateNo);
 
   const navigate = useNavigate();
 
@@ -35,14 +36,17 @@ const SearchItem = ({ book }) => {
           <TitleContainer>
             <h2 className="title">{resourceName}</h2>
             <h3 className="location">[{cateName}]</h3>
-            <span className="price_origin">인원 : {people}</span>
+            <span className="price_origin">
+              {book.cateNo === 1 ? `인원 : ` + book.people : <></>}
+            </span>
           </TitleContainer>
           <ImageContainer>
-            <img src={thumbnail} alt="thumbnail" />
+            <img src={imageUrl} alt="thumbnail" />
           </ImageContainer>
         </LeftContainer>
         <RightContainer>
           <div>옵션 : {option}</div>
+          <div>{book.cateNo === 2 ? `연료 : ` + book.fuel : <></>}</div>
         </RightContainer>
         <ButtonContainer>
           <Button variant="primary" onClick={onClickbtn}>
