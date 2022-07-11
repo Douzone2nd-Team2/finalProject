@@ -9,9 +9,7 @@ import com.team2.backend.domain.resource.Resourcefile;
 import com.team2.backend.domain.resource.ResourcefileRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
-import com.team2.backend.web.dto.admin.IResourceAdminDto;
-import com.team2.backend.web.dto.admin.ReservationManagementDto;
-import com.team2.backend.web.dto.admin.ResourceAdminDto;
+import com.team2.backend.web.dto.admin.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -249,6 +247,7 @@ public class ResourceService {
                 .build();
         return new JsonResponse().send(200, message);
     }
+
     @Transactional
     public ResponseEntity<Message> resourceUpdate(HttpServletRequest req, Long resourceNo, Resource resource) {
         Resource updateResource = resourceRepository.findByResourceNo(resourceNo);
@@ -403,5 +402,29 @@ public class ResourceService {
                 .data(list)
                 .build();
         return new JsonResponse().send(200, message);
+    }
+
+    @Transactional
+    public ResponseEntity<Message> searchResource(String keyword){
+        Message message;
+        try {
+            List<ResourceDto> resourceList = reservationQuerydslRepository.getSearchResourceList(keyword);
+
+            message = Message.builder()
+                    .resCode(1000)
+                    .message("[Success] : Select resourceSearchList")
+                    .data(resourceList)
+                    .build();
+            return new JsonResponse().send(200, message);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            message = Message.builder()
+                    .resCode(1001)
+                    .message("[Fail] : Select resourceSearchList")
+                    .build();
+            return new JsonResponse().send(400, message);
+        }
+
     }
 }

@@ -20,8 +20,8 @@ const CalendarTest = styled.div`
   width: 100%;
   height: 300px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-evenly;
+  align-items: flex-end;
 `;
 
 const CalendarDetatil = styled.div`
