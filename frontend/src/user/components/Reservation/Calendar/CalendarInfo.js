@@ -44,18 +44,6 @@ const CalendarInfo = (props) => {
   const [dropdownDisable, setDropdownDisable] = useState(true);
   const [noTimelist, setNoTimelist] = useState([]);
 
-  // const tempReservation = () => {
-  //   let chatMessage = {
-  //     senderName: user.no,
-  //     data: {
-  //       ...reservation,
-  //       startTime: startDate.getTime(),
-  //       endTime: endDate.getTime(),
-  //     },
-  //   };
-  //   sendMessage('/app/check', chatMessage);
-  // };
-
   const onDateChange = (dates) => {
     const [start, end] = dates;
 
@@ -64,7 +52,6 @@ const CalendarInfo = (props) => {
     if (start && end && start <= end) {
       setSelectedStartDate(start.toLocaleDateString());
       setSelectedEndDate(end.toLocaleDateString());
-      setDropdownDisable(false);
     }
   };
 
@@ -86,6 +73,7 @@ const CalendarInfo = (props) => {
           console.log('[Axios SearchPeople] 알 수 없는 오류가 발생했습니다.');
           return;
         } else {
+          setDropdownDisable(false);
           return res.data.data;
         }
       })
