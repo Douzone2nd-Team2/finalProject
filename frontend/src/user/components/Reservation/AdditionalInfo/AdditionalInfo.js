@@ -13,24 +13,22 @@ import UserInfo from './UserInfo/UserInfo.js';
 import Count from './Count/Count.js';
 
 const AdditionalInfo = (props) => {
-  const [reservName, setReservName] = useState('');
   const reservation = useRecoilValue(reservationState);
   const setReservationState = useSetRecoilState(reservationState);
+  const [reservName, setReservName] = useState('');
+  const [peopleCnt, setPeopleCnt] = useState([]);
 
   const onNextStep = () => {
-    props.setStep(2);
+    setReservationState({
+      ...reservation,
+      reservName: reservName,
+    });
+    console.log(reservation);
   };
 
   const onPreviousStep = () => {
     props.setStep(0);
   };
-
-  useEffect(() => {
-    setReservationState({
-      ...reservation,
-      reservName: reservName,
-    });
-  }, [reservName]);
 
   return (
     <AdditionalInfoContainer>

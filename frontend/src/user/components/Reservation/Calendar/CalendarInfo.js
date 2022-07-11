@@ -67,6 +67,7 @@ const CalendarInfo = (props) => {
     if (start && end) {
       setSelectedStartDate(start.toLocaleDateString());
       setSelectedEndDate(end.toLocaleDateString());
+      setDropdownDisable(false);
     }
   };
 
@@ -88,12 +89,11 @@ const CalendarInfo = (props) => {
           console.log('[Axios SearchPeople] 알 수 없는 오류가 발생했습니다.');
           return;
         } else {
+          console.log(res.data);
           return res.data.data;
         }
       })
       .catch(console.error);
-
-    console.log(result);
   };
 
   const onNextStep = () => {
@@ -130,7 +130,6 @@ const CalendarInfo = (props) => {
   useEffect(() => {
     if (startDate && endDate) {
       axiosGetTimelist();
-      setDropdownDisable(false);
       setReservationState({
         ...reservation,
         startDate: startDate,

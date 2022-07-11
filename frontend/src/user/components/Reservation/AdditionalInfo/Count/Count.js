@@ -25,6 +25,7 @@ const Count = () => {
   const [name, setName] = useState('');
   const [people, setPeople] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [peopleNo, setPeopleNo] = useState([]);
 
   const onIncrease = () => {
     setCount(count + 1);
@@ -35,8 +36,6 @@ const Count = () => {
   };
 
   const onPeopleSearch = () => {
-    // let newPeople = [...people, name];
-    // setPeople(newPeople);
     setOpenModal(true);
   };
 
@@ -57,6 +56,7 @@ const Count = () => {
           setOpenModal={setOpenModal}
           count={count}
           setPeople={setPeople}
+          setPeopleNo={setPeopleNo}
         ></Modal>
       ) : null}
       <FlexContainer>

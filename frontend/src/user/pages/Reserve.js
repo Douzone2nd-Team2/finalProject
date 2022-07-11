@@ -16,7 +16,10 @@ import CalendarInfo from '../components/Reservation/Calendar/CalendarInfo.js';
 
 const Reserve = () => {
   const location = useLocation();
-
+  const user = useRecoilValue(userState);
+  const setReservationState = useSetRecoilState(reservationState); // 예약 정보 리코일
+  const setTimelistState = useSetRecoilState(timelistState);
+  const reservation = useRecoilValue(reservationState);
   const [resourceData, setResourceData] = useState(location.state);
   const [step, setStep] = useState(0);
   const [selectedStartDate, setSelectedStartDate] = useState('');
@@ -24,10 +27,6 @@ const Reserve = () => {
   const [selectedStartTime, setSelectedStartTime] = useState('');
   const [selectedEndTime, setSelectedEndTime] = useState('');
 
-  const user = useRecoilValue(userState);
-  const setReservationState = useSetRecoilState(reservationState); // 예약 정보 리코일
-  const setTimelistState = useSetRecoilState(timelistState);
-  const reservation = useRecoilValue(reservationState);
   useEffect(() => {
     setReservationState({
       userNo: user.no,

@@ -61,8 +61,8 @@ const Modal = (props) => {
     searchPeople();
   };
 
-  const onClose = () => {
-    props.setOpenModal(false);
+  const onClose = async () => {
+    await props.setOpenModal(false);
   };
 
   const onAdd = () => {
