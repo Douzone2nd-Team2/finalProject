@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-
+import { useLocation } from 'react-router-dom';
 import { MainContainer, Container } from '../styles/MyReservation.js';
 
 import ReservationHeader from '../components/Reservation/ReservationHeader/ReservationHeader';
@@ -7,15 +7,15 @@ import MyReservationDetail from '../components/MyReservationDetail/MyReservation
 import MyReservationInfo from '../components/MyReservationInfo/MyReservationInfo.js';
 
 const MyReservation = () => {
-  const [step, setStep] = useState(0);
-  const [cateNo, setCateNo] = useState(1);
+  const location = useLocation();
+  const [myReservationIngo, setMyReservationInfo] = useState(location.state);
 
   return (
     <MainContainer>
       <ReservationHeader title="예약 정보"></ReservationHeader>
       <Container>
-        <MyReservationDetail></MyReservationDetail>
-        <MyReservationInfo></MyReservationInfo>
+        <MyReservationDetail data={myReservationIngo}></MyReservationDetail>
+        <MyReservationInfo data={myReservationIngo}></MyReservationInfo>
       </Container>
     </MainContainer>
   );

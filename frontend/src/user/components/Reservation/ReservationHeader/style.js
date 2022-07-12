@@ -5,7 +5,8 @@ const Header = styled.div`
   flex-direction: column;
   width: 100%;
   height: 90px;
-  padding: 24px 0px 0px;
+  padding: 42px 0px 0px;
+  margin-top: 24px;
 `;
 
 const HeaderTop = styled.div`

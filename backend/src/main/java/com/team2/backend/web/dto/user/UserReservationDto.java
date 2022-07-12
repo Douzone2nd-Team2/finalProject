@@ -27,8 +27,8 @@ public class UserReservationDto {
     private String startTime;
     private String endTime;
 
-    private Date startDate;
-    private Date endDate;
+    private Long startDate;
+    private Long endDate;
     private List<String> peopleCnt;
 
     @Builder
