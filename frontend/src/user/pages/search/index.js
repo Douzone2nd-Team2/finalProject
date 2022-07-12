@@ -13,12 +13,36 @@ import {
   NotContentContainer,
 } from '../../styles/Search';
 
+import Pagination from 'react-js-pagination';
+import { PaginationBox } from '../../../admin/styles/Pagination';
+
 const Search = () => {
   const title = useRecoilValue(searchState);
 
   const [meeting, setMeeting] = useState([]);
   const [car, setCar] = useState([]);
   const [equip, setEquip] = useState([]);
+
+  const [page, setPage] = useState(1);
+  const [items, setItems] = useState(3);
+
+  const pageHandler = (pageNumber) => {
+    setPage(pageNumber);
+  };
+
+  const [page2, setPage2] = useState(1);
+  const [items2, setItems2] = useState(3);
+
+  const pageHandler2 = (pageNumber) => {
+    setPage2(pageNumber);
+  };
+
+  const [page3, setPage3] = useState(1);
+  const [items3, setItems3] = useState(3);
+
+  const pageHandler3 = (pageNumber) => {
+    setPage3(pageNumber);
+  };
 
   const fetchData = async () => {
     try {
@@ -50,11 +74,24 @@ const Search = () => {
         {arrayIsEmpty(meeting) === true ? (
           <NotContentContainer>검색 결과가 없습니다...</NotContentContainer>
         ) : (
-          meeting.map((book, idx) => (
-            <div key={idx}>
-              <SearchItem book={book} />
-            </div>
-          ))
+          meeting
+            .slice(items * (page - 1), items * (page - 1) + items)
+            .map((book, idx) => (
+              <div key={idx}>
+                <SearchItem book={book} />
+              </div>
+            ))
+        )}
+        {arrayIsEmpty(meeting) === false && (
+          <PaginationBox>
+            <Pagination
+              activePage={page}
+              itemsCountPerPage={items}
+              totalItemsCount={meeting.length}
+              pageRangeDisplayed={5}
+              onChange={pageHandler}
+            ></Pagination>
+          </PaginationBox>
         )}
       </Container>
       <TitleContainer>차량</TitleContainer>
@@ -62,11 +99,24 @@ const Search = () => {
         {arrayIsEmpty(car) === true ? (
           <NotContentContainer>검색 결과가 없습니다...</NotContentContainer>
         ) : (
-          car.map((book, idx) => (
-            <div key={idx}>
-              <SearchItem book={book} />
-            </div>
-          ))
+          car
+            .slice(items2 * (page2 - 1), items2 * (page2 - 1) + items2)
+            .map((book, idx) => (
+              <div key={idx}>
+                <SearchItem book={book} />
+              </div>
+            ))
+        )}
+        {arrayIsEmpty(car) === false && (
+          <PaginationBox>
+            <Pagination
+              activePage={page2}
+              itemsCountPerPage={items2}
+              totalItemsCount={car.length}
+              pageRangeDisplayed={5}
+              onChange={pageHandler2}
+            ></Pagination>
+          </PaginationBox>
         )}
       </Container>
       <TitleContainer>노트북</TitleContainer>
@@ -74,11 +124,24 @@ const Search = () => {
         {arrayIsEmpty(equip) === true ? (
           <NotContentContainer>검색 결과가 없습니다...</NotContentContainer>
         ) : (
-          equip.map((book, idx) => (
-            <div key={idx}>
-              <SearchItem book={book} />
-            </div>
-          ))
+          equip
+            .slice(items3 * (page3 - 1), items3 * (page3 - 1) + items3)
+            .map((book, idx) => (
+              <div key={idx}>
+                <SearchItem book={book} />
+              </div>
+            ))
+        )}
+        {arrayIsEmpty(car) === false && (
+          <PaginationBox>
+            <Pagination
+              activePage={page3}
+              itemsCountPerPage={items3}
+              totalItemsCount={equip.length}
+              pageRangeDisplayed={5}
+              onChange={pageHandler3}
+            ></Pagination>
+          </PaginationBox>
         )}
       </Container>
     </>

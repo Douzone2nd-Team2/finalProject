@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+export const AllContainer = styled.div`
+  font-family: NanumGothicBold;
+`;
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -22,35 +25,87 @@ export const ResourceContainer2 = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: right;
 `;
 
-export const ResourceForm = styled.form`
-  border: 1px solid black;
-  margin: auto;
+export const ContentContainer = styled.div`
   margin-top: 30px;
-  padding: 4px;
-  width: 700px;
-  height: auto;
+  padding-bottom: 20px;
+  font-size: 20px;
+  font-weight: 800;
+`;
+
+export const BookContainer = styled.div`
+  margin-top: 30px;
+  background-color: #f6f6f6;
+  border-radius: 15px;
+  opacity: 0.9;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px gray;
+`;
+
+export const ContentSort = styled.div`
+  margin-top: 10px;
+  margin-left: 40px;
+  display: flex;
+  justify-content: flex-start;
+  label {
+    min-width: 150px;
+  }
+  .Rable {
+    box-shadow: none;
+  }
+  .totaluser {
+    display: flex;
+    align-items: center;
+  }
+  input {
+    margin-left: 10px;
+    padding: 3px 8px;
+    /* border-radius: 4px;
+    border: none; */
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+  }
+  textarea {
+    min-width: 700px;
+    margin-left: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid #717171;
+  }
+`;
+
+export const ResourceImg = styled.div`
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+  flex-direction: column;
+  .img {
+    width: 300px;
+    height: 300px;
+  }
+
+  .slick-list {
+    width: 200px;
+  }
+
+  .slick-initialized {
+    width: 200px;
+  }
 `;
 export const ButtonContainer = styled.div`
-  float: right;
+  display: flex;
+  justify-content: right;
   margin-top: 10px;
 `;
 
-export const Formtd = styled.td`
-  background-color: lightgrey;
-  border: 1px solid black;
-  width: 200px;
-  height: 50px;
-
-  padding-left: 10px;
-`;
-
 export const Forminput = styled.div`
-  padding: 10px;
-  margin: 1px;
-  margin-left: 3px;
-  border: 1px solid black;
+  margin-top: 30px;
+  padding-bottom: 20px;
+  font-size: 20px;
+  font-weight: 800;
+  float: right;
 `;
 export const ResourceCardUI = styled.div`
   width: 100%;

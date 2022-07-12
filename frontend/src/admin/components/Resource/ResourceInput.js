@@ -6,9 +6,7 @@ import axios from 'axios';
 
 import { Button, Form, Modal, Row, Col } from 'react-bootstrap';
 
-const ResourceInput = ({ getAll }) => {
-  const [show, setShow] = useState(false);
-
+const ResourceInput = ({ show, handleShow, handleClose }) => {
   const [resourceName, setResourceName] = useState('');
   const [location, setLocation] = useState('');
   const [people, setPeople] = useState('');
@@ -27,9 +25,6 @@ const ResourceInput = ({ getAll }) => {
   const [able, setAble] = useState('');
 
   const [resourceNo, setResourceNo] = useState();
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const [valued, setValued] = useState('');
 
@@ -81,6 +76,47 @@ const ResourceInput = ({ getAll }) => {
     setEndMinute(e.target.value);
   };
 
+  const [imgFile, setImgFile] = useState([]);
+  const [formData, setFormData] = useState(new FormData());
+
+  useEffect(() => {
+    if (imgFile) {
+      const d = new FormData();
+      for (let i = 0; i < imgFile.length; i++) {
+        d.append('images', imgFile[i]);
+      }
+
+      setFormData(d);
+    }
+  }, [imgFile]);
+
+  const postTest = async () => {
+    axios
+      .post(
+        `${process.env.REACT_APP_SERVER_PORT}/resource/fileupload`,
+        formData,
+
+        {
+          headers: {
+            Authorization: getCookie('accessToken'),
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      )
+      .then(() => {
+        handleClose();
+      })
+      .catch((err) => {
+        return err;
+      });
+  };
+
+  const handleChangeFile = useCallback((e) => {
+    setImgFile(e.target.files);
+    console.log(imgFile);
+    console.log('핸들체인지');
+  });
+
   const postTest1 = async () => {
     const resourceInsert = {
       cateNo: valued,
@@ -105,19 +141,16 @@ const ResourceInput = ({ getAll }) => {
       .then((response) => {
         console.log(response);
         setResourceNo(response.data.data.resourceNo);
-        alert('등록성공!');
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const exitModal = () => {
-    toggleModal.current.click();
-  };
   const clickBtn = () => {
     postTest1();
   };
+
   useEffect(() => {
     if (valued === '') {
       console.log('valued empty');
@@ -127,6 +160,13 @@ const ResourceInput = ({ getAll }) => {
       console.log('valued is not empty');
     }
   }, []);
+
+  useEffect(() => {
+    if (resourceNo !== '') {
+      // 자원 등록 완료 -> 이미지 통신
+      postTest();
+    }
+  }, [resourceNo]);
 
   return (
     <>
@@ -196,16 +236,16 @@ const ResourceInput = ({ getAll }) => {
                       value={startHour}
                       onChange={ShandleHourTime}
                     >
-                      <option value="0">0</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                      <option value="9">9</option>
+                      <option value="00">00</option>
+                      <option value="01">01</option>
+                      <option value="02">02</option>
+                      <option value="03">03</option>
+                      <option value="04">04</option>
+                      <option value="05">05</option>
+                      <option value="06">06</option>
+                      <option value="07">07</option>
+                      <option value="08">08</option>
+                      <option value="09">09</option>
                       <option value="10">10</option>
                       <option value="11">11</option>
                       <option value="12">12</option>
@@ -242,16 +282,16 @@ const ResourceInput = ({ getAll }) => {
                       value={endHour}
                       onChange={changeEndHour}
                     >
-                      <option value="0">0</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                      <option value="9">9</option>
+                      <option value="00">00</option>
+                      <option value="01">01</option>
+                      <option value="02">02</option>
+                      <option value="03">03</option>
+                      <option value="04">04</option>
+                      <option value="05">05</option>
+                      <option value="06">06</option>
+                      <option value="07">07</option>
+                      <option value="08">08</option>
+                      <option value="09">09</option>
                       <option value="10">10</option>
                       <option value="11">11</option>
                       <option value="12">12</option>
@@ -391,16 +431,19 @@ const ResourceInput = ({ getAll }) => {
         </Modal.Body>
 
         <Modal.Footer>
+          <input
+            type="file"
+            id="file"
+            multiple
+            name="image"
+            onChange={handleChangeFile}
+          />
           <Button variant="secondary" onClick={handleClose} ref={toggleModal}>
             Close
           </Button>
           <Button variant="primary" type="submit" onClick={() => clickBtn()}>
             Save
           </Button>
-        </Modal.Footer>
-
-        <Modal.Footer>
-          <ResourceFileUploadTest />
         </Modal.Footer>
       </Modal>
     </>
