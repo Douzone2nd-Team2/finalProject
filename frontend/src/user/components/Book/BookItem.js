@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
-import { getCookie } from '../utils/cookie';
+import { getCookie } from '../../utils/cookie';
 
-import BookContainer from '../styles/BookItem';
+import BookContainer from '../../styles/BookItem';
 
 const BookItem = ({ book }) => {
   const { resourceName, startTime, endTime, imageUrl, reservName, reservNo } =

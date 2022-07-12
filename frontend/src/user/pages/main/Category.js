@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import axios from 'axios';
 
 import { getCookie } from '../../utils/cookie';
@@ -14,6 +16,11 @@ import {
 
 const Category = () => {
   const [popular, setPopular] = useState([]);
+  const [conference, setConference] = useState();
+  const [car, setCar] = useState();
+  const [notebook, setNotebook] = useState();
+
+  const [carimg, setCarimg] = useState('');
 
   const fetchData = async () => {
     try {
@@ -25,8 +32,10 @@ const Category = () => {
           },
         },
       );
-      console.log(res);
       setPopular(res.data.data);
+      setConference(res.data.data.recommendConference);
+      setCar(res.data.data.recommendCar);
+      setNotebook(res.data.data.recommendNotebook);
     } catch (e) {
       console.log(e);
     }
@@ -44,40 +53,60 @@ const Category = () => {
           <>
             <ResourceContainer>
               <ResourceName>{popular.recommendCar?.resourceName}</ResourceName>
-              <ImageContainer
-                src={popular.recommendCar?.imageUrl}
-                alt="No Image"
-                className="room"
-              />
+              <Link
+                to="/reserve"
+                state={car}
+                style={{ textDecoration: 'none', color: 'black' }}
+              >
+                <ImageContainer
+                  src={popular.recommendCar?.imageUrl}
+                  alt="No Image"
+                  className="room"
+                />
+              </Link>
             </ResourceContainer>
             <ResourceContainer>
               <ResourceName>
                 {popular.recommendConference?.resourceName}
               </ResourceName>
-              <ImageContainer
-                src={popular.recommendConference?.imageUrl}
-                alt="No Image"
-                className="car"
-              />
+              <Link
+                to="/reserve"
+                state={conference}
+                style={{
+                  textDecoration: 'none',
+                  color: 'black',
+                  cursor: 'pointer',
+                }}
+              >
+                <ImageContainer
+                  src={popular.recommendConference?.imageUrl}
+                  alt="No Image"
+                  className="car"
+                />
+              </Link>
             </ResourceContainer>
             <ResourceContainer>
               <ResourceName>
                 {popular.recommendNotebook?.resourceName}
               </ResourceName>
-              <ImageContainer
-                src={popular.recommendNotebook?.imageUrl}
-                alt="No Image"
-                className="car"
-              />
+              <Link
+                to="/reserve"
+                state={notebook}
+                style={{
+                  textDecoration: 'none',
+                  color: 'black',
+                  cursor: 'pointer',
+                }}
+              >
+                <ImageContainer
+                  src={popular.recommendNotebook?.imageUrl}
+                  alt="No Image"
+                  className="car"
+                />
+              </Link>
             </ResourceContainer>
           </>
         )}
-
-        {/* <ImageContainer
-          src={popular.recommendCar.imageUrl}
-          alt="usb"
-          className="usb"
-        /> */}
       </Container>
     </AllContainer>
   );
