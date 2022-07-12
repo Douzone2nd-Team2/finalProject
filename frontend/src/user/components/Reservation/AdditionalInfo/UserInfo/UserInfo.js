@@ -1,4 +1,6 @@
 import { React, useEffect, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { reservationState } from '../../../../recoil/reservation.js';
 
 import {
   FlexContainer,
@@ -11,7 +13,7 @@ import {
 const UserInfo = (props) => {
   const reservation = useRecoilValue(reservationState);
 
-  const onInputReservName = (e) => {
+  const handleReservName = (e) => {
     props.setReservName(e.target.value);
   };
 
@@ -23,7 +25,7 @@ const UserInfo = (props) => {
       </UserInfoContainer>
       <UserInfoContainer>
         <UserInfoTitle>예약명</UserInfoTitle>
-        <UserInfoInput type="text" onChange={onInputReservName}></UserInfoInput>
+        <UserInfoInput type="text" onChange={handleReservName}></UserInfoInput>
       </UserInfoContainer>
     </FlexContainer>
   );

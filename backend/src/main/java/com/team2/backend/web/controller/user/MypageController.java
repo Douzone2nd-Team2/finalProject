@@ -4,7 +4,9 @@ import com.amazonaws.services.xray.model.Http;
 import com.team2.backend.config.security.auth.EmployeeDetails;
 import com.team2.backend.service.user.MypageService;
 import com.team2.backend.web.dto.Message;
+import com.team2.backend.web.dto.user.MyReservDto;
 import com.team2.backend.web.dto.user.MypageDto;
+import com.team2.backend.web.dto.user.UserReservationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,5 +31,10 @@ public class MypageController {
     @GetMapping("/mypage/user")
     public ResponseEntity<Message> employeeView(HttpServletRequest request, @AuthenticationPrincipal EmployeeDetails employeeDetails){
         return mypageService.employeeView(request, employeeDetails);
+    }
+
+    @PostMapping("/mypage/getMyReservationInfo")
+    public ResponseEntity<Message> getMyReservationInfo(@RequestBody MyReservDto body) {
+        return mypageService.getMyReservationInfo(body);
     }
 }

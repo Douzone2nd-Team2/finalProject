@@ -135,7 +135,7 @@ const ButtonContainer = styled.div`
 const VerticalLine = styled.div`
   height: 24px;
   margin-left: 20px;
-  border-left: 1px solid black;
+  border-left: 1px solid white;
 `;
 
 export {

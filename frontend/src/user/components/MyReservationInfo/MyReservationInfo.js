@@ -1,4 +1,6 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { reservationState } from '../../recoil/reservation.js';
 
 import {
   ReservationInfo,
@@ -12,6 +14,8 @@ import {
   ResourceLocation,
 } from './style.js';
 
+import Option from '../Reservation/ResourceInfo/ResourceOption/Option.js';
+
 import {
   FlexContainer,
   UserInfoContainer,
@@ -19,31 +23,52 @@ import {
   UserInfoDetail,
 } from '../Reservation/AdditionalInfo/UserInfo/style.js';
 
-const MyReservationInfo = () => {
+const MyReservationInfo = (props) => {
+  const [values, setValues] = useState([]);
+  useEffect(() => {
+    const value = props.data.option.split(', ');
+    setValues(value);
+  }, []);
+
   return (
     <ReservationInfo>
       <ThumbnailContainer>
-        <Thumbnail></Thumbnail>
+        <Thumbnail src={props.data.imageUrl}></Thumbnail>
         <ThumnailInfo>
           <NameCateDiv>
-            <ResourceCate>회의실</ResourceCate>
-            <ResourceName>회의실1</ResourceName>
+            {props.data.cateNo === 1 ? (
+              <ResourceCate>회의실</ResourceCate>
+            ) : props.data.cateNo === 2 ? (
+              <ResourceCate>차량</ResourceCate>
+            ) : props.data.cateNo === 2 ? (
+              <ResourceCate>노트북</ResourceCate>
+            ) : null}
+            <ResourceName>{props.data.resourceName}</ResourceName>
           </NameCateDiv>
           <LocationDiv>
-            <ResourceLocation>12층</ResourceLocation>
+            <ResourceLocation>{props.data.location}</ResourceLocation>
           </LocationDiv>
         </ThumnailInfo>
       </ThumbnailContainer>
       <FlexContainer>
         <UserInfoContainer>
-          <UserInfoTitle>옵션</UserInfoTitle>
-          <UserInfoDetail>빔프로젝터</UserInfoDetail>
+          {values &&
+            values.map((value) => <Option key={value} value={value}></Option>)}
+        </UserInfoContainer>
+        <UserInfoContainer>
+          {props.data.fuel && (
+            <Option key={props.data.fuel} value={props.data.fuel}></Option>
+          )}
         </UserInfoContainer>
       </FlexContainer>
       <FlexContainer>
         <UserInfoContainer>
-          <UserInfoTitle>인원 / 개수</UserInfoTitle>
-          <UserInfoDetail>1</UserInfoDetail>
+          {props.data.cateNo === 1 ? (
+            <UserInfoTitle>인원</UserInfoTitle>
+          ) : (
+            <UserInfoTitle>개수</UserInfoTitle>
+          )}
+          <UserInfoDetail>{props.data.people}</UserInfoDetail>
         </UserInfoContainer>
       </FlexContainer>
     </ReservationInfo>

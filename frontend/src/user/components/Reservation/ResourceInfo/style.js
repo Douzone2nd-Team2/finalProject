@@ -15,6 +15,13 @@ const ResourceImageTest = styled.div`
   width: 100%;
   height: 370px;
   /* padding-bottom: 24px; */
+
+  .book {
+    width: 100%;
+    display: inline-block;
+    padding: 0px 24px;
+    margin-top: 24px;
+  }
 `;
 
 const ResourceDetatilTest = styled.div`

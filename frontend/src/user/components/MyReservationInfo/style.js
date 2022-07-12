@@ -22,7 +22,7 @@ const ThumbnailContainer = styled.div`
   border-bottom-color: rgb(221, 221, 221);
 `;
 
-const Thumbnail = styled.div`
+const Thumbnail = styled.img`
   width: 120px;
   height: 100px;
   /* border: 1px solid rgb(221, 221, 221); */

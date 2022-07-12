@@ -1,5 +1,7 @@
 package com.team2.backend.domain.reservation;
 
+import com.team2.backend.web.dto.admin.ReservationManagementDto;
+import com.team2.backend.web.dto.user.MyReservationInfoDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -84,4 +86,32 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Query("DELETE FROM Reservation WHERE reservNo = :reservNo")
     void deleteAllByReservNo(@Param("reservNo")Long reservNo);
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE Reservation SET reservName = :reservName, able = :able WHERE reservNo = :reservNo")
+    void addReservaionInfo(@Param("reservNo")Long reservNo, @Param("able")String able, @Param("reservName")String reservName);
+
+
+    @Query(value = "select\n" +
+            "    r.reservno as reservNo, e.name as name, r.reservname as reservName, r.starttime as startTime, r.endtime as endTime,\n" +
+            "    r2.resourcename as resourceName, r2.option, r2.location, r2.availabletime as availableTime, r2.content as content, r2.fuel as fuel, r2.people as people,\n" +
+            "    rf.path as imageUrl, c.catename as cateName, c.cateno as cateNo\n" +
+            "\n" +
+            "    from reservation r\n" +
+            "    join employee e on r.userno = e.no\n" +
+            "    join resource r2 on r2.resourceno= r.resourceno\n" +
+            "    join category c on r2.cateno = c.cateno\n" +
+            "    left join (select * from\n" +
+            "        (select resourceno, path, row_number() over(partition by resourceno order by createat desc ) as row\n" +
+            "         from resource_file\n" +
+            "         where able='Y') a\n" +
+            "               where a.row = 1) rf\n" +
+            "        on r2.resourceno = rf.resourceno\n" +
+            "where r.reservno = :reservNo", nativeQuery = true)
+    List<IMainReservationDto> getMyReservationInfo(@Param("reservNo")Long reservNo);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Reservation WHERE reservNo = :reservNo AND able = :able")
+    void deleteAllByReservNoAndAble(@Param("reservNo")Long reservNo, @Param("able")String able);
 }
