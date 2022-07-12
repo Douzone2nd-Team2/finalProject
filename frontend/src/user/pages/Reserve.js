@@ -1,6 +1,4 @@
 import { React, useState, useEffect } from 'react';
-import { over } from 'stompjs';
-import SockJS from 'sockjs-client';
 import { getCookie } from '../utils/cookie';
 
 import { useLocation } from 'react-router-dom';

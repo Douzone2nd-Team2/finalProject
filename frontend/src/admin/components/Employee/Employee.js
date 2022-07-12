@@ -107,8 +107,6 @@ const Employee = ({
                   <td>{emp.name}</td>
                   <td>{emp.deptName}</td>
                   <td>{emp.gradeName}</td>
-                  {/* <td>{emp.phone}</td>
-                  <td>{emp.email}</td> */}
                   <td className="btnMargin">
                     <Button
                       variant="primary"
