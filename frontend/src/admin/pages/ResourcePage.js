@@ -110,52 +110,50 @@ const ResourcePage = () => {
   }, [show]);
 
   return (
-    <>
-      <Container>
-        <ResourceContainer>
-          <ResourceInput
-            show={show}
-            handleShow={handleShow}
-            handleClose={handleClose}
-          />
-          자원목록
-        </ResourceContainer>
-        <ResourceContainer2>
-          <SelectBoxDiv>
-            <select
-              onChange={handleChange}
-              value={selected}
-              style={{ float: 'right', marginTop: '10px' }}
-            >
-              <option value="0">전체</option>
-              <option value="1">회의실</option>
-              <option value="2">차량</option>
-              <option value="3">노트북</option>
-            </select>
-          </SelectBoxDiv>
-          <ResourceCardUI>
-            <Row style={{ width: '100%' }}>
-              {resources
-                .slice(items * (page - 1), items * (page - 1) + items)
-                .map((resource, idx) => (
-                  <Col sm={3} key={idx} style={{ marginTop: '30px' }}>
-                    <ResourceItem resource={resource} />
-                  </Col>
-                ))}
-            </Row>
-          </ResourceCardUI>
-          <PaginationBox>
-            <Pagination
-              activePage={page}
-              itemsCountPerPage={items}
-              totalItemsCount={resources.length}
-              pageRangeDisplayed={5}
-              onChange={pageHandler}
-            ></Pagination>
-          </PaginationBox>
-        </ResourceContainer2>
-      </Container>
-    </>
+    <Container>
+      <ResourceContainer>
+        자원목록
+        <ResourceInput
+          show={show}
+          handleShow={handleShow}
+          handleClose={handleClose}
+        />
+      </ResourceContainer>
+      <ResourceContainer2>
+        <SelectBoxDiv>
+          <select
+            onChange={handleChange}
+            value={selected}
+            style={{ float: 'right', marginTop: '10px' }}
+          >
+            <option value="0">전체</option>
+            <option value="1">회의실</option>
+            <option value="2">차량</option>
+            <option value="3">노트북</option>
+          </select>
+        </SelectBoxDiv>
+        <ResourceCardUI>
+          <Row style={{ width: '100%' }}>
+            {resources
+              .slice(items * (page - 1), items * (page - 1) + items)
+              .map((resource, idx) => (
+                <Col sm={3} key={idx} style={{ marginTop: '30px' }}>
+                  <ResourceItem resource={resource} />
+                </Col>
+              ))}
+          </Row>
+        </ResourceCardUI>
+        <PaginationBox>
+          <Pagination
+            activePage={page}
+            itemsCountPerPage={items}
+            totalItemsCount={resources.length}
+            pageRangeDisplayed={5}
+            onChange={pageHandler}
+          ></Pagination>
+        </PaginationBox>
+      </ResourceContainer2>
+    </Container>
   );
 };
 

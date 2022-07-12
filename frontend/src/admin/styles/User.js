@@ -41,7 +41,7 @@ const UserContainer = styled.div`
   opacity: 0.9;
   font-family: NanumGothicBold;
   padding: 24px 36px;
-  box-shadow: 1.5px 1.5px 1.5px 1.5px gray;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 6px 16px;
 `;
 
 const NameContainer = styled.h1`

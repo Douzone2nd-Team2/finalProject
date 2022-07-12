@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
+  width: 100%;
+  height: 80px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 10px solid #3d73ff;
   font-family: NanumGothicBold;
   background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 16px;
 `;
 
 export const LogoContainer = styled.div`

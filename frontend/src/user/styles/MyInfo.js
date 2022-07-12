@@ -8,21 +8,23 @@ const Container = styled.div`
   border-radius: 15px;
   opacity: 0.9;
   font-family: NanumGothicBold;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 6px 16px;
 `;
 
 const TitleContainer = styled.h1`
   display: flex;
   justify-content: center;
-  margin-top: 5px;
-  padding-top: 15px;
+  padding-top: 18px;
+  padding-bottom: 2px;
   font-size: 30px;
   font-weight: 800;
 `;
 
 const InfoContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+  padding: 36px 18px;
 `;
 
 const ImgContainer = styled.div`
@@ -40,6 +42,7 @@ const ContentContainer = styled.div`
   margin-bottom: 12px;
   margin-right: 50px;
   font-size: 18px;
+  margin-left: 60px;
 `;
 
 const KeyContainer = styled.div`

@@ -31,7 +31,7 @@ const MyInfo = () => {
               </div>
             )}
           </ImgContainer>
-          <div>
+          <div display="flex" justifyContent="center">
             <ContentContainer>
               <KeyContainer>이름</KeyContainer>
               <ValueContainer>{user.name || ''}</ValueContainer>
