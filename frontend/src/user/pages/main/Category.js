@@ -8,6 +8,8 @@ import {
   Container,
   ImageContainer,
   TitleContainer,
+  ResourceContainer,
+  ResourceName,
 } from '../../styles/Category';
 
 const Category = () => {
@@ -40,21 +42,34 @@ const Category = () => {
       <Container>
         {popular && (
           <>
-            <ImageContainer
-              src={popular.recommendCar?.imageUrl}
-              alt="No Image"
-              className="room"
-            />
-            <ImageContainer
-              src={popular.recommendConference?.imageUrl}
-              alt="No Image"
-              className="car"
-            />
-            <ImageContainer
-              src={popular.recommendNotebook?.imageUrl}
-              alt="No Image"
-              className="car"
-            />
+            <ResourceContainer>
+              <ResourceName>{popular.recommendCar?.resourceName}</ResourceName>
+              <ImageContainer
+                src={popular.recommendCar?.imageUrl}
+                alt="No Image"
+                className="room"
+              />
+            </ResourceContainer>
+            <ResourceContainer>
+              <ResourceName>
+                {popular.recommendConference?.resourceName}
+              </ResourceName>
+              <ImageContainer
+                src={popular.recommendConference?.imageUrl}
+                alt="No Image"
+                className="car"
+              />
+            </ResourceContainer>
+            <ResourceContainer>
+              <ResourceName>
+                {popular.recommendNotebook?.resourceName}
+              </ResourceName>
+              <ImageContainer
+                src={popular.recommendNotebook?.imageUrl}
+                alt="No Image"
+                className="car"
+              />
+            </ResourceContainer>
           </>
         )}
 
