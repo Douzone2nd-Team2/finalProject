@@ -79,7 +79,7 @@ const App = () => {
           <Route path="mypage/reservation" element={<MyReservation />} />
           <Route path="search" element={<Search />} />
           <Route path="mypage/mybook" element={<Book />} />
-          {/* <Route path="reserve" element={<Reserve />} /> */}
+          <Route path="reserve" element={<Reserve />} />
         </Route>
         <Route path="admin/login" element={<AdminLoginPage />} />
         <Route element={<AdminPrivateRoute />}>
