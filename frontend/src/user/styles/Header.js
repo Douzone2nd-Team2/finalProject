@@ -23,12 +23,14 @@ const SearchContainer = styled.form`
   //margin-right: 100px;
   input {
     //border: 1px solid black;
-    font-size: 12px;
-    height: 40px;
-    width: 430px;
+    font-size: 18px;
+    font-weight: 600;
+    width: 500px;
     border: none;
     border-radius: 30px;
-    padding: 10px;
+    padding: 6px 16px;
+    line-height: 32px;
+    color: #434343;
   }
   input:focus {
     outline: 1px solid black;
@@ -57,7 +59,7 @@ const MenuContainer = styled.div`
   display: flex;
   cursor: pointer;
   color: white;
-  font-size: 14px;
+  font-size: 16px;
   margin-right: 20px;
 `;
 

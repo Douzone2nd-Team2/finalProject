@@ -20,7 +20,7 @@ const ResourceItem = (props) => {
     resourceName,
     location,
     people,
-    availavleTime,
+    availableTime,
     adminNo,
     option,
     fuel,
@@ -72,9 +72,7 @@ const ResourceItem = (props) => {
           src={path}
         />
         <Card.Body>
-          <ResourceCardTitle>
-            {resourceNo}. {resourceName}
-          </ResourceCardTitle>
+          <ResourceCardTitle>{resourceName}</ResourceCardTitle>
           <ResourceCategory>
             {cateNo == 1 ? (
               <>
@@ -88,6 +86,7 @@ const ResourceItem = (props) => {
               <></>
             )}
             <p className="price_origin">옵션 : {option}</p>
+            <p className="price_origin">이용가능한 시간 : {availableTime}</p>
             <p>{content}</p>
           </ResourceCategory>
         </Card.Body>

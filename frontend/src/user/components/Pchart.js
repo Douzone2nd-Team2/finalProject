@@ -14,36 +14,8 @@ import {
 } from '../styles/Pchart';
 
 const PChart = () => {
-  const [bookdata, setBookdata] = useState(null);
-  const [cardata, setCardata] = useState(null);
-  const [notebookdata, setNotebookdata] = useState(null);
-
-  const DATA = [
-    {
-      x: bookdata === 0 ? null : '회의실',
-      y:
-        isEmpty(bookdata) === false &&
-        isEmpty(cardata) === false &&
-        isEmpty(notebookdata) === false &&
-        (bookdata / (bookdata + cardata + notebookdata)).toFixed(2) * 10,
-    },
-    {
-      x: cardata === 0 ? null : '차량',
-      y:
-        isEmpty(bookdata) === false &&
-        isEmpty(cardata) === false &&
-        isEmpty(notebookdata) === false &&
-        (cardata / (bookdata + cardata + notebookdata)).toFixed(2) * 10,
-    },
-    {
-      x: notebookdata === 0 ? null : '노트북',
-      y:
-        isEmpty(bookdata) === false &&
-        isEmpty(cardata) === false &&
-        isEmpty(notebookdata) === false &&
-        (notebookdata / (bookdata + cardata + notebookdata)).toFixed(2) * 10,
-    },
-  ];
+  const [data, setData] = useState({});
+  const [info, setInfo] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -55,24 +27,43 @@ const PChart = () => {
           },
         },
       );
-      setBookdata(parseFloat(res.data.data.frequencyUsageList1.toFixed(4)));
-      setCardata(parseFloat(res.data.data.frequencyUsageList2.toFixed(4)));
-      setNotebookdata(parseFloat(res.data.data.frequencyUsageList3.toFixed(4)));
+      setData(res.data.data);
     } catch (e) {
       console.log(e);
     }
   };
 
   useEffect(() => {
+    const bookData = parseFloat(data.frequencyUsageList1);
+    const carData = parseFloat(data.frequencyUsageList2);
+    const notebookData = parseFloat(data.frequencyUsageList3);
+    const DATA = [
+      {
+        x: bookData === 0 ? null : '회의실',
+        y: (bookData / (bookData + carData + notebookData)).toFixed(2) * 10,
+      },
+      {
+        x: carData === 0 ? null : '차량',
+        y: (carData / (bookData + carData + notebookData)).toFixed(2) * 10,
+      },
+      {
+        x: notebookData === 0 ? null : '노트북',
+        y: (notebookData / (bookData + carData + notebookData)).toFixed(2) * 10,
+      },
+    ];
+    setInfo(DATA);
+  }, [data]);
+
+  useEffect(() => {
     fetchData();
-  }, [bookdata, cardata, notebookdata]);
+  }, []);
 
   return (
     <PieContainer>
       <TitleContainer>오늘의 자원 사용률</TitleContainer>
       <InnerContainer>
         <VictoryPie
-          data={DATA}
+          data={info}
           colorScale={['#095BF4', '#9EA9B3', '#033F7B']}
           style={{
             data: {
