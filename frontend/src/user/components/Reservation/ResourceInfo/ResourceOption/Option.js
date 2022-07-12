@@ -15,11 +15,7 @@ import {
 } from './style.js';
 
 const Option = (props) => {
-  const [value, setValue] = useState('');
-
-  useEffect(() => {
-    setValue(props.value);
-  }, []);
+  const { value, content } = props;
 
   return (
     <OptionComponent>
@@ -37,7 +33,7 @@ const Option = (props) => {
       </IconInfo>
       <OptionInfo>
         <OptionTitle>{value}</OptionTitle>
-        <OptionDetail></OptionDetail>
+        <OptionDetail>{}</OptionDetail>
       </OptionInfo>
     </OptionComponent>
   );

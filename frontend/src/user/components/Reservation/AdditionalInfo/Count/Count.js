@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { reservationState } from '../../../../recoil/reservation.js';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import SearchIcon from '@material-ui/icons/Search';
@@ -20,14 +21,17 @@ import {
 
 import Modal from '../../Modal/Modal.js';
 
-const Count = () => {
+const Count = (props) => {
+  const reservation = useRecoilValue(reservationState);
+  const setReservationState = useSetRecoilState(reservationState);
   const [count, setCount] = useState(0);
   const [name, setName] = useState('');
   const [people, setPeople] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [peopleNo, setPeopleNo] = useState([]);
 
   const onIncrease = () => {
-    setCount(count + 1);
+    setCount(count + 1 < props.max ? count + 1 : count);
   };
 
   const onDecrease = () => {
@@ -35,8 +39,6 @@ const Count = () => {
   };
 
   const onPeopleSearch = () => {
-    // let newPeople = [...people, name];
-    // setPeople(newPeople);
     setOpenModal(true);
   };
 
@@ -50,6 +52,14 @@ const Count = () => {
       : (document.body.style.overflow = 'unset');
   }, [openModal]);
 
+  useEffect(() => {
+    peopleNo &&
+      setReservationState({
+        ...reservation,
+        peopleCnt: peopleNo,
+      });
+  }, [peopleNo]);
+
   return (
     <>
       {openModal ? (
@@ -57,6 +67,7 @@ const Count = () => {
           setOpenModal={setOpenModal}
           count={count}
           setPeople={setPeople}
+          setPeopleNo={setPeopleNo}
         ></Modal>
       ) : null}
       <FlexContainer>
@@ -79,7 +90,7 @@ const Count = () => {
         <PeopleGridContainer>
           {people &&
             people.map((nameTag, index) => {
-              <PeopleNameTag key={index}>{nameTag}</PeopleNameTag>;
+              return <PeopleNameTag key={index}>{nameTag}</PeopleNameTag>;
             })}
         </PeopleGridContainer>
       </FlexContainer>

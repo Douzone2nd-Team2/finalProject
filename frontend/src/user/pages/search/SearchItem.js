@@ -15,7 +15,8 @@ import {
 const SearchItem = ({ book }) => {
   const { cateNo, resourceName, cateName, people, option, imageUrl, fuel } =
     book;
-  console.log('cateNo : ', book.cateNo);
+
+  console.log(book);
 
   const navigate = useNavigate();
 

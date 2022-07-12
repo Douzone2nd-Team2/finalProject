@@ -183,6 +183,7 @@ const UserBookhandle = () => {
         },
       );
       console.log(res);
+      alert('수정이 완료되었습니다');
       navigate('/admin/employeebook');
     } catch (e) {
       console.log(e);
@@ -383,7 +384,7 @@ const UserBookhandle = () => {
                       <ContentSort>
                         <EmptyContainer />
                         <PeopleGridContainer>
-                          {arrayIsEmpty(people) ? (
+                          {!people ? (
                             peopleInit &&
                             peopleInit.map((nameTag, index) => {
                               return (
