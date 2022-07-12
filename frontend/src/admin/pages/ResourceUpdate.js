@@ -237,9 +237,9 @@ const ResourceDetail = () => {
       .then((res) => {
         console.log(res);
         console.log('파일 수정성공');
-        updateResource(state);
+        // updateResource(state);
         alert('자원이 수정되었습니다.');
-        navigate('/admin/resource');
+        // navigate('/admin/resource');
       })
       .catch((error) => {
         console.log(error);
@@ -267,7 +267,7 @@ const ResourceDetail = () => {
   };
 
   const updateResource = async (state) => {
-    // console.log('자원수정');
+    console.log('자원수정');
 
     await axios
       .put(
@@ -286,6 +286,10 @@ const ResourceDetail = () => {
             : startHour + ':' + startMinute + ' ~ ' + endHour + ':' + endMinute,
         },
       )
+      .then((res) => {
+        alert('자원이 수정되었습니다.');
+        navigate('/admin/resource');
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -316,17 +320,23 @@ const ResourceDetail = () => {
                         style={{ width: '200px' }}
                         src={item.path}
                       />
+                      <input
+                        type="file"
+                        id="file"
+                        multiple
+                        name="image"
+                        onChange={imagePreview}
+                      />
+                      <Button
+                        variant="primary"
+                        onClick={() => postImgae(state)}
+                      >
+                        upload
+                      </Button>
                     </div>
                   ))}
                 </Slider>
               )}
-              <input
-                type="file"
-                id="file"
-                multiple
-                name="image"
-                onChange={imagePreview}
-              />
             </ResourceImg>
 
             <ResourceContainer2>
@@ -362,63 +372,6 @@ const ResourceDetail = () => {
                         onChange={handleAble}
                       />
                     </ContentSort>
-                    {resource.cateNo === 1 ? (
-                      <>
-                        <ContentSort>
-                          인원
-                          <input
-                            type="number"
-                            id="people"
-                            defaultValue={people}
-                            onChange={handlePeople}
-                          />
-                        </ContentSort>
-                        <ContentSort>
-                          위치
-                          <input
-                            type="text"
-                            id="location"
-                            defaultValue={location}
-                            onChange={handleLocation}
-                          />
-                        </ContentSort>
-                      </>
-                    ) : resource.cateNo === 2 ? (
-                      <>
-                        <ContentSort>
-                          연료
-                          <input
-                            type="text"
-                            id="fuel"
-                            defaultValue={fuel}
-                            onChange={handleFuel}
-                          />
-                        </ContentSort>
-                        <ContentSort>
-                          개수
-                          <input
-                            type="number"
-                            id="people"
-                            defaultValue={people}
-                            onChange={handlePeople}
-                          />
-                        </ContentSort>
-                      </>
-                    ) : resource.cateNo === 3 ? (
-                      <>
-                        <ContentSort>
-                          개수
-                          <input
-                            type="number"
-                            id="people"
-                            defaultValue={people}
-                            onChange={handlePeople}
-                          />
-                        </ContentSort>
-                      </>
-                    ) : (
-                      <></>
-                    )}
                     <ContentSort>
                       이용가능시간 &nbsp;
                       <Row>
@@ -536,6 +489,63 @@ const ResourceDetail = () => {
                       />
                     </ContentSort>
                     <ContentSort>
+                      {cateNo == 1 ? (
+                        <>
+                          <ContentSort>
+                            인원
+                            <input
+                              type="number"
+                              id="people"
+                              defaultValue={people}
+                              onChange={handlePeople}
+                            />
+                          </ContentSort>
+                          <ContentSort>
+                            위치
+                            <input
+                              type="text"
+                              id="location"
+                              defaultValue={location}
+                              onChange={handleLocation}
+                            />
+                          </ContentSort>
+                        </>
+                      ) : cateNo == 2 ? (
+                        <>
+                          <ContentSort>
+                            연료
+                            <input
+                              type="text"
+                              id="fuel"
+                              defaultValue={fuel}
+                              onChange={handleFuel}
+                            />
+                          </ContentSort>
+                          <ContentSort>
+                            개수
+                            <input
+                              type="number"
+                              id="people"
+                              defaultValue={people}
+                              onChange={handlePeople}
+                            />
+                          </ContentSort>
+                        </>
+                      ) : cateNo === 3 ? (
+                        <ContentSort>
+                          개수
+                          <input
+                            type="number"
+                            id="people"
+                            defaultValue={people}
+                            onChange={handlePeople}
+                          />
+                        </ContentSort>
+                      ) : (
+                        <></>
+                      )}
+                    </ContentSort>
+                    <ContentSort>
                       설명
                       <textarea
                         type="text"
@@ -555,7 +565,7 @@ const ResourceDetail = () => {
                 >
                   뒤로
                 </Button>
-                <Button variant="primary" onClick={() => postImgae(state)}>
+                <Button variant="primary" onClick={() => updateResource(state)}>
                   확인
                 </Button>
                 <Button variant="danger" onClick={() => deleteResource(state)}>

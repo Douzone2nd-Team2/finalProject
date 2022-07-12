@@ -72,6 +72,15 @@ const ContentSort = styled.div`
   }
 `;
 
+const UserContentSort = styled.div`
+  margin-top: 15px;
+  display: flex;
+
+  label {
+    min-width: 150px;
+  }
+`;
+
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -97,4 +106,5 @@ export {
   ContentSort,
   ButtonContainer,
   MagnifyingGlass,
+  UserContentSort,
 };

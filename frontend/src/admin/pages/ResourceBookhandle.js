@@ -53,11 +53,10 @@ const ResourceBookhandle = () => {
   const content = location.state.content;
   const userName = location.state.userName;
   const category = location.state.category;
+  const cateNo = location.state.cateNo;
 
-  console.log(userNo);
-
-  console.log(category);
-
+  console.log(location);
+  console.log(cateNo);
   // console.log(
   //   reservNo,
   //   startTime,
@@ -81,8 +80,6 @@ const ResourceBookhandle = () => {
   // 시작, 종료 분
   const [startMinute, setStartMinute] = useState(startTime.substr(14, 2));
   const [endMinute, setEndMinute] = useState(endTime.substr(14, 2));
-
-  const [cateNo, setCateNo] = useState();
 
   const [upresourceName, setUpResourceName] = useState(resourceName);
   const [reserveName, setReserveName] = useState(reservName);
@@ -146,7 +143,7 @@ const ResourceBookhandle = () => {
       setCount(res.data.data.peopleList.length);
       setPeopleInit(res.data.data.peopleList);
       setBook(res.data.data.reservationView[0]);
-      setCateNo(res.data.data.reservationView[0].cateNo);
+      // setResourceName(res.data.data.reservationView.resourceName);
     } catch (e) {
       console.log(e);
     }
@@ -161,6 +158,7 @@ const ResourceBookhandle = () => {
     startTime,
     endTime,
     content,
+    resourceName,
   );
 
   const postData = async () => {
@@ -177,6 +175,7 @@ const ResourceBookhandle = () => {
           endTime: endDay + ' ' + endHour + ':' + endMinute + ':00',
           content: description,
           empNoList: peopleNo,
+          resourceName: resourceName,
         },
         {
           headers: {
@@ -186,7 +185,9 @@ const ResourceBookhandle = () => {
       );
       console.log(res);
       alert('수정이 완료되었습니다');
-      navigate('/admin/resourcebook');
+      navigate('/admin/resourcebook', {
+        state: { resourceName: resourceName, resourceNo: resourceNo },
+      });
     } catch (e) {
       console.log(e);
     }
@@ -197,6 +198,26 @@ const ResourceBookhandle = () => {
     postData();
   };
 
+  const onDecrease = (e) => {
+    e.preventDefault();
+    setCount(count === 0 ? 0 : count - 1);
+  };
+
+  const onIncrease = (e) => {
+    e.preventDefault();
+    setCount(count + 1);
+  };
+
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+
+  const onPeopleSearch = (e) => {
+    console.log('modal3');
+    e.preventDefault();
+    setOpenModal(true);
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -205,7 +226,12 @@ const ResourceBookhandle = () => {
     <AllContainer>
       <Container>
         {openModal ? (
-          <ResourceModal setOpenModal={setOpenModal} setResou></ResourceModal>
+          <Modal
+            setOpenModal={setOpenModal}
+            setPeople={setPeople}
+            setPeopleNo={setPeopleNo}
+            count={count}
+          ></Modal>
         ) : null}
         <HeadContainer>
           예약관리 <span className="fa-solid fa-arrow-right-long" /> 자원별
@@ -214,7 +240,9 @@ const ResourceBookhandle = () => {
       </Container>
       <BookContainer>
         <NameContainer>
-          <span>{userName}</span>
+          <span>
+            자원 이름 : {book.resourceName}&nbsp;&nbsp; 예약자 : {userName}
+          </span>
           <CategoryContainer>{category}</CategoryContainer>
         </NameContainer>
         <hr />
@@ -340,6 +368,55 @@ const ResourceBookhandle = () => {
                 </Row>
               </Row>
             </ContentSort>
+            {cateNo === 1 && (
+              <>
+                <ContentSort>
+                  <label className="totaluser" htmlFor="totalUser">
+                    추가 인원
+                  </label>
+                  <CountButtonContainer>
+                    <CountButton onClick={onDecrease}>
+                      <ArrowDownwardIcon></ArrowDownwardIcon>
+                    </CountButton>
+                    <CountInfo>{count}</CountInfo>
+                    <CountButton onClick={onIncrease}>
+                      <ArrowUpwardIcon></ArrowUpwardIcon>
+                    </CountButton>
+                  </CountButtonContainer>
+                  <PeopleContainer>
+                    <PeopleInput onChange={handleName}></PeopleInput>
+                    <PeopleSearchButton onClick={onPeopleSearch}>
+                      <SearchIcon></SearchIcon>
+                    </PeopleSearchButton>
+                  </PeopleContainer>
+                  <PeopleGridContainer></PeopleGridContainer>
+                </ContentSort>
+                <ContentSort>
+                  <EmptyContainer> </EmptyContainer>
+                  <PeopleGridContainer>
+                    {!people ? (
+                      peopleInit &&
+                      peopleInit.map((nameTag, index) => {
+                        return (
+                          <PeopleNameTag key={nameTag.userNo}>
+                            {nameTag.name}
+                          </PeopleNameTag>
+                        );
+                      })
+                    ) : (
+                      <></>
+                    )}
+                    {people &&
+                      people.map((nameTag, index) => {
+                        return (
+                          <PeopleNameTag key={index}>{nameTag}</PeopleNameTag>
+                        );
+                      })}
+                  </PeopleGridContainer>
+                  <EmptyRContainer></EmptyRContainer>
+                </ContentSort>
+              </>
+            )}
             <br />
             <ContentSort>
               <label htmlFor="resourceInfo" style={{ maxWidth: '150px' }}>
