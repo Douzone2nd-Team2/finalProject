@@ -13,6 +13,9 @@ import {
   HeadContainer,
   TitleContainer,
   TableContainer,
+  StyledButton,
+  StyledButton2,
+  ButtonContainer,
 } from '../../styles/AdminMain';
 
 import Button from 'react-bootstrap/Button';
@@ -84,8 +87,6 @@ const Employee = ({
             <col width="20%" />
             <col width="10%" />
             <col width="20%" />
-            {/* <col width="15%" />
-            <col width="15%" /> */}
           </colgroup>
 
           <th>No.</th>
@@ -93,8 +94,6 @@ const Employee = ({
           <th>이름</th>
           <th>부서</th>
           <th>직급</th>
-          {/* <th>전화번호</th>
-          <th>이메일</th> */}
           <th />
 
           {employeeList
@@ -108,22 +107,22 @@ const Employee = ({
                   <td>{emp.deptName}</td>
                   <td>{emp.gradeName}</td>
                   <td className="btnMargin">
-                    <Button
-                      variant="primary"
-                      onClick={() => {
-                        modifyEmp(emp.no);
-                      }}
-                    >
-                      수정
-                    </Button>
-                    <Button
-                      variant="danger"
-                      onClick={() => {
-                        deleteEmp(emp.no);
-                      }}
-                    >
-                      삭제
-                    </Button>
+                    <ButtonContainer>
+                      <StyledButton
+                        onClick={() => {
+                          modifyEmp(emp.no);
+                        }}
+                      >
+                        수정
+                      </StyledButton>
+                      <StyledButton2
+                        onClick={() => {
+                          deleteEmp(emp.no);
+                        }}
+                      >
+                        삭제
+                      </StyledButton2>
+                    </ButtonContainer>
                   </td>
                 </tr>
               );

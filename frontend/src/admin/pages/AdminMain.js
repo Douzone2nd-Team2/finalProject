@@ -39,7 +39,6 @@ const AdminMain = () => {
           },
         },
       );
-      console.log(res.data.data);
       setEmpList(res.data.data);
       setLoading(false);
     } catch (e) {
