@@ -4,6 +4,7 @@ import com.team2.backend.config.security.auth.EmployeeDetails;
 import com.team2.backend.service.user.UserReserveService;
 import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.admin.ReservationManagementDto;
+import com.team2.backend.web.dto.admin.ReserveDeleteDto;
 import com.team2.backend.web.dto.user.UserReservationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -36,4 +37,8 @@ public class UserReserveController {
         return userReserveService.addReservationInfo(user, body);
     }
 
+    @PostMapping("/cancel/reservation")
+    public ResponseEntity<Message> cancelReservation(@RequestBody ReserveDeleteDto body) {
+        return userReserveService.cancelReservation(body);
+    }
 }

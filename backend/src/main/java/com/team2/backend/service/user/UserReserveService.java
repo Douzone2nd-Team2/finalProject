@@ -530,4 +530,33 @@ public class UserReserveService {
             reservationRepository.deleteAllByReservNo(reservNo);
         }
     }
+
+    @Transactional
+    public ResponseEntity<Message> cancelReservation(ReserveDeleteDto body) {
+        System.out.println("ㅎㅇ");
+        Long reservNo = body.getReservNo();
+        List<ReservationCheck> checkList = reservationCheckRepository.findAllByReservNo(reservNo);
+        if (checkList.isEmpty()) {
+            Message message = Message.builder()
+                    .resCode(4001)
+                    .message("[FAIL] No Reservation")
+                    .build();
+            return new JsonResponse().send(200, message);
+        }
+
+        for (int j = 0; j < checkList.size(); j++) {
+            ReservationCheck check = checkList.get(j);
+            timelistRepository.deleteAllByCheckNo(check.getCheckNo());
+        }
+            // 피플카운트도 지워
+
+        reservationCheckRepository.deleteAllByReservNo(reservNo);
+        reservationRepository.deleteAllByReservNo(reservNo);
+
+        Message message = Message.builder()
+                .resCode(4000)
+                .message("[SUCCESS] Delete Reservation")
+                .build();
+        return new JsonResponse().send(200, message);
+    }
 }
