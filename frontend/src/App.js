@@ -14,6 +14,7 @@ import Reset from './user/pages/Reset';
 import MyInfo from './user/pages/MyInfo';
 import Search from './user/pages/search';
 import Reserve from './user/pages/Reserve';
+import Book from './user/pages/main/Book';
 
 import AdminPrivateRoute from './admin/components/AdminLayout';
 import AdminMain from './admin/pages/AdminMain';
@@ -77,28 +78,29 @@ const App = () => {
           <Route path="mypage/user" element={<MyInfo />} />
           <Route path="mypage/reservation" element={<MyReservation />} />
           <Route path="search" element={<Search />} />
-          <Route path="reserve" element={<Reserve />} />
+          <Route path="mypage/mybook" element={<Book />} />
+          {/* <Route path="reserve" element={<Reserve />} /> */}
         </Route>
-        <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route path="admin/login" element={<AdminLoginPage />} />
         <Route element={<AdminPrivateRoute />}>
           <Route path="admin/main" element={<AdminMain />} />
-          <Route path="/admin/resource" element={<ResourcePage />} />
-          <Route path="/admin/employee" element={<EmployeePage />} />
-          <Route path="/admin/resourceupdate" element={<ResourceUpdate />} />
+          <Route path="admin/resource" element={<ResourcePage />} />
+          <Route path="admin/employee" element={<EmployeePage />} />
+          <Route path="admin/resourceupdate" element={<ResourceUpdate />} />
           <Route
             path="/admin/employee/regist"
             element={<EmployeeRegistPage />}
           />
-          <Route path="/admin/registerbook" element={<RegisterBook />} />
-          <Route path="/admin/employeebook" element={<EmployeeBook />} />
-          <Route path="/admin/resourcelist" element={<ResourceList />} />
-          <Route path="/admin/resourcebook" element={<ResourceBook />} />
+          <Route path="admin/registerbook" element={<RegisterBook />} />
+          <Route path="admin/employeebook" element={<EmployeeBook />} />
+          <Route path="admin/resourcelist" element={<ResourceList />} />
+          <Route path="admin/resourcebook" element={<ResourceBook />} />
           <Route
-            path="/admin/resourcebookhandle"
+            path="admin/resourcebookhandle"
             element={<ResourceBookhandle />}
           />
-          <Route path="/admin/userbook" element={<UserBook />} />
-          <Route path="/admin/userbookhandle" element={<UserBookhandle />} />
+          <Route path="admin/userbook" element={<UserBook />} />
+          <Route path="admin/userbookhandle" element={<UserBookhandle />} />
         </Route>
       </Routes>
     </>
