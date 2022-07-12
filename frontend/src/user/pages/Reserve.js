@@ -1,72 +1,77 @@
 import { React, useState, useEffect } from 'react';
 import { getCookie } from '../utils/cookie';
 
-import { useLocation } from 'react-router-dom';
+// import { React, useState, useEffect } from 'react';
+// import { over } from 'stompjs';
+// import SockJS from 'sockjs-client';
+// import { getCookie } from '../utils/cookie';
 
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { reservationState } from '../recoil/reservation';
+// import { useLocation } from 'react-router-dom';
 
-import { userState } from '../recoil/user';
+// import { useRecoilValue, useSetRecoilState } from 'recoil';
+// import { reservationState } from '../recoil/reservation';
 
-import { MainContainer, Container } from '../styles/ReservationLayout';
+// import { userState } from '../recoil/user';
 
-import ReservationHeader from '../components/Reservation/ReservationHeader/ReservationHeader';
-import ResourceInfo from '../components/Reservation/ResourceInfo/ResourceInfo';
-import AdditionalInfo from '../components/Reservation/AdditionalInfo/AdditionalInfo.js';
-import CalendarInfo from '../components/Reservation/Calendar/CalendarInfo.js';
+// import { MainContainer, Container } from '../styles/ReservationLayout';
 
-const Reserve = () => {
-  const location = useLocation();
-  const user = useRecoilValue(userState);
-  const setReservationState = useSetRecoilState(reservationState); // 예약 정보 리코일
-  const reservation = useRecoilValue(reservationState);
-  const [resourceData, setResourceData] = useState(location.state);
-  const [step, setStep] = useState(0);
-  const [selectedStartDate, setSelectedStartDate] = useState('');
-  const [selectedEndDate, setSelectedEndDate] = useState('');
-  const [selectedStartTime, setSelectedStartTime] = useState('');
-  const [selectedEndTime, setSelectedEndTime] = useState('');
+// import ReservationHeader from '../components/Reservation/ReservationHeader/ReservationHeader';
+// import ResourceInfo from '../components/Reservation/ResourceInfo/ResourceInfo';
+// import AdditionalInfo from '../components/Reservation/AdditionalInfo/AdditionalInfo.js';
+// import CalendarInfo from '../components/Reservation/Calendar/CalendarInfo.js';
 
-  useEffect(() => {
-    setReservationState({
-      userNo: user.no,
-      resourceNo: resourceData.resourceNo,
-      userName: user.name,
-    });
-  }, []);
+// const Reserve = () => {
+//   const location = useLocation();
+//   const user = useRecoilValue(userState);
+//   const setReservationState = useSetRecoilState(reservationState); // 예약 정보 리코일
+//   const reservation = useRecoilValue(reservationState);
+//   const [resourceData, setResourceData] = useState(location.state);
+//   const [step, setStep] = useState(0);
+//   const [selectedStartDate, setSelectedStartDate] = useState('');
+//   const [selectedEndDate, setSelectedEndDate] = useState('');
+//   const [selectedStartTime, setSelectedStartTime] = useState('');
+//   const [selectedEndTime, setSelectedEndTime] = useState('');
 
-  useEffect(() => {
-    console.log(resourceData);
-  }, [resourceData]);
+//   useEffect(() => {
+//     setReservationState({
+//       userNo: user.no,
+//       resourceNo: resourceData.resourceNo,
+//       userName: user.name,
+//     });
+//   }, []);
 
-  return (
-    <MainContainer>
-      <ReservationHeader title="예약"></ReservationHeader>
-      <Container>
-        <ResourceInfo
-          imageUrl={resourceData.imageUrl}
-          option={resourceData.option}
-          content={resourceData.content}
-          fuel={resourceData.fuel}
-          info={resourceData.content}
-          title={resourceData.resourceName}
-        ></ResourceInfo>
-        {step === 0 ? (
-          <CalendarInfo
-            setStep={setStep}
-            cateNo={resourceData.cateNo}
-            username={user.name}
-            resourceNo={resourceData.resourceNo}
-          ></CalendarInfo>
-        ) : step === 1 ? (
-          <AdditionalInfo
-            setStep={setStep}
-            data={resourceData}
-          ></AdditionalInfo>
-        ) : null}
-      </Container>
-    </MainContainer>
-  );
-};
+//   useEffect(() => {
+//     console.log(resourceData);
+//   }, [resourceData]);
 
-export default Reserve;
+//   return (
+//     <MainContainer>
+//       <ReservationHeader title="예약"></ReservationHeader>
+//       <Container>
+//         <ResourceInfo
+//           imageUrl={resourceData.imageUrl}
+//           option={resourceData.option}
+//           content={resourceData.content}
+//           fuel={resourceData.fuel}
+//           info={resourceData.content}
+//           title={resourceData.resourceName}
+//         ></ResourceInfo>
+//         {step === 0 ? (
+//           <CalendarInfo
+//             setStep={setStep}
+//             cateNo={resourceData.cateNo}
+//             username={user.name}
+//             resourceNo={resourceData.resourceNo}
+//           ></CalendarInfo>
+//         ) : step === 1 ? (
+//           <AdditionalInfo
+//             setStep={setStep}
+//             data={resourceData}
+//           ></AdditionalInfo>
+//         ) : null}
+//       </Container>
+//     </MainContainer>
+//   );
+// };
+
+// export default Reserve;
