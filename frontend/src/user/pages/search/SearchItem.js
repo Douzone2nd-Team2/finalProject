@@ -11,6 +11,7 @@ import {
   RightContainer,
   ButtonContainer,
 } from '../../styles/SearchItem';
+import noimg from '../../assets/noimage.jpg';
 
 const SearchItem = ({ book }) => {
   const { cateNo, resourceName, cateName, people, option, imageUrl, fuel } =
@@ -43,7 +44,11 @@ const SearchItem = ({ book }) => {
             </span>
           </TitleContainer>
           <ImageContainer>
-            <img src={imageUrl} alt="thumbnail" />
+            {imageUrl ? (
+              <img src={imageUrl} alt="thumbnail" />
+            ) : (
+              <img src={noimg} alt="thumbnail" />
+            )}
           </ImageContainer>
         </LeftContainer>
         <RightContainer>

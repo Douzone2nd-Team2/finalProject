@@ -10,17 +10,21 @@ const ItemContainer = styled.div`
   background-color: white;
 
   .location {
-    font-size: 15px;
+    font-size: 16px;
+    color: #434343;
   }
 
   .title {
-    font-size: 23px;
+    font-size: 26px;
     font-weight: 800;
+    color: #222222;
+    padding-bottom: 4px;
   }
 
   .price_origin {
-    color: gray;
-    font-size: 12px;
+    color: #717171;
+    font-weight: 600;
+    font-size: 16px;
   }
 `;
 
