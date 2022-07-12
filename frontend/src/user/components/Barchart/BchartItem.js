@@ -58,9 +58,6 @@ const BchartItem = ({ catenum }) => {
         );
       }
 
-      console.log(spliceCounts);
-      console.log(temp2);
-
       for (let i = 1; i < 13; i++) {
         const tempResult = {
           quarter: i,

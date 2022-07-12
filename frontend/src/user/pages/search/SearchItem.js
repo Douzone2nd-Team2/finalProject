@@ -16,8 +16,6 @@ const SearchItem = ({ book }) => {
   const { cateNo, resourceName, cateName, people, option, imageUrl, fuel } =
     book;
 
-  console.log(book);
-
   const navigate = useNavigate();
 
   const onClickbtn = (e) => {

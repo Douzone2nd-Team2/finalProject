@@ -55,7 +55,6 @@ const PChart = () => {
           },
         },
       );
-      console.log(res);
       setBookdata(parseFloat(res.data.data.frequencyUsageList1.toFixed(4)));
       setCardata(parseFloat(res.data.data.frequencyUsageList2.toFixed(4)));
       setNotebookdata(parseFloat(res.data.data.frequencyUsageList3.toFixed(4)));

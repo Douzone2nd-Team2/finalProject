@@ -8,6 +8,7 @@ const HeaderContainer = styled.header`
   background-color: #1296ec;
   font-weight: bold;
   font-family: NanumGothicBold;
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 6px 16px;
 `;
 
 const LogoContainer = styled.div`
