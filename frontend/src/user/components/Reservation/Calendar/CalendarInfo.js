@@ -70,7 +70,7 @@ const CalendarInfo = (props) => {
       })
       .then((res) => {
         if (res.data.resCode === 4001) {
-          console.log('[Axios SearchPeople] 알 수 없는 오류가 발생했습니다.');
+          alert('알 수 없는 오류가 발생했습니다.');
           return;
         } else {
           setDropdownDisable(false);
@@ -90,7 +90,6 @@ const CalendarInfo = (props) => {
       (startDate.getTime() === endDate.getTime() && startTime < endTime) ||
       startDate.getTime() < endDate.getTime()
     ) {
-      console.log('굿');
       axiosSaveReservation();
     } else {
       alert('올바른 날짜와 시간을 선택해주세요.');

@@ -6,19 +6,27 @@ export const AllContainer = styled.div`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   width: 100%;
-  height: 1000px;
+  min-height: 1200px;
+  padding: 0px 72px;
+`;
+
+export const WrapperContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
   padding: 0px 72px;
 `;
 
 export const ResourceContainer = styled.div`
+  padding-top: 30px;
+  padding-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 4px solid black;
   font-size: 30px;
   font-weight: 600;
-  padding-top: 30px;
-  border-bottom: 4px solid black;
-  width: 100%;
-  height: auto;
 `;
 export const ResourceContainer2 = styled.div`
   width: 100%;
@@ -41,6 +49,7 @@ export const BookContainer = styled.div`
   border-radius: 15px;
   opacity: 0.9;
   box-shadow: 1.5px 1.5px 1.5px 1.5px gray;
+  padding: 24px;
 `;
 
 export const ContentSort = styled.div`
