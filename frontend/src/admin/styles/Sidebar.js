@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const SbContainer = styled.div`
   background-color: #e2e2e2;
   width: 300px;
-  height: 1000px;
+  min-height: 1200px;
   font-size: 20px;
   font-weight: 600;
   min-width: 151px;

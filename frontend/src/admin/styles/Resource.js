@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 
-export const AllContainer = styled.div`
-  font-family: NanumGothicBold;
-`;
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 1200px;
+  height: 1000px;
   padding: 0px 72px;
 `;
 
@@ -16,7 +13,6 @@ export const WrapperContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   width: 100%;
-  padding: 0px 72px;
 `;
 
 export const ResourceContainer = styled.div`
@@ -27,6 +23,7 @@ export const ResourceContainer = styled.div`
   border-bottom: 4px solid black;
   font-size: 30px;
   font-weight: 600;
+  width: 100%;
 `;
 export const ResourceContainer2 = styled.div`
   width: 100%;
@@ -48,7 +45,7 @@ export const BookContainer = styled.div`
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;
-  box-shadow: 1.5px 1.5px 1.5px 1.5px gray;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 6px 16px;
   padding: 24px;
 `;
 
@@ -70,14 +67,12 @@ export const ContentSort = styled.div`
   input {
     margin-left: 10px;
     padding: 3px 8px;
-    /* border-radius: 4px;
-    border: none; */
     border: 1px solid rgb(221, 221, 221);
     border-radius: 12px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
   }
   textarea {
-    min-width: 700px;
+    min-width: 00px;
     margin-left: 10px;
     padding: 3px 8px;
     border-radius: 4px;
@@ -87,20 +82,16 @@ export const ContentSort = styled.div`
 
 export const ResourceImg = styled.div`
   display: flex;
-  margin-top: 10px;
+  margin-top: 30px;
   justify-content: center;
   flex-direction: column;
-  .img {
-    width: 300px;
-    height: 300px;
-  }
-
+  margin-left: 40px;
   .slick-list {
-    width: 200px;
+    width: 400px;
   }
 
   .slick-initialized {
-    width: 200px;
+    width: 400px;
   }
 `;
 export const ButtonContainer = styled.div`

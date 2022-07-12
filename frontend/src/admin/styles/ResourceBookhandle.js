@@ -1,33 +1,55 @@
 import styled from 'styled-components';
 
-const AllContainer = styled.div`
-  font-family: NanumGothicBold;
-`;
+// const AllContainer = styled.div`
+//   font-family: NanumGothicBold;
+//   display: flex;
+//   flex-direction: column;
+//   width: 100%;
+//   height: 1000px;
+//   padding: 0px 72px;
+// `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 1000px;
+  padding: 0px 72px;
+  /* display: flex;
+  flex-direction: column;
   justify-content: space-around;
   width: 80%;
-  margin: auto;
+  margin: auto; */
+  /* display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%; */
 `;
 
 const HeadContainer = styled.div`
   font-size: 30px;
+  padding-bottom: 12px;
   font-weight: 600;
-  padding-top: 70px;
+  padding-top: 30px;
   border-bottom: 4px solid black;
-  margin-left: 5px;
+`;
+
+export const WrapperContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  padding: 30px;
 `;
 
 const BookContainer = styled.div`
-  width: 80%;
+  width: 100%;
   margin-top: 30px;
-  margin-left: 10%;
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;
-  box-shadow: 1.5px 1.5px 1.5px 1.5px gray;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 6px 16px;
+  padding: 24px;
 `;
 
 const InputContainer = styled.div`
@@ -37,8 +59,6 @@ const InputContainer = styled.div`
 `;
 
 const NameContainer = styled.h1`
-  margin-top: 5px;
-  margin-left: 30px;
   padding-top: 15px;
   font-size: 22px;
   font-weight: 800;
@@ -88,7 +108,7 @@ const MagnifyingGlass = styled.div`
 const ResourceSearchButton = styled.div``;
 
 export {
-  AllContainer,
+  // AllContainer,
   Container,
   HeadContainer,
   InputContainer,

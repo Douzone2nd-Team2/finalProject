@@ -15,7 +15,7 @@ const ResourceList = () => {
   const [selected, setSelected] = useState(1);
   const [resources, setResources] = useState([]);
   const [page, setPage] = useState(1);
-  const [items, setItems] = useState(5);
+  const [items, setItems] = useState(3);
 
   const handleChange = (e) => {
     setSelected(e.target.value);
