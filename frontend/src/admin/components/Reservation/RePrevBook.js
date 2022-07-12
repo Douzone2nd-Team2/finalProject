@@ -75,6 +75,7 @@ const RePrevBook = ({ resourceNo }) => {
             <th>예약시작일</th>
             <th>예약종료일</th>
             <th></th>
+            <th></th>
           </tr>
 
           {!arrayIsEmpty(prevList) ? (
@@ -102,16 +103,18 @@ const RePrevBook = ({ resourceNo }) => {
                     }}
                   >
                     <Button variant="primary">수정</Button>
-                    <Button
-                      variant="danger"
-                      onClick={() => {
-                        deleteData(resource);
-                        fetchData();
-                      }}
-                    >
-                      삭제
-                    </Button>
                   </Link>
+                </td>
+                <td>
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      deleteData(resource);
+                      fetchData();
+                    }}
+                  >
+                    삭제
+                  </Button>
                 </td>
               </tr>
             ))
