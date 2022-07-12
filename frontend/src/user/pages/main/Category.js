@@ -51,7 +51,7 @@ const Category = () => {
               className="car"
             />
             <ImageContainer
-              src={popular.recommendConference?.imageUrl}
+              src={popular.recommendNotebook?.imageUrl}
               alt="No Image"
               className="car"
             />

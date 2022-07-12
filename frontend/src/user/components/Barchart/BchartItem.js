@@ -35,7 +35,6 @@ const BchartItem = ({ catenum }) => {
       )
       .then((res) => {
         changeTitle();
-        console.log(res.data.data);
         setData([res.data.data]);
         setDays(res.data.data.days);
       })
@@ -57,9 +56,6 @@ const BchartItem = ({ catenum }) => {
           counts[i] + counts[i + 1] + counts[i + 2] + counts[i + 3],
         );
       }
-
-      console.log(spliceCounts);
-      console.log(temp2);
 
       for (let i = 1; i < 13; i++) {
         const tempResult = {
