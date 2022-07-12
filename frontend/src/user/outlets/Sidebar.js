@@ -42,7 +42,13 @@ const Sidebar = () => {
       <SidebarContainer ref={toggleInfo}>
         <ContentContainer>
           <ImageContainer>
-            <img src={user.imageUrl} alt="profile" />
+            {user.imageUrl ? (
+              <img src={user.imageUrl} alt="profile" />
+            ) : (
+              <div>
+                <span class="fa-solid fa-circle-user fa-9x" />
+              </div>
+            )}
           </ImageContainer>
           <InfoContainer>
             <NameContainer>{user.name}</NameContainer>

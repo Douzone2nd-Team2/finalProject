@@ -91,8 +91,8 @@ const ResourceBookhandle = () => {
         </Container>
         <BookContainer>
           <NameContainer>
-            <span>{book.resourceName}</span>
-            <CategoryContainer>{book.category}</CategoryContainer>
+            <span>{book?.resourceName}</span>
+            <CategoryContainer>{book?.category}</CategoryContainer>
           </NameContainer>
           <hr />
           <ContentContainer>
@@ -187,7 +187,7 @@ const ResourceBookhandle = () => {
                 <label htmlFor="user" style={{ maxWidth: '150px' }}>
                   사용자
                 </label>
-                <input type="text" id="user" placeholder={book.userName} />
+                <input type="text" id="user" placeholder={book?.userName} />
                 {/* <MagnifyingGlass>
                   <button
                     className="fa-solid fa-magnifying-glass"
@@ -206,7 +206,7 @@ const ResourceBookhandle = () => {
                   cols="50"
                   rows="5"
                   id="resourceInfo"
-                  value={book.content}
+                  value={book?.content}
                 />
               </ContentSort>
               <ButtonContainer>
