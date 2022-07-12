@@ -122,8 +122,6 @@ const Header = () => {
                     <Link to="/mypage/user">개인정보 조회</Link>
                   </li>
                   <hr />
-                  <li>즐겨찾기</li>
-                  <hr />
                   <li>
                     <Link to="/mypage/changepw">비밀번호 변경</Link>
                   </li>
