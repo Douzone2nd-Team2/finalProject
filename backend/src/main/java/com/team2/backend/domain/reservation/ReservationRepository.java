@@ -109,4 +109,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "        on r2.resourceno = rf.resourceno\n" +
             "where r.reservno = :reservNo", nativeQuery = true)
     List<IMainReservationDto> getMyReservationInfo(@Param("reservNo")Long reservNo);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Reservation WHERE reservNo = :reservNo AND able = :able")
+    void deleteAllByReservNoAndAble(@Param("reservNo")Long reservNo, @Param("able")String able);
 }
