@@ -91,7 +91,7 @@ const AdditionalInfo = (props) => {
     <AdditionalInfoContainer>
       <DateTime></DateTime>
       <UserInfo setReservName={setReservName}></UserInfo>
-      {cateNo === 1 ? <Count></Count> : null}
+      {cateNo === 1 ? <Count max={props.data.people}></Count> : null}
       <ButtonContainer>
         <ReserveButton onClick={onPreviousStep}>이전</ReserveButton>
         <ReserveButton onClick={onNextStep}>예약</ReserveButton>
