@@ -25,7 +25,8 @@ const ResourceBookhandle = () => {
   const reservNo = location.state.reservNo;
   const startTime = location.state.startTime;
   const endTime = location.state.endTime;
-  const userName = location.state.userName;
+  const reservName = location.state.reservName;
+
 
   console.log(startTime);
   console.log(endTime);
@@ -34,6 +35,7 @@ const ResourceBookhandle = () => {
 
   console.log('바뀌기 전 ; ', startTime);
   console.log('바뀌기 전 : ', endTime);
+
 
   const startDay = startTime.substr(0, 10);
   const endDay = endTime.substr(0, 10);
@@ -49,9 +51,13 @@ const ResourceBookhandle = () => {
 
   const [book, setBook] = useState([]);
 
+  const [userName, setUserName] = useState(location.state.userName);
+
   const [time, setTime] = useState('');
   const [hour, setHour] = useState('');
   const [minute, setMinute] = useState('');
+
+  const changeReservName = (e) => {};
 
   const btnOpen = () => {
     setOpenModal(true);
@@ -93,6 +99,7 @@ const ResourceBookhandle = () => {
           <NameContainer>
             <span>{book?.resourceName}</span>
             <CategoryContainer>{book?.category}</CategoryContainer>
+
           </NameContainer>
           <hr />
           <ContentContainer>
@@ -197,6 +204,18 @@ const ResourceBookhandle = () => {
                     }}
                   />
                 </MagnifyingGlass> */}
+              </ContentSort>
+              <ContentSort>
+                <label
+                  htmlFor="user"
+                  type="text"
+                  value={book.reservName}
+                  onChange={changeReservName}
+                  style={{ maxWidth: '150px' }}
+                >
+                  예약확인 :
+                </label>
+                <input type="text" value={book.reservName} />
               </ContentSort>
               <ContentSort>
                 <label htmlFor="resourceInfo" style={{ maxWidth: '150px' }}>

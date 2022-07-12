@@ -89,7 +89,7 @@ const RePresentBook = ({ resourceNo }) => {
                     to="/admin/resourcebookhandle"
                     state={{
                       reservNo: resource.reservNo,
-                      resourceName: resource.resourceName,
+                      userName: resource.name,
                       startTime: resource.startTime,
                       endTime: resource.endTime,
                     }}
