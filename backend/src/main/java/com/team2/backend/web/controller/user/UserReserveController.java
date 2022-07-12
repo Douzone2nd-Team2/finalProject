@@ -1,16 +1,12 @@
 package com.team2.backend.web.controller.user;
 
 import com.team2.backend.config.security.auth.EmployeeDetails;
-import com.team2.backend.service.user.MypageService;
 import com.team2.backend.service.user.UserReserveService;
 import com.team2.backend.web.dto.Message;
-import com.team2.backend.web.dto.SocketMessage;
 import com.team2.backend.web.dto.admin.ReservationManagementDto;
 import com.team2.backend.web.dto.user.UserReservationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
