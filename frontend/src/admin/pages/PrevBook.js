@@ -48,6 +48,8 @@ const PrevBook = ({ userNo }) => {
       )
       .then((res) => {
         console.log(res);
+        const prevTemp = prevList.filter((item) => item.reservNo != reservNo);
+        setPrevList(prevTemp);
       })
       .catch(console.log);
   };

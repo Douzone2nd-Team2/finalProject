@@ -194,9 +194,9 @@ const RegisterBook = () => {
           },
         );
         console.log(res);
-        if (res.data.resCode === 1001) {
+        if (res.data.resCode == 1001) {
           alert('이미 예약된 자원입니다. 다시 선택하여 주세요.');
-        } else if (res.data.resCode === 1000) {
+        } else if (res.data.resCode == 1000) {
           alert('예약이 정상적으로 등록되었습니다.');
         } else {
           console.log('비정상적인 종료입니다.');

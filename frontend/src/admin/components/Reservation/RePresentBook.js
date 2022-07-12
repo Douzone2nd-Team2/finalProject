@@ -54,6 +54,8 @@ const RePresentBook = ({ resourceNo }) => {
       )
       .then((res) => {
         console.log(res);
+        const presTemp = presList.filter((item) => item.reservNo != reservNo);
+        setPresList(presTemp);
       })
       .catch(console.log);
   };
@@ -78,7 +80,7 @@ const RePresentBook = ({ resourceNo }) => {
           {!arrayIsEmpty(presList) ? (
             presList.map((resource, idx) => (
               <tr key={idx}>
-                <td>{idx + 1}</td>
+                <td>{presList.length - idx}</td>
                 <td>{resource.name}</td>
                 <td>{resource.startTime}</td>
                 <td>{resource.endTime}</td>
