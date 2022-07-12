@@ -478,26 +478,6 @@ const RegisterBook = () => {
                     </ContentSort>
                   </>
                 )}
-                {/* 
-                <ContentSort>
-                  <label htmlFor="option">옵션</label>
-                  <input
-                    type="text"
-                    id="option"
-                    value={option}
-                    onChange={handleOption}
-                  />
-                </ContentSort> */}
-                {/* {cateNo === 2 && (
-                  <ContentSort>
-                    <label htmlfor="dataSort">연료</label>
-                    <select id="dataSort">
-                      <option value="1">휘발유</option>
-                      <option value="2">경유</option>
-                      <option value="3">전기</option>
-                    </select>
-                  </ContentSort>
-                )} */}
 
                 <ContentSort>
                   <label htmlFor="resourceInfo">추가 정보</label>

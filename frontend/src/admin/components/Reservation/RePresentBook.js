@@ -29,7 +29,7 @@ const RePresentBook = ({ resourceNo }) => {
         },
       );
       setPresList(res.data.data.presentReservList);
-      console.log(res);
+      console.log(res.data.data.presentReservList);
     } catch (e) {
       console.log(e);
     }
@@ -83,15 +83,25 @@ const RePresentBook = ({ resourceNo }) => {
                 <td>{presList.length - idx}</td>
                 <td>{resource.name}</td>
                 <td>{resource.startTime}</td>
-                <td>{resource.endTime}</td>
+                <td>
+                  {resource.endTime}
+                  {resource.cateNo}
+                </td>
                 <td>
                   <Link
-                    to="admin/resourcebookhandle"
+                    to="/admin/resourcebookhandle"
                     state={{
+                      cateNo: resource.cateNo,
                       reservNo: resource.reservNo,
                       userName: resource.name,
+                      reservName: resource.reservName,
+                      resourceName: resource.resourceName,
                       startTime: resource.startTime,
                       endTime: resource.endTime,
+                      content: resource.content,
+                      category: resource.category,
+                      resourceNo: resource.resourceNo,
+                      userNo: resource.userNo,
                     }}
                   >
                     <Button variant="primary">수정</Button>

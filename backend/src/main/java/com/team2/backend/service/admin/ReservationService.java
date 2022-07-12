@@ -3,6 +3,7 @@ package com.team2.backend.service.admin;
 import com.team2.backend.domain.reservation.*;
 import com.team2.backend.domain.resource.PeopleCnt;
 import com.team2.backend.domain.resource.PeopleCntRepository;
+import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.resource.ResourceRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
@@ -292,7 +293,7 @@ public class ReservationService {
         }
         reservationQuerydslRepository.deleteByReservNo(body.getReservNo()); //reservation_check table에서 삭제
 
-        Long cateNo = resourceRepository.findByCategory(body.getResourceNo());
+            Long cateNo = resourceRepository.findByCategory(body.getResourceNo());
             System.out.println("cateNo : "+cateNo);
 
         if(cateNo== 1) {

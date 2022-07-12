@@ -15,15 +15,12 @@ const ResourceBook = () => {
   const resourceName = location.state.resourceName;
   const resourceNo = location.state.resourceNo;
 
-  console.log('resourceName: ' + location.state.resourceName);
-  console.log('resourceNo: ' + location.state.resourceNo);
-
   return (
     <Container>
       <HeadContainer>{resourceName}</HeadContainer>
       <BookContainer>
-        <RePresentBook resourceNo={resourceNo} />
-        <RePrevBook resourceNo={resourceNo} />
+        <RePresentBook resourceNo={resourceNo} resourceName={resourceName} />
+        <RePrevBook resourceNo={resourceNo} resourceName={resourceName} />
       </BookContainer>
     </Container>
   );

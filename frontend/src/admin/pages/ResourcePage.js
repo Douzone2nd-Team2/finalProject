@@ -54,7 +54,7 @@ const ResourcePage = () => {
       .catch((error) => {
         console.log(error);
       });
-  });
+  }, [ResourceInput]);
 
   const getSelect = async () => {
     axios

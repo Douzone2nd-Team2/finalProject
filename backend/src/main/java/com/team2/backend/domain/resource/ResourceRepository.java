@@ -67,10 +67,10 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
 
     Resource findByResourceNo(long resourceNo);
 
-    @Query(value="select r.cateNo from Resource r where r.resourceNo = :#{#resourceNo}")
-    Long findByCategory(long resourceNo);
+    @Query(value="select r.cateNo as cateNo from Resource r where r.resourceno = :resourceNo", nativeQuery = true)
+    Long findByCategory(@Param("resourceNo") Long resourceNo);
 
-    @Query("SELECT cateNo FROM Resource WHERE resourceNo = :resourceNo")
+    @Query(value="SELECT cateNo FROM Resource WHERE resourceNo = :resourceNo", nativeQuery = true)
     Long findCateNoByResourceNo(@Param("resourceNo")Long resourceNo);
 
     @Query(value = "Select resourceNo from Resource order by resourceNo desc limit 1", nativeQuery = true)
