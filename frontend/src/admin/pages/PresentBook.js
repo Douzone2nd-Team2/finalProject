@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import axios from 'axios';
@@ -12,7 +12,7 @@ import { Container, TitleContainer, TableContainer } from '../styles/BookInfo';
 const PresentBook = ({ userNo }) => {
   const [presentList, setPresentList] = useState([]);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/user/bookinglist?userNo=${userNo}`,
@@ -27,29 +27,34 @@ const PresentBook = ({ userNo }) => {
     } catch (e) {
       console.log(e);
     }
-  };
+  }, []);
 
   const deleteData = async (user) => {
     const { reservNo } = user;
-
     const data = {
       reservNo: reservNo,
     };
-
-    const res = await axios
-      .post(
-        `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/delete`,
-        data,
-        {
-          headers: {
-            Authorization: getCookie('accessToken'),
+    try {
+      await axios
+        .post(
+          `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/delete`,
+          data,
+          {
+            headers: {
+              Authorization: getCookie('accessToken'),
+            },
           },
-        },
-      )
-      .then((res) => {
-        console.log(res);
-      })
-      .catch(console.log);
+        )
+        .then((res) => {
+          console.log(res);
+          const presentTemp = presentList.filter(
+            (item) => item.reservNo != reservNo,
+          );
+          setPresentList(presentTemp);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
@@ -84,6 +89,7 @@ const PresentBook = ({ userNo }) => {
                       reservName: user.reservName,
                       startTime: user.startTime,
                       endTime: user.endTime,
+                      content: user.content,
                       resourceNo: user.resourceNo,
                       userNo: userNo,
                     }}

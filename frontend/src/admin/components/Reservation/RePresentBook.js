@@ -54,6 +54,8 @@ const RePresentBook = ({ resourceNo }) => {
       )
       .then((res) => {
         console.log(res);
+        const presTemp = presList.filter((item) => item.reservNo != reservNo);
+        setPresList(presTemp);
       })
       .catch(console.log);
   };
@@ -73,11 +75,12 @@ const RePresentBook = ({ resourceNo }) => {
             <th>예약시작일</th>
             <th>예약종료일</th>
             <th></th>
+            <th></th>
           </tr>
           {!arrayIsEmpty(presList) ? (
             presList.map((resource, idx) => (
               <tr key={idx}>
-                <td>{idx + 1}</td>
+                <td>{presList.length - idx}</td>
                 <td>{resource.name}</td>
                 <td>{resource.startTime}</td>
                 <td>{resource.endTime}</td>
@@ -93,6 +96,8 @@ const RePresentBook = ({ resourceNo }) => {
                   >
                     <Button variant="primary">수정</Button>
                   </Link>
+                </td>
+                <td>
                   <Button
                     variant="danger"
                     onClick={() => {
@@ -103,7 +108,6 @@ const RePresentBook = ({ resourceNo }) => {
                     삭제
                   </Button>
                 </td>
-                <td></td>
               </tr>
             ))
           ) : (

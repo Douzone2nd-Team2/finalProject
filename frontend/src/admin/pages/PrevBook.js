@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import axios from 'axios';
@@ -48,6 +48,8 @@ const PrevBook = ({ userNo }) => {
       )
       .then((res) => {
         console.log(res);
+        const prevTemp = prevList.filter((item) => item.reservNo != reservNo);
+        setPrevList(prevTemp);
       })
       .catch(console.log);
   };
@@ -84,6 +86,7 @@ const PrevBook = ({ userNo }) => {
                       reservName: user.reservName,
                       startTime: user.startTime,
                       endTime: user.endTime,
+                      content: user.content,
                       resourceNo: user.resourceNo,
                       userNo: userNo,
                     }}

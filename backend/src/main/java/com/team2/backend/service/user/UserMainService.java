@@ -10,11 +10,15 @@ import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.admin.IResourceAdminDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -148,13 +152,14 @@ public class UserMainService {
         int totalCnt = reservationRepository.getResourceTotalCnt(cateNo);
 
         String startDate = reservationRepository.getStartDate();
+        String endDate = reservationRepository.getEndDate();
         System.out.println(startDate);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         Date start = format.parse(startDate);
-        Date now = Calendar.getInstance().getTime();
+        Date end = format.parse(endDate);
 
-        long Days = (now.getTime() - start.getTime())/(1000*24*60*60);
+        long Days = (end.getTime() - start.getTime())/(1000*24*60*60);
 
         HashMap<String, Object> data = new HashMap<>();
         data.put("days", Days+1L);

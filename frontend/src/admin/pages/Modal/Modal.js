@@ -67,14 +67,14 @@ const Modal = (props) => {
       <ModalContainer>
         <ModalHeader>
           <SearchContainer>
-            <SearchInput type="text" onChange={handleChange}></SearchInput>
+            <SearchInput type="text" onChange={handleChange} />
             <SearchButton onClick={onSearch}>
-              <SearchIcon></SearchIcon>
+              <SearchIcon />
             </SearchButton>
           </SearchContainer>
         </ModalHeader>
         <ModalBody>
-          <StyledList peopleList={peopleList}></StyledList>
+          <StyledList peopleList={peopleList} />
         </ModalBody>
         <ModalButtonContainer>
           <ModaldButton onClick={onClose}>닫기</ModaldButton>

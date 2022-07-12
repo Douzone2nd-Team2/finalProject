@@ -49,9 +49,15 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
     List<IResourceAdminDto> findByCateNo(@Param("cateNo") long cateNo);
 
     @Query(value="select r.resourceNo as resourceNo , r.cateNo as cateNo, c.cateName as cateName, r.able as able, r.people as people, r.fuel as fuel, " +
-            "r.resourceName as resourceName, r.location as location, " +
-            " r.availableTime as availableTime, r.adminNo as adminNo, r.option as option, r.createAt as createAt, r.modifyAt as modifyAt" +
+            " r.resourceName as resourceName, r.location as location, " +
+            " r.availableTime as availableTime, r.adminNo as adminNo, r.option as option, r.createAt as createAt, r.modifyAt as modifyAt, " +
+            " rf.path as imageUrl " +
             " from Resource r " +
+            " left join (select a.path as path, a.resourceno as resourceno from " +
+            " (select resourceno, path, row_number() over(partition by resourceno order by createat desc) as row " +
+            "   from resource_file where able='Y') a " +
+            "   where a.row = 1 ) rf " +
+            " on r.resourceno = rf.resourceno " +
             " join Employee e on r.adminNo = e.no " +
             " join Category c on c.cateNo = r.cateNo"+
             " where r.cateNo =:cateNo " +

@@ -88,7 +88,8 @@ public class EmployeeQuerydslRepositoryImpl implements  EmployeeQuerydslReposito
                         employee.email,
                         employee.empNo,
                         department.deptName,
-                        grade.gradeName
+                        grade.gradeName,
+                        employee.imageUrl
                 ))
                 .from(employee)
                 .join(employee.dept, department)
@@ -130,7 +131,9 @@ public class EmployeeQuerydslRepositoryImpl implements  EmployeeQuerydslReposito
                 .where(employee.name.contains(keyword)
                         .or(employee.empNo.contains(keyword))
                         .or(department.deptName.contains(keyword))
-                        .or(grade.gradeName.contains(keyword)))
+                        .or(grade.gradeName.contains(keyword))
+                        .and(employee.able.eq("Y")))
+                .orderBy(employee.deptNo.asc(),employee.gradeNo.asc())
                 .fetch();
     }
 }

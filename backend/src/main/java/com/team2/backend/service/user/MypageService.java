@@ -30,7 +30,6 @@ public class MypageService {
     @Transactional
     public ResponseEntity<Message> changePw(HttpServletRequest req, MypageDto body){
 
-        System.out.println("ㅎㅇ : " + req.getAttribute("userNo"));
         Employee employee = employeeRepository.findByNo((Long)req.getAttribute("userNo"));
         System.out.println(req.getAttribute("userNo"));
         System.out.println(body.getPassword());

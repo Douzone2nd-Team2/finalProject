@@ -4,9 +4,15 @@ import com.team2.backend.domain.reservation.*;
 import com.team2.backend.domain.resource.CategoryRepository;
 import com.team2.backend.domain.resource.ResourceRepository;
 import com.team2.backend.web.dto.SocketMessage;
+import com.team2.backend.web.dto.Status;
 import com.team2.backend.web.dto.user.UserReservationDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.client.utils.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
@@ -29,12 +35,13 @@ public class SocketService {
     private final TimelistRepository timelistRepository;
     private final ResourceRepository resourceRepository;
 
+
     @Transactional
     public SocketMessage getTimelist(SocketMessage message) throws ParseException {
-        HashMap<String, String> data = (HashMap<String, String>) message.getData();
-        Long resourceNo = Long.parseLong(data.get("resourceNo"));
-        Date startDate = formatter.parse(data.get("startTime"));
-        Date endDate = formatter.parse(data.get("endTime"));
+        HashMap<String, Object> data = (HashMap<String, Object>) message.getData();
+        Long resourceNo = Long.parseLong(data.get("resourceNo").toString());
+        Date startDate = formatter.parse(formatter.format(new Date((Long) data.get("startTime"))));
+        Date endDate = formatter.parse(formatter.format(new Date((Long) data.get("endTime"))));
 
         List<Date> dateList = new ArrayList<>();
         for (Date i = startDate; i.before(endDate) || i.equals(endDate); i = new Date(i.getTime() + (1000 * 60 * 60 * 24))) {
@@ -63,114 +70,125 @@ public class SocketService {
             message.setData(timelists); // 예약된 시간 리스트 보냄 - 여기 있는 시간들만 disable 시키면 됨
             message.setResCode(4000);
             message.setMessage("[SUCCESS] 예약 리스트 전송");
+            message.setStatus(Status.TIME_LIST);
         }
 
-        simpMessagingTemplate.convertAndSendToUser(message.getSenderName(),"/do", message);
 
+//        simpMessagingTemplate.convertAndSend("/user/" + message.getSenderName() + "/do", message);
+        simpMessagingTemplate.convertAndSendToUser( message.getSenderName(), "/user/" + message.getSenderName() + "/do", message);
         return message;
     }
 
-    @Transactional(rollbackFor = {RuntimeException.class, Exception.class})
+    @Transactional
     public SocketMessage checkReservation(SocketMessage message) throws ParseException {
-        HashMap<String, String> data = (HashMap<String, String>) message.getData();
-        Long userNo = Long.parseLong(data.get("userNo"));
-        Long resourceNo = Long.parseLong(data.get("resourceNo"));
-        String startDate = data.get("startTime").split(" ")[0];
-        String endDate = data.get("endTime").split(" ")[0];
-        Date from = formatter.parse(startDate);
-        Date to = formatter.parse(endDate);
-        Integer startTime = timeParser(data.get("startTime").split(" ")[1]);
-        Integer endTime = timeParser(data.get("endTime").split(" ")[1]);
-        Long cateNo = resourceRepository.findCateNoByResourceNo(resourceNo);
+        System.out.println("ㅎㅇ");
+//        HashMap<String, Object> data = (HashMap<String, Object>) message.getData();
+//        Long userNo = Long.parseLong(data.get("userNo").toString());
+//        Long resourceNo = Long.parseLong(data.get("resourceNo").toString());
 
-        List<Date> dateList = new ArrayList<>();
-        for (Date i = from; i.before(to) || i.equals(to); i = new Date(i.getTime() + (1000 * 60 * 60 * 24))) {
-            dateList.add(i);
-        }
-
-        switch (isAvailable(resourceNo, startDate, startTime, endDate, endTime)) {
-            case "OK":
-                System.out.println("OK");
-                Reservation newReserv = reservationRepository.save(
-                        Reservation.builder()
-                                .resourceNo(resourceNo)
-                                .userNo(userNo)
-                                .startTime(fullFormatter.parse(data.get("startTime")))
-                                .endTime(fullFormatter.parse(data.get("endTime")))
-                                .build()
-                );
-                for (int i = 0; i < dateList.size(); i++) {
-                    ReservationCheck newCheck = reservationCheckRepository.save(
-                            ReservationCheck.builder()
-                                    .resourceNo(resourceNo)
-                                    .checkDate(formatter.format(dateList.get(i)))
-                                    .cateNo(cateNo)
-                                    .reservNo(newReserv.getReservNo())
-                                    .build()
-                    );
-                    if (dateList.size() > 1) {
-                        if (i == 0) {
-                            saveTimelist(newCheck.getCheckNo(), startTime, 48);
-                        }
-                        else if (i == dateList.size() - 1) {
-                            saveTimelist(newCheck.getCheckNo(), 0, endTime);
-                        }
-                        else {
-                            saveTimelist(newCheck.getCheckNo(), 0, 48);
-                        }
-                    }
-                    else  {
-                        saveTimelist(newCheck.getCheckNo(), startTime, endTime);
-                    }
-                }
-                message.setResCode(4000);
-                message.setMessage("[SUCCESS] 시간 저장 완료");
-                break;
+//        String s = fullFormatter.format(new Date((Long) data.get("startTime")));
+//        String e = fullFormatter.format(new Date((Long) data.get("endTime")));
+//
+//        String startDate = s.split(" ")[0];
+//        String endDate = e.split(" ")[0];
+//        Date from = formatter.parse(startDate);
+//        Date to = formatter.parse(endDate);
+//        Integer startTime = timeParser(s.split(" ")[1]);
+//        Integer endTime = timeParser(e.split(" ")[1]);
+//        Long cateNo = resourceRepository.findCateNoByResourceNo(resourceNo);
+//
+//        List<Date> dateList = new ArrayList<>();
+//        for (Date i = from; i.before(to) || i.equals(to); i = new Date(i.getTime() + (1000 * 60 * 60 * 24))) {
+//            dateList.add(i);
+//        }
+//
+//        switch (isAvailable(resourceNo, startDate, startTime, endDate, endTime)) {
 //            case "OK":
 //                System.out.println("OK");
-//                Reservation okReserv = reservationRepository.save(
+//                Reservation newReserv = reservationRepository.save(
 //                        Reservation.builder()
 //                                .resourceNo(resourceNo)
 //                                .userNo(userNo)
-//                                .startTime(fullFormatter.parse(data.get("startTime")))
-//                                .endTime(fullFormatter.parse(data.get("endTime")))
+//                                .startTime(formatter.parse(formatter.format(new Date((Long) data.get("startTime")))))
+//                                .endTime(formatter.parse(formatter.format(new Date((Long) data.get("endTime")))))
 //                                .build()
 //                );
-//
 //                for (int i = 0; i < dateList.size(); i++) {
-//                    ReservationCheck findCheck = reservationCheckRepository
-//                            .findByReservNoAndCheckDate(okReserv.getReservNo(), formatter.format(dateList.get(i)));
+//                    ReservationCheck newCheck = reservationCheckRepository.save(
+//                            ReservationCheck.builder()
+//                                    .resourceNo(resourceNo)
+//                                    .checkDate(formatter.format(dateList.get(i)))
+//                                    .cateNo(cateNo)
+//                                    .reservNo(newReserv.getReservNo())
+//                                    .build()
+//                    );
 //                    if (dateList.size() > 1) {
 //                        if (i == 0) {
-//                            saveTimelist(findCheck.getCheckNo(), startTime, 48);
+//                            saveTimelist(newCheck.getCheckNo(), startTime, 48);
 //                        }
 //                        else if (i == dateList.size() - 1) {
-//                            saveTimelist(findCheck.getCheckNo(), 0, endTime);
+//                            saveTimelist(newCheck.getCheckNo(), 0, endTime);
 //                        }
 //                        else {
-//                            saveTimelist(findCheck.getCheckNo(), 0, 48);
+//                            saveTimelist(newCheck.getCheckNo(), 0, 48);
 //                        }
 //                    }
 //                    else  {
-//                        saveTimelist(findCheck.getCheckNo(), startTime, endTime);
+//                        saveTimelist(newCheck.getCheckNo(), startTime, endTime);
 //                    }
 //                }
 //                message.setResCode(4000);
 //                message.setMessage("[SUCCESS] 시간 저장 완료");
 //                break;
-            case "FAIL":
-                // 시간 리스트 다시 보내줄까?
-                System.out.println("FAIL");
-                message.setResCode(4001);
-                message.setMessage("[FAIL] 시간 중복");
-                break;
-            default:
-                System.out.println("ERROR");
-                message.setResCode(4004);
-                message.setMessage("[ERROR] 알 수 없는 오류");
-                throw new RuntimeException();
-        }
-        simpMessagingTemplate.convertAndSendToUser(message.getSenderName(),"/do", message);
+////            case "OK":
+////                System.out.println("OK");
+////                Reservation okReserv = reservationRepository.save(
+////                        Reservation.builder()
+////                                .resourceNo(resourceNo)
+////                                .userNo(userNo)
+////                                .startTime(fullFormatter.parse(data.get("startTime")))
+////                                .endTime(fullFormatter.parse(data.get("endTime")))
+////                                .build()
+////                );
+////
+////                for (int i = 0; i < dateList.size(); i++) {
+////                    ReservationCheck findCheck = reservationCheckRepository
+////                            .findByReservNoAndCheckDate(okReserv.getReservNo(), formatter.format(dateList.get(i)));
+////                    if (dateList.size() > 1) {
+////                        if (i == 0) {
+////                            saveTimelist(findCheck.getCheckNo(), startTime, 48);
+////                        }
+////                        else if (i == dateList.size() - 1) {
+////                            saveTimelist(findCheck.getCheckNo(), 0, endTime);
+////                        }
+////                        else {
+////                            saveTimelist(findCheck.getCheckNo(), 0, 48);
+////                        }
+////                    }
+////                    else  {
+////                        saveTimelist(findCheck.getCheckNo(), startTime, endTime);
+////                    }
+////                }
+////                message.setResCode(4000);
+////                message.setMessage("[SUCCESS] 시간 저장 완료");
+////                break;
+//            case "FAIL":
+//                // 시간 리스트 다시 보내줄까?
+//                System.out.println("FAIL");
+//                message.setResCode(4001);
+//                message.setMessage("[FAIL] 시간 중복");
+//                break;
+//            default:
+//                System.out.println("ERROR");
+//                message.setResCode(4004);
+//                message.setMessage("[ERROR] 알 수 없는 오류");
+//                throw new RuntimeException();
+//        }
+
+//        message.setResCode(4000);
+//        message.setMessage("[이런 슈발]");
+//        message.setStatus(Status.FIRST_RESERV);
+        simpMessagingTemplate.convertAndSendToUser("/user/" + message.getSenderName() + "/do", "/user/" + message.getSenderName() + "/do", message);
         return message;
     }
 

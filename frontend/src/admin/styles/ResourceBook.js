@@ -17,7 +17,7 @@ const HeadContainer = styled.div`
 
 const BookContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 `;
 
 const TableContainer = styled.div`

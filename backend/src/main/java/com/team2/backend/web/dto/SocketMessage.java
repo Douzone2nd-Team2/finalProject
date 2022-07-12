@@ -1,6 +1,5 @@
 package com.team2.backend.web.dto;
 
-import com.team2.backend.web.dto.user.Status;
 import lombok.*;
 
 @Getter
@@ -13,4 +12,5 @@ public class SocketMessage {
     private Integer resCode;
     private String message;
     private Object data;
+    private Status status;
 }

@@ -2,9 +2,16 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import Modal from '../../user/components/Reservation/Modal/Modal';
+
+import { arrayIsEmpty } from '../utils/jsFunction';
 import { getCookie } from '../utils/cookie';
 
 import { Button, Form, Row, Col } from 'react-bootstrap';
+
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import SearchIcon from '@material-ui/icons/Search';
 
 import {
   AllContainer,
@@ -18,6 +25,19 @@ import {
   ButtonContainer,
 } from '../styles/UserBookhandle';
 
+import {
+  CountButtonContainer,
+  CountButton,
+  CountInfo,
+  PeopleNameTag,
+  PeopleGridContainer,
+  PeopleSearchButton,
+  PeopleContainer,
+  PeopleInput,
+  EmptyContainer,
+  EmptyRContainer,
+} from '../styles/RegisterBook';
+
 const UserBookhandle = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,6 +48,7 @@ const UserBookhandle = () => {
   const reservName = location.state.reservName;
   const resourceNo = location.state.resourceNo;
   const userNo = location.state.userNo;
+  const content = location.state.content;
 
   // console.log(reservName);
   // console.log(startTime);
@@ -43,18 +64,32 @@ const UserBookhandle = () => {
 
   // 시작, 종료 시간
   const [startHour, setStartHour] = useState(parseInt(startTime.substr(11, 2)));
-
   const [endHour, setEndHour] = useState(parseInt(endTime.substr(11, 2)));
 
-  console.log(endHour);
+  // console.log(endHour);
 
   // 시작, 종료 분
   const [startMinute, setStartMinute] = useState(startTime.substr(14, 2));
   const [endMinute, setEndMinute] = useState(endTime.substr(14, 2));
 
   const [reserveName, setReserveName] = useState(reservName);
-  const [content, setContent] = useState('');
+  const [description, setDescription] = useState(content);
   const [cateNo, setCateNo] = useState();
+
+  ////////
+  const [openModal, setOpenModal] = useState(false);
+  const [count, setCount] = useState(0);
+  const [people, setPeople] = useState();
+  const [peopleNo, setPeopleNo] = useState([]);
+  const [peopleInit, setPeopleInit] = useState([]);
+  const [name, setName] = useState('');
+
+  console.log('peopleInit          ', peopleInit);
+  console.log('peopleNo            ', peopleNo);
+
+  useEffect(() => {
+    console.log(people);
+  }, []);
 
   const changeReserveName = (e) => {
     setReserveName(e.target.value);
@@ -84,8 +119,8 @@ const UserBookhandle = () => {
     setEndMinute(e.target.value);
   };
 
-  const changeContent = (e) => {
-    setContent(e.target.value);
+  const changeDescription = (e) => {
+    setDescription(e.target.value);
   };
 
   // console.log(reservName);
@@ -94,15 +129,15 @@ const UserBookhandle = () => {
   // console.log(startHour);
   // console.log(startMinute);
 
-  console.log(reserveName);
+  // console.log(reserveName);
 
-  console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
+  // console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
 
-  console.log(startDay);
+  // console.log(startDay);
 
-  console.log(content);
+  // console.log(content);
 
-  console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
+  // console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
 
   const fetchData = async () => {
     try {
@@ -115,20 +150,19 @@ const UserBookhandle = () => {
         },
       );
       console.log(res);
-      setBook(res.data.data[0]);
-      setContent(res.data.data[0].content);
-      setCateNo(res.data.data[0].cateNo);
+      setCount(res.data.data.peopleList.length);
+      setPeopleInit(res.data.data.peopleList);
+      setBook(res.data.data.reservationView[0]);
+      setCateNo(res.data.data.reservationView[0].cateNo);
     } catch (e) {
       console.log(e);
     }
   };
 
-  console.log(cateNo);
-
   const postData = async () => {
     try {
-      console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
-      console.log(endDay + ' ' + endHour + ':' + endMinute + ':00');
+      // console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
+      // console.log(endDay + ' ' + endHour + ':' + endMinute + ':00');
       const res = await axios.post(
         `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/modify`,
         {
@@ -139,7 +173,8 @@ const UserBookhandle = () => {
           reservName: reserveName,
           startTime: startDay + ' ' + startHour + ':' + startMinute + ':00',
           endTime: endDay + ' ' + endHour + ':' + endMinute + ':00',
-          content: content,
+          content: description,
+          empNoList: peopleNo,
         },
         {
           headers: {
@@ -156,18 +191,40 @@ const UserBookhandle = () => {
 
   const clickBtn = (e) => {
     e.preventDefault();
-
     postData();
-    // navigate(-1);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
+  const onPeopleSearch = (e) => {
+    e.preventDefault();
+    setOpenModal(true);
+  };
+  const onDecrease = (e) => {
+    e.preventDefault();
+    setCount(count === 0 ? 0 : count - 1);
+  };
+  const onIncrease = (e) => {
+    e.preventDefault();
+    setCount(count + 1);
+  };
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+
   return (
     <AllContainer>
       <Container>
+        {openModal ? (
+          <Modal
+            setOpenModal={setOpenModal}
+            count={count}
+            setPeople={setPeople}
+            setPeopleNo={setPeopleNo}
+          ></Modal>
+        ) : null}
         <HeadContainer>
           예약관리 <span className="fa-solid fa-arrow-right-long" /> 사용자별
           예약조회 및 수정
@@ -299,6 +356,59 @@ const UserBookhandle = () => {
                     </Form.Select>
                   </Col>
                 </Row>
+                <Row>
+                  {cateNo === 1 && (
+                    <>
+                      <ContentSort>
+                        <label className="totaluser" htmlFor="totalUser">
+                          추가 인원
+                        </label>
+                        <CountButtonContainer>
+                          <CountButton onClick={onDecrease}>
+                            <ArrowDownwardIcon />
+                          </CountButton>
+                          <CountInfo>{count}</CountInfo>
+                          <CountButton onClick={onIncrease}>
+                            <ArrowUpwardIcon />
+                          </CountButton>
+                        </CountButtonContainer>
+                        <PeopleContainer>
+                          <PeopleInput onChange={handleName}></PeopleInput>
+                          <PeopleSearchButton onClick={onPeopleSearch}>
+                            <SearchIcon />
+                          </PeopleSearchButton>
+                        </PeopleContainer>
+                        <PeopleGridContainer />
+                      </ContentSort>
+                      <ContentSort>
+                        <EmptyContainer />
+                        <PeopleGridContainer>
+                          {arrayIsEmpty(people) ? (
+                            peopleInit &&
+                            peopleInit.map((nameTag, index) => {
+                              return (
+                                <PeopleNameTag key={nameTag.userNo}>
+                                  {nameTag.name}
+                                </PeopleNameTag>
+                              );
+                            })
+                          ) : (
+                            <></>
+                          )}
+                          {people &&
+                            people.map((nameTag, index) => {
+                              return (
+                                <PeopleNameTag key={index}>
+                                  {nameTag}
+                                </PeopleNameTag>
+                              );
+                            })}
+                        </PeopleGridContainer>
+                        <EmptyRContainer />
+                      </ContentSort>
+                    </>
+                  )}
+                </Row>
               </Row>
             </ContentSort>
             <br />
@@ -310,8 +420,8 @@ const UserBookhandle = () => {
                 cols="50"
                 rows="5"
                 id="resourceInfo"
-                onChange={changeContent}
-                placeholder={book.content}
+                onChange={changeDescription}
+                value={description}
               />
             </ContentSort>
             <ButtonContainer>

@@ -1,4 +1,4 @@
-package com.team2.backend.service.admin;
+package com.team2.backend.service.user;
 
 import com.team2.backend.domain.reservation.*;
 import com.team2.backend.domain.resource.PeopleCnt;
@@ -8,10 +8,15 @@ import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
 import com.team2.backend.web.dto.admin.ReservationManagementDto;
 import com.team2.backend.web.dto.admin.ReserveDeleteDto;
+import com.team2.backend.web.dto.user.UserReservationDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
@@ -20,14 +25,60 @@ import java.util.*;
 
 @RequiredArgsConstructor
 @Service
-public class ReservationService {
+public class UserReserveService {
+
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat fullFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private final ReservationRepository reservationRepository;
-    private final PeopleCntRepository peopleCntRepository;
-    private final ReservationQuerydslRepository reservationQuerydslRepository;
     private final ReservationCheckRepository reservationCheckRepository;
     private final TimelistRepository timelistRepository;
     private final ResourceRepository resourceRepository;
+
+    private final PeopleCntRepository peopleCntRepository;
+    private final ReservationQuerydslRepository reservationQuerydslRepository;
+
+
+
+    @Transactional
+    public ResponseEntity<Message> getTimelist(UserReservationDto body) throws ParseException {
+        Long resourceNo = body.getResourceNo();
+        Date startDate = formatter.parse(formatter.format(body.getStartDate()));
+        Date endDate = formatter.parse(formatter.format(body.getEndDate()));
+
+        List<Date> dateList = new ArrayList<>();
+        for (Date i = startDate; i.before(endDate) || i.equals(endDate); i = new Date(i.getTime() + (1000 * 60 * 60 * 24))) {
+            dateList.add(i);
+        }
+
+        HashMap<String, Long[]> timelists = new HashMap<>();
+        for (int i = 0; i < dateList.size(); i++) {
+            List<ReservationCheck> check = reservationCheckRepository.findByResourceNoAndCheckDate(resourceNo, formatter.format(dateList.get(i)));
+            if (check.isEmpty()) {
+                continue;
+            }
+            else {
+                for (int j = 0; j < check.size(); j++) {
+                    Long[] timelist =  timelistRepository.findAllByCheckNo(check.get(j).getCheckNo());
+                    timelists.put(formatter.format(dateList.get(i)), timelist);
+                }
+            }
+        }
+
+        if (timelists.isEmpty()) {
+            Message message = Message.builder()
+                    .resCode(4000)
+                    .message("[SUCCESS] 빈 배열")
+                    .build();
+            return new JsonResponse().send(200, message);
+        }
+        Message message = Message.builder()
+                .resCode(4000)
+                .message("[SUCCESS] 시간")
+                .data(timelists)
+                .build();
+        return new JsonResponse().send(200, message);
+    }
 
     @Transactional
     public ResponseEntity<Message> saveReservation(HttpServletRequest req, ReservationManagementDto body) throws ParseException {
@@ -161,7 +212,7 @@ public class ReservationService {
     }
 
     public Boolean reservationCheck(Reservation reservation, List<String> dateList, int startTime, int endTime, String type, Long reservNo) {
-        System.out.println("reservation check enter!!! " + dateList.size() + "///"  + "///" + startTime + " ~~~" + endTime);
+        System.out.println("reservation check enter!!! " + dateList.size() + "///" + dateList.get(0) + "///" + startTime + " ~~~" + endTime);
 
         Long resourceNo = reservation.getResourceNo();
 
@@ -251,9 +302,9 @@ public class ReservationService {
     public ResponseEntity<Message> updateReservation(HttpServletRequest req, ReservationManagementDto body) throws ParseException {
 
         Reservation reservation = body.toEntity();
-        System.out.println(body.getEmpNoList().get(0)+"1111111111111111111111");
+
         Message message;
-        System.out.println(body.getContent()+"!!!!!!!!!!!!!!!!!!!");
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -282,40 +333,37 @@ public class ReservationService {
 
         if (reservationCheck(reservation, dateList, timeList[0], timeList[1], "update", body.getReservNo())) {  // 중복예약 내역이 없을 때
 
-        if (checkNo.size() > 1) { //이전 예약 시간 삭제( checkNo 가지고 와서) -timelist
-            for (int i = 0; i < checkNo.size(); i++) {
-                reservationQuerydslRepository.deleteTimelistByCheckNo(checkNo.get(i)); //이전 예약 시간 삭제 -timelist
+            if (checkNo.size() > 1) { //이전 예약 시간 삭제( checkNo 가지고 와서) -timelist
+                for (int i = 0; i < checkNo.size(); i++) {
+                    reservationQuerydslRepository.deleteTimelistByCheckNo(checkNo.get(i)); //이전 예약 시간 삭제 -timelist
+                }
+            } else {
+                System.out.println("checkNO"+checkNo.size());
+                if(checkNo.size()==1)
+                    reservationQuerydslRepository.deleteTimelistByCheckNo(checkNo.get(0)); //이전 예약 시간 삭제 -timelist
             }
-        } else {
-            System.out.println("checkNO"+checkNo.size());
-            if(checkNo.size()==1)
-                reservationQuerydslRepository.deleteTimelistByCheckNo(checkNo.get(0)); //이전 예약 시간 삭제 -timelist
-        }
-        reservationQuerydslRepository.deleteByReservNo(body.getReservNo()); //reservation_check table에서 삭제
+            reservationQuerydslRepository.deleteByReservNo(body.getReservNo()); //reservation_check table에서 삭제
 
-        Long cateNo = resourceRepository.findByCategory(body.getResourceNo());
+            Long cateNo = resourceRepository.findByCategory(body.getResourceNo());
             System.out.println("cateNo : "+cateNo);
 
-        if(cateNo== 1) {
-           if(!peopleCntRepository.findByReservNo(body.getReservNo()).isEmpty()) {
-                   peopleCntRepository.deleteByReservNo(body.getReservNo());
-           }
-        }
-        //reservation table 예약 내역 삭제
-        reservationRepository.deleteByReservNo(body.getReservNo());
+            if(cateNo== 1) {
+                if(!peopleCntRepository.findByReservNo(body.getReservNo()).isEmpty()) {
+                    peopleCntRepository.deleteByReservNo(body.getReservNo());
+                }
+            }
+            //reservation table 예약 내역 삭제
+            reservationRepository.deleteByReservNo(body.getReservNo());
 
             Long reservNo = reservationRepository.save(reservation).getReservNo();
-            if(body.getCateNo().equals(1L)) {//자원이 회의실일 경우
-                if(body.getEmpNoList() != null) {  //추가 인원이 있을 경우
-                    System.out.println("$$$%%%%%"+body.getEmpNoList().get(0));
-                    for (int i = 0; i < body.getEmpNoList().size(); i++) {
-                        if (cateNo == 1) {
-                            PeopleCnt peopleCnt = PeopleCnt.builder()
-                                    .reservNo(reservNo)
-                                    .userNo(Long.parseLong(body.getEmpNoList().get(i)))
-                                    .build();
-                            peopleCntRepository.save(peopleCnt);
-                        }
+            if(body.getCateNo().equals("1")) {//자원이 회의실일 경우
+                for (int i = 0; i < body.getEmpNoList().size(); i++) {
+                    if (cateNo == 1) {
+                        PeopleCnt peopleCnt = PeopleCnt.builder()
+                                .reservNo(reservNo)
+                                .userNo(Long.parseLong(body.getEmpNoList().get(i)))
+                                .build();
+                        peopleCntRepository.save(peopleCnt);
                     }
                 }
             }
@@ -383,17 +431,11 @@ public class ReservationService {
     public ResponseEntity<Message> reservationView(HttpServletRequest req, Long reservNo) {
 
         List<ReservationManagementDto> reservationView = reservationQuerydslRepository.getReservationView(reservNo);
-        List<ReservationManagementDto> peopleList = reservationQuerydslRepository.selectByReservNo(reservNo);
-
-
-        HashMap<String, Object> data = new HashMap<>();
-        data.put("reservationView", reservationView);
-        data.put("peopleList", peopleList);
 
         Message message = Message.builder()
                 .resCode(1000)
                 .message("[Success] Select ReservationView")
-                .data(data)
+                .data(reservationView)
                 .build();
         return new JsonResponse().send(200, message);
     }
