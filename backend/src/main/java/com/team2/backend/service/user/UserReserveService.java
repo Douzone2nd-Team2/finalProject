@@ -506,7 +506,7 @@ public class UserReserveService {
             ReservationCheck check = checkList.get(j);
             timelistRepository.deleteAllByCheckNo(check.getCheckNo());
         }
-            // 피플카운트도 지워
+
         Long cateNo = checkList.get(0).getCateNo();
         if (cateNo == 1) {
             peopleCntRepository.deleteAllByReservNo(reservNo);

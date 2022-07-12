@@ -10,6 +10,7 @@ const Container = styled.div`
 
 const HeadContainer = styled.div`
   font-size: 30px;
+  padding-bottom: 12px;
   font-weight: 600;
   padding-top: 30px;
   border-bottom: 4px solid black;
@@ -25,6 +26,7 @@ const TableContainer = styled.div`
   width: fit-content;
   height: 100%;
   padding: 30px 24px;
+  text-align: center;
 
   table {
     width: 100%;

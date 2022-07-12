@@ -16,15 +16,16 @@ const HeadContainer = styled.div`
   font-size: 30px;
   font-weight: 600;
   padding-top: 30px;
+  padding-bottom: 12px;
   border-bottom: 4px solid black;
 `;
 
 const BookContainer = styled.div`
-  margin-top: 30px;
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;
   box-shadow: 1.5px 1.5px 1.5px 1.5px gray;
+  margin: 30px 24px;
 `;
 
 const NameContainer = styled.h1`
