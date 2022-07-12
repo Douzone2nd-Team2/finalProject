@@ -21,7 +21,7 @@ import {
 
 import Modal from '../../Modal/Modal.js';
 
-const Count = () => {
+const Count = (props) => {
   const reservation = useRecoilValue(reservationState);
   const setReservationState = useSetRecoilState(reservationState);
   const [count, setCount] = useState(0);
@@ -31,7 +31,7 @@ const Count = () => {
   const [peopleNo, setPeopleNo] = useState([]);
 
   const onIncrease = () => {
-    setCount(count + 1);
+    setCount(count + 1 < props.max ? count + 1 : count);
   };
 
   const onDecrease = () => {
