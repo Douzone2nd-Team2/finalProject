@@ -8,6 +8,7 @@ import com.team2.backend.domain.reservation.Reservation;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -33,6 +34,9 @@ public class ReservationManagementDto {
     private String content;
     private LocalDateTime reservCreateAt;
     private LocalDateTime reservModifyAt;
+
+    private String ss;
+    private String ee;
 
     //자원
     private Long cateNo;
@@ -61,6 +65,7 @@ public class ReservationManagementDto {
     //회의실 예약 인원
     private Long peopleNo;
     private List<String> empNoList;   //직원고유번호, 사원번호
+    private List<Long> peopleCnt;   //직원고유번호, 사원번호
 
     //timelist
     private Long checkNo;
@@ -148,5 +153,13 @@ public class ReservationManagementDto {
                 .endTime(endTime)
                 .content(content)
                 .build();
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 }
