@@ -29,6 +29,7 @@ public class UserMainController {
 
     @GetMapping("/book")
     public ResponseEntity<Message> mainBook(HttpServletRequest request, @AuthenticationPrincipal EmployeeDetails employeeDetails){
+        System.out.println("mainBook enter!!");
         return userMainService.getbookList(request, employeeDetails);
     }
     @GetMapping("/piechart")

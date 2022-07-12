@@ -6,21 +6,24 @@ const ItemContainer = styled.div`
   margin: 20px;
   font-family: NanumGothic;
   display: flex;
-  justify-content: space-between;
   background-color: white;
 
   .location {
-    font-size: 15px;
+    font-size: 16px;
+    color: #434343;
   }
 
   .title {
     font-size: 23px;
     font-weight: 800;
+    color: #222222;
+    padding-bottom: 4px;
   }
 
   .price_origin {
-    color: gray;
-    font-size: 12px;
+    color: #717171;
+    font-size: 16px;
+    font-weight: 600;
   }
 `;
 
@@ -31,30 +34,33 @@ const LeftContainer = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  min-width: 250px;
+  min-width: 200px;
 `;
 
 const ImageContainer = styled.div`
   img {
-    margin-left: 30px;
     width: 150px;
     height: 150px;
     min-width: 180px;
   }
 `;
 
-const RightContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+const OptionContainer = styled.div`
+  /* display: flex;
+  flex-direction: column; */
   left: 50%;
   min-width: 50px;
   margin-top: 50px;
   font-weight: 500;
 `;
 
-const ButtonContainer = styled.div`
+const ContentContainer = styled.div`
   margin-right: 5%;
   margin-top: 40px;
+`;
+
+const RightContainer = styled.div`
+  margin-left: 70px;
 `;
 
 export {
@@ -62,6 +68,7 @@ export {
   LeftContainer,
   TitleContainer,
   ImageContainer,
+  OptionContainer,
+  ContentContainer,
   RightContainer,
-  ButtonContainer,
 };

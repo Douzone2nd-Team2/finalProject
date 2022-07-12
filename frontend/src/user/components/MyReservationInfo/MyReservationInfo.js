@@ -21,7 +21,7 @@ import {
   UserInfoContainer,
   UserInfoTitle,
   UserInfoDetail,
-} from '../Reservation/AdditionalInfo/UserInfo/style.js';
+} from '../MyReservationStyle.js';
 
 const MyReservationInfo = (props) => {
   const [values, setValues] = useState([]);

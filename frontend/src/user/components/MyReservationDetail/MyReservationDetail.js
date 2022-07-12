@@ -7,9 +7,22 @@ import {
   UserInfoContainer,
   UserInfoTitle,
   UserInfoDetail,
-} from '../Reservation/AdditionalInfo/UserInfo/style.js';
+  DateContainer,
+  DateTimeLeftContainer,
+  DateTimeRightContainer,
+  DateTimeTitle,
+  DateTimeInfo,
+} from '../../components/MyReservationStyle.js';
+import { useEffect } from 'react';
 
 const MyReservationDetail = (props) => {
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+
+  const parseTime = useEffect(() => {
+    setStartTime(props.data.startTime.slice(0, 19).replace(/T/, ' '));
+    setEndTime(props.data.endTime.slice(0, 19).replace(/T/, ' '));
+  }, []);
   return (
     <ReservationDetail>
       <FlexContainer>
@@ -18,7 +31,16 @@ const MyReservationDetail = (props) => {
           <UserInfoDetail>{props.data.reservNo}</UserInfoDetail>
         </UserInfoContainer>
       </FlexContainer>
-      <DateTime></DateTime>
+      <DateContainer>
+        <DateTimeLeftContainer>
+          <DateTimeTitle>시작일</DateTimeTitle>
+          <DateTimeInfo>{startTime}</DateTimeInfo>
+        </DateTimeLeftContainer>
+        <DateTimeRightContainer>
+          <DateTimeTitle>종료일</DateTimeTitle>
+          <DateTimeInfo>{endTime}</DateTimeInfo>
+        </DateTimeRightContainer>
+      </DateContainer>
       <FlexContainer>
         <UserInfoContainer>
           <UserInfoTitle>예약자</UserInfoTitle>
@@ -29,6 +51,16 @@ const MyReservationDetail = (props) => {
         <UserInfoContainer>
           <UserInfoTitle>예약명</UserInfoTitle>
           <UserInfoDetail>{props.data.reservName}</UserInfoDetail>
+        </UserInfoContainer>
+      </FlexContainer>
+      <FlexContainer>
+        <UserInfoContainer>
+          {props.data.cateNo === 1 ? (
+            <UserInfoTitle>인원</UserInfoTitle>
+          ) : (
+            <UserInfoTitle>개수</UserInfoTitle>
+          )}
+          <UserInfoDetail>{props.data.people}</UserInfoDetail>
         </UserInfoContainer>
       </FlexContainer>
     </ReservationDetail>

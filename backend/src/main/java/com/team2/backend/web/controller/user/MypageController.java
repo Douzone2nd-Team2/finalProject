@@ -24,8 +24,8 @@ public class MypageController {
     private final MypageService mypageService;
 
     @PostMapping("/mypage/changepw")
-    public ResponseEntity<Message> chagePw(HttpServletRequest request, @RequestBody MypageDto body){
-        return mypageService.changePw(request, body);
+    public ResponseEntity<Message> chagePw(@AuthenticationPrincipal EmployeeDetails employeeDetails, @RequestBody MypageDto body){
+        return mypageService.changePw(employeeDetails, body);
     }
 
     @GetMapping("/mypage/user")

@@ -24,11 +24,29 @@ const TitleContainer = styled.div`
 `;
 
 const ImageContainer = styled.img`
-  width: 300px;
-  height: 240px;
+  width: 250px;
+  height: 200px;
   padding: 10px;
   border-radius: 20px;
   box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+  margin-bottom: 30px;
 `;
 
-export { AllContainer, Container, ImageContainer, TitleContainer };
+const ResourceContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ResourceName = styled.div`
+  padding: 20px;
+  font-weight: 700;
+`;
+
+export {
+  AllContainer,
+  Container,
+  ImageContainer,
+  TitleContainer,
+  ResourceContainer,
+  ResourceName,
+};
