@@ -9,13 +9,22 @@ import {
   TitleContainer,
   ImageContainer,
   RightContainer,
-  ButtonContainer,
+  OptionContainer,
+  ContentContainer,
 } from '../../styles/SearchItem';
 import noimg from '../../assets/noimage.jpg';
 
 const SearchItem = ({ book }) => {
-  const { cateNo, resourceName, cateName, people, option, imageUrl, fuel } =
-    book;
+  const {
+    cateNo,
+    resourceName,
+    cateName,
+    people,
+    option,
+    imageUrl,
+    fuel,
+    content,
+  } = book;
 
   console.log(book);
 
@@ -52,14 +61,14 @@ const SearchItem = ({ book }) => {
           </ImageContainer>
         </LeftContainer>
         <RightContainer>
-          <div>옵션 : {option}</div>
-          <div>{book.cateNo === 2 ? `연료 : ` + book.fuel : <></>}</div>
+          <OptionContainer>
+            <div>옵션 : {option}</div>
+            <div> {book.cateNo === 2 ? `연료 : ` + book.fuel : <></>}</div>
+          </OptionContainer>
+          <ContentContainer>
+            <div>내용 : {book.content}</div>
+          </ContentContainer>
         </RightContainer>
-        <ButtonContainer>
-          <Button variant="primary" onClick={onClickbtn}>
-            예약
-          </Button>
-        </ButtonContainer>
       </ItemContainer>
     </Link>
   );

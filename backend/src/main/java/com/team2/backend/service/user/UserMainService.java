@@ -124,6 +124,11 @@ public class UserMainService {
         Long userNo = employeeDetails.getEmployee().getNo();
         List<IMainReservationDto> reservationList = reservationRepository.getMainReservList(userNo);
 
+
+        for (int i=0;i<reservationList.size();i++){
+            System.out.println(reservationList.get(i).getReservName());
+        }
+
         HashMap<String, List<IMainReservationDto>> data = new HashMap<>();
         data.put("reservationList",reservationList);
 
