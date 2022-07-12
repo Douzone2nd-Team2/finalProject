@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import { Button, Form, Modal, Row, Col } from 'react-bootstrap';
 
-const ResourceInput = ({ show, handleShow, handleClose }) => {
+const ResourceInput = ({ show, handleShow, handleClose, getAll }) => {
   const [resourceName, setResourceName] = useState('');
   const [location, setLocation] = useState('');
   const [people, setPeople] = useState('');
@@ -149,6 +149,7 @@ const ResourceInput = ({ show, handleShow, handleClose }) => {
 
   const clickBtn = () => {
     postTest1();
+    getAll();
   };
 
   useEffect(() => {
@@ -438,7 +439,12 @@ const ResourceInput = ({ show, handleShow, handleClose }) => {
             name="image"
             onChange={handleChangeFile}
           />
-          <Button variant="secondary" onClick={handleClose} ref={toggleModal}>
+          <Button
+            variant="secondary"
+            type="reset"
+            onClick={handleClose}
+            ref={toggleModal}
+          >
             Close
           </Button>
           <Button variant="primary" type="submit" onClick={() => clickBtn()}>

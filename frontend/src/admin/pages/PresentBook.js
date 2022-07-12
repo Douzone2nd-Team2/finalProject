@@ -9,7 +9,7 @@ import { getCookie } from '../utils/cookie';
 
 import { Container, TitleContainer, TableContainer } from '../styles/BookInfo';
 
-const PresentBook = ({ userNo }) => {
+const PresentBook = ({ userNo, userName }) => {
   const [presentList, setPresentList] = useState([]);
 
   const fetchData = useCallback(async () => {
@@ -92,6 +92,7 @@ const PresentBook = ({ userNo }) => {
                       content: user.content,
                       resourceNo: user.resourceNo,
                       userNo: userNo,
+                      userName: userName,
                     }}
                   >
                     <Button variant="primary">수정</Button>

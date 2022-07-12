@@ -83,11 +83,15 @@ const RePresentBook = ({ resourceNo }) => {
                 <td>{presList.length - idx}</td>
                 <td>{resource.name}</td>
                 <td>{resource.startTime}</td>
-                <td>{resource.endTime}</td>
+                <td>
+                  {resource.endTime}
+                  {resource.cateNo}
+                </td>
                 <td>
                   <Link
-                    to="admin/resourcebookhandle"
+                    to="/admin/resourcebookhandle"
                     state={{
+                      cateNo: resource.cateNo,
                       reservNo: resource.reservNo,
                       userName: resource.name,
                       reservName: resource.reservName,

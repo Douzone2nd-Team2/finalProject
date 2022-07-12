@@ -4,6 +4,7 @@ import com.team2.backend.config.security.auth.EmployeeDetails;
 import com.team2.backend.domain.reservation.*;
 import com.team2.backend.domain.resource.PeopleCnt;
 import com.team2.backend.domain.resource.PeopleCntRepository;
+import com.team2.backend.domain.resource.Resource;
 import com.team2.backend.domain.resource.ResourceRepository;
 import com.team2.backend.web.dto.JsonResponse;
 import com.team2.backend.web.dto.Message;
@@ -350,7 +351,7 @@ public class UserReserveService {
             Long cateNo = resourceRepository.findByCategory(body.getResourceNo());
             System.out.println("cateNo : "+cateNo);
 
-            if(cateNo== 1) {
+            if(cateNo == 1) {
                 if(!peopleCntRepository.findByReservNo(body.getReservNo()).isEmpty()) {
                     peopleCntRepository.deleteByReservNo(body.getReservNo());
                 }

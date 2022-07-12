@@ -86,14 +86,19 @@ const RePrevBook = ({ resourceNo }) => {
                 <td>{resource.endTime}</td>
                 <td>
                   <Link
-                    to="admin/resourcebookhandle"
+                    to="/admin/resourcebookhandle"
                     state={{
                       reservNo: resource.reservNo,
+                      userName: resource.name,
                       reservName: resource.reservName,
-                      name: resource.name,
+                      resourceName: resource.resourceName,
                       startTime: resource.startTime,
                       endTime: resource.endTime,
+                      content: resource.content,
+                      category: resource.category,
+                      resourceNo: resource.resourceNo,
                       userNo: resource.userNo,
+                      cateNo: resource.cateNo,
                     }}
                   >
                     <Button variant="primary">수정</Button>

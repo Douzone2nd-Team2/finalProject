@@ -75,6 +75,7 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                         resource.resourceName,
                         reservation.createAt,
                         reservation.modifyAt,
+                        category.cateNo,
                         category.cateName,
                         reservation.content
                 ))

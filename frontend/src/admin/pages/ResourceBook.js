@@ -19,8 +19,8 @@ const ResourceBook = () => {
     <Container>
       <HeadContainer>{resourceName}</HeadContainer>
       <BookContainer>
-        <RePresentBook resourceNo={resourceNo} />
-        <RePrevBook resourceNo={resourceNo} />
+        <RePresentBook resourceNo={resourceNo} resourceName={resourceName} />
+        <RePrevBook resourceNo={resourceNo} resourceName={resourceName} />
       </BookContainer>
     </Container>
   );

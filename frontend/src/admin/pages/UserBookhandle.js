@@ -23,6 +23,7 @@ import {
   ContentContainer,
   ContentSort,
   ButtonContainer,
+  UserContentSort,
 } from '../styles/UserBookhandle';
 
 import {
@@ -49,6 +50,7 @@ const UserBookhandle = () => {
   const resourceNo = location.state.resourceNo;
   const userNo = location.state.userNo;
   const content = location.state.content;
+  const userName = location.state.userName;
 
   // console.log(reservName);
   // console.log(startTime);
@@ -239,7 +241,9 @@ const UserBookhandle = () => {
       </Container>
       <BookContainer>
         <NameContainer>
-          <span>{book.resourceName}</span>
+          <span>
+            자원 이름 : {book.resourceName}&nbsp;&nbsp; 예약자 : {userName}
+          </span>
           <CategoryContainer>{book.category}</CategoryContainer>
         </NameContainer>
         <hr />
@@ -366,7 +370,7 @@ const UserBookhandle = () => {
                 <Row>
                   {cateNo === 1 && (
                     <>
-                      <ContentSort>
+                      <UserContentSort>
                         <label className="totaluser" htmlFor="totalUser">
                           추가 인원
                         </label>
@@ -386,8 +390,8 @@ const UserBookhandle = () => {
                           </PeopleSearchButton>
                         </PeopleContainer>
                         <PeopleGridContainer />
-                      </ContentSort>
-                      <ContentSort>
+                      </UserContentSort>
+                      <UserContentSort>
                         <EmptyContainer />
                         <PeopleGridContainer>
                           {!people ? (
@@ -412,7 +416,7 @@ const UserBookhandle = () => {
                             })}
                         </PeopleGridContainer>
                         <EmptyRContainer />
-                      </ContentSort>
+                      </UserContentSort>
                     </>
                   )}
                 </Row>
