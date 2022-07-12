@@ -530,11 +530,6 @@ public class UserReserveService {
         List<Long> peopleCnt = body.getPeopleCnt();
         Long resourceNo = body.getResourceNo();
 
-        System.out.println(reservNo);
-        System.out.println(able);
-        System.out.println(reservName);
-        System.out.println(peopleCnt);
-
         reservationRepository.addReservaionInfo(reservNo, able, reservName);
 
         Long cateNo = resourceRepository.findCateNoByResourceNo(resourceNo);
@@ -550,9 +545,11 @@ public class UserReserveService {
             }
         }
 
+        Reservation reservation = reservationRepository.findByReservNo(reservNo);
         Message message = Message.builder()
                 .resCode(4000)
-                .message("[SUCCESS] 추가정보 입력")
+                .message("[SUCCESS] 추가정보 입력 완료")
+                .data(reservation)
                 .build();
         return new JsonResponse().send(200, message);
     }

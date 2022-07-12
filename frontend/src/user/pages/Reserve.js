@@ -37,11 +37,22 @@ const Reserve = () => {
     });
   }, []);
 
+  useEffect(() => {
+    console.log(resourceData);
+  }, [resourceData]);
+
   return (
     <MainContainer>
-      <ReservationHeader title={resourceData.resourceName}></ReservationHeader>
+      <ReservationHeader title="예약"></ReservationHeader>
       <Container>
-        <ResourceInfo option={resourceData.option}></ResourceInfo>
+        <ResourceInfo
+          imageUrl={resourceData.imageUrl}
+          option={resourceData.option}
+          content={resourceData.content}
+          fuel={resourceData.fuel}
+          info={resourceData.content}
+          title={resourceData.resourceName}
+        ></ResourceInfo>
         {step === 0 ? (
           <CalendarInfo
             setStep={setStep}
@@ -52,7 +63,7 @@ const Reserve = () => {
         ) : step === 1 ? (
           <AdditionalInfo
             setStep={setStep}
-            cateNo={resourceData.cateNo}
+            data={resourceData}
           ></AdditionalInfo>
         ) : null}
       </Container>

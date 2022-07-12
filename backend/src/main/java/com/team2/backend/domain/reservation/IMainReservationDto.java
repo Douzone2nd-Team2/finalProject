@@ -18,5 +18,10 @@ public interface IMainReservationDto {
      Integer getHour();
      Long getCnt();
      String getFuel();
-
+     String getName();
+     String getLocation();
+     String getAvailableTime();
+     String getContent();
+     Integer getPeople();
+     Long getCateNo();
 }

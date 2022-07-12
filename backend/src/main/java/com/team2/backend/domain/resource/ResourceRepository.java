@@ -51,7 +51,7 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
     @Query(value="select r.resourceNo as resourceNo , r.cateNo as cateNo, c.cateName as cateName, r.able as able, r.people as people, r.fuel as fuel, " +
             " r.resourceName as resourceName, r.location as location, " +
             " r.availableTime as availableTime, r.adminNo as adminNo, r.option as option, r.createAt as createAt, r.modifyAt as modifyAt, " +
-            " rf.path as imageUrl " +
+            " rf.path as imageUrl, r.content as content" +
             " from Resource r " +
             " left join (select a.path as path, a.resourceno as resourceno from " +
             " (select resourceno, path, row_number() over(partition by resourceno order by createat desc) as row " +

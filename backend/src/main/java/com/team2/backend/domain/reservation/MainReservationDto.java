@@ -31,4 +31,11 @@ public class MainReservationDto implements IMainReservationDto{
     private Integer hour;
     private Long cnt;
 
+    private String name;
+    private String location;
+    private String content;
+    private Integer people;
+    private String availableTime;
+    private Long cateNo;
+
 }

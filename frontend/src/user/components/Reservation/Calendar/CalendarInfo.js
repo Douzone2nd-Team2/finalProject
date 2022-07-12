@@ -138,10 +138,7 @@ const CalendarInfo = (props) => {
       })
       .then((res) => {
         if (res.data.resCode === 4001) {
-          console.log(
-            '[Axios Save Reservation Error] 알 수 없는 오류가 발생했습니다.',
-          );
-          console.log(res.data);
+          alert('이미 예약된 시간입니다. 다른 시간을 선택해주세요.');
           return;
         } else {
           setReservationState({
@@ -161,10 +158,6 @@ const CalendarInfo = (props) => {
         }
       })
       .catch(console.error);
-
-    console.log(result);
-    const reservNo = result.data;
-    console.log('reservNo : ' + reservNo);
   };
 
   // const getTimelist = () => {

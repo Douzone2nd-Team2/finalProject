@@ -15,6 +15,11 @@ import {
 
 import Option from './ResourceOption/Option.js';
 import { BookmarkDiv } from '../Bookmark/style.js';
+import {
+  OptionInfo,
+  OptionDetail,
+  OptionTitle,
+} from './ResourceOption/style.js';
 
 const settings = {
   dots: true,
@@ -29,12 +34,13 @@ const settings = {
 const ResourceInfo = (props) => {
   const [books, setBooks] = useState([]);
   const [values, setValues] = useState([]);
+  const [content, setContent] = useState([]);
 
   useEffect(() => {
-    setBooks([AA, BB]);
-
+    setBooks([props.imageUrl]);
     const option = props.option.split(', ');
     setValues(option);
+    setContent(props.content);
   }, []);
 
   return (
@@ -44,13 +50,32 @@ const ResourceInfo = (props) => {
         <Slider {...settings}>
           {books &&
             books.map((book) => (
-              <img key={book.toString()} src={book} height="300px" />
+              <img
+                className="book"
+                key={book.toString()}
+                src={book}
+                height="300px"
+              />
             ))}
         </Slider>
       </ResourceImageTest>
       <ResourceDetatilTest>
+        <OptionInfo>
+          <OptionTitle>{props.title}</OptionTitle>
+          <OptionDetail>{props.content}</OptionDetail>
+        </OptionInfo>
+        <hr></hr>
         {values &&
-          values.map((value) => <Option key={value} value={value}></Option>)}
+          values.map((value) => (
+            <Option key={value} value={value} content={content}></Option>
+          ))}
+        {props.fuel && (
+          <Option
+            key={props.fuel}
+            value={props.fuel}
+            content={content}
+          ></Option>
+        )}
       </ResourceDetatilTest>
     </ResourceInfoContainer>
   );

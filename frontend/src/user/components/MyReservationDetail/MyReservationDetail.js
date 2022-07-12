@@ -9,26 +9,26 @@ import {
   UserInfoDetail,
 } from '../Reservation/AdditionalInfo/UserInfo/style.js';
 
-const MyReservationDetail = () => {
+const MyReservationDetail = (props) => {
   return (
     <ReservationDetail>
       <FlexContainer>
         <UserInfoContainer>
           <UserInfoTitle>예약번호</UserInfoTitle>
-          <UserInfoDetail>123456</UserInfoDetail>
+          <UserInfoDetail>{props.data.reservNo}</UserInfoDetail>
         </UserInfoContainer>
       </FlexContainer>
       <DateTime></DateTime>
       <FlexContainer>
         <UserInfoContainer>
           <UserInfoTitle>예약자</UserInfoTitle>
-          <UserInfoDetail>이정민</UserInfoDetail>
+          <UserInfoDetail>{props.data.name}</UserInfoDetail>
         </UserInfoContainer>
       </FlexContainer>
       <FlexContainer>
         <UserInfoContainer>
           <UserInfoTitle>예약명</UserInfoTitle>
-          <UserInfoDetail>살려주세요</UserInfoDetail>
+          <UserInfoDetail>{props.data.reservName}</UserInfoDetail>
         </UserInfoContainer>
       </FlexContainer>
     </ReservationDetail>
