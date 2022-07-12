@@ -160,23 +160,6 @@ const CalendarInfo = (props) => {
       .catch(console.error);
   };
 
-  // const getTimelist = () => {
-  //   if (startDate && endDate) {
-  //     let chatMessage = {
-  //       senderName: user.no,
-  //       data: {
-  //         resourceNo: props.resourceNo,
-  //         startTime: startDate.getTime(),
-  //         endTime: endDate.getTime(),
-  //       },
-  //     };
-  //     sendMessage('/app/timelist', chatMessage);
-  //     setDropdownDisable(false);
-  //   } else {
-  //     alert('시작일과 종료일을 선택해주세요.');
-  //   }
-  // };
-
   useEffect(() => {
     console.log(noTimelist);
   }, [noTimelist]);
@@ -193,9 +176,6 @@ const CalendarInfo = (props) => {
           minDate={new Date()}
           inline
         />
-        <ButtonContainer>
-          <ReserveButton onClick={axiosGetTimelist}>조회</ReserveButton>
-        </ButtonContainer>
       </CalendarTest>
       <CalendarDetatil>
         <DateTimeContainer>
@@ -236,6 +216,7 @@ const CalendarInfo = (props) => {
         </DateTimeContainer>
       </CalendarDetatil>
       <ButtonContainer>
+        <ReserveButton onClick={axiosGetTimelist}>조회</ReserveButton>
         <ReserveButton onClick={onNextStep}>다음</ReserveButton>
       </ButtonContainer>
     </CalendarContainer>
