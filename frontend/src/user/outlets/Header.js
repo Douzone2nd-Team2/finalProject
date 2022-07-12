@@ -128,7 +128,9 @@ const Header = () => {
                     <Link to="/mypage/changepw">비밀번호 변경</Link>
                   </li>
                   <hr />
-                  <li>예약현황</li>
+                  <li>
+                    <Link to="/mypage/mybook">예약현황</Link>
+                  </li>
                 </MyPageList>
               </MyPageListContainer>
             )}

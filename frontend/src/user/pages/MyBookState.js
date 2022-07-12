@@ -20,7 +20,7 @@ const settings = {
   nextArrow: <SampleNextArrow className="slick-next" />,
 };
 
-const BookCarousel = () => {
+const MyBookState = () => {
   const [books, setBooks] = useState([]);
 
   const fetchData = async () => {
@@ -58,4 +58,4 @@ const BookCarousel = () => {
   );
 };
 
-export default BookCarousel;
+export default MyBookState;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const SidebarContainer = styled.div`
   background-color: #fafafa;
   position: fixed;
-  top: 150px;
+  top: 200px;
   left: 0;
   width: 190px;
   height: 320px;
@@ -67,7 +67,7 @@ const ToggleContainer = styled.div`
 
 const ToggleContainer2 = styled.div`
   position: fixed;
-  top: 295px;
+  top: 348px;
   left: 0;
   button {
     border: 0;
