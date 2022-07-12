@@ -13,13 +13,11 @@ const ResourceInput = ({ getAll }) => {
   const [location, setLocation] = useState('');
   const [people, setPeople] = useState('');
 
-  const [time, setTime] = useState('');
-  const [hour, setHour] = useState('');
-  const [minute, setMinute] = useState('');
+  const [startHour, setStartHour] = useState('');
+  const [startMinute, setStartMinute] = useState('');
 
-  const [Etime, setEtime] = useState('');
-  const [Ehour, setEhour] = useState('');
-  const [Eminute, setEminute] = useState('');
+  const [endHour, setEndHour] = useState('');
+  const [endMinute, setEndMinute] = useState('');
 
   const [fullTime, setFulltime] = useState('');
 
@@ -53,31 +51,6 @@ const ResourceInput = ({ getAll }) => {
     setAble(e.target.value);
   };
 
-  //시작시간
-  const ShandleTime = (e) => {
-    setTime(e.target.value);
-    console.log(time);
-  };
-  const ShandleHourTime = (e) => {
-    setHour(e.target.value);
-    console.log(hour);
-  };
-  const ShandleMinuteTime = (e) => {
-    setMinute(e.target.value);
-    console.log(minute);
-  };
-
-  //종료시간
-  const EhandleTime = (e) => {
-    setEtime(e.target.value);
-  };
-  const EhandleHourTime = (e) => {
-    setEhour(e.target.value);
-  };
-  const EhandleMinuteTime = (e) => {
-    setEminute(e.target.value);
-  };
-
   const handleFullTime = (e) => {
     setFulltime(e.target.value);
   };
@@ -91,6 +64,23 @@ const ResourceInput = ({ getAll }) => {
     setContent(e.target.value);
   };
 
+  //시작시간
+  const ShandleHourTime = (e) => {
+    setStartHour(e.target.value);
+    // console.log(hour);
+  };
+  const ShandleMinuteTime = (e) => {
+    setStartMinute(e.target.value);
+  };
+
+  //종료시간
+  const changeEndHour = (e) => {
+    setEndHour(e.target.value);
+  };
+  const changeEndMinute = (e) => {
+    setEndMinute(e.target.value);
+  };
+
   const postTest1 = async () => {
     const resourceInsert = {
       cateNo: valued,
@@ -99,7 +89,7 @@ const ResourceInput = ({ getAll }) => {
       location: location,
       availableTime: fullTime
         ? fullTime
-        : time + hour + ':' + minute + ' ~ ' + Etime + Ehour + ':' + Eminute,
+        : startHour + ':' + startMinute + ' ~ ' + endHour + ':' + endMinute,
       option: option,
       fuel: fuel,
       content: content,
@@ -127,8 +117,6 @@ const ResourceInput = ({ getAll }) => {
   };
   const clickBtn = () => {
     postTest1();
-    exitModal();
-    getAll();
   };
   useEffect(() => {
     if (valued === '') {
@@ -201,19 +189,14 @@ const ResourceInput = ({ getAll }) => {
               <Form.Label>이용가능시간</Form.Label>
               <Row>
                 <Row>
-                  <Col>시작시간:</Col>
-                  <Col>
-                    <Form.Select size="sm" onChange={ShandleTime} value={time}>
-                      <option value="AM">AM</option>
-                      <option value="PM">PM</option>
-                    </Form.Select>
-                  </Col>
+                  <Col style={{ maxWidth: '150px' }}>시작시간 :</Col>
                   <Col>
                     <Form.Select
                       size="sm"
+                      value={startHour}
                       onChange={ShandleHourTime}
-                      value={hour}
                     >
+                      <option value="0">0</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
@@ -226,35 +209,40 @@ const ResourceInput = ({ getAll }) => {
                       <option value="10">10</option>
                       <option value="11">11</option>
                       <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                      <option value="22">22</option>
+                      <option value="23">23</option>
                     </Form.Select>
                   </Col>
                   :
                   <Col>
                     <Form.Select
                       size="sm"
+                      value={startMinute}
                       onChange={ShandleMinuteTime}
-                      value={minute}
                     >
                       <option value="00">00</option>
                       <option value="30">30</option>
                     </Form.Select>
                   </Col>
                 </Row>
-
                 <Row>
-                  <Col>종료시간:</Col>
-                  <Col>
-                    <Form.Select size="sm" onChange={EhandleTime} value={Etime}>
-                      <option value="AM">AM</option>
-                      <option value="PM">PM</option>
-                    </Form.Select>
-                  </Col>
+                  <Col style={{ maxWidth: '150px' }}>종료시간 :</Col>
                   <Col>
                     <Form.Select
                       size="sm"
-                      onChange={EhandleHourTime}
-                      value={Ehour}
+                      value={endHour}
+                      onChange={changeEndHour}
                     >
+                      <option value="0">0</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
@@ -267,14 +255,25 @@ const ResourceInput = ({ getAll }) => {
                       <option value="10">10</option>
                       <option value="11">11</option>
                       <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                      <option value="22">22</option>
+                      <option value="23">23</option>
                     </Form.Select>
                   </Col>
                   :
                   <Col>
                     <Form.Select
                       size="sm"
-                      onChange={EhandleMinuteTime}
-                      value={Eminute}
+                      value={endMinute}
+                      onChange={changeEndMinute}
                     >
                       <option value="00">00</option>
                       <option value="30">30</option>
