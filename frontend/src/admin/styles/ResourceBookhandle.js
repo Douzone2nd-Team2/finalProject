@@ -7,22 +7,23 @@ const AllContainer = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
-  padding: 0px 72px;
+  justify-content: space-around;
+  width: 80%;
+  margin: auto;
 `;
 
 const HeadContainer = styled.div`
   font-size: 30px;
   font-weight: 600;
-  padding-top: 30px;
+  padding-top: 70px;
   border-bottom: 4px solid black;
+  margin-left: 5px;
 `;
 
 const BookContainer = styled.div`
   width: 80%;
-  margin-top: 100px;
-  margin-left: 8%;
+  margin-top: 30px;
+  margin-left: 10%;
   background-color: #f6f6f6;
   border-radius: 15px;
   opacity: 0.9;
@@ -84,6 +85,8 @@ const MagnifyingGlass = styled.div`
   }
 `;
 
+const ResourceSearchButton = styled.div``;
+
 export {
   AllContainer,
   Container,
@@ -96,4 +99,5 @@ export {
   ContentSort,
   ButtonContainer,
   MagnifyingGlass,
+  ResourceSearchButton,
 };

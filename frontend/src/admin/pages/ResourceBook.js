@@ -15,9 +15,6 @@ const ResourceBook = () => {
   const resourceName = location.state.resourceName;
   const resourceNo = location.state.resourceNo;
 
-  console.log('resourceName: ' + location.state.resourceName);
-  console.log('resourceNo: ' + location.state.resourceNo);
-
   return (
     <Container>
       <HeadContainer>{resourceName}</HeadContainer>
