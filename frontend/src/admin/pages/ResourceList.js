@@ -68,7 +68,7 @@ const ResourceList = () => {
           style={{ textDecoration: 'none', color: 'black' }}
           key={idx}
         >
-          <Reservresourceitem resource={resource} />
+          <Reservresourceitem resource={resource} key={idx} />
         </Link>
       ))}
     </Container>

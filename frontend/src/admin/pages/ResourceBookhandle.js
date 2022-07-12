@@ -203,7 +203,11 @@ const ResourceBookhandle = () => {
                 <input type="text" value={book.reservName} />
               </ContentSort>
               <ContentSort>
-                <label htmlFor="resourceInfo" style={{ maxWidth: '150px' }}>
+                <label
+                  htmlFor="resourceInfo"
+                  style={{ maxWidth: '150px' }}
+                  value={book.content}
+                >
                   정보
                 </label>
                 <textarea cols="50" rows="5" id="resourceInfo" />

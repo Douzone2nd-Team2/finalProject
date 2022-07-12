@@ -21,10 +21,17 @@ const ResourcePage = () => {
   const [resources, setResources] = useState([]);
 
   const [page, setPage] = useState(1);
-  const [items, setItems] = useState(12);
+  const [items, setItems] = useState(8);
+  const [count, setCount] = useState(0);
 
   const [selected, setSelected] = useState('');
-
+  const [show, setShow] = useState(false);
+  const handleShow = () => {
+    setShow(true);
+  };
+  const handleClose = () => {
+    setShow(false);
+  };
   const pageHandler = (pageNumber) => {
     setPage(pageNumber);
   };
@@ -41,6 +48,7 @@ const ResourcePage = () => {
         },
       })
       .then((response) => {
+        console.log(response.data.data);
         setResources(response.data.data);
       })
       .catch((error) => {
@@ -58,6 +66,7 @@ const ResourcePage = () => {
       .then((response) => {
         console.log(response.data);
         setResources(response.data.data);
+        pageHandler(1);
       })
       .catch((error) => {
         console.log(error);
@@ -73,6 +82,10 @@ const ResourcePage = () => {
       })
       .then((response) => {
         setResources(response.data.data);
+        setCount(response.data.data.length);
+
+        setPage(1);
+        pageHandler(1);
       })
       .catch((error) => {
         console.log(error);
@@ -81,23 +94,30 @@ const ResourcePage = () => {
 
   useEffect(() => {
     if (selected == '0') {
+      console.log('자원 전체 조회');
       getAll();
     } else if (selected == '4') {
       getBookmark();
     } else {
       getSelect();
     }
-
-    console.log(resources);
   }, [selected]);
 
-  useEffect(() => {}, [ResourceInput]);
+  useEffect(() => {
+    if (!show) {
+      getAll();
+    }
+  }, [show]);
 
   return (
     <>
       <Container>
         <ResourceContainer>
-          <ResourceInput getAll={getAll} />
+          <ResourceInput
+            show={show}
+            handleShow={handleShow}
+            handleClose={handleClose}
+          />
           자원목록
         </ResourceContainer>
         <ResourceContainer2>
