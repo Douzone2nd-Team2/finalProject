@@ -35,15 +35,23 @@ const PresentBook = ({ userNo }) => {
       reservNo: reservNo,
     };
     try {
-      await axios.post(
-        `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/delete`,
-        data,
-        {
-          headers: {
-            Authorization: getCookie('accessToken'),
+      await axios
+        .post(
+          `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/delete`,
+          data,
+          {
+            headers: {
+              Authorization: getCookie('accessToken'),
+            },
           },
-        },
-      );
+        )
+        .then((res) => {
+          console.log(res);
+          const presentTemp = presentList.filter(
+            (item) => item.reservNo != reservNo,
+          );
+          setPresentList(presentTemp);
+        });
     } catch (e) {
       console.log(e);
     }

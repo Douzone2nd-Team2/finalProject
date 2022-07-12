@@ -16,6 +16,8 @@ import {
 const ResourceDetail = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const avalidTime = state.availableTime;
+
   const [inputStatus, setInputStatus] = useState(false);
 
   const [resource, setResource] = useState([]);
@@ -31,13 +33,19 @@ const ResourceDetail = () => {
   const [location, setLocation] = useState('');
   const [people, setPeople] = useState('');
 
-  const [time, setTime] = useState('');
-  const [hour, setHour] = useState('');
-  const [minute, setMinute] = useState('');
+  const [startHour, setStartHour] = useState('');
+  const [startMinute, setStartMinute] = useState('');
 
-  const [Etime, setEtime] = useState('');
-  const [Ehour, setEhour] = useState('');
-  const [Eminute, setEminute] = useState('');
+  const [endHour, setEndHour] = useState('');
+  const [endMinute, setEndMinute] = useState('');
+
+  // 시작, 종료 시간
+  // const [startHour, setStartHour] = useState(parseInt(startTime.substr(11, 2)));
+  // const [endHour, setEndHour] = useState(parseInt(endTime.substr(11, 2)));
+
+  // 시작, 종료 분
+  // const [startMinute, setStartMinute] = useState(startTime.substr(14, 2));
+  // const [endMinute, setEndMinute] = useState(endTime.substr(14, 2));
 
   const [fullTime, setFulltime] = useState('');
 
@@ -46,9 +54,9 @@ const ResourceDetail = () => {
   const [content, setContent] = useState('');
   const [able, setAble] = useState('Y');
   const [detailsImgs, setDetailImgs] = useState('');
+  const [cateNo, setCateNo] = useState('');
 
   const handleResourceName = (e) => {
-    e.preventDefault();
     setResourceName(e.target.value);
   };
   const handleLocation = (e) => {
@@ -59,28 +67,19 @@ const ResourceDetail = () => {
   };
 
   //시작시간
-  const ShandleTime = (e) => {
-    setTime(e.target.value);
-    console.log(time);
-  };
   const ShandleHourTime = (e) => {
-    setHour(e.target.value);
-    console.log(hour);
+    setStartHour(e.target.value);
   };
   const ShandleMinuteTime = (e) => {
-    setMinute(e.target.value);
-    console.log(minute);
+    setStartMinute(e.target.value);
   };
 
   //종료시간
-  const EhandleTime = (e) => {
-    setEtime(e.target.value);
+  const changeEndHour = (e) => {
+    setEndHour(e.target.value);
   };
-  const EhandleHourTime = (e) => {
-    setEhour(e.target.value);
-  };
-  const EhandleMinuteTime = (e) => {
-    setEminute(e.target.value);
+  const changeEndMinute = (e) => {
+    setEndMinute(e.target.value);
   };
 
   // Full-Time
@@ -126,14 +125,23 @@ const ResourceDetail = () => {
   }, []);
 
   const getResourceNo = async (state) => {
+    console.log(state);
     axios
       .get(
         `${process.env.REACT_APP_SERVER_PORT}/resource/detail?resourceNo=${state}`,
         { Authorization: getCookie('accessToken') },
       )
       .then((response) => {
-        console.log(response.data.data);
-        setResource(response.data.data.resource);
+        setResourceName(response.data.data.resource.resourceName);
+        setLocation(response.data.data.resource.location);
+        setPeople(response.data.data.resource.people);
+        setOption(response.data.data.resource.option);
+        setFuel(response.data.data.resource.fuel);
+        setContent(response.data.data.resource.content);
+        setAble(response.data.data.resource.able);
+        setResourceName(response.data.data.resource.resourceName);
+        setCateNo(response.data.data.resource.cateNo);
+
         setFileList(response.data.data.fileList);
         setInputStatus(response.data.data.resource.able === 'Y');
       })
@@ -223,34 +231,25 @@ const ResourceDetail = () => {
 
   const updateResource = async (state) => {
     console.log(state);
+
     await axios
       .put(
         `${process.env.REACT_APP_SERVER_PORT}/resource/update?resourceNo=${state}`,
         {
-          resourceNo: state,
           resourceName: resourceName,
+          cateNo: cateNo,
           people: people,
           able: able,
           content: content,
           fuel: fuel,
           option: option,
-          cateNo: resource.cateNo,
-          adminNo: resource.adminNo,
+          adminNo: 1,
           availableTime: fullTime
             ? fullTime
-            : time +
-              hour +
-              ':' +
-              minute +
-              ' ~ ' +
-              Etime +
-              Ehour +
-              ':' +
-              Eminute,
+            : startHour + ':' + startMinute + ' ~ ' + endHour + ':' + endMinute,
         },
       )
       .then((res) => {
-        // console.log();
         alert('자원이 수정되었습니다.');
         navigate('/admin/resource');
       })
@@ -262,15 +261,14 @@ const ResourceDetail = () => {
     <>
       {resource && (
         <Container>
-          <ResourceContainer>{resource.resourceName}</ResourceContainer>
+          <ResourceContainer>{resourceName}</ResourceContainer>
 
           <ResourceContainer2>
             <ResourceForm>
               <form>
                 <table>
                   <tr>
-                    <Formtd>자원번호</Formtd>{' '}
-                    <Forminput> {resource.resourceNo}</Forminput>
+                    <Formtd>자원번호</Formtd> <Forminput> {state}</Forminput>
                   </tr>
                   <tr>
                     <Formtd>자원이름</Formtd>
@@ -278,7 +276,7 @@ const ResourceDetail = () => {
                       <input
                         type="text"
                         id="name"
-                        defaultValue={resource.resourceName}
+                        defaultValue={resourceName}
                         onChange={handleResourceName}
                       />
                     </Forminput>
@@ -356,7 +354,7 @@ const ResourceDetail = () => {
                           <input
                             type="number"
                             id="people"
-                            defaultValue={resource.people}
+                            defaultValue={people}
                             onChange={handlePeople}
                           />
                         </Forminput>
@@ -367,7 +365,7 @@ const ResourceDetail = () => {
                           <input
                             type="text"
                             id="location"
-                            defaultValue={resource.location}
+                            defaultValue={location}
                             onChange={handleLocation}
                           />
                         </Forminput>
@@ -381,7 +379,7 @@ const ResourceDetail = () => {
                           <input
                             type="text"
                             id="fuel"
-                            defaultValue={resource.fuel}
+                            defaultValue={fuel}
                             onChange={handleFuel}
                           />
                         </Forminput>
@@ -392,7 +390,7 @@ const ResourceDetail = () => {
                           <input
                             type="number"
                             id="people"
-                            defaultValue={resource.people}
+                            defaultValue={people}
                             onChange={handlePeople}
                           />
                         </Forminput>
@@ -406,7 +404,7 @@ const ResourceDetail = () => {
                           <input
                             type="number"
                             id="people"
-                            defaultValue={resource.people}
+                            defaultValue={people}
                             onChange={handlePeople}
                           />
                         </Forminput>
@@ -419,23 +417,14 @@ const ResourceDetail = () => {
                     <Formtd>이용가능시간</Formtd>
                     <Forminput>
                       <Row>
-                        <Col>시작시간:</Col>
+                        <Col style={{ maxWidth: '150px' }}>시작시간 :</Col>
                         <Col>
                           <Form.Select
                             size="sm"
-                            onChange={ShandleTime}
-                            value={time}
-                          >
-                            <option value="AM">AM</option>
-                            <option value="PM">PM</option>
-                          </Form.Select>
-                        </Col>
-                        <Col>
-                          <Form.Select
-                            size="sm"
+                            value={startHour}
                             onChange={ShandleHourTime}
-                            value={hour}
                           >
+                            <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -448,39 +437,40 @@ const ResourceDetail = () => {
                             <option value="10">10</option>
                             <option value="11">11</option>
                             <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
                           </Form.Select>
                         </Col>
                         :
                         <Col>
                           <Form.Select
                             size="sm"
+                            value={startMinute}
                             onChange={ShandleMinuteTime}
-                            value={minute}
                           >
                             <option value="00">00</option>
                             <option value="30">30</option>
                           </Form.Select>
                         </Col>
                       </Row>
-
                       <Row>
-                        <Col>종료시간:</Col>
+                        <Col style={{ maxWidth: '150px' }}>종료시간 :</Col>
                         <Col>
                           <Form.Select
                             size="sm"
-                            onChange={EhandleTime}
-                            value={Etime}
+                            value={endHour}
+                            onChange={changeEndHour}
                           >
-                            <option value="AM">AM</option>
-                            <option value="PM">PM</option>
-                          </Form.Select>
-                        </Col>
-                        <Col>
-                          <Form.Select
-                            size="sm"
-                            onChange={EhandleHourTime}
-                            value={Ehour}
-                          >
+                            <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -493,14 +483,25 @@ const ResourceDetail = () => {
                             <option value="10">10</option>
                             <option value="11">11</option>
                             <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
                           </Form.Select>
                         </Col>
                         :
                         <Col>
                           <Form.Select
                             size="sm"
-                            onChange={EhandleMinuteTime}
-                            value={Eminute}
+                            value={endMinute}
+                            onChange={changeEndMinute}
                           >
                             <option value="00">00</option>
                             <option value="30">30</option>
@@ -526,7 +527,7 @@ const ResourceDetail = () => {
                       <input
                         type="text"
                         id="option"
-                        defaultValue={resource.option}
+                        defaultValue={option}
                         onChange={handleOption}
                       />
                     </Forminput>
@@ -538,7 +539,7 @@ const ResourceDetail = () => {
                         type="text"
                         id="content"
                         style={{ width: '500px', height: '100px' }}
-                        defaultValue={resource.content}
+                        defaultValue={content}
                         onChange={handleContent}
                       />
                     </Forminput>
