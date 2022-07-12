@@ -27,6 +27,10 @@ const BookContainer = styled.div`
   border-radius: 15px;
   opacity: 0.9;
   box-shadow: 1.5px 1.5px 1.5px 1.5px gray;
+  /* width: fit-content;
+  /* width: 100%;
+  height: 100%;
+  background-color: blue; */
 `;
 
 const InputContainer = styled.div`

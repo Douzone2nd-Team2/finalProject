@@ -131,7 +131,9 @@ public class EmployeeQuerydslRepositoryImpl implements  EmployeeQuerydslReposito
                 .where(employee.name.contains(keyword)
                         .or(employee.empNo.contains(keyword))
                         .or(department.deptName.contains(keyword))
-                        .or(grade.gradeName.contains(keyword)))
+                        .or(grade.gradeName.contains(keyword))
+                        .and(employee.able.eq("Y")))
+                .orderBy(employee.deptNo.asc(),employee.gradeNo.asc())
                 .fetch();
     }
 }

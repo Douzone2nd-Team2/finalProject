@@ -25,7 +25,8 @@ const ResourceBookhandle = () => {
   const reservNo = location.state.reservNo;
   const startTime = location.state.startTime;
   const endTime = location.state.endTime;
-  const userName = location.state.userName;
+  const reservName = location.state.reservName;
+
 
   console.log(startTime);
   console.log(endTime);
@@ -34,6 +35,7 @@ const ResourceBookhandle = () => {
 
   console.log('바뀌기 전 ; ', startTime);
   console.log('바뀌기 전 : ', endTime);
+
 
   const startDay = startTime.substr(0, 10);
   const endDay = endTime.substr(0, 10);
@@ -49,9 +51,13 @@ const ResourceBookhandle = () => {
 
   const [book, setBook] = useState([]);
 
+  const [userName, setUserName] = useState(location.state.userName);
+
   const [time, setTime] = useState('');
   const [hour, setHour] = useState('');
   const [minute, setMinute] = useState('');
+
+  const changeReservName = (e) => {};
 
   const btnOpen = () => {
     setOpenModal(true);
@@ -91,8 +97,9 @@ const ResourceBookhandle = () => {
         </Container>
         <BookContainer>
           <NameContainer>
-            <span>{book.resourceName}</span>
-            <CategoryContainer>{book.category}</CategoryContainer>
+            <span>{book?.resourceName}</span>
+            <CategoryContainer>{book?.category}</CategoryContainer>
+
           </NameContainer>
           <hr />
           <ContentContainer>
@@ -187,7 +194,7 @@ const ResourceBookhandle = () => {
                 <label htmlFor="user" style={{ maxWidth: '150px' }}>
                   사용자
                 </label>
-                <input type="text" id="user" placeholder={book.userName} />
+                <input type="text" id="user" placeholder={book?.userName} />
                 {/* <MagnifyingGlass>
                   <button
                     className="fa-solid fa-magnifying-glass"
@@ -199,6 +206,18 @@ const ResourceBookhandle = () => {
                 </MagnifyingGlass> */}
               </ContentSort>
               <ContentSort>
+                <label
+                  htmlFor="user"
+                  type="text"
+                  value={book.reservName}
+                  onChange={changeReservName}
+                  style={{ maxWidth: '150px' }}
+                >
+                  예약확인 :
+                </label>
+                <input type="text" value={book.reservName} />
+              </ContentSort>
+              <ContentSort>
                 <label htmlFor="resourceInfo" style={{ maxWidth: '150px' }}>
                   정보
                 </label>
@@ -206,7 +225,7 @@ const ResourceBookhandle = () => {
                   cols="50"
                   rows="5"
                   id="resourceInfo"
-                  value={book.content}
+                  value={book?.content}
                 />
               </ContentSort>
               <ButtonContainer>
