@@ -41,8 +41,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
                  "where rc.checkdate = to_char((select now() AT TIME ZONE 'Asia/Seoul'), 'YYYY-MM-DD') and rc.cateno = :cateNo", nativeQuery = true)
     IMainReservationDto getMainFrequencyUsageList(@Param("cateNo") int cateNo);
 
-    @Query(value="select a.resourceno as resourceNo, a.resourcename as resourceName, a.option as option, b.imageNo as imageNo, b.path as imageUrl " +
+    @Query(value="select a.resourceno as resourceNo, a.resourcename as resourceName, a.option as option, " +
+            " a.people as people, a.fuel as fuel, a.content as content, b.imageNo as imageNo, b.path as imageUrl, a.cateNo as cateNo, c.cateName as cateName  " +
             "from resource a " +
+            "join category c on a.cateNo = c.cateNo " +
                 "left join (select imageno, resourceno, path, row_number() over(partition by resourceno) " +
                        "from resource_file " +
                       "where able = 'Y' " +

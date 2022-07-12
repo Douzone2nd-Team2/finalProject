@@ -6,7 +6,7 @@ import { getCookie } from '../../utils/cookie';
 
 import SamplePrevArrow from './SamplePrevArrow';
 import SampleNextArrow from './SampleNextArrow';
-import BookItem from '../BookItem';
+import BookItem from './BookItem';
 
 import './test.css';
 
