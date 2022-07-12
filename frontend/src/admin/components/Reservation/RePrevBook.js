@@ -93,6 +93,7 @@ const RePrevBook = ({ resourceNo }) => {
                       name: resource.name,
                       startTime: resource.startTime,
                       endTime: resource.endTime,
+                      userNo: resource.userNo,
                     }}
                   >
                     <Button variant="primary">수정</Button>
