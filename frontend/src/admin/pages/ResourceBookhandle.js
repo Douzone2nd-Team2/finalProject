@@ -27,7 +27,6 @@ const ResourceBookhandle = () => {
   const endTime = location.state.endTime;
   const reservName = location.state.reservName;
 
-
   console.log(startTime);
   console.log(endTime);
 
@@ -36,18 +35,17 @@ const ResourceBookhandle = () => {
   console.log('바뀌기 전 ; ', startTime);
   console.log('바뀌기 전 : ', endTime);
 
-
   const startDay = startTime.substr(0, 10);
   const endDay = endTime.substr(0, 10);
 
   const startHour = parseInt(startTime.substr(11, 2));
   const endHour = parseInt(endTime.substr(11, 2));
 
-  console.log('바뀌기 후 ; ', startHour);
-  console.log('바뀌기 후 : ', endHour);
+  // console.log('바뀌기 후 ; ', startHour);
+  // console.log('바뀌기 후 : ', endHour);
 
-  const startMinute = startTime.substr(14, 2);
-  const endMinute = endTime.substr(14, 2);
+  const startMinute = parseInt(startTime.substr(14, 2));
+  const endMinute = parseInt(endTime.substr(14, 2));
 
   const [book, setBook] = useState([]);
 
@@ -99,7 +97,6 @@ const ResourceBookhandle = () => {
           <NameContainer>
             <span>{book?.resourceName}</span>
             <CategoryContainer>{book?.category}</CategoryContainer>
-
           </NameContainer>
           <hr />
           <ContentContainer>
@@ -218,7 +215,11 @@ const ResourceBookhandle = () => {
                 <input type="text" value={book.reservName} />
               </ContentSort>
               <ContentSort>
-                <label htmlFor="resourceInfo" style={{ maxWidth: '150px' }}>
+                <label
+                  htmlFor="resourceInfo"
+                  style={{ maxWidth: '150px' }}
+                  value={book.content}
+                >
                   정보
                 </label>
                 <textarea
