@@ -36,10 +36,12 @@ public class MypageService {
 
 
     @Transactional
-    public ResponseEntity<Message> changePw(HttpServletRequest req, MypageDto body){
+    public ResponseEntity<Message> changePw(@AuthenticationPrincipal EmployeeDetails employeeDetails, MypageDto body){
 
-        Employee employee = employeeRepository.findByNo((Long)req.getAttribute("userNo"));
-        System.out.println(req.getAttribute("userNo"));
+
+        Long userNo = employeeDetails.getEmployee().getNo();
+        Employee employee = employeeRepository.findByNo(userNo);
+        System.out.println(userNo);
         System.out.println(body.getPassword());
         if(!bCryptPasswordEncoder.matches(body.getPassword(), employee.getPassword())){
             System.out.println("현재 비밀번호 불일치");

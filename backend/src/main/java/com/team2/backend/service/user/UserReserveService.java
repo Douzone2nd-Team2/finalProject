@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -39,56 +40,9 @@ public class UserReserveService {
     private final PeopleCntRepository peopleCntRepository;
     private final ReservationQuerydslRepository reservationQuerydslRepository;
 
-
-
-    @Transactional
-    public ResponseEntity<Message> getTimelist(UserReservationDto body) throws ParseException {
-        System.out.println("getTimelist");
-        Long resourceNo = body.getResourceNo();
-        Date startDate = formatter.parse(formatter.format(body.getStartDate()));
-        Date endDate = formatter.parse(formatter.format(body.getEndDate()));
-        System.out.println(resourceNo);
-        System.out.println(startDate);
-        System.out.println(endDate);
-        System.out.println("--------------------");
-        List<Date> dateList = new ArrayList<>();
-        for (Date i = startDate; i.before(endDate) || i.equals(endDate); i = new Date(i.getTime() + (1000 * 60 * 60 * 24))) {
-            System.out.println(i);
-            dateList.add(i);
-        }
-
-        HashMap<String, Long[]> timelists = new HashMap<>();
-        for (int i = 0; i < dateList.size(); i++) {
-            System.out.println();
-            List<ReservationCheck> check = reservationCheckRepository.findByResourceNoAndCheckDate(resourceNo, formatter.format(dateList.get(i)));
-            if (check.isEmpty()) {
-                continue;
-            }
-            else {
-                for (int j = 0; j < check.size(); j++) {
-                    Long[] timelist =  timelistRepository.findAllByCheckNo(check.get(j).getCheckNo());
-                    timelists.put(formatter.format(dateList.get(i)), timelist);
-                }
-            }
-        }
-
-        if (timelists.isEmpty()) {
-            Message message = Message.builder()
-                    .resCode(4000)
-                    .message("[SUCCESS] 빈 배열")
-                    .build();
-            return new JsonResponse().send(200, message);
-        }
-        Message message = Message.builder()
-                .resCode(4000)
-                .message("[SUCCESS] 시간")
-                .data(timelists)
-                .build();
-        return new JsonResponse().send(200, message);
-    }
-
     @Transactional
     public ResponseEntity<Message> anotherGetTimelist(UserReservationDto body) throws ParseException {
+        garbageCollector();
         System.out.println("anotherGetTimelist");
         System.out.println(body.getStartTime());
         Long resourceNo = body.getResourceNo();
@@ -550,6 +504,58 @@ public class UserReserveService {
                 .resCode(4000)
                 .message("[SUCCESS] 추가정보 입력 완료")
                 .data(reservation)
+                .build();
+        return new JsonResponse().send(200, message);
+    }
+
+
+    @Transactional
+    public void garbageCollector() {
+        List<Reservation> garbageList = reservationRepository.findAllByAbleAndModifyAtBefore("N", LocalDateTime.now().minusMinutes(20));
+        if (garbageList.isEmpty()) {
+            return;
+        }
+
+        for (int i = 0; i < garbageList.size(); i++) {
+            Long reservNo = garbageList.get(i).getReservNo();
+            List<ReservationCheck> checkList = reservationCheckRepository.findAllByReservNo(reservNo);
+
+            for (int j = 0; j < checkList.size(); j++) {
+                ReservationCheck check = checkList.get(j);
+                timelistRepository.deleteAllByCheckNo(check.getCheckNo());
+            }
+            // 피플카운트도 지워
+
+            reservationCheckRepository.deleteAllByReservNo(reservNo);
+            reservationRepository.deleteAllByReservNo(reservNo);
+        }
+    }
+
+    @Transactional
+    public ResponseEntity<Message> cancelReservation(ReserveDeleteDto body) {
+        System.out.println("ㅎㅇ");
+        Long reservNo = body.getReservNo();
+        List<ReservationCheck> checkList = reservationCheckRepository.findAllByReservNo(reservNo);
+        if (checkList.isEmpty()) {
+            Message message = Message.builder()
+                    .resCode(4001)
+                    .message("[FAIL] No Reservation")
+                    .build();
+            return new JsonResponse().send(200, message);
+        }
+
+        for (int j = 0; j < checkList.size(); j++) {
+            ReservationCheck check = checkList.get(j);
+            timelistRepository.deleteAllByCheckNo(check.getCheckNo());
+        }
+            // 피플카운트도 지워
+
+        reservationCheckRepository.deleteAllByReservNo(reservNo);
+        reservationRepository.deleteAllByReservNo(reservNo);
+
+        Message message = Message.builder()
+                .resCode(4000)
+                .message("[SUCCESS] Delete Reservation")
                 .build();
         return new JsonResponse().send(200, message);
     }

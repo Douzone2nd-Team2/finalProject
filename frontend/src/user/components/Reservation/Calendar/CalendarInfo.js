@@ -235,19 +235,6 @@ const CalendarInfo = (props) => {
           </DateTimeDiv>
         </DateTimeContainer>
       </CalendarDetatil>
-      {props.cateNo === 3 ? (
-        <QuantityContainer>
-          <RestDiv>
-            <RestTitle>잔여 개수</RestTitle>
-            <RestSpan>0</RestSpan>
-          </RestDiv>
-          <QuantityDiv>
-            <QuantityTitle>선택 개수</QuantityTitle>
-            <QuantityInput></QuantityInput>
-          </QuantityDiv>
-        </QuantityContainer>
-      ) : null}
-
       <ButtonContainer>
         <ReserveButton onClick={onNextStep}>다음</ReserveButton>
       </ButtonContainer>

@@ -86,7 +86,7 @@ const RePresentBook = ({ resourceNo }) => {
                 <td>{resource.endTime}</td>
                 <td>
                   <Link
-                    to="/admin/resourcebookhandle"
+                    to="admin/resourcebookhandle"
                     state={{
                       reservNo: resource.reservNo,
                       userName: resource.name,
