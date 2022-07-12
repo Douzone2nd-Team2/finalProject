@@ -251,7 +251,6 @@ public class ReservationService {
     public ResponseEntity<Message> updateReservation(HttpServletRequest req, ReservationManagementDto body) throws ParseException {
 
         Reservation reservation = body.toEntity();
-        System.out.println(body.getEmpNoList().get(0)+"1111111111111111111111");
         Message message;
         System.out.println(body.getContent()+"!!!!!!!!!!!!!!!!!!!");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -307,7 +306,6 @@ public class ReservationService {
             Long reservNo = reservationRepository.save(reservation).getReservNo();
             if(body.getCateNo().equals(1L)) {//자원이 회의실일 경우
                 if(body.getEmpNoList() != null) {  //추가 인원이 있을 경우
-                    System.out.println("$$$%%%%%"+body.getEmpNoList().get(0));
                     for (int i = 0; i < body.getEmpNoList().size(); i++) {
                         if (cateNo == 1) {
                             PeopleCnt peopleCnt = PeopleCnt.builder()

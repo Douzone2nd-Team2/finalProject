@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -109,4 +110,11 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "        on r2.resourceno = rf.resourceno\n" +
             "where r.reservno = :reservNo", nativeQuery = true)
     List<IMainReservationDto> getMyReservationInfo(@Param("reservNo")Long reservNo);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Reservation WHERE reservNo = :reservNo AND able = :able")
+    void deleteAllByReservNoAndAble(@Param("reservNo")Long reservNo, @Param("able")String able);
+
+    List<Reservation> findAllByAbleAndModifyAtBefore(String able, LocalDateTime modifiyAt);
 }
