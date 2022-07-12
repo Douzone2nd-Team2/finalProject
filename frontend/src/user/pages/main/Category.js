@@ -50,6 +50,11 @@ const Category = () => {
               alt="No Image"
               className="car"
             />
+            <ImageContainer
+              src={popular.recommendConference?.imageUrl}
+              alt="No Image"
+              className="car"
+            />
           </>
         )}
 
