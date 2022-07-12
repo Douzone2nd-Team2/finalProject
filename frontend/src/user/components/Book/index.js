@@ -46,14 +46,18 @@ const BookCarousel = () => {
 
   return (
     <div style={{ margin: '0 96px' }}>
-      <Slider {...settings}>
-        {books &&
-          books.map((book, id) => (
-            <div key={id}>
-              <BookItem book={book} />
-            </div>
-          ))}
-      </Slider>
+      {books.length === 0 ? (
+        <div>예약 리스트가 없습니다.</div>
+      ) : (
+        <Slider {...settings}>
+          {books &&
+            books.map((book, id) => (
+              <div key={id}>
+                <BookItem book={book} />
+              </div>
+            ))}
+        </Slider>
+      )}
     </div>
   );
 };

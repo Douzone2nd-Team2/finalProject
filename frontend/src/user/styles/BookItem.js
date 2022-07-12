@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const BookContainer = styled.div`
   margin: 30px;
   font-family: NanumGothic;
+  cursor: pointer;
   .thumbnail {
     img {
       width: 200px;
