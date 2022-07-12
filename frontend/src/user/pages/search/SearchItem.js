@@ -64,7 +64,7 @@ const SearchItem = ({ book }) => {
             <div> {book.cateNo === 2 ? `연료 : ` + book.fuel : <></>}</div>
           </OptionContainer>
           <ContentContainer>
-            <div>내용 : {book.content}</div>
+            <div>{book.content}</div>
           </ContentContainer>
         </RightContainer>
       </ItemContainer>

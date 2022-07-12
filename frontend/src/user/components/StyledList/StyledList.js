@@ -14,7 +14,6 @@ const StyledList = (props) => {
   const [checkNameList, setCheckNameList] = useState([]);
 
   const changeHandler = (checked, id, name) => {
-    console.log(checked + '//' + id);
     if (checked) {
       setCheckNameList([...checkNameList, name]);
       setCheckList([...checkList, id]);
@@ -23,7 +22,6 @@ const StyledList = (props) => {
       setCheckNameList(checkNameList.filter((el) => name !== el));
     }
   };
-  console.log(checkList);
   props.setCheckList(checkList);
   props.setCheckNameList(checkNameList);
 
