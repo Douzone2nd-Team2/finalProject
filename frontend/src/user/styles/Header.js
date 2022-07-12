@@ -19,21 +19,22 @@ const LogoContainer = styled.div`
 const SearchContainer = styled.form`
   position: relative;
   margin-left: 170px;
+  color: #717171;
   //margin: auto;
   //margin-right: 100px;
   input {
     //border: 1px solid black;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
     width: 500px;
     border: none;
     border-radius: 30px;
     padding: 6px 16px;
     line-height: 32px;
-    color: #434343;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 4px 14px;
   }
   input:focus {
-    outline: 1px solid black;
+    outline: none;
     //border: none;
   }
   button {
@@ -94,17 +95,18 @@ const MyPageList = styled.ul`
   margin-top: 15px;
   li a {
     text-decoration: none;
-    color: black;
+    color: #222222;
   }
 `;
 
 const MyPageListContainer = styled.div`
-  border: 1px solid ${(props) => props.theme.borderColor};
+  border: 1px solid #717171;
   background-color: white;
-  color: black;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 2px;
-  padding: 3px;
+  color: #222222;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 16px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding: 5px;
   margin-top: 28px;
   margin-left: -22px;
   position: absolute;

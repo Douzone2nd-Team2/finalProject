@@ -8,13 +8,18 @@ const Container = styled.div`
   border-radius: 15px;
   opacity: 0.9;
   font-family: NanumGothicBold;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 6px 16px;
+
+  form {
+    padding-top: 24px;
+  }
 `;
 
 const TitleContainer = styled.h1`
   display: flex;
   justify-content: center;
-  margin-top: 5px;
-  padding-top: 15px;
+  padding-top: 18px;
+  padding-bottom: 2px;
   font-size: 30px;
   font-weight: 800;
 `;
@@ -22,7 +27,7 @@ const TitleContainer = styled.h1`
 const ContentContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  padding-top: 30px;
   padding-bottom: 20px;
   font-size: 20px;
   font-weight: 800;
@@ -44,12 +49,12 @@ const CenterSort = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 30px;
-  margin-left: -15px;
+  padding: 42px 0px;
   Button {
-    margin-left: 15px;
+    margin-left: 18px;
+    width: 80px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
   }
-  padding-bottom: 40px;
 `;
 
 export {

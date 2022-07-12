@@ -48,8 +48,7 @@ const AdditionalInfo = (props) => {
       })
       .then((res) => {
         if (res.data.resCode === 4001) {
-          alert('[ERROR] 알 수 없는 오류가 발생하였습니다.');
-          console.log(res.data);
+          alert('알 수 없는 오류가 발생하였습니다.');
           return;
         } else {
           alert('예약이 완료되었습니다.');

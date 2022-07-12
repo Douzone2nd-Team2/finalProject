@@ -13,6 +13,7 @@ import {
   AllContainer,
   ContentContainer,
   BookContainer,
+  WrapperContainer,
 } from '../styles/Resource';
 
 import Slider from 'react-slick';
@@ -237,9 +238,9 @@ const ResourceDetail = () => {
       .then((res) => {
         console.log(res);
         console.log('파일 수정성공');
-        // updateResource(state);
+        updateResource(state);
         alert('자원이 수정되었습니다.');
-        // navigate('/admin/resource');
+        navigate('/admin/resource');
       })
       .catch((error) => {
         console.log(error);
@@ -267,7 +268,7 @@ const ResourceDetail = () => {
   };
 
   const updateResource = async (state) => {
-    console.log('자원수정');
+    // console.log('자원수정');
 
     await axios
       .put(
@@ -286,20 +287,232 @@ const ResourceDetail = () => {
             : startHour + ':' + startMinute + ' ~ ' + endHour + ':' + endMinute,
         },
       )
-      .then((res) => {
-        alert('자원이 수정되었습니다.');
-        navigate('/admin/resource');
-      })
       .catch((error) => {
         console.log(error);
       });
   };
   return (
-    <>
-      {resource && (
-        <AllContainer>
-          <Container>
-            <ResourceContainer>자원수정</ResourceContainer>
+    <Container>
+      <ResourceContainer>자원수정</ResourceContainer>
+      <WrapperContainer>
+        <ResourceContainer2>
+          <BookContainer>
+            <ContentContainer>
+              <form>
+                <ContentSort>
+                  자원이름
+                  <input
+                    type="text"
+                    id="name"
+                    defaultValue={resourceName}
+                    onChange={handleResourceName}
+                  />
+                </ContentSort>
+                <ContentSort>
+                  여부 Y
+                  <input
+                    className="Rable"
+                    type="radio"
+                    id="able"
+                    value="Y"
+                    checked={inputStatus}
+                    onChange={handleAble}
+                  />
+                  N
+                  <input
+                    type="radio"
+                    className="Rable"
+                    id="able"
+                    value="N"
+                    checked={!inputStatus}
+                    onChange={handleAble}
+                  />
+                </ContentSort>
+                {resource.cateNo === 1 ? (
+                  <>
+                    <ContentSort>
+                      인원
+                      <input
+                        type="number"
+                        id="people"
+                        defaultValue={people}
+                        onChange={handlePeople}
+                      />
+                    </ContentSort>
+                    <ContentSort>
+                      위치
+                      <input
+                        type="text"
+                        id="location"
+                        defaultValue={location}
+                        onChange={handleLocation}
+                      />
+                    </ContentSort>
+                  </>
+                ) : resource.cateNo === 2 ? (
+                  <>
+                    <ContentSort>
+                      연료
+                      <input
+                        type="text"
+                        id="fuel"
+                        defaultValue={fuel}
+                        onChange={handleFuel}
+                      />
+                    </ContentSort>
+                    <ContentSort>
+                      개수
+                      <input
+                        type="number"
+                        id="people"
+                        defaultValue={people}
+                        onChange={handlePeople}
+                      />
+                    </ContentSort>
+                  </>
+                ) : resource.cateNo === 3 ? (
+                  <>
+                    <ContentSort>
+                      개수
+                      <input
+                        type="number"
+                        id="people"
+                        defaultValue={people}
+                        onChange={handlePeople}
+                      />
+                    </ContentSort>
+                  </>
+                ) : (
+                  <></>
+                )}
+                <ContentSort>
+                  이용가능시간 &nbsp;
+                  <Row>
+                    <Row>
+                      <Col style={{ maxWidth: '150px' }}>시작시간 :</Col>
+                      <Col>
+                        <Form.Select
+                          size="sm"
+                          value={startHour}
+                          onChange={ShandleHourTime}
+                        >
+                          <option value="00">00</option>
+                          <option value="01">01</option>
+                          <option value="02">02</option>
+                          <option value="03">03</option>
+                          <option value="04">04</option>
+                          <option value="05">05</option>
+                          <option value="06">06</option>
+                          <option value="07">07</option>
+                          <option value="08">08</option>
+                          <option value="09">09</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                          <option value="15">15</option>
+                          <option value="16">16</option>
+                          <option value="17">17</option>
+                          <option value="18">18</option>
+                          <option value="19">19</option>
+                          <option value="20">20</option>
+                          <option value="21">21</option>
+                          <option value="22">22</option>
+                          <option value="23">23</option>
+                        </Form.Select>
+                      </Col>
+                      :
+                      <Col>
+                        <Form.Select
+                          size="sm"
+                          value={startMinute}
+                          onChange={ShandleMinuteTime}
+                        >
+                          <option value="00">00</option>
+                          <option value="30">30</option>
+                        </Form.Select>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col style={{ maxWidth: '150px' }}>종료시간 :</Col>
+                      <Col>
+                        <Form.Select
+                          size="sm"
+                          value={endHour}
+                          onChange={changeEndHour}
+                        >
+                          <option value="00">00</option>
+                          <option value="01">01</option>
+                          <option value="02">02</option>
+                          <option value="03">03</option>
+                          <option value="04">04</option>
+                          <option value="05">05</option>
+                          <option value="06">06</option>
+                          <option value="07">07</option>
+                          <option value="08">08</option>
+                          <option value="09">09</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                          <option value="15">15</option>
+                          <option value="16">16</option>
+                          <option value="17">17</option>
+                          <option value="18">18</option>
+                          <option value="19">19</option>
+                          <option value="20">20</option>
+                          <option value="21">21</option>
+                          <option value="22">22</option>
+                          <option value="23">23</option>
+                        </Form.Select>
+                      </Col>
+                      :
+                      <Col>
+                        <Form.Select
+                          size="sm"
+                          value={endMinute}
+                          onChange={changeEndMinute}
+                        >
+                          <option value="00">00</option>
+                          <option value="30">30</option>
+                        </Form.Select>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>Full-Time:</Col>
+                      <Col>
+                        <Form.Check
+                          type="checkbox"
+                          value="Full-time"
+                          onChange={handleFullTime}
+                        />
+                      </Col>
+                    </Row>
+                  </Row>
+                </ContentSort>
+                <ContentSort>
+                  옵션
+                  <input
+                    type="text"
+                    id="option"
+                    defaultValue={option}
+                    onChange={handleOption}
+                  />
+                </ContentSort>
+                <ContentSort>
+                  설명
+                  <textarea
+                    type="text"
+                    id="content"
+                    style={{ width: '500px', height: '100px' }}
+                    defaultValue={content}
+                    onChange={handleContent}
+                  />
+                </ContentSort>
+              </form>
+            </ContentContainer>
             <ResourceImg>
               {detailsImgs ? (
                 detailsImgs.map((item) => {
@@ -317,266 +530,40 @@ const ResourceDetail = () => {
                     <div>
                       <img
                         alt="no img"
-                        style={{ width: '200px' }}
+                        style={{ width: '400px' }}
                         src={item.path}
                       />
-                      <input
-                        type="file"
-                        id="file"
-                        multiple
-                        name="image"
-                        onChange={imagePreview}
-                      />
-                      <Button
-                        variant="primary"
-                        onClick={() => postImgae(state)}
-                      >
-                        upload
-                      </Button>
                     </div>
                   ))}
                 </Slider>
               )}
+              <input
+                type="file"
+                id="file"
+                multiple
+                name="image"
+                onChange={imagePreview}
+              />
             </ResourceImg>
+          </BookContainer>
 
-            <ResourceContainer2>
-              <BookContainer>
-                <ContentContainer>
-                  <form>
-                    <ContentSort>
-                      자원이름
-                      <input
-                        type="text"
-                        id="name"
-                        defaultValue={resourceName}
-                        onChange={handleResourceName}
-                      />
-                    </ContentSort>
-                    <ContentSort>
-                      여부 Y
-                      <input
-                        className="Rable"
-                        type="radio"
-                        id="able"
-                        value="Y"
-                        checked={inputStatus}
-                        onChange={handleAble}
-                      />
-                      N
-                      <input
-                        type="radio"
-                        className="Rable"
-                        id="able"
-                        value="N"
-                        checked={!inputStatus}
-                        onChange={handleAble}
-                      />
-                    </ContentSort>
-                    <ContentSort>
-                      이용가능시간 &nbsp;
-                      <Row>
-                        <Row>
-                          <Col style={{ maxWidth: '150px' }}>시작시간 :</Col>
-                          <Col>
-                            <Form.Select
-                              size="sm"
-                              value={startHour}
-                              onChange={ShandleHourTime}
-                            >
-                              <option value="00">00</option>
-                              <option value="01">01</option>
-                              <option value="02">02</option>
-                              <option value="03">03</option>
-                              <option value="04">04</option>
-                              <option value="05">05</option>
-                              <option value="06">06</option>
-                              <option value="07">07</option>
-                              <option value="08">08</option>
-                              <option value="09">09</option>
-                              <option value="10">10</option>
-                              <option value="11">11</option>
-                              <option value="12">12</option>
-                              <option value="13">13</option>
-                              <option value="14">14</option>
-                              <option value="15">15</option>
-                              <option value="16">16</option>
-                              <option value="17">17</option>
-                              <option value="18">18</option>
-                              <option value="19">19</option>
-                              <option value="20">20</option>
-                              <option value="21">21</option>
-                              <option value="22">22</option>
-                              <option value="23">23</option>
-                            </Form.Select>
-                          </Col>
-                          :
-                          <Col>
-                            <Form.Select
-                              size="sm"
-                              value={startMinute}
-                              onChange={ShandleMinuteTime}
-                            >
-                              <option value="00">00</option>
-                              <option value="30">30</option>
-                            </Form.Select>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col style={{ maxWidth: '150px' }}>종료시간 :</Col>
-                          <Col>
-                            <Form.Select
-                              size="sm"
-                              value={endHour}
-                              onChange={changeEndHour}
-                            >
-                              <option value="00">00</option>
-                              <option value="01">01</option>
-                              <option value="02">02</option>
-                              <option value="03">03</option>
-                              <option value="04">04</option>
-                              <option value="05">05</option>
-                              <option value="06">06</option>
-                              <option value="07">07</option>
-                              <option value="08">08</option>
-                              <option value="09">09</option>
-                              <option value="10">10</option>
-                              <option value="11">11</option>
-                              <option value="12">12</option>
-                              <option value="13">13</option>
-                              <option value="14">14</option>
-                              <option value="15">15</option>
-                              <option value="16">16</option>
-                              <option value="17">17</option>
-                              <option value="18">18</option>
-                              <option value="19">19</option>
-                              <option value="20">20</option>
-                              <option value="21">21</option>
-                              <option value="22">22</option>
-                              <option value="23">23</option>
-                            </Form.Select>
-                          </Col>
-                          :
-                          <Col>
-                            <Form.Select
-                              size="sm"
-                              value={endMinute}
-                              onChange={changeEndMinute}
-                            >
-                              <option value="00">00</option>
-                              <option value="30">30</option>
-                            </Form.Select>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>Full-Time:</Col>
-                          <Col>
-                            <Form.Check
-                              type="checkbox"
-                              value="Full-time"
-                              onChange={handleFullTime}
-                            />
-                          </Col>
-                        </Row>
-                      </Row>
-                    </ContentSort>
-                    <ContentSort>
-                      옵션
-                      <input
-                        type="text"
-                        id="option"
-                        defaultValue={option}
-                        onChange={handleOption}
-                      />
-                    </ContentSort>
-                    <ContentSort>
-                      {cateNo == 1 ? (
-                        <>
-                          <ContentSort>
-                            인원
-                            <input
-                              type="number"
-                              id="people"
-                              defaultValue={people}
-                              onChange={handlePeople}
-                            />
-                          </ContentSort>
-                          <ContentSort>
-                            위치
-                            <input
-                              type="text"
-                              id="location"
-                              defaultValue={location}
-                              onChange={handleLocation}
-                            />
-                          </ContentSort>
-                        </>
-                      ) : cateNo == 2 ? (
-                        <>
-                          <ContentSort>
-                            연료
-                            <input
-                              type="text"
-                              id="fuel"
-                              defaultValue={fuel}
-                              onChange={handleFuel}
-                            />
-                          </ContentSort>
-                          <ContentSort>
-                            개수
-                            <input
-                              type="number"
-                              id="people"
-                              defaultValue={people}
-                              onChange={handlePeople}
-                            />
-                          </ContentSort>
-                        </>
-                      ) : cateNo === 3 ? (
-                        <ContentSort>
-                          개수
-                          <input
-                            type="number"
-                            id="people"
-                            defaultValue={people}
-                            onChange={handlePeople}
-                          />
-                        </ContentSort>
-                      ) : (
-                        <></>
-                      )}
-                    </ContentSort>
-                    <ContentSort>
-                      설명
-                      <textarea
-                        type="text"
-                        id="content"
-                        style={{ width: '500px', height: '100px' }}
-                        defaultValue={content}
-                        onChange={handleContent}
-                      />
-                    </ContentSort>
-                  </form>
-                </ContentContainer>
-              </BookContainer>
-              <ButtonContainer>
-                <Button
-                  variant="secondary "
-                  onClick={() => navigate('/admin/resource')}
-                >
-                  뒤로
-                </Button>
-                <Button variant="primary" onClick={() => updateResource(state)}>
-                  확인
-                </Button>
-                <Button variant="danger" onClick={() => deleteResource(state)}>
-                  삭제
-                </Button>
-              </ButtonContainer>
-            </ResourceContainer2>
-          </Container>
-        </AllContainer>
-      )}
-    </>
+          <ButtonContainer>
+            <Button
+              variant="secondary "
+              onClick={() => navigate('/admin/resource')}
+            >
+              뒤로
+            </Button>
+            <Button variant="primary" onClick={() => postImgae(state)}>
+              확인
+            </Button>
+            <Button variant="danger" onClick={() => deleteResource(state)}>
+              삭제
+            </Button>
+          </ButtonContainer>
+        </ResourceContainer2>
+      </WrapperContainer>
+    </Container>
   );
 };
 

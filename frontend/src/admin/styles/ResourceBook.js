@@ -10,6 +10,7 @@ const Container = styled.div`
 
 const HeadContainer = styled.div`
   font-size: 30px;
+  padding-bottom: 12px;
   font-weight: 600;
   padding-top: 30px;
   border-bottom: 4px solid black;
@@ -45,23 +46,27 @@ const SelectBoxDiv = styled.div`
 `;
 
 const ItemContainer = styled.div`
+  text-decoration: none;
+  padding: 20px;
   margin: 20px;
   font-family: NanumGothic;
   display: flex;
-  justify-content: space-between;
   background-color: white;
-  border: 3px black;
 
   .location {
-    font-size: 15px;
+    font-size: 16px;
+    color: #434343;
   }
 
   .title {
     font-size: 23px;
+    font-weight: 800;
+    color: #222222;
+    padding-bottom: 4px;
   }
 
   .price_origin {
-    color: gray;
+    color: #717171;
     font-size: 12px;
     margin-right: 30px;
   }
@@ -84,14 +89,18 @@ const TitleContainer = styled.div`
 
 const ImageContainer = styled.div`
   img {
-    width: 300px;
-    height: 150px;
+    width: 320px;
+    height: 200px;
   }
   position: relative;
 `;
 
 const RightContainer = styled.div`
-  padding: 30px;
+  color: #434343;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0px 60px;
 `;
 
 export {

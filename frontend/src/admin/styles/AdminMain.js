@@ -21,7 +21,7 @@ const TitleContainer = styled.div`
 const TableContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 8px 24px;
+  padding: 24px;
   text-align: center;
 
   table {
