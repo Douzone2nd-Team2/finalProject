@@ -40,22 +40,25 @@ function Sidebar() {
       <SbUl>
         <Link
           to="/admin/main"
-          style={{ textDecoration: 'none', color: 'black' }}
+          style={{ textDecoration: 'none', color: '#222222' }}
         >
           <SbLi>
-            <BsFillPersonFill /> 사용자관리
+            <BsFillPersonFill />
+            &nbsp;&nbsp;사용자관리
           </SbLi>
         </Link>
         <Link
           to="/admin/resource"
-          style={{ textDecoration: 'none', color: 'black' }}
+          style={{ textDecoration: 'none', color: '#222222' }}
         >
           <SbLi>
-            <BsReverseLayoutTextSidebarReverse /> 자원관리
+            <BsReverseLayoutTextSidebarReverse />
+            &nbsp;&nbsp;자원관리
           </SbLi>
         </Link>
         <SbLi onClick={() => changeTab()}>
-          <BsCalendar4Week /> 예약관리 <BiDownArrow style={floatRight} />
+          <BsCalendar4Week />
+          &nbsp;&nbsp;예약관리 <BiDownArrow style={floatRight} />
         </SbLi>
         <SbChildUl ref={toggleInfo}>
           <SbChildLi>

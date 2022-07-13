@@ -30,7 +30,7 @@ const ItemContainer = styled.div`
 const LeftContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 12px 0px 12px 60px;
 `;
 
 const TitleContainer = styled.div`
@@ -39,8 +39,8 @@ const TitleContainer = styled.div`
 
 const ImageContainer = styled.div`
   img {
-    width: 150px;
-    height: 150px;
+    width: 240px;
+    height: 180px;
     min-width: 180px;
   }
 `;
@@ -50,17 +50,18 @@ const OptionContainer = styled.div`
   flex-direction: column; */
   left: 50%;
   min-width: 50px;
-  margin-top: 50px;
-  font-weight: 500;
+  font-weight: 600;
 `;
 
 const ContentContainer = styled.div`
-  margin-right: 5%;
-  margin-top: 40px;
+  color: #434343;
 `;
 
 const RightContainer = styled.div`
-  margin-left: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0px 60px;
 `;
 
 export {

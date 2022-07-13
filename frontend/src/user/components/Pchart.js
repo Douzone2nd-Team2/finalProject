@@ -27,7 +27,6 @@ const PChart = () => {
           },
         },
       );
-      console.log(res);
       setData(res.data.data);
     } catch (e) {
       console.log(e);

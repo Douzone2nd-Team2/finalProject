@@ -21,7 +21,7 @@ const TitleContainer = styled.div`
 const TableContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 8px 24px;
+  padding: 24px;
   text-align: center;
 
   table {
@@ -92,6 +92,23 @@ const ButtonContainer = styled.div`
   padding: 6px 4px;
 `;
 
+const SubmitButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  margin-left: 10px;
+  padding: 8px;
+  cursor: pointer;
+  touch-action: manipulation;
+  background: rgb(13, 110, 253);
+  color: #f1f1f1;
+  font-weight: 600;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 6px 16px;
+`;
+
 export {
   FlexContainer,
   Container,
@@ -101,4 +118,5 @@ export {
   StyledButton,
   StyledButton2,
   ButtonContainer,
+  SubmitButton,
 };

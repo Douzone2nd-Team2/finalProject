@@ -24,6 +24,7 @@ import {
   ContentSort,
   ButtonContainer,
   ResourceSearchButton,
+  WrapperContainer,
 } from '../styles/ResourceBookhandle';
 
 import {
@@ -223,222 +224,230 @@ const ResourceBookhandle = () => {
   }, []);
 
   return (
-    <AllContainer>
+    <>
+      {openModal ? (
+        <Modal
+          setOpenModal={setOpenModal}
+          setPeople={setPeople}
+          setPeopleNo={setPeopleNo}
+          count={count}
+        ></Modal>
+      ) : null}
       <Container>
-        {openModal ? (
-          <Modal
-            setOpenModal={setOpenModal}
-            setPeople={setPeople}
-            setPeopleNo={setPeopleNo}
-            count={count}
-          ></Modal>
-        ) : null}
         <HeadContainer>
           예약관리 <span className="fa-solid fa-arrow-right-long" /> 자원별
           예약조회 및 수정
         </HeadContainer>
-      </Container>
-      <BookContainer>
-        <NameContainer>
-          <span>
-            자원 이름 : {book.resourceName}&nbsp;&nbsp; 예약자 : {userName}
-          </span>
-          <CategoryContainer>{category}</CategoryContainer>
-        </NameContainer>
-        <hr />
-        <ContentContainer>
-          <form onSubmit={clickBtn}>
-            <ContentSort>
-              <Row>
-                <Row>
-                  <Col style={{ maxWidth: '150px' }}>예약명 : </Col>
-                  <Col>
-                    <input
-                      type="text"
-                      value={reserveName}
-                      onChange={changeReserveName}
-                    />
-                  </Col>
-                </Row>
-                <br />
-                <br />
-                <Row>
-                  <Col style={{ maxWidth: '150px' }}>시작시간 :</Col>
-                  <Col>
-                    <input
-                      type="date"
-                      value={startDay}
-                      onChange={changeStartDay}
-                    />
-                  </Col>
-                  <Col>
-                    <Form.Select
-                      size="sm"
-                      value={startHour}
-                      onChange={changeStartHour}
-                    >
-                      <option value="0">0</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                      <option value="9">9</option>
-                      <option value="10">10</option>
-                      <option value="11">11</option>
-                      <option value="12">12</option>
-                      <option value="13">13</option>
-                      <option value="14">14</option>
-                      <option value="15">15</option>
-                      <option value="16">16</option>
-                      <option value="17">17</option>
-                      <option value="18">18</option>
-                      <option value="19">19</option>
-                      <option value="20">20</option>
-                      <option value="21">21</option>
-                      <option value="22">22</option>
-                      <option value="23">23</option>
-                    </Form.Select>
-                  </Col>
-                  :
-                  <Col>
-                    <Form.Select
-                      size="sm"
-                      value={startMinute}
-                      onChange={changeStartMinute}
-                    >
-                      <option value="00">00</option>
-                      <option value="30">30</option>
-                    </Form.Select>
-                  </Col>
-                </Row>
-                <br />
-                <br />
-                <Row>
-                  <Col style={{ maxWidth: '150px' }}>종료시간 :</Col>
-                  <Col>
-                    <input type="date" value={endDay} onChange={changeEndDay} />
-                  </Col>
-                  <Col>
-                    <Form.Select
-                      size="sm"
-                      value={endHour}
-                      onChange={changeEndHour}
-                    >
-                      <option value="0">0</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                      <option value="9">9</option>
-                      <option value="10">10</option>
-                      <option value="11">11</option>
-                      <option value="12">12</option>
-                      <option value="13">13</option>
-                      <option value="14">14</option>
-                      <option value="15">15</option>
-                      <option value="16">16</option>
-                      <option value="17">17</option>
-                      <option value="18">18</option>
-                      <option value="19">19</option>
-                      <option value="20">20</option>
-                      <option value="21">21</option>
-                      <option value="22">22</option>
-                      <option value="23">23</option>
-                    </Form.Select>
-                  </Col>
-                  :
-                  <Col>
-                    <Form.Select
-                      size="sm"
-                      value={endMinute}
-                      onChange={changeEndMinute}
-                    >
-                      <option value="00">00</option>
-                      <option value="30">30</option>
-                    </Form.Select>
-                  </Col>
-                </Row>
-              </Row>
-            </ContentSort>
-            {cateNo === 1 && (
-              <>
+        <WrapperContainer>
+          <BookContainer>
+            <NameContainer>
+              <span>
+                자원 이름 : {book.resourceName}&nbsp;&nbsp; 예약자 : {userName}
+              </span>
+              <CategoryContainer>{category}</CategoryContainer>
+            </NameContainer>
+            <hr />
+            <ContentContainer>
+              <form onSubmit={clickBtn}>
                 <ContentSort>
-                  <label className="totaluser" htmlFor="totalUser">
-                    추가 인원
+                  <Row>
+                    <Row>
+                      <Col style={{ maxWidth: '150px' }}>예약명 : </Col>
+                      <Col>
+                        <input
+                          type="text"
+                          value={reserveName}
+                          onChange={changeReserveName}
+                        />
+                      </Col>
+                    </Row>
+                    <br />
+                    <br />
+                    <Row>
+                      <Col style={{ maxWidth: '150px' }}>시작시간 :</Col>
+                      <Col>
+                        <input
+                          type="date"
+                          value={startDay}
+                          onChange={changeStartDay}
+                        />
+                      </Col>
+                      <Col>
+                        <Form.Select
+                          size="sm"
+                          value={startHour}
+                          onChange={changeStartHour}
+                        >
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                          <option value="15">15</option>
+                          <option value="16">16</option>
+                          <option value="17">17</option>
+                          <option value="18">18</option>
+                          <option value="19">19</option>
+                          <option value="20">20</option>
+                          <option value="21">21</option>
+                          <option value="22">22</option>
+                          <option value="23">23</option>
+                        </Form.Select>
+                      </Col>
+                      :
+                      <Col>
+                        <Form.Select
+                          size="sm"
+                          value={startMinute}
+                          onChange={changeStartMinute}
+                        >
+                          <option value="00">00</option>
+                          <option value="30">30</option>
+                        </Form.Select>
+                      </Col>
+                    </Row>
+                    <br />
+                    <br />
+                    <Row>
+                      <Col style={{ maxWidth: '150px' }}>종료시간 :</Col>
+                      <Col>
+                        <input
+                          type="date"
+                          value={endDay}
+                          onChange={changeEndDay}
+                        />
+                      </Col>
+                      <Col>
+                        <Form.Select
+                          size="sm"
+                          value={endHour}
+                          onChange={changeEndHour}
+                        >
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                          <option value="15">15</option>
+                          <option value="16">16</option>
+                          <option value="17">17</option>
+                          <option value="18">18</option>
+                          <option value="19">19</option>
+                          <option value="20">20</option>
+                          <option value="21">21</option>
+                          <option value="22">22</option>
+                          <option value="23">23</option>
+                        </Form.Select>
+                      </Col>
+                      :
+                      <Col>
+                        <Form.Select
+                          size="sm"
+                          value={endMinute}
+                          onChange={changeEndMinute}
+                        >
+                          <option value="00">00</option>
+                          <option value="30">30</option>
+                        </Form.Select>
+                      </Col>
+                    </Row>
+                  </Row>
+                </ContentSort>
+                {cateNo === 1 && (
+                  <>
+                    <ContentSort>
+                      <label className="totaluser" htmlFor="totalUser">
+                        추가 인원
+                      </label>
+                      <CountButtonContainer>
+                        <CountButton onClick={onDecrease}>
+                          <ArrowDownwardIcon></ArrowDownwardIcon>
+                        </CountButton>
+                        <CountInfo>{count}</CountInfo>
+                        <CountButton onClick={onIncrease}>
+                          <ArrowUpwardIcon></ArrowUpwardIcon>
+                        </CountButton>
+                      </CountButtonContainer>
+                      <PeopleContainer>
+                        <PeopleInput onChange={handleName}></PeopleInput>
+                        <PeopleSearchButton onClick={onPeopleSearch}>
+                          <SearchIcon></SearchIcon>
+                        </PeopleSearchButton>
+                      </PeopleContainer>
+                      <PeopleGridContainer></PeopleGridContainer>
+                    </ContentSort>
+                    <ContentSort>
+                      <EmptyContainer> </EmptyContainer>
+                      <PeopleGridContainer>
+                        {!people ? (
+                          peopleInit &&
+                          peopleInit.map((nameTag, index) => {
+                            return (
+                              <PeopleNameTag key={nameTag.userNo}>
+                                {nameTag.name}
+                              </PeopleNameTag>
+                            );
+                          })
+                        ) : (
+                          <></>
+                        )}
+                        {people &&
+                          people.map((nameTag, index) => {
+                            return (
+                              <PeopleNameTag key={index}>
+                                {nameTag}
+                              </PeopleNameTag>
+                            );
+                          })}
+                      </PeopleGridContainer>
+                      <EmptyRContainer></EmptyRContainer>
+                    </ContentSort>
+                  </>
+                )}
+                <br />
+                <ContentSort>
+                  <label htmlFor="resourceInfo" style={{ maxWidth: '150px' }}>
+                    정보
                   </label>
-                  <CountButtonContainer>
-                    <CountButton onClick={onDecrease}>
-                      <ArrowDownwardIcon></ArrowDownwardIcon>
-                    </CountButton>
-                    <CountInfo>{count}</CountInfo>
-                    <CountButton onClick={onIncrease}>
-                      <ArrowUpwardIcon></ArrowUpwardIcon>
-                    </CountButton>
-                  </CountButtonContainer>
-                  <PeopleContainer>
-                    <PeopleInput onChange={handleName}></PeopleInput>
-                    <PeopleSearchButton onClick={onPeopleSearch}>
-                      <SearchIcon></SearchIcon>
-                    </PeopleSearchButton>
-                  </PeopleContainer>
-                  <PeopleGridContainer></PeopleGridContainer>
+                  <textarea
+                    cols="50"
+                    rows="5"
+                    id="resourceInfo"
+                    onChange={changeDescription}
+                    value={description}
+                  />
                 </ContentSort>
-                <ContentSort>
-                  <EmptyContainer> </EmptyContainer>
-                  <PeopleGridContainer>
-                    {!people ? (
-                      peopleInit &&
-                      peopleInit.map((nameTag, index) => {
-                        return (
-                          <PeopleNameTag key={nameTag.userNo}>
-                            {nameTag.name}
-                          </PeopleNameTag>
-                        );
-                      })
-                    ) : (
-                      <></>
-                    )}
-                    {people &&
-                      people.map((nameTag, index) => {
-                        return (
-                          <PeopleNameTag key={index}>{nameTag}</PeopleNameTag>
-                        );
-                      })}
-                  </PeopleGridContainer>
-                  <EmptyRContainer></EmptyRContainer>
-                </ContentSort>
-              </>
-            )}
-            <br />
-            <ContentSort>
-              <label htmlFor="resourceInfo" style={{ maxWidth: '150px' }}>
-                정보
-              </label>
-              <textarea
-                cols="50"
-                rows="5"
-                id="resourceInfo"
-                onChange={changeDescription}
-                value={description}
-              />
-            </ContentSort>
-            <ButtonContainer>
-              <Button variant="primary" type="submit">
-                수정
-              </Button>
-            </ButtonContainer>
-          </form>
-        </ContentContainer>
-      </BookContainer>
-    </AllContainer>
+                <ButtonContainer>
+                  <Button variant="primary" type="submit">
+                    수정
+                  </Button>
+                </ButtonContainer>
+              </form>
+            </ContentContainer>
+          </BookContainer>
+        </WrapperContainer>
+      </Container>
+    </>
   );
 };
 

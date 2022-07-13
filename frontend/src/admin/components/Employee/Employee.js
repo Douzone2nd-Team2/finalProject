@@ -16,6 +16,7 @@ import {
   StyledButton,
   StyledButton2,
   ButtonContainer,
+  SubmitButton,
 } from '../../styles/AdminMain';
 
 import Button from 'react-bootstrap/Button';
@@ -74,9 +75,7 @@ const Employee = ({
     <FlexContainer>
       <HeadContainer>
         <TitleContainer>사원목록</TitleContainer>
-        <Button variant="primary" onClick={handleRegist}>
-          등록
-        </Button>
+        <SubmitButton onClick={handleRegist}>등록</SubmitButton>
       </HeadContainer>
       <TableContainer>
         <table border="2">

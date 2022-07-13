@@ -49,7 +49,7 @@ const Modal = (props) => {
       })
       .then((res) => {
         if (res.data.resCode === 4001) {
-          console.log('[Axios SearchPeople] 알 수 없는 오류가 발생했습니다.');
+          alert('알 수 없는 오류가 발생했습니다.');
           return;
         } else {
           return res.data.data;
