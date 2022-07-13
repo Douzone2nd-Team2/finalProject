@@ -13,11 +13,11 @@ const ResourceInput = ({ show, handleShow, handleClose, getAll }) => {
   const [location, setLocation] = useState('');
   const [people, setPeople] = useState('');
 
-  const [startHour, setStartHour] = useState('');
-  const [startMinute, setStartMinute] = useState('');
+  const [startHour, setStartHour] = useState('00');
+  const [startMinute, setStartMinute] = useState('00');
 
-  const [endHour, setEndHour] = useState('');
-  const [endMinute, setEndMinute] = useState('');
+  const [endHour, setEndHour] = useState('00');
+  const [endMinute, setEndMinute] = useState('00');
 
   const [fullTime, setFulltime] = useState('');
 

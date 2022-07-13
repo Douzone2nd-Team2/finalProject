@@ -52,11 +52,11 @@ const ResourceDetail = () => {
   const [location, setLocation] = useState('');
   const [people, setPeople] = useState('');
 
-  const [startHour, setStartHour] = useState('');
-  const [startMinute, setStartMinute] = useState('');
+  const [startHour, setStartHour] = useState('00');
+  const [startMinute, setStartMinute] = useState('00');
 
-  const [endHour, setEndHour] = useState('');
-  const [endMinute, setEndMinute] = useState('');
+  const [endHour, setEndHour] = useState('00');
+  const [endMinute, setEndMinute] = useState('00');
 
   const [availableTime, setAvailableTime] = useState('');
 
@@ -68,6 +68,8 @@ const ResourceDetail = () => {
   const [able, setAble] = useState('Y');
   const [detailsImgs, setDetailImgs] = useState('');
   const [cateNo, setCateNo] = useState('');
+
+  const [isfullTime, setIsfullTime] = useState(false);
 
   const handleResourceName = (e) => {
     setResourceName(e.target.value);
@@ -103,13 +105,21 @@ const ResourceDetail = () => {
 
   // Full-Time
   const handleFullTime = (e) => {
-    if (e.target.value == 'Full-time') {
+    console.log();
+    if (!isfullTime) {
       setFulltime(e.target.value);
+      setIsfullTime(true);
 
       setStartHour('00');
       setStartMinute('00');
       setEndHour('00');
       setEndMinute('00');
+    } else {
+      setIsfullTime(false);
+      setStartHour(startHour);
+      setStartMinute(startMinute);
+      setEndHour(endHour);
+      setEndMinute(endMinute);
     }
   };
 
@@ -176,7 +186,9 @@ const ResourceDetail = () => {
         setResourceName(response.data.data.resource.resourceName);
         setCateNo(response.data.data.resource.cateNo);
         setAvailableTime(response.data.data.resource.availableTime);
-
+        if (response.data.data.resource.availableTime === 'Full-time') {
+          setIsfullTime(true);
+        }
         setFileList(response.data.data.fileList);
         setInputStatus(response.data.data.resource.able === 'Y');
       })
@@ -489,6 +501,7 @@ const ResourceDetail = () => {
                         <Form.Check
                           type="checkbox"
                           value="Full-time"
+                          checked={isfullTime}
                           onChange={handleFullTime}
                         />
                       </Col>

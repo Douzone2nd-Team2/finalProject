@@ -7,7 +7,7 @@ const AllContainer = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 1200px;
+  width: 100%;
   height: 100%;
   padding: 0px 72px;
 `;
@@ -16,7 +16,6 @@ const HeadContainer = styled.div`
   font-size: 30px;
   font-weight: 600;
   padding-top: 30px;
-  padding-bottom: 12px;
   border-bottom: 4px solid black;
 `;
 
