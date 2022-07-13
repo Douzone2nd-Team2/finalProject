@@ -15,6 +15,7 @@ import ReservationHeader from '../components/Reservation/ReservationHeader/Reser
 import ResourceInfo from '../components/Reservation/ResourceInfo/ResourceInfo';
 import AdditionalInfo from '../components/Reservation/AdditionalInfo/AdditionalInfo.js';
 import CalendarInfo from '../components/Reservation/Calendar/CalendarInfo.js';
+import axios from 'axios';
 
 const Reserve = () => {
   const location = useLocation();
@@ -23,29 +24,42 @@ const Reserve = () => {
   const reservation = useRecoilValue(reservationState);
   const [resourceData, setResourceData] = useState(location.state);
   const [step, setStep] = useState(0);
-  const [selectedStartDate, setSelectedStartDate] = useState('');
-  const [selectedEndDate, setSelectedEndDate] = useState('');
-  const [selectedStartTime, setSelectedStartTime] = useState('');
-  const [selectedEndTime, setSelectedEndTime] = useState('');
+  const [fileList, setFileList] = useState('');
 
   useEffect(() => {
-    setReservationState({
-      userNo: user.no,
-      resourceNo: resourceData.resourceNo,
-      userName: user.name,
-    });
+    axiosGetReourceImages(resourceData.resourceNo);
   }, []);
 
   useEffect(() => {
-    console.log(resourceData);
-  }, [resourceData]);
+    fileList &&
+      setReservationState({
+        userNo: user.no,
+        resourceNo: resourceData.resourceNo,
+        userName: user.name,
+      });
+  }, [fileList]);
+
+  const axiosGetReourceImages = async (resourceNo) => {
+    const result = await axios
+      .get(
+        `${process.env.REACT_APP_SERVER_PORT}/resource/detail?resourceNo=${resourceNo}`,
+        { Authorization: getCookie('accessToken') },
+      )
+      .then((res) => {
+        return res.data.data.fileList;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    setFileList(result);
+  };
 
   return (
     <MainContainer>
       <ReservationHeader title="예약"></ReservationHeader>
       <Container>
         <ResourceInfo
-          imageUrl={resourceData.imageUrl}
+          fileList={fileList}
           option={resourceData.option}
           content={resourceData.content}
           fuel={resourceData.fuel}
