@@ -7,7 +7,7 @@ const AllContainer = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 1200px;
+  width: 100%;
   height: 100%;
   padding: 0px 72px;
 `;
@@ -16,7 +16,6 @@ const HeadContainer = styled.div`
   font-size: 30px;
   font-weight: 600;
   padding-top: 30px;
-  padding-bottom: 12px;
   border-bottom: 4px solid black;
 `;
 
@@ -161,6 +160,7 @@ const CategoryButton = styled.div`
 `;
 
 const SubmitButton = styled.button`
+  font-size: 18px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -169,7 +169,7 @@ const SubmitButton = styled.button`
   padding: 8px;
   cursor: pointer;
   touch-action: manipulation;
-  background: #1296ec;
+  background: rgb(13, 110, 253);
   color: #f1f1f1;
   font-weight: 600;
   border: 1px solid rgb(221, 221, 221);

@@ -24,6 +24,7 @@ import {
   ContentSort,
   ButtonContainer,
   UserContentSort,
+  StyledButton,
 } from '../styles/UserBookhandle';
 
 import {
@@ -89,9 +90,9 @@ const UserBookhandle = () => {
   console.log('peopleInit          ', peopleInit);
   console.log('peopleNo            ', peopleNo);
 
-  useEffect(() => {
-    console.log(people);
-  }, []);
+  // useEffect(() => {
+  //   console.log(people);
+  // }, []);
 
   const changeReserveName = (e) => {
     setReserveName(e.target.value);
@@ -163,6 +164,13 @@ const UserBookhandle = () => {
 
   const postData = async () => {
     try {
+      var temp = [];
+      if (!people) {
+        console.log(peopleNo);
+        temp = peopleInit.map((item) => item.userNo);
+        setPeopleNo(temp);
+      }
+
       // console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
       // console.log(endDay + ' ' + endHour + ':' + endMinute + ':00');
       const res = await axios.post(
@@ -176,7 +184,7 @@ const UserBookhandle = () => {
           startTime: startDay + ' ' + startHour + ':' + startMinute + ':00',
           endTime: endDay + ' ' + endHour + ':' + endMinute + ':00',
           content: description,
-          empNoList: peopleNo,
+          empNoList: arrayIsEmpty(peopleNo) ? temp : peopleNo,
         },
         {
           headers: {
@@ -436,9 +444,7 @@ const UserBookhandle = () => {
               />
             </ContentSort>
             <ButtonContainer>
-              <Button variant="primary" type="submit">
-                수정
-              </Button>
+              <StyledButton type="submit">수정</StyledButton>
             </ButtonContainer>
           </form>
         </ContentContainer>

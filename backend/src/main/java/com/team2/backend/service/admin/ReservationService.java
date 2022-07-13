@@ -251,6 +251,8 @@ public class ReservationService {
     @Transactional
     public ResponseEntity<Message> updateReservation(HttpServletRequest req, ReservationManagementDto body) throws ParseException {
 
+//        System.out.println("empnolist :: "+body.getEmpNoList().get(0));
+
         Reservation reservation = body.toEntity();
         Message message;
         System.out.println(body.getContent()+"!!!!!!!!!!!!!!!!!!!");

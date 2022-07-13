@@ -6,16 +6,18 @@ import axios from 'axios';
 
 import { Button, Form, Modal, Row, Col } from 'react-bootstrap';
 
+import { SubmitButton } from '../../styles/Resource';
+
 const ResourceInput = ({ show, handleShow, handleClose, getAll }) => {
   const [resourceName, setResourceName] = useState('');
   const [location, setLocation] = useState('');
   const [people, setPeople] = useState('');
 
-  const [startHour, setStartHour] = useState('');
-  const [startMinute, setStartMinute] = useState('');
+  const [startHour, setStartHour] = useState('00');
+  const [startMinute, setStartMinute] = useState('00');
 
-  const [endHour, setEndHour] = useState('');
-  const [endMinute, setEndMinute] = useState('');
+  const [endHour, setEndHour] = useState('00');
+  const [endMinute, setEndMinute] = useState('00');
 
   const [fullTime, setFulltime] = useState('');
 
@@ -174,9 +176,9 @@ const ResourceInput = ({ show, handleShow, handleClose, getAll }) => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow} style={{ float: 'right' }}>
+      <SubmitButton onClick={handleShow} style={{ float: 'right' }}>
         등록
-      </Button>
+      </SubmitButton>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Resource Form</Modal.Title>
