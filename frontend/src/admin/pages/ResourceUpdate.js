@@ -14,6 +14,7 @@ import {
   ContentContainer,
   BookContainer,
   WrapperContainer,
+  FileInputAndButtonContainer,
 } from '../styles/Resource';
 
 import Slider from 'react-slick';
@@ -516,29 +517,23 @@ const ResourceDetail = () => {
               </form>
             </ContentContainer>
             <ResourceImg>
-              {detailsImgs ? (
-                detailsImgs.map((item) => {
-                  return (
-                    <img
-                      alt="no img"
-                      style={{ width: '400px' }}
-                      src={item}
-                    ></img>
-                  );
-                })
-              ) : (
-                <Slider {...settings}>
-                  {fileList.map((item) => (
-                    <div>
-                      <img
-                        alt="no img"
-                        style={{ width: '400px' }}
-                        src={item.path}
-                      />
-                    </div>
-                  ))}
-                </Slider>
-              )}
+              {detailsImgs
+                ? detailsImgs.map((item) => {
+                    return (
+                      <div>
+                        <img alt="no img" src={item}></img>
+                      </div>
+                    );
+                  })
+                : fileList.map((item) => {
+                    return (
+                      <div>
+                        <img alt="no img" src={item.path}></img>
+                      </div>
+                    );
+                  })}
+            </ResourceImg>
+            <FileInputAndButtonContainer>
               <input
                 type="file"
                 id="file"
@@ -546,7 +541,15 @@ const ResourceDetail = () => {
                 name="image"
                 onChange={imagePreview}
               />
-            </ResourceImg>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  postImgae(state);
+                }}
+              >
+                upload
+              </Button>
+            </FileInputAndButtonContainer>
           </BookContainer>
 
           <ButtonContainer>
@@ -556,7 +559,7 @@ const ResourceDetail = () => {
             >
               뒤로
             </Button>
-            <Button variant="primary" onClick={() => postImgae(state)}>
+            <Button variant="primary" onClick={() => updateResource(state)}>
               확인
             </Button>
             <Button variant="danger" onClick={() => deleteResource(state)}>
