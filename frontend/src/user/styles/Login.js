@@ -11,12 +11,12 @@ const Container = styled.div`
 
 const LoginContainer = styled.div`
   display: flex;
-  width: 60%;
-  height: 70%;
+  width: 55%;
+  height: 60%;
   margin: auto;
   font-size: 12px;
   overflow: hidden;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background-color: white;
   opacity: 0.8;
@@ -35,6 +35,10 @@ const LoginContainer = styled.div`
   }
 `;
 
+const RightContainer = styled.div`
+  margin-right: 15%;
+`;
+
 const LoginTitle = styled.div`
   color: blue;
   font-weight: 900;
@@ -44,11 +48,10 @@ const LoginTitle = styled.div`
 
 const ImageContainer1 = styled.div`
   img {
-    width: 180%;
-    margin-left: -71px;
+    width: 50vh;
+    height: 100vh;
     display: block;
   }
-  margin-left: -67px;
 `;
 
 const ImageContainer2 = styled.div`
@@ -92,4 +95,5 @@ export {
   InputContainer,
   ButtonContainer,
   ContentContainer,
+  RightContainer,
 };
