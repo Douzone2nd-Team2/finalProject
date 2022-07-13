@@ -75,6 +75,10 @@ const ResourceInput = ({ show, handleShow, handleClose, getAll }) => {
   const changeEndMinute = (e) => {
     setEndMinute(e.target.value);
   };
+  console.log(startHour);
+  console.log(startMinute);
+  console.log(endHour);
+  console.log(endMinute);
 
   const [imgFile, setImgFile] = useState([]);
   const [formData, setFormData] = useState(new FormData());
@@ -149,7 +153,6 @@ const ResourceInput = ({ show, handleShow, handleClose, getAll }) => {
 
   const clickBtn = () => {
     postTest1();
-    getAll();
   };
 
   useEffect(() => {

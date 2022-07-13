@@ -97,8 +97,7 @@ const ResourceDetail = () => {
   console.log(startHour);
   console.log(startMinute);
   console.log(endHour);
-  console.log(availableTime);
-  console.log(availableTime);
+  console.log(endMinute);
 
   // Full-Time
   const handleFullTime = (e) => {
@@ -237,9 +236,7 @@ const ResourceDetail = () => {
       .then((res) => {
         console.log(res);
         console.log('파일 수정성공');
-        // updateResource(state);
-        alert('자원이 수정되었습니다.');
-        // navigate('/admin/resource');
+        alert('파일이 수정되었습니다.');
       })
       .catch((error) => {
         console.log(error);
@@ -274,6 +271,7 @@ const ResourceDetail = () => {
         `${process.env.REACT_APP_SERVER_PORT}/resource/update?resourceNo=${state}`,
         {
           resourceName: resourceName,
+          location: location,
           cateNo: cateNo,
           people: people,
           able: able,
@@ -301,7 +299,7 @@ const ResourceDetail = () => {
           <Container>
             <ResourceContainer>자원수정</ResourceContainer>
             <ResourceImg>
-              {detailsImgs ? (
+              {/* {detailsImgs ? (
                 detailsImgs.map((item) => {
                   return (
                     <img
@@ -320,23 +318,49 @@ const ResourceDetail = () => {
                         style={{ width: '200px' }}
                         src={item.path}
                       />
-                      <input
-                        type="file"
-                        id="file"
-                        multiple
-                        name="image"
-                        onChange={imagePreview}
-                      />
-                      <Button
-                        variant="primary"
-                        onClick={() => postImgae(state)}
-                      >
-                        upload
-                      </Button>
                     </div>
                   ))}
                 </Slider>
-              )}
+              )} */}
+              {detailsImgs
+                ? detailsImgs.map((item) => {
+                    return (
+                      <img
+                        style={{ width: '100px' }}
+                        alt="no img"
+                        src={item}
+                      ></img>
+                    );
+                  })
+                : fileList.map((item) => {
+                    return (
+                      <>
+                        <img
+                          style={{ width: '100px' }}
+                          alt="no img"
+                          src={item.path}
+                        ></img>
+                      </>
+                    );
+                  })}
+              <ContentSort>
+                <input
+                  type="file"
+                  id="file"
+                  multiple
+                  name="image"
+                  onChange={imagePreview}
+                />
+
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    postImgae(state);
+                  }}
+                >
+                  upload
+                </Button>
+              </ContentSort>
             </ResourceImg>
 
             <ResourceContainer2>
