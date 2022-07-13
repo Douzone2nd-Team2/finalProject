@@ -32,12 +32,10 @@ const settings = {
 };
 
 const ResourceInfo = (props) => {
-  const [books, setBooks] = useState([]);
   const [values, setValues] = useState([]);
   const [content, setContent] = useState([]);
 
   useEffect(() => {
-    setBooks([props.imageUrl]);
     const option = props.option.split(', ');
     setValues(option);
     setContent(props.content);
@@ -48,12 +46,12 @@ const ResourceInfo = (props) => {
       <ResourceImageTest>
         {/* 버그투성이 사진크기 조정, 정렬 다시해야됨 */}
         <Slider {...settings}>
-          {books &&
-            books.map((book) => (
+          {props.fileList &&
+            props.fileList.map((book) => (
               <img
                 className="book"
                 key={book.toString()}
-                src={book}
+                src={book.path}
                 height="300px"
               />
             ))}
