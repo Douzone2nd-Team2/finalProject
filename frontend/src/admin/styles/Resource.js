@@ -143,4 +143,5 @@ export const FileInputAndButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  float: right;
 `;
