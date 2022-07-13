@@ -165,6 +165,12 @@ const ResourceBookhandle = () => {
 
   const postData = async () => {
     try {
+      var temp = [];
+      if (!people) {
+        console.log(peopleNo);
+        temp = peopleInit.map((item) => item.userNo);
+        setPeopleNo(temp);
+      }
       const res = await axios.post(
         `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/modify`,
         {
@@ -176,7 +182,7 @@ const ResourceBookhandle = () => {
           startTime: startDay + ' ' + startHour + ':' + startMinute + ':00',
           endTime: endDay + ' ' + endHour + ':' + endMinute + ':00',
           content: description,
-          empNoList: peopleNo,
+          empNoList: arrayIsEmpty(peopleNo) ? temp : peopleNo,
           resourceName: resourceName,
         },
         {

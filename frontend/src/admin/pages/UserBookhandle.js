@@ -170,7 +170,7 @@ const UserBookhandle = () => {
         temp = peopleInit.map((item) => item.userNo);
         setPeopleNo(temp);
       }
-      console.log(peopleNo);
+
       // console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
       // console.log(endDay + ' ' + endHour + ':' + endMinute + ':00');
       const res = await axios.post(

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Button, Col, Row, Form } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getCookie } from '../utils/cookie';
+
+import { arrayIsEmpty } from '../utils/jsFunction';
 import axios from 'axios';
 import {
   Container,
@@ -35,9 +37,9 @@ const settings = {
 const ResourceDetail = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const avalidTime = state.availableTime;
 
   const [inputStatus, setInputStatus] = useState(false);
+  const [isfullTime, setIsfullTime] = useState(false);
 
   const [resource, setResource] = useState([]);
   const [fileList, setFileList] = useState([]);
@@ -58,7 +60,7 @@ const ResourceDetail = () => {
   const [endHour, setEndHour] = useState('00');
   const [endMinute, setEndMinute] = useState('00');
 
-  const [availableTime, setAvailableTime] = useState('');
+  const [availableTime, setAvailableTime] = useState('00');
 
   const [fullTime, setFulltime] = useState('');
 
@@ -68,8 +70,6 @@ const ResourceDetail = () => {
   const [able, setAble] = useState('Y');
   const [detailsImgs, setDetailImgs] = useState('');
   const [cateNo, setCateNo] = useState('');
-
-  const [isfullTime, setIsfullTime] = useState(false);
 
   const handleResourceName = (e) => {
     setResourceName(e.target.value);
@@ -97,27 +97,32 @@ const ResourceDetail = () => {
     setEndMinute(e.target.value);
   };
 
-  console.log(availableTime);
-  console.log(startHour);
-  console.log(startMinute);
-  console.log(endHour);
-  console.log(endMinute);
-
   // Full-Time
   const handleFullTime = (e) => {
-    console.log();
+    // setStartMinute('00');
+    // setEndMinute('00');
+    //console.log(startMinute, endMinute);
     if (!isfullTime) {
       setFulltime(e.target.value);
       setIsfullTime(true);
+      setAvailableTime('');
 
       setStartHour('00');
       setStartMinute('00');
-      setEndHour('00');
       setEndMinute('00');
+      setEndHour('00');
     } else {
       setIsfullTime(false);
+      setAvailableTime('');
+
+      if (startMinute) {
+        setStartMinute(startMinute);
+      } else {
+        setStartMinute('00');
+      }
+
       setStartHour(startHour);
-      setStartMinute(startMinute);
+
       setEndHour(endHour);
       setEndMinute(endMinute);
     }
@@ -137,11 +142,9 @@ const ResourceDetail = () => {
     if (e.target.value == 'Y') {
       setInputStatus(true);
       setAble('Y');
-      console.log(able);
     } else {
       setInputStatus(false);
       setAble('N');
-      console.log(able);
     }
   };
 
@@ -161,15 +164,21 @@ const ResourceDetail = () => {
   }, []);
 
   useEffect(() => {
-    setStartHour(availableTime.substring(0, 2));
-    setStartMinute(availableTime.substring(3, 5));
+    if (availableTime === 'Full-time') {
+      setStartHour('00');
+      setStartMinute('00');
+      setEndHour('00');
+      setEndMinute('00');
+    } else {
+      setStartHour(availableTime.substring(0, 2));
+      setStartMinute(availableTime.substring(3, 5));
 
-    setEndHour(availableTime.substring(8, 10));
-    setEndMinute(availableTime.substring(11, 13));
+      setEndHour(availableTime.substring(8, 10));
+      setEndMinute(availableTime.substring(11, 13));
+    }
   }, [availableTime]);
 
   const getResourceNo = async (state) => {
-    console.log(state);
     axios
       .get(
         `${process.env.REACT_APP_SERVER_PORT}/resource/detail?resourceNo=${state}`,
@@ -189,6 +198,7 @@ const ResourceDetail = () => {
         if (response.data.data.resource.availableTime === 'Full-time') {
           setIsfullTime(true);
         }
+
         setFileList(response.data.data.fileList);
         setInputStatus(response.data.data.resource.able === 'Y');
       })
@@ -278,8 +288,31 @@ const ResourceDetail = () => {
   };
 
   const updateResource = async (state) => {
-    // console.log('자원수정');
+    var sm = '';
+    var sh = '';
+    var eh = '';
+    var em = '';
 
+    if (startMinute == '') {
+      sm = '00';
+    } else {
+      sm = startMinute;
+    }
+    if (startHour == '') {
+      sh = '00';
+    } else {
+      sh = startHour;
+    }
+    if (endHour == '') {
+      eh = '00';
+    } else {
+      eh = endHour;
+    }
+    if (endMinute == '') {
+      em = '00';
+    } else {
+      em = endMinute;
+    }
     await axios
       .put(
         `${process.env.REACT_APP_SERVER_PORT}/resource/update?resourceNo=${state}`,
@@ -295,7 +328,7 @@ const ResourceDetail = () => {
           adminNo: 1,
           availableTime: fullTime
             ? fullTime
-            : startHour + ':' + startMinute + ' ~ ' + endHour + ':' + endMinute,
+            : sh + ':' + sm + ' ~ ' + eh + ':' + em,
         },
       )
       .then((res) => {
@@ -522,7 +555,7 @@ const ResourceDetail = () => {
                   <textarea
                     type="text"
                     id="content"
-                    style={{ width: '500px', height: '100px' }}
+                    style={{ width: '600px', height: '200px' }}
                     defaultValue={content}
                     onChange={handleContent}
                   />
@@ -556,6 +589,7 @@ const ResourceDetail = () => {
               />
               <Button
                 variant="primary"
+                style={{ width: '80px' }}
                 onClick={() => {
                   postImgae(state);
                 }}
