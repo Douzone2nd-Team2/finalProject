@@ -26,15 +26,6 @@ const SearchItem = ({ book }) => {
     content,
   } = book;
 
-  const navigate = useNavigate();
-
-  const onClickbtn = (e) => {
-    e.preventDefault();
-    navigate('/reserve', {
-      state: book,
-    });
-  };
-
   return (
     <Link
       to="/reserve"

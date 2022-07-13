@@ -20,8 +20,6 @@ const Category = () => {
   const [car, setCar] = useState();
   const [notebook, setNotebook] = useState();
 
-  const [carimg, setCarimg] = useState('');
-
   const fetchData = async () => {
     try {
       const res = await axios.get(

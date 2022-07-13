@@ -46,7 +46,7 @@ const Sidebar = () => {
               <img src={user.imageUrl} alt="profile" />
             ) : (
               <div>
-                <span class="fa-solid fa-circle-user fa-9x" />
+                <span className="fa-solid fa-circle-user fa-9x" />
               </div>
             )}
           </ImageContainer>

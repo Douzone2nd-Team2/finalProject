@@ -14,7 +14,7 @@ const ItemContainer = styled.div`
   }
 
   .title {
-    font-size: 23px;
+    font-size: 22px;
     font-weight: 800;
     color: #222222;
     padding-bottom: 4px;
@@ -30,11 +30,11 @@ const ItemContainer = styled.div`
 const LeftContainer = styled.div`
   display: flex;
   align-items: center;
-  padding: 12px 0px 12px 60px;
+  padding: 12px 0px 12px 40px;
 `;
 
 const TitleContainer = styled.div`
-  min-width: 200px;
+  min-width: 270px;
 `;
 
 const ImageContainer = styled.div`
@@ -61,7 +61,7 @@ const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  padding: 0px 60px;
+  padding: 0px 40px;
 `;
 
 export {
