@@ -17,6 +17,7 @@ import {
   Container,
   LoginContainer,
   LoginTitle,
+  RightContainer,
   ImageContainer1,
   ImageContainer2,
   TitleContainer,
@@ -110,7 +111,7 @@ const Login = () => {
           <img src={login} alt="Login" className="login" />
         </ImageContainer1>
 
-        <div>
+        <RightContainer>
           <TitleContainer>
             <span className="title">관리자</span>
           </TitleContainer>
@@ -152,7 +153,7 @@ const Login = () => {
               </ButtonContainer>
             </ContentContainer>
           </form>
-        </div>
+        </RightContainer>
       </LoginContainer>
     </Container>
   );

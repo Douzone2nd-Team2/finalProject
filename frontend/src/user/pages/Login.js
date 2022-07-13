@@ -22,6 +22,7 @@ import {
   ButtonContainer,
   InputContainer,
   ContentContainer,
+  RightContainer,
 } from '../styles/Login';
 
 const Login = () => {
@@ -109,7 +110,7 @@ const Login = () => {
         <ImageContainer1>
           <img src={login} alt="Login" className="login" />
         </ImageContainer1>
-        <div>
+        <RightContainer>
           <ImageContainer2>
             <img src={logo} alt="Logo" />
           </ImageContainer2>
@@ -147,7 +148,7 @@ const Login = () => {
               </ButtonContainer>
             </ContentContainer>
           </form>
-        </div>
+        </RightContainer>
       </LoginContainer>
     </Container>
   );
