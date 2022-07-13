@@ -32,6 +32,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "   where a.row = 1 ) rf " +
             "on r.resourceno = rf.resourceno " +
             "where r.userno = :userNo " +
+            " and r.able = 'Y' " +
             "and r.endTime > (select now() AT TIME ZONE 'Asia/Seoul')", nativeQuery = true)
     List<IMainReservationDto> getMainReservList(@Param("userNo") Long userNo);  //이미지 가장 최신 것 뽑아옴
 

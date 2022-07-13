@@ -5,6 +5,7 @@ const BookContainer = styled.div`
   margin: 42px 18px;
   font-family: NanumGothic;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+  width: fit-content;
   cursor: pointer;
   .thumbnail {
     img {

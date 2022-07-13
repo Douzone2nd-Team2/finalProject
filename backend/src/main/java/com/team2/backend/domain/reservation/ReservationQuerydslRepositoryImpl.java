@@ -153,8 +153,10 @@ public class ReservationQuerydslRepositoryImpl implements ReservationQuerydslRep
                 .from(timelist)
                 .join(timelist.check, reservationCheck)
                 .join(reservationCheck.reserv, reservation)
-                .where(reservation.able.eq("Y")
-                        .and(reservationCheck.resourceNo.eq(resourceNo))
+                .where(
+//                        reservation.able.eq("Y")
+//                        .and(reservationCheck.resourceNo.eq(resourceNo))
+                        reservationCheck.resourceNo.eq(resourceNo)
                         .and(reservationCheck.checkDate.eq(checkdate))
                         .and(timelist.timeNo.goe(startTime))
                         .and(timelist.timeNo.loe(endTime)),
