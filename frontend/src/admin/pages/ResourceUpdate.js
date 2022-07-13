@@ -98,8 +98,7 @@ const ResourceDetail = () => {
   console.log(startHour);
   console.log(startMinute);
   console.log(endHour);
-  console.log(availableTime);
-  console.log(availableTime);
+  console.log(endMinute);
 
   // Full-Time
   const handleFullTime = (e) => {
@@ -238,9 +237,7 @@ const ResourceDetail = () => {
       .then((res) => {
         console.log(res);
         console.log('파일 수정성공');
-        updateResource(state);
-        alert('자원이 수정되었습니다.');
-        navigate('/admin/resource');
+        alert('파일이 수정되었습니다.');
       })
       .catch((error) => {
         console.log(error);
@@ -275,6 +272,7 @@ const ResourceDetail = () => {
         `${process.env.REACT_APP_SERVER_PORT}/resource/update?resourceNo=${state}`,
         {
           resourceName: resourceName,
+          location: location,
           cateNo: cateNo,
           people: people,
           able: able,
@@ -287,6 +285,10 @@ const ResourceDetail = () => {
             : startHour + ':' + startMinute + ' ~ ' + endHour + ':' + endMinute,
         },
       )
+      .then((res) => {
+        alert('자원이 수정되었습니다.');
+        navigate('/admin/resource');
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -328,7 +330,7 @@ const ResourceDetail = () => {
                     onChange={handleAble}
                   />
                 </ContentSort>
-                {resource.cateNo === 1 ? (
+                {cateNo === 1 ? (
                   <>
                     <ContentSort>
                       인원
@@ -349,7 +351,7 @@ const ResourceDetail = () => {
                       />
                     </ContentSort>
                   </>
-                ) : resource.cateNo === 2 ? (
+                ) : cateNo === 2 ? (
                   <>
                     <ContentSort>
                       연료
@@ -370,7 +372,7 @@ const ResourceDetail = () => {
                       />
                     </ContentSort>
                   </>
-                ) : resource.cateNo === 3 ? (
+                ) : cateNo === 3 ? (
                   <>
                     <ContentSort>
                       개수
