@@ -95,6 +95,10 @@ const BchartItem = ({ catenum }) => {
       >
         <VictoryAxis
           tickValues={[
+            '00시',
+            '02시',
+            '04시',
+            '06시',
             '08시',
             '10시',
             '12시',
@@ -103,10 +107,6 @@ const BchartItem = ({ catenum }) => {
             '18시',
             '20시',
             '22시',
-            '00시',
-            '02시',
-            '04시',
-            '06시',
           ]}
           tickFormat={(t) => `${t}`}
           style={{
