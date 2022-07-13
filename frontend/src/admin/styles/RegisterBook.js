@@ -161,6 +161,7 @@ const CategoryButton = styled.div`
 `;
 
 const SubmitButton = styled.button`
+  font-size: 18px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -169,7 +170,7 @@ const SubmitButton = styled.button`
   padding: 8px;
   cursor: pointer;
   touch-action: manipulation;
-  background: #1296ec;
+  background: rgb(13, 110, 253);
   color: #f1f1f1;
   font-weight: 600;
   border: 1px solid rgb(221, 221, 221);

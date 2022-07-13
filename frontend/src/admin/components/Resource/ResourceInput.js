@@ -6,6 +6,8 @@ import axios from 'axios';
 
 import { Button, Form, Modal, Row, Col } from 'react-bootstrap';
 
+import { SubmitButton } from '../../styles/Resource';
+
 const ResourceInput = ({ show, handleShow, handleClose, getAll }) => {
   const [resourceName, setResourceName] = useState('');
   const [location, setLocation] = useState('');
@@ -174,9 +176,9 @@ const ResourceInput = ({ show, handleShow, handleClose, getAll }) => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow} style={{ float: 'right' }}>
+      <SubmitButton onClick={handleShow} style={{ float: 'right' }}>
         등록
-      </Button>
+      </SubmitButton>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Resource Form</Modal.Title>

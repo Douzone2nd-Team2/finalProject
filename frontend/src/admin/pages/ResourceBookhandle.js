@@ -25,6 +25,7 @@ import {
   ButtonContainer,
   ResourceSearchButton,
   WrapperContainer,
+  StyledButton,
 } from '../styles/ResourceBookhandle';
 
 import {
@@ -438,9 +439,7 @@ const ResourceBookhandle = () => {
                   />
                 </ContentSort>
                 <ButtonContainer>
-                  <Button variant="primary" type="submit">
-                    수정
-                  </Button>
+                  <StyledButton type="submit">수정</StyledButton>
                 </ButtonContainer>
               </form>
             </ContentContainer>

@@ -24,6 +24,7 @@ import {
   ContentSort,
   ButtonContainer,
   UserContentSort,
+  StyledButton,
 } from '../styles/UserBookhandle';
 
 import {
@@ -436,9 +437,7 @@ const UserBookhandle = () => {
               />
             </ContentSort>
             <ButtonContainer>
-              <Button variant="primary" type="submit">
-                수정
-              </Button>
+              <StyledButton type="submit">수정</StyledButton>
             </ButtonContainer>
           </form>
         </ContentContainer>
