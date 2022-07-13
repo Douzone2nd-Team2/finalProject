@@ -81,17 +81,29 @@ export const ContentSort = styled.div`
 `;
 
 export const ResourceImg = styled.div`
-  display: flex;
-  margin-top: 30px;
-  justify-content: center;
-  flex-direction: column;
-  margin-left: 40px;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  padding-top: 18px;
+
+  padding-bottom: 40px;
   .slick-list {
     width: 400px;
   }
 
   .slick-initialized {
     width: 400px;
+  }
+
+  img {
+    width: 300px;
+    height: 200px;
+    padding: 12px;
+    margin: 6px;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 16px;
   }
 `;
 export const ButtonContainer = styled.div`
@@ -124,6 +136,13 @@ export const SelectBoxDiv = styled.div`
   height: fit-content;
   display: flex;
   justify-content: flex-end;
+`;
+
+export const FileInputAndButtonContainer = styled.div`
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export const SubmitButton = styled.button`
