@@ -132,7 +132,7 @@ const Search = () => {
               </div>
             ))
         )}
-        {arrayIsEmpty(car) === false && (
+        {arrayIsEmpty(equip) === false && (
           <PaginationBox>
             <Pagination
               activePage={page3}
