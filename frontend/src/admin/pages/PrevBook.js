@@ -7,7 +7,14 @@ import Button from 'react-bootstrap/Button';
 import { arrayIsEmpty } from '../utils/jsFunction';
 import { getCookie } from '../utils/cookie';
 
-import { Container, TitleContainer, TableContainer } from '../styles/BookInfo';
+import {
+  Container,
+  TitleContainer,
+  TableContainer,
+  ButtonContainer,
+  StyledButton,
+  StyledButton2,
+} from '../styles/BookInfo';
 
 const PrevBook = ({ userNo }) => {
   const [prevList, setPrevList] = useState([]);
@@ -79,32 +86,34 @@ const PrevBook = ({ userNo }) => {
                 <td>{user.startTime}</td>
                 <td>{user.endTime}</td>
                 <td>
-                  <Link
-                    to="/admin/userbookhandle"
-                    state={{
-                      reservNo: user.reservNo,
-                      reservName: user.reservName,
-                      startTime: user.startTime,
-                      endTime: user.endTime,
-                      content: user.content,
-                      resourceNo: user.resourceNo,
-                      userNo: userNo,
-                    }}
-                  >
-                    <Button variant="primary">수정</Button>
-                  </Link>
-                </td>
-                <td>
-                  {/*(e) => delete(e) */}
-                  <Button
-                    variant="danger"
-                    onClick={() => {
-                      deleteData(user);
-                      fetchData();
-                    }}
-                  >
-                    삭제
-                  </Button>
+                  <ButtonContainer>
+                    <Link
+                      to="/admin/userbookhandle"
+                      state={{
+                        reservNo: user.reservNo,
+                        reservName: user.reservName,
+                        startTime: user.startTime,
+                        endTime: user.endTime,
+                        content: user.content,
+                        resourceNo: user.resourceNo,
+                        userNo: userNo,
+                      }}
+                    >
+                      <StyledButton variant="primary">수정</StyledButton>
+                    </Link>
+                    {/* </td>
+                <td> */}
+                    {/*(e) => delete(e) */}
+                    <StyledButton2
+                      variant="danger"
+                      onClick={() => {
+                        deleteData(user);
+                        fetchData();
+                      }}
+                    >
+                      삭제
+                    </StyledButton2>
+                  </ButtonContainer>
                 </td>
               </tr>
             ))

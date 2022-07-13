@@ -7,7 +7,14 @@ import Button from 'react-bootstrap/Button';
 import { arrayIsEmpty } from '../utils/jsFunction';
 import { getCookie } from '../utils/cookie';
 
-import { Container, TitleContainer, TableContainer } from '../styles/BookInfo';
+import {
+  Container,
+  TitleContainer,
+  TableContainer,
+  ButtonContainer,
+  StyledButton,
+  StyledButton2,
+} from '../styles/BookInfo';
 
 const PresentBook = ({ userNo, userName }) => {
   const [presentList, setPresentList] = useState([]);
@@ -72,7 +79,7 @@ const PresentBook = ({ userNo, userName }) => {
             <th>예약시작일</th>
             <th>예약종료일</th>
             <th></th>
-            <th></th>
+            {/* <th></th> */}
           </tr>
           {!arrayIsEmpty(presentList) ? (
             presentList.map((user, idx) => (
@@ -82,33 +89,35 @@ const PresentBook = ({ userNo, userName }) => {
                 <td>{user.startTime}</td>
                 <td>{user.endTime}</td>
                 <td>
-                  <Link
-                    to="/admin/userbookhandle"
-                    state={{
-                      reservNo: user.reservNo,
-                      reservName: user.reservName,
-                      startTime: user.startTime,
-                      endTime: user.endTime,
-                      content: user.content,
-                      resourceNo: user.resourceNo,
-                      userNo: userNo,
-                      userName: userName,
-                    }}
-                  >
-                    <Button variant="primary">수정</Button>
-                  </Link>
-                </td>
-                <td>
-                  {/*(e) => delete(e) */}
-                  <Button
-                    variant="danger"
-                    onClick={() => {
-                      deleteData(user);
-                      fetchData();
-                    }}
-                  >
-                    삭제
-                  </Button>
+                  <ButtonContainer>
+                    <Link
+                      to="/admin/userbookhandle"
+                      state={{
+                        reservNo: user.reservNo,
+                        reservName: user.reservName,
+                        startTime: user.startTime,
+                        endTime: user.endTime,
+                        content: user.content,
+                        resourceNo: user.resourceNo,
+                        userNo: userNo,
+                        userName: userName,
+                      }}
+                    >
+                      <StyledButton variant="primary">수정</StyledButton>
+                    </Link>
+                    {/* </td>
+                <td> */}
+                    {/*(e) => delete(e) */}
+                    <StyledButton2
+                      variant="danger"
+                      onClick={() => {
+                        deleteData(user);
+                        fetchData();
+                      }}
+                    >
+                      삭제
+                    </StyledButton2>
+                  </ButtonContainer>
                 </td>
               </tr>
             ))

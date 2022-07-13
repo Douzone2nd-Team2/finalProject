@@ -11,6 +11,9 @@ import {
   Container,
   TitleContainer,
   TableContainer,
+  ButtonContainer,
+  StyledButton,
+  StyledButton2,
 } from '../../styles/BookInfo';
 
 const RePresentBook = ({ resourceNo }) => {
@@ -75,7 +78,7 @@ const RePresentBook = ({ resourceNo }) => {
             <th>예약시작일</th>
             <th>예약종료일</th>
             <th></th>
-            <th></th>
+            {/* <th></th> */}
           </tr>
           {!arrayIsEmpty(presList) ? (
             presList.map((resource, idx) => (
@@ -88,35 +91,37 @@ const RePresentBook = ({ resourceNo }) => {
                   {resource.cateNo}
                 </td>
                 <td>
-                  <Link
-                    to="/admin/resourcebookhandle"
-                    state={{
-                      cateNo: resource.cateNo,
-                      reservNo: resource.reservNo,
-                      userName: resource.name,
-                      reservName: resource.reservName,
-                      resourceName: resource.resourceName,
-                      startTime: resource.startTime,
-                      endTime: resource.endTime,
-                      content: resource.content,
-                      category: resource.category,
-                      resourceNo: resource.resourceNo,
-                      userNo: resource.userNo,
-                    }}
-                  >
-                    <Button variant="primary">수정</Button>
-                  </Link>
-                </td>
-                <td>
-                  <Button
-                    variant="danger"
-                    onClick={() => {
-                      deleteData(resource);
-                      fetchData();
-                    }}
-                  >
-                    삭제
-                  </Button>
+                  <ButtonContainer>
+                    <Link
+                      to="/admin/resourcebookhandle"
+                      state={{
+                        cateNo: resource.cateNo,
+                        reservNo: resource.reservNo,
+                        userName: resource.name,
+                        reservName: resource.reservName,
+                        resourceName: resource.resourceName,
+                        startTime: resource.startTime,
+                        endTime: resource.endTime,
+                        content: resource.content,
+                        category: resource.category,
+                        resourceNo: resource.resourceNo,
+                        userNo: resource.userNo,
+                      }}
+                    >
+                      <StyledButton variant="primary">수정</StyledButton>
+                    </Link>
+                    {/* </td>
+                <td> */}
+                    <StyledButton2
+                      variant="danger"
+                      onClick={() => {
+                        deleteData(resource);
+                        fetchData();
+                      }}
+                    >
+                      삭제
+                    </StyledButton2>
+                  </ButtonContainer>
                 </td>
               </tr>
             ))

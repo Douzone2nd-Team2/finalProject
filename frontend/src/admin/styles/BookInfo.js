@@ -35,13 +35,59 @@ const TableContainer = styled.div`
   td {
     text-align: center;
   }
+  a {
+    text-decoration: none;
+  }
 `;
 
-// const UpdateContainer = styled.div`
-//   .updateBtn {
-//     background-color: blue;
-//     width: 30px;
-//   }
-// `;
+const StyledButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  min-height: 36px;
+  margin: 3px;
+  padding: 8px;
+  cursor: pointer;
+  touch-action: manipulation;
+  background: #1296ec;
+  color: #f1f1f1;
+  font-weight: 600;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 6px 16px;
+`;
+const StyledButton2 = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  min-height: 36px;
+  margin: 3px;
+  padding: 8px;
+  cursor: pointer;
+  touch-action: manipulation;
+  background: #ed3613;
+  color: #f1f1f1;
+  font-weight: 600;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 6px 16px;
+`;
 
-export { Container, TitleContainer, TableContainer };
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 32px;
+  padding: 6px 4px;
+`;
+export {
+  Container,
+  TitleContainer,
+  TableContainer,
+  StyledButton,
+  StyledButton2,
+  ButtonContainer,
+};
