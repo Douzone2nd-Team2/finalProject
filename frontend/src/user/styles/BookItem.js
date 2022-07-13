@@ -19,13 +19,17 @@ const BookContainer = styled.div`
     background-color: #e2e2e2;
     opacity: 0.8;
     width: 200px;
-    height: 220px;
+    height: 240px;
     margin: auto;
 
     .resouceName {
       font-size: 20px;
       font-weight: 800;
+      width: 170px;
       color: #222222;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .startTime {
@@ -43,6 +47,8 @@ const BookContainer = styled.div`
       color: #222222;
       font-weight: 600;
       font-size: 16px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 `;
