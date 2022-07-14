@@ -34,6 +34,7 @@ const BchartItem = ({ catenum }) => {
         },
       )
       .then((res) => {
+        console.log(res);
         changeTitle();
         setData([res.data.data]);
         setDays(res.data.data.days);

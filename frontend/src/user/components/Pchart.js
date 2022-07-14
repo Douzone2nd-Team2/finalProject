@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { isEmpty } from '../utils/jsFunction';
 import { getCookie } from '../utils/cookie';
 
 import { VictoryPie, VictoryLegend } from 'victory';
