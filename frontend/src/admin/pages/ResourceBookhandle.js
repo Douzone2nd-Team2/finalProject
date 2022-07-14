@@ -144,6 +144,7 @@ const ResourceBookhandle = () => {
         temp = peopleInit.map((item) => item.userNo);
         setPeopleNo(temp);
       }
+
       const res = await axios.post(
         `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/modify`,
         {

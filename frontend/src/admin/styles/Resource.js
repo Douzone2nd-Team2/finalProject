@@ -143,6 +143,7 @@ export const FileInputAndButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  float: right;
 `;
 
 export const SubmitButton = styled.button`

@@ -111,6 +111,9 @@ const ResourceInput = ({ show, handleShow, handleClose, getAll }) => {
       });
   };
 
+  console.log(
+    startHour + ':' + startMinute + ' ~ ' + endHour + ':' + endMinute,
+  );
   const handleChangeFile = useCallback((e) => {
     setImgFile(e.target.files);
   });

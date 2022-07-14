@@ -99,6 +99,7 @@ const ResourceDetail = () => {
 
   // Full-Time
   const handleFullTime = (e) => {
+
     if (!isfullTime) {
       setFulltime(e.target.value);
       setIsfullTime(true);
