@@ -21,7 +21,6 @@ const BookItem = ({ book }) => {
   };
 
   const axiosGetMyReservationInfo = async (reservNo) => {
-    console.log(reservNo);
     const myReservationInfo = await axios
       .post(
         `${process.env.REACT_APP_SERVER_PORT}/mypage/getMyReservationInfo`,
@@ -36,7 +35,6 @@ const BookItem = ({ book }) => {
       .then((res) => {
         if (res.data.resCode === 4001) {
           alert('[ERROR] 알 수 없는 오류가 발생하였습니다.');
-          console.log(res.data);
           return;
         } else {
           navigate('/mypage/reservation', {

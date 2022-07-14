@@ -58,8 +58,8 @@ public class ResourceController {
     }
 
     @PostMapping("/fileupdate") // 사진 수정
-    public ResponseEntity<Message> fileUpdate(@RequestPart(value = "images") List<MultipartFile> multipartFile ){
-        return resourceService.fileUpdate(multipartFile);
+    public ResponseEntity<Message> fileUpdate(@RequestPart(value = "images") List<MultipartFile> multipartFile, @RequestPart(value="resourceNo") ResourceAdminDto resource ){
+        return resourceService.fileUpdate(multipartFile, resource.getResourceNo());
     }
 
     @PostMapping("/delete")

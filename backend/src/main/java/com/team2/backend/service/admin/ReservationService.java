@@ -121,7 +121,6 @@ public class ReservationService {
 
             if (cateNo == 1) {  //자원이 회의실일 경우
                 for (int i = 0; i < body.getEmpNoList().size(); i++) {
-                    System.out.println(body.getEmpNoList());
                     PeopleCnt peopleCnt = PeopleCnt.builder()
                             .reservNo(reservNo)
                             .userNo(Long.parseLong(body.getEmpNoList().get(i)))
@@ -162,7 +161,6 @@ public class ReservationService {
     }
 
     public Boolean reservationCheck(Reservation reservation, List<String> dateList, int startTime, int endTime, String type, Long reservNo) {
-        System.out.println("reservation check enter!!! " + dateList.size() + "///"  + "///" + startTime + " ~~~" + endTime);
 
         Long resourceNo = reservation.getResourceNo();
 
@@ -174,16 +172,11 @@ public class ReservationService {
         Boolean flag = false;
 
         if (dateList.size() == 1) {
-            System.out.println("하루");
             reservationCheckList = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(0), startTime, endTime, type, reservNo);
-            System.out.println(reservationCheckList);
             if (reservationCheckList != null) {
-                System.out.println("reservationCheckList != null");
                 if (reservationCheckList.size() == 0) {
-                    System.out.println("reservationCheckList.isEmpty()");
                     flag = true;
                 } else {
-                    System.out.println("reservationCheckList.isNotEmpty()");
                     flag = false;
                 }
             }
@@ -191,58 +184,41 @@ public class ReservationService {
             for (int i = 0; i <= dateList.size() - 1; i++) {
                 if (i == 0) {
                     reservationCheckList2 = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(i), startTime, 47, type, reservNo);
-                    System.out.println("2 : " + reservationCheckList2);
                     if (reservationCheckList2 != null) {
-                        System.out.println("list2 not null");
                         if (reservationCheckList2.size() == 0) {
-                            System.out.println("설마");
                             flag = true;
                         } else {
-                            System.out.println("혹시 여기?"+reservationCheckList2.size());
-                            for (int k=0;k<reservationCheckList2.size();k++){
-                                System.out.println(reservationCheckList2.get(k).getTimeNo());
-                            }
                             flag = false;
                             break;
                         }
                     }
                 } else if (i == dateList.size() - 1) {
                     reservationCheckList3 = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(i), 0, endTime, type, reservNo);
-                    System.out.println("3 : " + reservationCheckList3);
                     if (reservationCheckList3 != null) {
-                        System.out.println("list3 not null");
                         if (reservationCheckList3.size() == 0) {
-                            System.out.println("혹시 여기?22");
                             flag = true;
                         } else {
                             flag = false;
-                            System.out.println("혹시 여기?33");
                             break;
                         }
                     }
                 } else {
                     reservationCheckList4 = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(i), 0, 47, type, reservNo);
-                    System.out.println("4 : " + reservationCheckList4);
                     if (reservationCheckList4 != null) {
-                        System.out.println("list4 not null");
                         if (reservationCheckList4.size() == 0) {
                             flag = true;
                         } else {
                             flag = false;
-                            System.out.println("혹시 여기?44");
                             break;
                         }
                     }
                 }
-                System.out.println("여기는 오니?");
 
             }
         } else if (reservationCheckList == null && reservationCheckList2 == null
                 && reservationCheckList3 == null && reservationCheckList4 == null) {
-            System.out.println("all null");
             return true;
         } else {
-            System.out.println("엥ㅇ");
             flag = false;
         }
         return flag;
@@ -251,11 +227,9 @@ public class ReservationService {
     @Transactional
     public ResponseEntity<Message> updateReservation(HttpServletRequest req, ReservationManagementDto body) throws ParseException {
 
-//        System.out.println("empnolist :: "+body.getEmpNoList().get(0));
-
         Reservation reservation = body.toEntity();
         Message message;
-        System.out.println(body.getContent()+"!!!!!!!!!!!!!!!!!!!");
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -289,14 +263,12 @@ public class ReservationService {
                 reservationQuerydslRepository.deleteTimelistByCheckNo(checkNo.get(i)); //이전 예약 시간 삭제 -timelist
             }
         } else {
-            System.out.println("checkNO"+checkNo.size());
             if(checkNo.size()==1)
                 reservationQuerydslRepository.deleteTimelistByCheckNo(checkNo.get(0)); //이전 예약 시간 삭제 -timelist
         }
         reservationQuerydslRepository.deleteByReservNo(body.getReservNo()); //reservation_check table에서 삭제
 
             Long cateNo = resourceRepository.findByCategory(body.getResourceNo());
-            System.out.println("cateNo : "+cateNo);
 
         if(cateNo== 1) {
            if(!peopleCntRepository.findByReservNo(body.getReservNo()).isEmpty()) {

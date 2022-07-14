@@ -62,9 +62,6 @@ public class ReservationController {
 
     @PostMapping("/admin/reservation/delete")
     public ResponseEntity<Message> deleteReservation(@RequestBody ReserveDeleteDto body) throws ParseException {
-//        System.out.println("실행해");
         return reservationService.deleteReservation(body);
-//        System.out.println(body.getReservNo());
-//        return reservationService.deleteReservation(body.getReservNo());
     }
 }

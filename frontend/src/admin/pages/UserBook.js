@@ -7,8 +7,6 @@ import { Container, HeadContainer, BookContainer } from '../styles/UserBook';
 
 const UserBook = () => {
   const location = useLocation();
-  console.log('사원 번호 : ', location.state.userNo);
-  console.log('사원 이름 : ', location.state.userName);
 
   const userName = location.state.userName;
   const userNo = location.state.userNo;

@@ -38,7 +38,6 @@ public class ResourceService {
     @Transactional
     public ResponseEntity<Message> getResourceList() {
         List<IResourceAdminDto> AllresourceList = resourceRepository.findAllResource();
-        System.out.println(AllresourceList);
         if (AllresourceList.isEmpty()) {
             Message message = Message.builder()
                     .resCode(3001)
@@ -78,7 +77,6 @@ public class ResourceService {
 
     @Transactional
     public ResponseEntity<Message> getResourceNoList(Long resourceNo) {
-        System.out.println(resourceNo);
         Resource resource = resourceRepository.findByResourceNo(resourceNo);
         List<Resourcefile> fileList = resourcefileRepository.findByResource_ResourceNo(resourceNo);
 
@@ -105,7 +103,6 @@ public class ResourceService {
     @Transactional
     public ResponseEntity<Message> getBookmark() {
         List<IResourceAdminDto> bookmarkList = bookmarkRepository.findBookmark();
-        System.out.println(bookmarkList);
         if (bookmarkList.isEmpty()) {
             Message message = Message.builder()
                     .resCode(3001)
@@ -214,8 +211,6 @@ public class ResourceService {
             if(multipartFile != null) {
                 for (int i = 0; i < multipartFile.size(); i++) {
                     String[] awsUrl = s3Uploader.uploadFiles(multipartFile.get(i), "static");
-                    System.out.println(i + 1 + " : " + awsUrl[0]);
-                    System.out.println(i + 1 + " : " + awsUrl[1]);
 
                     Resourcefile file = resourcefileRepository.save(
                             Resourcefile.builder()
@@ -273,7 +268,7 @@ public class ResourceService {
     }
 
     @Transactional
-    public ResponseEntity<Message> fileUpdate(List<MultipartFile> multipartFile) {
+    public ResponseEntity<Message> fileUpdate(List<MultipartFile> multipartFile, Long resourceNo) {
         try {
             List<Resourcefile> resourcefileList = new ArrayList<>();
 
@@ -283,7 +278,7 @@ public class ResourceService {
 
             Resource resource = new Resource();
 
-            Long resourceNo = resourceRepository.findLastReserouce();
+           //Long resourceNo = resourceRepository.findLastReserouce();
 
             //delelte
             List<Resourcefile> delresourcefile = resourcefileRepository.findByResource_ResourceNo(resourceNo);
@@ -299,7 +294,6 @@ public class ResourceService {
                             String imageName = resourcefileRepository.findByImageNo(id).getImageName();
                             s3Uploader.remove(imageName);
                             resourcefileRepository.deleteById(id);
-                            System.out.println(id);
                             return id;
                         }
                 ).collect(Collectors.toList());
@@ -308,8 +302,6 @@ public class ResourceService {
             //insert
             for (int i = 0; i < multipartFile.size(); i++) {
                 String[] awsUrl = s3Uploader.uploadFiles(multipartFile.get(i), "static");
-                System.out.println(i + 1 + " : " + awsUrl[0]);
-                System.out.println(i + 1 + " : " + awsUrl[1]);
 
                 Resourcefile file = resourcefileRepository.save(
                         Resourcefile.builder()
@@ -345,20 +337,14 @@ public class ResourceService {
 
     @Transactional
     public ResponseEntity<Message> delresourceList(Long resourceNo) {
-        System.out.println("resourceNo: "+resourceNo);
         Resource delresourse = resourceRepository.findByResourceNo(resourceNo);
-        System.out.println("del"+ delresourse);
         List<Resourcefile> delresourcefile = resourcefileRepository.findByResource_ResourceNo(resourceNo);
-        System.out.println("delresourcefile" + delresourcefile);
 
         if (delresourse != null && delresourcefile != null) {
             List<Long> delIdList = resourcefileRepository.findByResource_ResourceNo(resourceNo).stream()
                     .map(resourcefile -> {
                         return resourcefile.getImageNo();
                     }).collect(Collectors.toList());
-            for (int i=0;i<delIdList.size();i++){
-                System.out.println(delIdList.get(i));
-            }
 
 
             delIdList.stream().map(
@@ -366,7 +352,6 @@ public class ResourceService {
                         String imageName = resourcefileRepository.findByImageNo(id).getImageName();
                         s3Uploader.remove(imageName);
                         resourcefileRepository.deleteById(id);
-                        System.out.println(id);
                         return id;
                     }
             ).collect(Collectors.toList());

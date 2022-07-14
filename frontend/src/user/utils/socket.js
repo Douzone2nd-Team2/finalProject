@@ -15,12 +15,9 @@ const connection = () => {
   stompClient.connect(headers, onConnected, onError);
 };
 
-const onConnected = () => {
-  console.log('연결 완료');
-};
+const onConnected = () => {};
 
 const onSubscribe = (userNo, onMessageReceived) => {
-  console.log(userNo);
   setTimeout(function () {
     stompClient.subscribe('/user/' + userNo + '/do', onMessageReceived);
   }, 500);

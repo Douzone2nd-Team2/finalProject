@@ -41,8 +41,6 @@ public class MypageService {
 
         Long userNo = employeeDetails.getEmployee().getNo();
         Employee employee = employeeRepository.findByNo(userNo);
-        System.out.println(userNo);
-        System.out.println(body.getPassword());
         if(!bCryptPasswordEncoder.matches(body.getPassword(), employee.getPassword())){
             System.out.println("현재 비밀번호 불일치");
             Message message = Message.builder()
@@ -67,10 +65,8 @@ public class MypageService {
 
     @Transactional
     public ResponseEntity<Message> employeeView(HttpServletRequest request, @AuthenticationPrincipal EmployeeDetails employeeDetails) {
-       // System.out.println(request.getAttribute("userId"));
         List<EmployeeManagementDto> employee = employeeQuerydslRepository.getMainEmployee(employeeDetails.getEmployee().getUserId());
 
-        System.out.println("size" + employee.size());
         Message message = Message.builder()
                 .resCode(2000)
                 .message("[SUCCESS] Select Employee View")
@@ -81,7 +77,6 @@ public class MypageService {
 
     @Transactional
     public ResponseEntity<Message> getMyReservationInfo(MyReservDto body) {
-        System.out.println(body.getReservNo());
         List<IMainReservationDto> result = reservationRepository.getMyReservationInfo(body.getReservNo());
         if (result == null) {
             Message message = Message.builder()

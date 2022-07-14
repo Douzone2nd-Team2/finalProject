@@ -54,7 +54,6 @@ const ResourceItem = (props) => {
   }, []);
 
   const handleResourceView = (resourceNo) => {
-    console.log(resourceNo);
     navigate('/admin/resourceupdate', {
       state: resourceNo,
     });

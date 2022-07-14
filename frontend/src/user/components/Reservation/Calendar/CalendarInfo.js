@@ -127,8 +127,6 @@ const CalendarInfo = (props) => {
         endTime,
     };
 
-    console.log(data);
-
     const result = await axios
       .post(`${process.env.REACT_APP_SERVER_PORT}/saveReservation`, data, {
         headers: {
@@ -159,9 +157,7 @@ const CalendarInfo = (props) => {
       .catch(console.error);
   };
 
-  useEffect(() => {
-    console.log(noTimelist);
-  }, [noTimelist]);
+  useEffect(() => {}, [noTimelist]);
 
   return (
     <CalendarContainer>

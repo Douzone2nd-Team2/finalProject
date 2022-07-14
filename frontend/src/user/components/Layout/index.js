@@ -9,7 +9,6 @@ const PrivateRoute = () => {
 
   const accessToken = cookies.get('accessToken');
 
-  // console.log('Layout accessToken', accessToken);
   if (!accessToken || accessToken === 'undefined') return <Navigate to="/" />;
 
   return (

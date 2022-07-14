@@ -120,14 +120,8 @@ public class UserMainService {
     @Transactional
     public ResponseEntity<Message> getbookList(HttpServletRequest request, @AuthenticationPrincipal EmployeeDetails employeeDetails) {
 
-//        Long userNo = (Long)request.getAttribute("userNo");
         Long userNo = employeeDetails.getEmployee().getNo();
         List<IMainReservationDto> reservationList = reservationRepository.getMainReservList(userNo);
-
-
-        for (int i=0;i<reservationList.size();i++){
-            System.out.println(reservationList.get(i).getReservName());
-        }
 
         HashMap<String, List<IMainReservationDto>> data = new HashMap<>();
         data.put("reservationList",reservationList);
@@ -158,7 +152,6 @@ public class UserMainService {
 
         String startDate = reservationRepository.getStartDate();
         String endDate = reservationRepository.getEndDate();
-        System.out.println(startDate);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         Date start = format.parse(startDate);

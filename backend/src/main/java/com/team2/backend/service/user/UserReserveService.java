@@ -44,14 +44,9 @@ public class UserReserveService {
     @Transactional
     public ResponseEntity<Message> anotherGetTimelist(UserReservationDto body) throws ParseException {
         garbageCollector();
-        System.out.println("anotherGetTimelist");
-        System.out.println(body.getStartTime());
         Long resourceNo = body.getResourceNo();
         Date startDate = formatter.parse(formatter.format(new Date(body.getStartDate() + (1000 * 60 * 60 * 9))));
         Date endDate = formatter.parse(formatter.format(new Date(body.getEndDate() + (1000 * 60 * 60 * 9))));
-        System.out.println(resourceNo);
-        System.out.println(startDate);
-        System.out.println(endDate);
 
         Date[] dateList = new Date[2];
         dateList[0] = startDate;
@@ -59,7 +54,6 @@ public class UserReserveService {
 
         List<Long[]> timelists = new ArrayList<>();
         for (int i = 0; i < dateList.length; i++) {
-            System.out.println();
             List<ReservationCheck> check = reservationCheckRepository.findByResourceNoAndCheckDate(resourceNo, formatter.format(dateList[i]));
             Long[] timelist = null;
             if (!check.isEmpty()) {
@@ -208,7 +202,6 @@ public class UserReserveService {
 
         if (dateList.size() == 1) {
             reservationCheckList = reservationQuerydslRepository.findByReservCheckdate(resourceNo, dateList.get(0), startTime, endTime, type, reservNo);
-            System.out.println(reservationCheckList);
             if (reservationCheckList != null) {
                 if (reservationCheckList.size() == 0) {
                     flag = true;
@@ -224,9 +217,6 @@ public class UserReserveService {
                         if (reservationCheckList2.size() == 0) {
                             flag = true;
                         } else {
-                            for (int k=0;k<reservationCheckList2.size();k++){
-                                System.out.println(reservationCheckList2.get(k).getTimeNo());
-                            }
                             flag = false;
                             break;
                         }

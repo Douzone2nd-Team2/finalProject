@@ -54,7 +54,6 @@ const Search = () => {
           },
         },
       );
-      console.log(res.data.data);
       setMeeting(res.data.data.searchConferenceList);
       setCar(res.data.data.searchCarList);
       setEquip(res.data.data.searchNotebookList);
