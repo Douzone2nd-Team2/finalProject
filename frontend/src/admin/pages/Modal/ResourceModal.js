@@ -57,7 +57,6 @@ const ResourceModal = (props) => {
         }
       })
       .catch(console.error);
-    console.log(searchResult);
     setResourceList(searchResult);
   };
 

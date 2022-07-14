@@ -41,7 +41,6 @@ const MyReservation = () => {
       .then((res) => {
         if (res.data.resCode === 4001) {
           alert('[ERROR] 알 수 없는 오류가 발생하였습니다.');
-          console.log(res.data);
           return;
         } else {
           alert('성공적으로 취소되었습니다.');

@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public interface IResourceAdminDto { // office
+public interface
+
+IResourceAdminDto { // office
     Long getResourceNo();
     Long getCateNo();
     String getCateName();

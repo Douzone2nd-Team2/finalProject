@@ -41,7 +41,6 @@ public class UserController {
     */
     @GetMapping("/admin/userview")
     public ResponseEntity<Message> userView(HttpServletRequest request, @RequestParam(name="userNo") String userNo){
-        System.out.println("userview enter!!");
         return userService.getUserView(request, userNo);
     }
 
@@ -55,7 +54,6 @@ public class UserController {
 
     @PostMapping("/admin/user/changepw")
     public ResponseEntity<Message> userChangePW(@RequestBody MypageDto body){
-        System.out.println("change");
         return userService.changePw(body);
     }
 
@@ -67,7 +65,6 @@ public class UserController {
 
     @PostMapping("/admin/userdelete")
     public ResponseEntity<Message> userDelete(@RequestBody EmployeeManagementDto body){
-        System.out.println("delete " +body.getNo());
         return userService.deleteUser(body.getNo());
     }
 }

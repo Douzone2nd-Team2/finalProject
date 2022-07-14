@@ -73,8 +73,6 @@ public class UserService {
                     String[] str = s3Uploader.uploadFiles(multipartFile, "static");
                     imgUrl = str[0];//aws s3 url
                     imgName = str[1]; //file key
-
-                    System.out.println(" : " + imgUrl);
                 }
                 System.out.println("imgUrl:  "+imgUrl);
             System.out.println("imgName:  "+imgName);
@@ -136,7 +134,6 @@ public class UserService {
                 String imgName="";
                 if(emp.getImageUrl()!=null){ //기존에 s3에 upload된 파일 유무
                     if(multipartFile != null) { //upload할 파일 유무
-                        System.out.println(emp.getImageName());
                         s3Uploader.remove(emp.getImageName()); //file key 값
                     }
                 }

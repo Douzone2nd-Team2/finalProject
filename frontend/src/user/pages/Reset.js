@@ -51,7 +51,6 @@ const Reset = () => {
           },
         })
         .then((res) => {
-          console.log(res);
           if (res.data.resCode === 2000) {
             alert('비밀번호 변경이 성공하였습니다.');
             navigate('/main');

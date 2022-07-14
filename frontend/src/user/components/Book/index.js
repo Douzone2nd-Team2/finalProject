@@ -13,8 +13,6 @@ import './test.css';
 const BookCarousel = () => {
   const [books, setBooks] = useState([]);
 
-  console.log(books.length);
-
   const settings = {
     dots: true,
     infinite: true,
@@ -35,7 +33,6 @@ const BookCarousel = () => {
           },
         },
       );
-      console.log(res);
       setBooks(res.data.data.reservationList);
     } catch (e) {
       console.log(e);

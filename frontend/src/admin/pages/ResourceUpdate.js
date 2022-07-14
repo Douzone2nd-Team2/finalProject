@@ -99,9 +99,6 @@ const ResourceDetail = () => {
 
   // Full-Time
   const handleFullTime = (e) => {
-    // setStartMinute('00');
-    // setEndMinute('00');
-    //console.log(startMinute, endMinute);
     if (!isfullTime) {
       setFulltime(e.target.value);
       setIsfullTime(true);
@@ -221,12 +218,9 @@ const ResourceDetail = () => {
 
       let reader = new FileReader();
       reader.onload = () => {
-        console.log(reader.result);
         fileURLs[i] = reader.result;
         setDetailImgs([...fileURLs]);
         setImgFile(e.target.files);
-        console.log(imgFile);
-        console.log('핸들체인지');
       };
       reader.readAsDataURL(file);
     }
@@ -234,9 +228,7 @@ const ResourceDetail = () => {
 
   // 파일수정
   const postImgae = (e) => {
-    console.log('postImge시작 ');
     if (imgFile.length > 0) {
-      console.log('imgFile: ' + imgFile);
       const d = new FormData();
       for (let i = 0; i < imgFile.length; i++) {
         d.append('images', imgFile[i]);
@@ -251,7 +243,6 @@ const ResourceDetail = () => {
       );
 
       setFormData(d);
-      console.log(formData);
     }
 
     axios
@@ -266,8 +257,6 @@ const ResourceDetail = () => {
         },
       )
       .then((res) => {
-        console.log(res);
-        console.log('파일 수정성공');
         alert('파일이 수정되었습니다.');
       })
       .catch((error) => {
@@ -277,7 +266,6 @@ const ResourceDetail = () => {
 
   //삭제
   const deleteResource = async (state) => {
-    console.log(state);
     const body = { resourceNo: state };
     await axios
       .post(`${process.env.REACT_APP_SERVER_PORT}/resource/delete`, body, {
@@ -286,7 +274,6 @@ const ResourceDetail = () => {
         },
       })
       .then((res) => {
-        console.log(res);
         alert('자원이 삭제되었습니다.');
         navigate('/admin/resource');
       })

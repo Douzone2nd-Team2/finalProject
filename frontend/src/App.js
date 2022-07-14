@@ -49,7 +49,6 @@ const App = () => {
             Authorization: accessToken,
           },
         })
-        //.then((res) => console.log(res))
         .then((res) => res.data.data[0])
         .then((data) =>
           setUser({
@@ -66,7 +65,6 @@ const App = () => {
           }),
         );
     }
-    console.log('user = ', user);
   }, [user, setUser, accessToken]);
   return (
     <>

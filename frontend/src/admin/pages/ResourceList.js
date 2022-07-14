@@ -26,7 +26,6 @@ const ResourceList = () => {
   };
 
   const getResource = async () => {
-    console.log(selected);
     const param = { cateNo: selected };
     axios
       .get(`${process.env.REACT_APP_SERVER_PORT}/admin/reservation/resource`, {
@@ -36,7 +35,6 @@ const ResourceList = () => {
         },
       })
       .then((response) => {
-        console.log(response.data.data);
         setResources(response.data.data);
       })
       .catch((error) => {

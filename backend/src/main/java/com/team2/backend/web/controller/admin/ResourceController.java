@@ -59,7 +59,6 @@ public class ResourceController {
 
     @PostMapping("/fileupdate") // 사진 수정
     public ResponseEntity<Message> fileUpdate(@RequestPart(value = "images") List<MultipartFile> multipartFile, @RequestPart(value="resourceNo") ResourceAdminDto resource ){
-        System.out.println(resource.getResourceNo()+"^^^^^^^^^^^^");
         return resourceService.fileUpdate(multipartFile, resource.getResourceNo());
     }
 
