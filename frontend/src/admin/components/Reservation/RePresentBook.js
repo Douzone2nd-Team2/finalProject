@@ -86,10 +86,7 @@ const RePresentBook = ({ resourceNo }) => {
                 <td>{presList.length - idx}</td>
                 <td>{resource.name}</td>
                 <td>{resource.startTime}</td>
-                <td>
-                  {resource.endTime}
-                  {resource.cateNo}
-                </td>
+                <td>{resource.endTime}</td>
                 <td>
                   <ButtonContainer>
                     <Link
