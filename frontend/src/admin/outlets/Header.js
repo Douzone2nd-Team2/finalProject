@@ -16,7 +16,6 @@ function Header() {
   const [_, removeCookie] = useCookies(['accessToken']);
 
   const deleteCookie = () => {
-    console.log('delete cookie click');
     removeCookie('accessToken');
     navigate('/admin/login');
   };

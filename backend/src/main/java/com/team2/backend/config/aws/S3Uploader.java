@@ -42,8 +42,6 @@ public class S3Uploader {
 
     //s3 upload
     public String[] putS3(MultipartFile multipartFile, String fileName){
-        System.out.println("putS3 enter@@@@@");
-        System.out.println(multipartFile+"//"+fileName+"//"+bucket);
         try {
             String contentType = multipartFile.getContentType();
             long contentLength = multipartFile.getSize();
@@ -71,7 +69,6 @@ public class S3Uploader {
 
     public void remove(String fileName) {
         try {
-            System.out.println("fileName : "+fileName);
             //Delete 객체 생성
             DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(bucket, fileName);
             //Delete

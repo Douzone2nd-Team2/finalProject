@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { getCookie } from '../../utils/cookie';
-import ResourceFileUploadTest from './ResourceFileUploadTest';
 
 import axios from 'axios';
 
@@ -64,7 +63,6 @@ const ResourceInput = ({ show, handleShow, handleClose, getAll }) => {
   //시작시간
   const ShandleHourTime = (e) => {
     setStartHour(e.target.value);
-    // console.log(hour);
   };
   const ShandleMinuteTime = (e) => {
     setStartMinute(e.target.value);
@@ -77,10 +75,6 @@ const ResourceInput = ({ show, handleShow, handleClose, getAll }) => {
   const changeEndMinute = (e) => {
     setEndMinute(e.target.value);
   };
-  console.log(startHour);
-  console.log(startMinute);
-  console.log(endHour);
-  console.log(endMinute);
 
   const [imgFile, setImgFile] = useState([]);
   const [formData, setFormData] = useState(new FormData());
@@ -117,10 +111,11 @@ const ResourceInput = ({ show, handleShow, handleClose, getAll }) => {
       });
   };
 
+  console.log(
+    startHour + ':' + startMinute + ' ~ ' + endHour + ':' + endMinute,
+  );
   const handleChangeFile = useCallback((e) => {
     setImgFile(e.target.files);
-    console.log(imgFile);
-    console.log('핸들체인지');
   });
 
   const postTest1 = async () => {
@@ -145,7 +140,6 @@ const ResourceInput = ({ show, handleShow, handleClose, getAll }) => {
         resourceInsert,
       )
       .then((response) => {
-        console.log(response);
         setResourceNo(response.data.data.resourceNo);
       })
       .catch((error) => {
@@ -159,11 +153,8 @@ const ResourceInput = ({ show, handleShow, handleClose, getAll }) => {
 
   useEffect(() => {
     if (valued === '') {
-      console.log('valued empty');
       setValued('1');
-      console.log(valued);
     } else {
-      console.log('valued is not empty');
     }
   }, []);
 

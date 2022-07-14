@@ -152,13 +152,10 @@ public class ReserveService {
                 List<Timelist> timelist = check.getTimelist();
                 for (int j = 0; j < timelist.size(); j++) {
                     Long timeNo = timelist.get(j).getTimeNo();
-                    System.out.println(check.getCheckDate() + " " + timeNo);
                     if (timeNo >= startTime && timeNo < endTime) {
-                        System.out.println("!@#!@$!@$!@$!@$" + timeNo);
                         return false;
                     }
                 }
-                System.out.println("-----------------------------");
             }
             return true;
         }

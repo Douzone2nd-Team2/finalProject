@@ -59,7 +59,6 @@ const AdditionalInfo = (props) => {
   };
 
   const axiosGetMyReservationInfo = async (reservNo) => {
-    console.log(reservNo);
     const myReservationInfo = await axios
       .post(
         `${process.env.REACT_APP_SERVER_PORT}/mypage/getMyReservationInfo`,
