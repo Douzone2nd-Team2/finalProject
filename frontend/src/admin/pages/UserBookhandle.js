@@ -171,8 +171,6 @@ const UserBookhandle = () => {
         setPeopleNo(temp);
       }
 
-      // console.log(startDay + ' ' + startHour + ':' + startMinute + ':00');
-      // console.log(endDay + ' ' + endHour + ':' + endMinute + ':00');
       const res = await axios.post(
         `${process.env.REACT_APP_SERVER_PORT}/admin/reservation/modify`,
         {
