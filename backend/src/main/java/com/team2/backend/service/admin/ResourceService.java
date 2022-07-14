@@ -273,7 +273,7 @@ public class ResourceService {
     }
 
     @Transactional
-    public ResponseEntity<Message> fileUpdate(List<MultipartFile> multipartFile) {
+    public ResponseEntity<Message> fileUpdate(List<MultipartFile> multipartFile, Long resourceNo) {
         try {
             List<Resourcefile> resourcefileList = new ArrayList<>();
 
@@ -283,7 +283,7 @@ public class ResourceService {
 
             Resource resource = new Resource();
 
-            Long resourceNo = resourceRepository.findLastReserouce();
+           //Long resourceNo = resourceRepository.findLastReserouce();
 
             //delelte
             List<Resourcefile> delresourcefile = resourcefileRepository.findByResource_ResourceNo(resourceNo);

@@ -241,6 +241,14 @@ const ResourceDetail = () => {
       for (let i = 0; i < imgFile.length; i++) {
         d.append('images', imgFile[i]);
       }
+      var resourceNo = {
+        resourceNo: state,
+      };
+
+      d.append(
+        'resourceNo',
+        new Blob([JSON.stringify(resourceNo)], { type: 'application/json' }),
+      );
 
       setFormData(d);
       console.log(formData);
